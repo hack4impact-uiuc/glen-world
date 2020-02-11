@@ -2,7 +2,7 @@ version: 2
 jobs:
   frontend_format:
     docker:
-      - image: node:10.8.0
+      - image: node:10.13.0
     steps:
       - checkout
       - run:
@@ -11,7 +11,7 @@ jobs:
             yarn run format:check
   frontend_test:
     docker:
-      - image: node:10.8.0
+      - image: node:10.13.0
     steps:
       - checkout
       - run:
