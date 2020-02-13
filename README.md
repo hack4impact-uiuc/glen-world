@@ -1,3 +1,6 @@
+# GLEN World
+A tool for English teachers to be able to customize lessons for their students.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

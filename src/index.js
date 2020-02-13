@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./pages/Index/index.css";
-import App from "./components/App/App";
-import * as serviceWorker from "./utils/serviceWorker";
+import "pages/Index/index.css";
+import App from "components/App/App";
+import { SIGN_UP } from "constants/routes.js";
+import * as serviceWorker from "utils/serviceWorker";
+
+console.log(SIGN_UP);
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
