@@ -14,8 +14,9 @@ class CalendarComponent extends React.Component {
     <div style={{ color: '#1DA57A', width: 290, border: '1px solid #d9d9d9', borderRadius: 4 }}>
 
       <Calendar calendarType = "US" 
+      minDetail = "month"
+      nextAriaLabel = "potato"
       className = "calendar"
-      defaultView = 'month'
       style = {{
         background: '#DD98FD'
       }}
