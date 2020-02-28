@@ -3,7 +3,7 @@
       cursor: pointer; 
   }
   .react-calendar {
-    width: 350px;
+    width: 290px;
     max-width: 100%;
     background: #7F7EFF;
     border: 1px solid #e6e6e6;
@@ -29,7 +29,7 @@
   } */
   .react-calendar__navigation {
     height: 65px;
-    font-size: 19px;
+    font-size: 150%;
     color: #00D8A4;
     background-color: #E7E4E4;
     border-radius: 10px 10px 0px 0px;
