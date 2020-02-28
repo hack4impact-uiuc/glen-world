@@ -1,27 +1,24 @@
-import React from "react";
+import React, { useState, setState, useEffect } from "react";
 import Calendar from 'react-calendar/dist/entry.nostyle'
 import 'CalendarComponent/CalendarComponent.css'
 import { withFirebase } from "utils/Firebase";
-class CalendarComponent extends React.Component {
-  state = {
-    date: new Date(),
+function CalendarComponent (props) {
+  function onChange (date) {
+    props.handleChange({date})
   }
-  onChange = date => {
-    this.setState({ date })
-    console.log(this.state.date)
-  }
-  render() {
+
   return (
       <div>
       <Calendar 
-      onChange={this.onChange}
-      value={this.state.date}
+      onClickDay={event => {
+        onChange(event)
+      } }
+      defaultValue = {new Date()}
       className = "calendar"
       calendarType = "US" 
       minDetail = "month"
       />
       </div>
   )
-  }
 }
 export default withFirebase(CalendarComponent)
