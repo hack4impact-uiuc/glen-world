@@ -1,6 +1,8 @@
 import React from "react";
 import { withFirebase } from "utils/Firebase";
-
+/**
+ * Example of how to get customLessons given an adminID
+ */
 const ExampleComponent = ({ firebase }) => {
   const getData = () =>
     firebase
