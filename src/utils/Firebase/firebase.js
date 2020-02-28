@@ -33,6 +33,7 @@ class Firebase {
 
   // EXAMPLE ENDPOINT
   getLesson = () => this.db.collection("custom_lesson");
+  getCurrLesson = deploymentAccountId => this.db.doc(`deployment_account/${deploymentAccountId}/`).get().then((documentSnapshot)=>{if(documentSnapshot.exists) {return documentSnapshot.get('profile.glenLearn.lastMasteredLesson')}});
 }
 
 export default Firebase;
