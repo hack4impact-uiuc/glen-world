@@ -1,6 +1,7 @@
 import React from "react";
 import Calendar from 'react-calendar/dist/entry.nostyle'
 import 'CalendarComponent/CalendarComponent.css'
+import { withFirebase } from "utils/Firebase";
 class CalendarComponent extends React.Component {
   state = {
     date: new Date(),
@@ -23,4 +24,4 @@ class CalendarComponent extends React.Component {
   )
   }
 }
-export default CalendarComponent
+export default withFirebase(CalendarComponent)
