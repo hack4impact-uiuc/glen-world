@@ -1,9 +1,8 @@
 .calendar {
   color: white;
-  cursor: pointer;
 }
 .react-calendar {
-  width: 290px;
+  width: 100%;
   max-width: 100%;
   background: #7f7eff;
   border: 1px solid #e6e6e6;
