@@ -33,7 +33,9 @@ class Firebase {
 
   // EXAMPLE ENDPOINT
   getLesson = () => this.db.collection("custom_lesson");
-  getCurrLesson = deploymentAccountId =>
+
+  //Gets last mastered lesson of a given student.
+  getLastMastered = deploymentAccountId =>
     this.db
       .doc(`deployment_account/${deploymentAccountId}/`)
       .get()
