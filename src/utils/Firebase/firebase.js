@@ -33,9 +33,9 @@ class Firebase {
 
   // EXAMPLE ENDPOINT
   getLesson = () => this.db.collection("custom_lesson");
-  getCurrLesson = () =>
+  getCurrLesson = deploymentAccountId =>
     this.db
-      .collection(`deployment_account`)
+      .doc(`deployment_account/${deploymentAccountId}/`)
       .get()
       .then(documentSnapshot => {
         documentSnapshot.get("profile.glenLearn.lastMasteredLesson");
