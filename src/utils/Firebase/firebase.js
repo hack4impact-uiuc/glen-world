@@ -2,10 +2,6 @@ import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/functions";
-// import Firebase from 'util/Firebase/firebase.js';
-
-// Firebase.getLesson = () =>
-//     Firebase.db.collection('custom_lesson');
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -42,6 +38,12 @@ class Firebase {
 
   // EXAMPLE ENDPOINT
   getLesson = () => this.db.collection("custom_lesson");
+
+  //Data access APIs
+  customLessons = adminAccountId =>
+    this.db
+      .collection(`custom_lesson`)
+      .where("adminAccountId", "==", adminAccountId);
 }
 
 export default Firebase;
