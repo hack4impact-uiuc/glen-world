@@ -38,9 +38,8 @@ class Firebase {
       .doc(`deployment_account/${deploymentAccountId}/`)
       .get().then(
         (documentSnapshot)=>{
-          if(documentSnapshot.exists) {
-            return documentSnapshot.get('profile.glenLearn.lastMasteredLesson')
-          }});
+          documentSnapshot.get('profile.glenLearn.lastMasteredLesson')
+          });
 }
 
 export default Firebase;
