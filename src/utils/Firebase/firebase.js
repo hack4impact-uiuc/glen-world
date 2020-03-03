@@ -42,6 +42,12 @@ class Firebase {
       .then(documentSnapshot => {
         documentSnapshot.get("profile.glenLearn.lastMasteredLesson");
       });
+
+  //Data access APIs
+  customLessons = adminAccountId =>
+    this.db
+      .collection(`custom_lesson`)
+      .where("adminAccountId", "==", adminAccountId);
 }
 
 export default Firebase;
