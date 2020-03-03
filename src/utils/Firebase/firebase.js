@@ -33,13 +33,13 @@ class Firebase {
 
   // EXAMPLE ENDPOINT
   getLesson = () => this.db.collection("custom_lesson");
-  //getCurrLesson = () => 
-  //  this.db
-  //    .collection(`deployment_account`);
-      //.get().then(
-      //  (documentSnapshot)=>{
-      //    documentSnapshot.get('profile.glenLearn.lastMasteredLesson')
-      //    });
+  getCurrLesson = () =>
+    this.db
+      .collection(`deployment_account`)
+      .get()
+      .then(documentSnapshot => {
+        documentSnapshot.get("profile.glenLearn.lastMasteredLesson");
+      });
 }
 
 export default Firebase;
