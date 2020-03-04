@@ -1,0 +1,54 @@
+.WordSelection {
+    background-color: #7F7EFF;
+    width: 25vw;
+    height: 25vw;
+    padding: 20px;
+    border-radius: 2em;
+    position: relative;
+    margin: auto;
+    margin-top: 8em;
+    z-index: 1;
+}
+
+.GroupTitle {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: white;
+    margin: auto;
+}
+
+.WordDisplay {
+    display: flex;
+    width: 20vw;
+    height: 12vw;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.Words {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: .8em;
+    color: white;
+}
+
+.CloseButton {
+    color: #ffc700;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 10vw;
+    font-weight: bold;
+    margin-left: 3px; 
+}
+
+.NextButton {
+    color: #00da84;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 10vw;
+    font-weight: bold;
+    margin-left: 3px;
+}
+
+hr.new1 {
+    border-top: 2px solid white;
+}
