@@ -5,24 +5,18 @@ import { withFirebase } from "utils/Firebase";
 import { compose } from "recompose";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DatePicker from "../DatePicker/DatePicker";
+import StudentList from "../StudentList/StudentList";
 function AssignmentPage() {
   const [Date, setDate] = useState();
   function handleDatePickerChange(value) {
     setDate(value);
   }
   return (
-    <div
-      style={{
-        position: "absolute",
-        left: "50%",
-        top: "50%",
-        transform: "translate(-50%, -50%)"
-      }}
-    >
+    <div className="place_middle">
       <Container>
         <Row>
           <Col>
-            <div>Insert Student List component</div>
+            <StudentList/>
           </Col>
           <Col>
             <DatePicker handleChange={handleDatePickerChange} />
