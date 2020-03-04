@@ -36,7 +36,9 @@ class Firebase {
       .doc(`deployment_account/${deploymentAccountId}/`)
       .get()
       .then(deploymentDoc => {
-        const lastMasteredLesson = deploymentDoc.get("profile.glenLearn.lastMasteredLesson");
+        const lastMasteredLesson = deploymentDoc.get(
+          "profile.glenLearn.lastMasteredLesson"
+        );
         return new Promise((resolve, reject) => {
           if (deploymentDoc) {
             resolve(lastMasteredLesson);
@@ -75,7 +77,9 @@ class Firebase {
           .map(deployment => Object.keys(deployment)[0]);
 
         // console.log(deploymentIds);
-        const deploymentRefs = deploymentIds.map(id => this.firestore.doc(`deployments/${id}`));
+        const deploymentRefs = deploymentIds.map(id =>
+          this.firestore.doc(`deployments/${id}`)
+        );
 
         this.db
           .getAll(...deploymentRefs)
@@ -89,7 +93,9 @@ class Firebase {
               }
             });
           })
-          .catch(error => console.log("Error getting all deployment references: ", error));
+          .catch(error =>
+            console.log("Error getting all deployment references: ", error)
+          );
       })
       .catch(error => console.log("Error getting admin account: ", error));
 }
