@@ -1,32 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withFirebase } from "utils/Firebase";
 /**
  * Example of how to get customLessons given an adminID
  */
 const ExampleComponent = ({ firebase }) => {
-  const [lesson, setLesson] = useState(null);
+  const [lessons, setLessons] = useState([]);
 
-  firebase.getLastMastered("Oar8wZRQ0JArkRU1VfBj").then(doc => {
-    const lesson = doc;
-    setLesson(lesson);
-  });
-
-  const getData = () =>
-    firebase
-      .customLessons("AxtySwFjYwR0uEsyP3Ds9nO22CY2")
-      .get()
-      .then(snapshot =>
-        snapshot.docs.map(d => {
-          const data = d.data();
-          return { id: d.id, ...data };
-        })
-      );
-  getData().then(result => console.log(result));
+  useEffect(() => {
+    firebase.getCustomLessons("AxtySwFjYwR0uEsyP3Ds9nO22CY2").then(doc => {
+      setLessons(doc);
+    });
+  }, []);
 
   return (
     <div>
       <div> Example Component </div>
-      <div> {lesson} </div>
+      {lessons.map(lesson => (
+        <div> {lesson.wordGroup} </div>
+      ))}
     </div>
   );
 };

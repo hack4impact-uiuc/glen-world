@@ -22,11 +22,6 @@ class Firebase {
 
     this.googleProvider = new app.auth.GoogleAuthProvider();
   }
-  //Data access APIs
-  customLessons = adminAccountId =>
-    this.db
-      .collection(`custom_lesson`)
-      .where("adminAccountId", "==", adminAccountId);
 
   doCreateUserWithEmailAndPassword = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
@@ -36,28 +31,67 @@ class Firebase {
 
   doSignOut = () => this.auth.signOut();
 
-  // EXAMPLE ENDPOINT
-  getLesson = () => this.db.collection("custom_lesson");
-
-  //Gets last mastered lesson of a given student.
-  getLastMastered = deploymentAccountId =>
+  getLastMasteredLesson = deploymentAccountId =>
     this.db
       .doc(`deployment_account/${deploymentAccountId}/`)
       .get()
-      .then(documentSnapshot => {
-        let lastMasteredLesson = documentSnapshot.get("profile.glenLearn.lastMasteredLesson");
+      .then(deploymentDoc => {
+        const lastMasteredLesson = deploymentDoc.get("profile.glenLearn.lastMasteredLesson");
         return new Promise((resolve, reject) => {
-          if (lastMasteredLesson) {
+          if (deploymentDoc) {
             resolve(lastMasteredLesson);
           } else {
-            reject("error");
+            reject(Error("Deployment doc does not exist"));
           }
         });
-      });
+      })
+      .catch(error => console.log("Error getting student account: ", error));
 
-  //Data access APIs
-  customLessons = adminAccountId =>
-    this.db.collection(`custom_lesson`).where("adminAccountId", "==", adminAccountId);
+  getCustomLessons = adminAccountId =>
+    this.db
+      .collection(`custom_lesson`)
+      .where("adminAccountId", "==", adminAccountId)
+      .get()
+      .then(querySnapshot => {
+        const customLessons = querySnapshot.docs.map(doc => doc.data());
+        return new Promise((resolve, reject) => {
+          if (querySnapshot) {
+            resolve(customLessons);
+          } else {
+            reject(Error("No custom lessons found."));
+          }
+        });
+      })
+      .catch(error => console.log("Error getting custom lessons: ", error));
+
+  getStudentSummaries = adminAccountId =>
+    this.db
+      .doc(`admin_account/${adminAccountId}`)
+      .get()
+      .then(adminDoc => {
+        const deploymentIds = adminDoc
+          .get("deployments")
+          .data()
+          .map(deployment => Object.keys(deployment)[0]);
+
+        // console.log(deploymentIds);
+        const deploymentRefs = deploymentIds.map(id => this.firestore.doc(`deployments/${id}`));
+
+        this.db
+          .getAll(...deploymentRefs)
+          .then(deploymentDocs => {
+            const studentSummaries = deploymentDocs.docs.map(doc => doc.data());
+            return new Promise((resolve, reject) => {
+              if (deploymentDocs) {
+                resolve(studentSummaries);
+              } else {
+                reject(Error("Error getting student summaries."));
+              }
+            });
+          })
+          .catch(error => console.log("Error getting all deployment references: ", error));
+      })
+      .catch(error => console.log("Error getting admin account: ", error));
 }
 
 export default Firebase;
