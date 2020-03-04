@@ -31,6 +31,7 @@ class Firebase {
 
   doSignOut = () => this.auth.signOut();
 
+  //Gets the most recent lesson that a student has completed
   getLastMasteredLesson = deploymentAccountId =>
     this.db
       .doc(`deployment_account/${deploymentAccountId}/`)
@@ -49,6 +50,7 @@ class Firebase {
       })
       .catch(error => console.log("Error getting student account: ", error));
 
+  //Gets a list of custom lessons created by a teacher
   getCustomLessons = adminAccountId =>
     this.db
       .collection(`custom_lesson`)
@@ -66,6 +68,7 @@ class Firebase {
       })
       .catch(error => console.log("Error getting custom lessons: ", error));
 
+  //Gets all students under an admin account with deployment id
   getStudentSummaries = adminAccountId =>
     this.db
       .doc(`admin_account/${adminAccountId}`)
