@@ -40,14 +40,19 @@ class Firebase {
       .doc(`deployment_account/${deploymentAccountId}/`)
       .get()
       .then(documentSnapshot => {
-        documentSnapshot.get("profile.glenLearn.lastMasteredLesson");
+        let lastMasteredLesson = documentSnapshot.get("profile.glenLearn.lastMasteredLesson");
+        return new Promise((resolve, reject) => {
+          if (lastMasteredLesson) {
+            resolve(lastMasteredLesson);
+          } else {
+            reject("error");
+          }
+        });
       });
 
   //Data access APIs
   customLessons = adminAccountId =>
-    this.db
-      .collection(`custom_lesson`)
-      .where("adminAccountId", "==", adminAccountId);
+    this.db.collection(`custom_lesson`).where("adminAccountId", "==", adminAccountId);
 }
 
 export default Firebase;
