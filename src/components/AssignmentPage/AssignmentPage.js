@@ -11,9 +11,7 @@ function AssignmentPage() {
     setDate(value);
   }
   return (
-    <div
-      className = "place_middle"
-    >
+    <div className="place_middle">
       <Container>
         <Row>
           <Col>
