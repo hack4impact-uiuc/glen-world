@@ -22,6 +22,11 @@ class Firebase {
 
     this.googleProvider = new app.auth.GoogleAuthProvider();
   }
+  //Data access APIs
+  customLessons = adminAccountId =>
+    this.db
+      .collection(`custom_lesson`)
+      .where("adminAccountId", "==", adminAccountId);
 
   doCreateUserWithEmailAndPassword = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
