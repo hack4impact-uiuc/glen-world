@@ -31,12 +31,15 @@ class Firebase {
 
   doSignOut = () => this.auth.signOut();
 
+  //Gets the most recent lesson that a student has completed
   getLastMasteredLesson = deploymentAccountId =>
     this.db
       .doc(`deployment_account/${deploymentAccountId}/`)
       .get()
       .then(deploymentDoc => {
-        const lastMasteredLesson = deploymentDoc.get("profile.glenLearn.lastMasteredLesson");
+        const lastMasteredLesson = deploymentDoc.get(
+          "profile.glenLearn.lastMasteredLesson"
+        );
         return new Promise((resolve, reject) => {
           if (deploymentDoc) {
             resolve(lastMasteredLesson);
@@ -79,7 +82,9 @@ class Firebase {
             const customLessons = customLessonDocs.map(doc => doc.data());
             return customLessons;
           })
-          .catch(error => console.log("Error getting all custom lessons: ", error));
+          .catch(error =>
+            console.log("Error getting all custom lessons: ", error)
+          );
       })
       .catch(error => console.log("Error getting student account: ", error));
 
@@ -89,14 +94,18 @@ class Firebase {
       .get()
       .then(adminDoc => {
         const deploymentIds = Object.keys(adminDoc.get("deployments"));
-        const deploymentRefs = deploymentIds.map(id => this.db.doc(`deployments/${id}`).get());
+        const deploymentRefs = deploymentIds.map(id =>
+          this.db.doc(`deployments/${id}`).get()
+        );
 
         return Promise.all(deploymentRefs)
           .then(deploymentDocs => {
             const studentSummaries = deploymentDocs.map(doc => doc.data());
             return studentSummaries;
           })
-          .catch(error => console.log("Error getting all deployments: ", error));
+          .catch(error =>
+            console.log("Error getting all deployments: ", error)
+          );
       })
       .catch(error => console.log("Error getting admin account: ", error));
 }
