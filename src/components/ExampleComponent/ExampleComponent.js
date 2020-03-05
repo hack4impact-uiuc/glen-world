@@ -7,7 +7,7 @@ const ExampleComponent = ({ firebase }) => {
   const [lessons, setLessons] = useState([]);
 
   useEffect(() => {
-    firebase.getCustomLessons("AxtySwFjYwR0uEsyP3Ds9nO22CY2").then(doc => {
+    firebase.getStudentCustomLessons("yLouMwGiYZW88tNdTrgO").then(doc => {
       setLessons(doc);
     });
   }, []);

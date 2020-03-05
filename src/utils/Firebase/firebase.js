@@ -47,7 +47,7 @@ class Firebase {
       })
       .catch(error => console.log("Error getting student account: ", error));
 
-  getCustomLessons = adminAccountId =>
+  getTeacherCustomLessons = adminAccountId =>
     this.db
       .collection(`custom_lesson`)
       .where("adminAccountId", "==", adminAccountId)
@@ -64,32 +64,39 @@ class Firebase {
       })
       .catch(error => console.log("Error getting custom lessons: ", error));
 
+  getStudentCustomLessons = deploymentAccountId =>
+    this.db
+      .doc(`deployments/${deploymentAccountId}/`)
+      .get()
+      .then(deploymentDoc => {
+        const customLessonIds = deploymentDoc.get("customLessons");
+        const customLessonRefs = customLessonIds.map(id =>
+          this.db.doc(`custom_lesson/${id}`).get()
+        );
+
+        return Promise.all(customLessonRefs)
+          .then(customLessonDocs => {
+            const customLessons = customLessonDocs.map(doc => doc.data());
+            return customLessons;
+          })
+          .catch(error => console.log("Error getting all custom lessons: ", error));
+      })
+      .catch(error => console.log("Error getting student account: ", error));
+
   getStudentSummaries = adminAccountId =>
     this.db
-      .doc(`admin_account/${adminAccountId}`)
+      .doc(`admin_account/${adminAccountId}/`)
       .get()
       .then(adminDoc => {
-        const deploymentIds = adminDoc
-          .get("deployments")
-          .data()
-          .map(deployment => Object.keys(deployment)[0]);
+        const deploymentIds = Object.keys(adminDoc.get("deployments"));
+        const deploymentRefs = deploymentIds.map(id => this.db.doc(`deployments/${id}`).get());
 
-        // console.log(deploymentIds);
-        const deploymentRefs = deploymentIds.map(id => this.firestore.doc(`deployments/${id}`));
-
-        this.db
-          .getAll(...deploymentRefs)
+        return Promise.all(deploymentRefs)
           .then(deploymentDocs => {
-            const studentSummaries = deploymentDocs.docs.map(doc => doc.data());
-            return new Promise((resolve, reject) => {
-              if (deploymentDocs) {
-                resolve(studentSummaries);
-              } else {
-                reject(Error("Error getting student summaries."));
-              }
-            });
+            const studentSummaries = deploymentDocs.map(doc => doc.data());
+            return studentSummaries;
           })
-          .catch(error => console.log("Error getting all deployment references: ", error));
+          .catch(error => console.log("Error getting all deployments: ", error));
       })
       .catch(error => console.log("Error getting admin account: ", error));
 }
