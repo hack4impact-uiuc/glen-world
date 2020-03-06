@@ -14,7 +14,7 @@ Not all sections apply, feel free to delete as appropriate.
 A few sentences describing the overall goals of the pull request's commits.
 INCLUDE A SCREENSHOT IF THIS IS FRONTEND
 -->
-Fixes #<number>
+Fixes #number
  
 ## TODOs :star:
 <!--
