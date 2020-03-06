@@ -1,3 +1,13 @@
-.list{
-    background: #7f7eff;
-}
+.listSection {
+    background-color: '#7f7eff';
+    color: '#e6e6e6';
+  }
+
+.listSection:hover {
+    background-color: '#00d8a4';
+    color: '#e6e6e6';
+  }
+.nested {
+    background-color: '#7f7eff';
+    color: '#e6e6e6';
+  }
