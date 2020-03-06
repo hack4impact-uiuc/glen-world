@@ -69,7 +69,7 @@ class Firebase {
 
   getStudentCustomLessons = deploymentAccountId =>
     this.db
-      .doc(`deployments/${deploymentAccountId}/`)
+      .doc(`deployment_account/${deploymentAccountId}/`)
       .get()
       .then(deploymentDoc => {
         const customLessonIds = deploymentDoc.get("customLessons");
@@ -88,26 +88,96 @@ class Firebase {
       })
       .catch(error => console.log("Error getting student account: ", error));
 
-  getStudentSummaries = adminAccountId =>
+  getDeploymentAccountsFromAdmin = adminAccountId =>
     this.db
       .doc(`admin_account/${adminAccountId}/`)
       .get()
       .then(adminDoc => {
         const deploymentIds = Object.keys(adminDoc.get("deployments"));
         const deploymentRefs = deploymentIds.map(id =>
-          this.db.doc(`deployments/${id}`).get()
+          this.db
+            .collection(`deployment_account`)
+            .where("deploymentId", "==", id)
         );
 
         return Promise.all(deploymentRefs)
-          .then(deploymentDocs => {
-            const studentSummaries = deploymentDocs.map(doc => doc.data());
-            return studentSummaries;
+          .then(deploymentQuery => {
+            let deployments = [];
+            for (var i = 0; i < deploymentIds.length; i++) {
+              let deployment = {
+                deploymentId: deploymentIds[i],
+                deploymentAccounts: {}
+              };
+
+              // Getting deployment accounts from deploymentId query
+              deploymentQuery[i]
+                .get()
+                .then(querySnapshot => {
+                  let deployment = {
+                    deploymentId: deploymentIds[i],
+                    deploymentAccounts: {}
+                  };
+
+                  deployment.deploymentAccounts = querySnapshot.docs.map(doc =>
+                    doc.data()
+                  );
+                })
+                .catch(error =>
+                  console.log("Error gettng all deployments: ", error)
+                );
+
+              deployments.push(deployment);
+            }
+            return deployments;
           })
           .catch(error =>
-            console.log("Error getting all deployments: ", error)
+            console.log("Error getting all deployment refs: ", error)
           );
       })
       .catch(error => console.log("Error getting admin account: ", error));
+
+  addCustomLesson = (
+    adminAccountId,
+    deploymentAccountIds,
+    lessonTemplate,
+    wordGroup,
+    words,
+    dueDate
+  ) => {
+    // Push specific custom lesson to admin account
+    let customLessonRef = this.db.collection("custom_lesson").doc();
+
+    customLessonRef
+      .set({
+        adminAccountId: adminAccountId,
+        deploymentAccountIds: deploymentAccountIds,
+        lessonTemplate: lessonTemplate,
+        wordGroup: wordGroup,
+        words: words,
+        dueDate: dueDate
+      })
+      .catch(error => console.log("Error creating custom lesson: ", error));
+
+    // TODO: needs error validation to stop function if customLesson fails
+
+    // Push custom lessons to deployments
+    let batch = this.db.batch();
+    let deploymentAccountId;
+
+    for (deploymentAccountId of deploymentAccountIds) {
+      let deploymentRef = this.db.doc(`deployments/${deploymentAccountId}/`);
+      batch.update(deploymentRef, {
+        customLessons: app.firestore.FieldValue.arrayUnion(customLessonRef.id)
+      });
+    }
+
+    return batch
+      .commit()
+      .catch(error =>
+        console.log("Pushing custom lessons to deployments failed: ", error)
+      );
+    // needs better promise rejection
+  };
 }
 
 export default Firebase;
