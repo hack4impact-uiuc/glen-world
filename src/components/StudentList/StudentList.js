@@ -47,6 +47,7 @@ function StudentList(props) {
         {Array.isArray(deployments) &&
           deployments.map((deployment, index) => (
             <div>
+              {console.log(deployment)}
               <ListItem
                 button
                 onClick={() => handleClick(index)}
@@ -57,12 +58,11 @@ function StudentList(props) {
               </ListItem>
 
               <Collapse in={open[index]} timeout="auto" unmountOnExit>
-                {Array.isArray(deployment["deploymentAccounts"]) &&
-                  deployment["deploymentAccounts"].map(student => (
+                  {Object.keys(deployment.deploymentAccounts).map(deploymentAccountId => (
                     <ListItem
                       className={classes.nested}
                       button
-                      onClick={handleToggle(student)}
+                      onClick={handleToggle(deploymentAccountId)}
                     >
                       <ListItemIcon>
                         <Checkbox
@@ -72,11 +72,11 @@ function StudentList(props) {
                           }}
                           edge="start"
                           tabIndex={-1}
-                          checked={checked.indexOf(student) !== -1}
+                          checked={checked.indexOf(deploymentAccountId) !== -1}
                           disableRipple
                         />
                       </ListItemIcon>
-                      <ListItemText primary={`${student["username"]}`} />
+                      <ListItemText primary={`${deployment.deploymentAccounts[deploymentAccountId].username}`} />
                     </ListItem>
                   ))}
               </Collapse>
