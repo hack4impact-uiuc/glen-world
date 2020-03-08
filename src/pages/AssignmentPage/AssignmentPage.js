@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import CalendarComponent from "../DatePicker/DatePicker";
 import { Container, Row, Col } from "react-bootstrap";
 import { withFirebase } from "utils/Firebase";
 import { compose } from "recompose";
 import "bootstrap/dist/css/bootstrap.min.css";
-import DatePicker from "../DatePicker/DatePicker";
-import WordGroupSelector from "WordGroupSelector/WordGroupSelector";
+import DatePicker from "../../components/DatePicker/DatePicker";
+import WordGroupSelector from "../../components/WordGroupSelector/GroupSelector/WordGroupSelector";
 
 function AssignmentPage() {
   const [Words, setWords] = useState([]);

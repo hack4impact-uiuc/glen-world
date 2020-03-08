@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { collectedWordGroupsService } from "util/GWUtil/resource";
 import "./WordGroupSelector.css";
-import WordGroupIcon from "./WordGroupIcon";
-import WordSelector from "./WordSelector";
+import WordGroupIcon from "../WordGroupIcon/WordGroupIcon";
+import WordSelector from "../WordSelector/WordSelector";
 
 function WordGroupSelector(props) {
-  var collectedWordGroups = null;
   var wordKeys = null;
   const [wordGroups, setWordGroups] = useState({});
 
   useEffect(() => {
-    collectedWordGroupsService.all().then(function(res) {
-      collectedWordGroups = res;
+    collectedWordGroupsService.all().then(function(collectedWordGroups) {
       wordKeys = Object.keys(collectedWordGroups);
       setWordGroups({
         People: collectedWordGroups[wordKeys[0]],
@@ -35,6 +33,7 @@ function WordGroupSelector(props) {
 
   const [clickedName, setClickedName] = useState("");
   const [clickedGroup, setClickedGroup] = useState([]);
+  // selectMode dictates whether WordSelector component appears and a group's words can be selected
   const [selectMode, setSelectMode] = useState(false);
 
   function handleClick(group, groupName) {

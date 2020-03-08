@@ -49,7 +49,7 @@ function WordSelector(props) {
   return (
     <div className="WordSelector">
       <div className="GroupTitle">{props.name}</div>
-      <hr className="new1"></hr>
+      <hr className="GroupTitleUnderline"></hr>
       <div className="WordDisplay">{props.group.map(listWords)}</div>
       <div>
         <button onClick={() => handleClose()} className="CloseButton">

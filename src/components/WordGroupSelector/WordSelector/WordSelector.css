@@ -18,6 +18,10 @@
   margin: auto;
 }
 
+.GroupTitleUnderline {
+  border-top: 2px solid white;
+}
+
 .WordDisplay {
   display: flex;
   width: 20vw;
@@ -47,8 +51,4 @@
   width: 10vw;
   font-weight: bold;
   margin-left: 3px;
-}
-
-hr.new1 {
-  border-top: 2px solid white;
 }
