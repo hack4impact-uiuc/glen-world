@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { withFirebase } from "utils/Firebase";
 import "./TeacherLessonsDisplay.css";
 import LessonDateDisplay from "../LessonDateDisplay/LessonDateDisplay";
+import { compose } from "recompose";
+import { withRouter, Redirect } from "react-router-dom";
 import LessonInfoDisplay from "../LessonInfoDisplay/LessonInfoDisplay";
 
 const TeacherLessonsDisplay = ({ firebase }) => {
@@ -10,6 +12,7 @@ const TeacherLessonsDisplay = ({ firebase }) => {
   const [lessonWords, setLessonWords] = useState(null);
   const [students, setStudents] = useState(null);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
+  const [changePage, setChangePage] = useState(false);
   const [ADMIN_ACCOUNT] = useState("AxtySwFjYwR0uEsyP3Ds9nO22CY2");
 
   useEffect(() => {
@@ -30,9 +33,23 @@ const TeacherLessonsDisplay = ({ firebase }) => {
     setStudents(studentIds);
   }
 
+  function handleAdd() {
+    setChangePage(true);
+  }
+
+  if (changePage) {
+    return <Redirect to="/createlesson" />;
+  }
+
   return (
     <div>
       <div className="Heading">Lesson Plans</div>
+
+      <div>
+        <center>
+          <button onClick={() => handleAdd()}> Create Lesson</button>
+        </center>
+      </div>
       <div className="DateDisplay">
         {adminLessons &&
           adminLessons.map((lesson, index) => (
@@ -63,4 +80,7 @@ const TeacherLessonsDisplay = ({ firebase }) => {
   );
 };
 
-export default withFirebase(TeacherLessonsDisplay);
+export default compose(
+  withFirebase,
+  withRouter
+)(TeacherLessonsDisplay);
