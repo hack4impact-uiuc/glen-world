@@ -13,7 +13,7 @@ function AssignmentPage({ firebase }) {
   const [Words, setWords] = useState([]);
   const [WordGroup, setWordGroup] = useState();
   const [Date_, setDate] = useState();
-  const [DeploymentAccounts, setDeploymentAccounts] = useState([]);
+  const [DeploymentAccountIds, setDeploymentAccountIds] = useState([]);
   const [AdminDeployments, setAdminDeployments] = useState([]);
   useEffect(() => {
     firebase
@@ -38,7 +38,7 @@ function AssignmentPage({ firebase }) {
 
   const pushLesson = () => {
     let adminAccountId = LAM_ADMIN_ACCOUNT;
-    let deploymentAccountIds = DeploymentAccounts;
+    let deploymentAccountIds = DeploymentAccountIds;
     let lessonTemplate = "A2";
     let wordGroup = WordGroup;
     let words = Words;
@@ -53,7 +53,7 @@ function AssignmentPage({ firebase }) {
       dueDate
     );
   };
-  
+
   return (
     <div>
       <WordGroupSelector
