@@ -71,10 +71,17 @@ const ExampleComponent = ({ firebase }) => {
               Class {index} ({deployment.deploymentId}) students:
             </div>
             <ol>
-              {Array.isArray(deployment.deploymentAccounts) &&
-                deployment.deploymentAccounts.map(student => (
-                  <li> {student.username} </li>
-                ))}
+              {Object.keys(deployment.deploymentAccounts).map(
+                deploymentAccountId => (
+                  <li>
+                    {deploymentAccountId} :{" "}
+                    {
+                      deployment.deploymentAccounts[deploymentAccountId]
+                        .username
+                    }
+                  </li>
+                )
+              )}
             </ol>
           </div>
         ))}
