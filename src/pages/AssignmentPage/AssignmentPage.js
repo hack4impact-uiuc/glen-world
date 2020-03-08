@@ -4,7 +4,7 @@ import { withFirebase } from "utils/Firebase";
 import { compose } from "recompose";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DatePicker from "../../components/DatePicker/DatePicker";
-import WordGroupSelector from "../../components/WordGroupSelector/GroupSelector/WordGroupSelector";
+import WordGroupSelector from "../../components/GroupSelector/WordGroupSelector";
 
 function AssignmentPage() {
   const [Words, setWords] = useState([]);
