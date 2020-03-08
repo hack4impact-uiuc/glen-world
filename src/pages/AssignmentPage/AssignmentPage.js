@@ -27,9 +27,8 @@ function AssignmentPage({ firebase }) {
     setDate(value);
   }
   function handleDeploymentAccounts(value) {
-    setDeploymentAccounts(value);
+    setDeploymentAccountIds(value);
   }
-
   function handleWordSelectorChange(value) {
     setWords(value);
   }
@@ -54,7 +53,7 @@ function AssignmentPage({ firebase }) {
       dueDate
     );
   };
-
+  
   return (
     <div>
       <WordGroupSelector
