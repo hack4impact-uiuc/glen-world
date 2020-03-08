@@ -116,9 +116,12 @@ class Firebase {
               deploymentQuery[i]
                 .get()
                 .then(querySnapshot => {
-                  deployment.deploymentAccounts = querySnapshot.docs.map(doc =>
-                    doc.data()
-                  );
+                  let deploymentDocs = querySnapshot.docs;
+                  for (let deploymentDoc of deploymentDocs) {
+                    deployment.deploymentAccounts[
+                      deploymentDoc.id
+                    ] = deploymentDoc.data();
+                  }
                 })
                 .catch(error =>
                   console.log("Error gettng all deployments: ", error)

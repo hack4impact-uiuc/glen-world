@@ -3,11 +3,13 @@ import "./App.css";
 import { withFirebase } from "utils/Firebase";
 import { compose } from "recompose";
 import ExampleComponent from "ExampleComponent/ExampleComponent";
+import AssignmentPage from "../../pages/AssignmentPage/AssignmentPage";
+import StudentList from "../StudentList/StudentList";
 
 function App() {
   return (
     <div className="App">
-      <ExampleComponent />
+      <AssignmentPage />
     </div>
   );
 }
