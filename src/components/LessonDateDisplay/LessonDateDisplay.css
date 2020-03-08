@@ -3,7 +3,7 @@
   height: 10vw;
   margin: 2em;
   padding: 20px;
-  background-color: #4d4c4c;
+  background-color: #e7e4e4;
   border-radius: 5em;
   display: block;
 }
@@ -11,7 +11,7 @@
 .Date {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  font-size: 3em;
+  font-size: 3.5em;
   color: #7f7eff;
   text-align: center;
 }

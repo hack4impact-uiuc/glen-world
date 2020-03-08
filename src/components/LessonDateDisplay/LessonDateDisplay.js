@@ -7,13 +7,18 @@ function LessonDateDisplay(props) {
       .toDate()
       .toDateString()
       .split(" ");
-    let dateString = dateComponents[1].concat(" ", dateComponents[2]);
-    return dateString;
+    return dateComponents;
   }
 
   return (
     <div className="DateIcon">
-      <p className="Date">{toDateTime()}</p>
+      <br style={{ fontSize: 20 }}></br>
+      <p className="Date" style={{ margin: 0, padding: 0 }}>
+        {toDateTime()[2]}
+      </p>
+      <p className="Date" style={{ margin: 0, padding: 0, fontSize: 30 }}>
+        {toDateTime()[1]}
+      </p>
     </div>
   );
 }
