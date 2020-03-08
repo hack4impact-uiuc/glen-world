@@ -8,13 +8,14 @@ Not all sections apply, feel free to delete as appropriate.
 :construction: In development
 :no_entry_sign: Do not merge
 -->
+
 ## Description :star2:
 <!--
 A few sentences describing the overall goals of the pull request's commits.
-
 INCLUDE A SCREENSHOT IF THIS IS FRONTEND
 -->
-Fixes #<number>
+Fixes #number
+ 
 ## TODOs :star:
 <!--
 - [ ] Tests
