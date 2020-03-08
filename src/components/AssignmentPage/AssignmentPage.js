@@ -18,7 +18,7 @@ function AssignmentPage() {
   }
   return (
     <div>
-      <WordGroupSelector handleChange={handleWordSelectorChange}/>
+      <WordGroupSelector handleChange={handleWordSelectorChange} />
       <div className="place_middle">
         <Container>
           <Row>
@@ -32,7 +32,6 @@ function AssignmentPage() {
         </Container>
       </div>
     </div>
-    
   );
 }
 
