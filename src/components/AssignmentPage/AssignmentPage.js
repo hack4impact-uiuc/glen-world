@@ -26,8 +26,6 @@ function AssignmentPage({ firebase }) {
   function handleDeploymentAccounts(value) {
     setDeploymentAccounts(value);
   }
-  console.log(Date);
-  console.log(DeploymentAccounts);
   return (
     <div className="place_middle">
       <Container>

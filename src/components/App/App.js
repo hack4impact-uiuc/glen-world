@@ -9,9 +9,7 @@ import StudentList from "../StudentList/StudentList";
 function App() {
   return (
     <div className="App">
-      {/* <ExampleComponent /> */}
       <AssignmentPage />
-      {/* <StudentList/> */}
     </div>
   );
 }
