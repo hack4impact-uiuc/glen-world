@@ -5,11 +5,12 @@ import { compose } from "recompose";
 import "bootstrap/dist/css/bootstrap.min.css";
 import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
-import getDeploymentAccountsFromAdmin from "utils/Firebase/firebase.js";
+import WordGroupSelector from "../../components/GroupSelector/WordGroupSelector";
 
 const LAM_ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";
 
 function AssignmentPage({ firebase }) {
+  const [Words, setWords] = useState([]);
   const [Date, setDate] = useState();
   const [DeploymentAccounts, setDeploymentAccounts] = useState([]);
   const [AdminDeployments, setAdminDeployments] = useState([]);
@@ -28,6 +29,10 @@ function AssignmentPage({ firebase }) {
     setDeploymentAccounts(value);
   }
 
+  function handleWordSelectorChange(value) {
+    setWords(value);
+  }
+
   const pushLesson = () => {
     let adminAccountId = LAM_ADMIN_ACCOUNT;
     let accounts = DeploymentAccounts;
@@ -42,7 +47,7 @@ function AssignmentPage({ firebase }) {
     let wordGroup = "furniture";
     let words = ["couch", "chair", "television"];
     let dueDate = Date;
-    console.log(AdminDeployments);
+
     firebase.addCustomLesson(
       adminAccountId,
       deploymentAccountIds,
@@ -54,25 +59,28 @@ function AssignmentPage({ firebase }) {
   };
 
   return (
-    <div className="place_middle">
-      <Container>
-        <Row>
-          <h1>this is the assignment page yall</h1>
-        </Row>
-        <Row>
-          <Col>
-            <StudentList
-              deployments={AdminDeployments}
-              handleChange={handleDeploymentAccounts}
-            />
-          </Col>
-          <Col>
-            <DatePicker handleChange={handleDatePickerChange} />
-          </Col>
-        </Row>
-      </Container>
+    <div>
+      <WordGroupSelector handleChange={handleWordSelectorChange} />
+      <div className="place_middle">
+        <Container>
+          <Row>
+            <h1>this is the assignment page yall</h1>
+          </Row>
+          <Row>
+            <Col>
+              <StudentList
+                deployments={AdminDeployments}
+                handleChange={handleDeploymentAccounts}
+              />
+            </Col>
+            <Col>
+              <DatePicker handleChange={handleDatePickerChange} />
+            </Col>
+          </Row>
+        </Container>
 
-      <button onClick={() => pushLesson()}>Assign Lesson</button>
+        <button onClick={() => pushLesson()}>Assign Lesson</button>
+      </div>
     </div>
   );
 }
