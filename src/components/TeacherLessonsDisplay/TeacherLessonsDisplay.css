@@ -1,0 +1,14 @@
+.Heading {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 3em;
+  margin: auto;
+}
+
+.DateDisplay {
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  position: absolute;
+}
