@@ -12,7 +12,7 @@ const LAM_ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";
 function AssignmentPage({ firebase }) {
   const [Words, setWords] = useState([]);
   const [WordGroup, setWordGroup] = useState();
-  const [Date, setDate] = useState();
+  const [Date_, setDate] = useState();
   const [DeploymentAccounts, setDeploymentAccounts] = useState([]);
   const [AdminDeployments, setAdminDeployments] = useState([]);
   useEffect(() => {
@@ -43,9 +43,8 @@ function AssignmentPage({ firebase }) {
     let lessonTemplate = "A2";
     let wordGroup = WordGroup;
     let words = Words;
-    let dueDate = Date;
+    let dueDate = Date_.date;
 
-    console.log(words);
     firebase.addCustomLesson(
       adminAccountId,
       deploymentAccountIds,

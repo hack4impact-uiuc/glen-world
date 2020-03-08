@@ -47,7 +47,6 @@ function StudentList(props) {
         {Array.isArray(deployments) &&
           deployments.map((deployment, index) => (
             <div>
-              {console.log(deployment)}
               <ListItem
                 button
                 onClick={() => handleClick(index)}
