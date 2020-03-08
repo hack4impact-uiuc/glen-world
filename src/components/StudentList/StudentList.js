@@ -14,7 +14,7 @@ import useStyles from "StudentList/StudentListStyles.js";
 
 function StudentList(props) {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState([0]);
+  const [checked, setChecked] = React.useState([]);
   const [open, setOpen] = React.useState(
     Array(props.deployments.length)
       .fill()
