@@ -11,6 +11,7 @@ const LAM_ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";
 
 function AssignmentPage({ firebase }) {
   const [Words, setWords] = useState([]);
+  const [WordGroup, setWordGroup] = useState();
   const [Date, setDate] = useState();
   const [DeploymentAccounts, setDeploymentAccounts] = useState([]);
   const [AdminDeployments, setAdminDeployments] = useState([]);
@@ -32,22 +33,19 @@ function AssignmentPage({ firebase }) {
   function handleWordSelectorChange(value) {
     setWords(value);
   }
+  function handleWordGroupChange(value) {
+    setWordGroup(value);
+  }
 
   const pushLesson = () => {
     let adminAccountId = LAM_ADMIN_ACCOUNT;
-    let accounts = DeploymentAccounts;
-    let deploymentAccountIds = [];
-    var account;
-    for (account of accounts) {
-      deploymentAccountIds.push(account.deploymentId);
-    }
-    deploymentAccountIds.shift();
-
+    let deploymentAccountIds = DeploymentAccounts;
     let lessonTemplate = "A2";
-    let wordGroup = "furniture";
-    let words = ["couch", "chair", "television"];
+    let wordGroup = WordGroup;
+    let words = Words;
     let dueDate = Date;
 
+    console.log(words);
     firebase.addCustomLesson(
       adminAccountId,
       deploymentAccountIds,
@@ -60,7 +58,10 @@ function AssignmentPage({ firebase }) {
 
   return (
     <div>
-      <WordGroupSelector handleChange={handleWordSelectorChange} />
+      <WordGroupSelector
+        handleChange={handleWordSelectorChange}
+        wordGroupChange={handleWordGroupChange}
+      />
       <div className="place_middle">
         <Container>
           <Row>

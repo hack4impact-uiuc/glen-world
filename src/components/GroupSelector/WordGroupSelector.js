@@ -62,6 +62,7 @@ function WordGroupSelector(props) {
             name={clickedName}
             setSelectMode={handleChangeSelectMode}
             selectWords={props.handleChange}
+            selectGroup={props.wordGroupChange}
           />
         )}
       </div>
