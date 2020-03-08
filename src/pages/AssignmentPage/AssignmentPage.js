@@ -56,15 +56,14 @@ function AssignmentPage({ firebase }) {
 
   return (
     <div>
+      <h1>Create Assignment</h1>
       <WordGroupSelector
         handleChange={handleWordSelectorChange}
         wordGroupChange={handleWordGroupChange}
       />
+      <br />
       <div className="place_middle">
         <Container>
-          <Row>
-            <h1>this is the assignment page yall</h1>
-          </Row>
           <Row>
             <Col>
               <StudentList
