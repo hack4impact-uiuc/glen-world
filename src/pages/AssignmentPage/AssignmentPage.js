@@ -42,7 +42,7 @@ function AssignmentPage({ firebase }) {
     let wordGroup = "furniture";
     let words = ["couch", "chair", "television"];
     let dueDate = Date;
-    console.log(accounts);
+    console.log(AdminDeployments);
     firebase.addCustomLesson(
       adminAccountId,
       deploymentAccountIds,
