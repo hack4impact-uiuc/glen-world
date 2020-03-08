@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import CalendarComponent from "../DatePicker/DatePicker";
 import { Container, Row, Col } from "react-bootstrap";
 import { withFirebase } from "utils/Firebase";
 import { compose } from "recompose";
 import "bootstrap/dist/css/bootstrap.min.css";
-import DatePicker from "../DatePicker/DatePicker";
-import StudentList from "../StudentList/StudentList";
+import StudentList from "components/StudentList/StudentList";
+import DatePicker from "components/DatePicker/DatePicker.js";
 import getDeploymentAccountsFromAdmin from "utils/Firebase/firebase.js";
 function AssignmentPage({ firebase }) {
   const [Date, setDate] = useState();
