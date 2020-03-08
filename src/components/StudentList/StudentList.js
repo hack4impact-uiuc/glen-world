@@ -58,7 +58,8 @@ function StudentList(props) {
               </ListItem>
 
               <Collapse in={open[index]} timeout="auto" unmountOnExit>
-                  {Object.keys(deployment.deploymentAccounts).map(deploymentAccountId => (
+                {Object.keys(deployment.deploymentAccounts).map(
+                  deploymentAccountId => (
                     <ListItem
                       className={classes.nested}
                       button
@@ -76,9 +77,12 @@ function StudentList(props) {
                           disableRipple
                         />
                       </ListItemIcon>
-                      <ListItemText primary={`${deployment.deploymentAccounts[deploymentAccountId].username}`} />
+                      <ListItemText
+                        primary={`${deployment.deploymentAccounts[deploymentAccountId].username}`}
+                      />
                     </ListItem>
-                  ))}
+                  )
+                )}
               </Collapse>
             </div>
           ))}
