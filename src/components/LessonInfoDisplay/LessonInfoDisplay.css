@@ -13,8 +13,8 @@
 .ColumnsGrid {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
   height: 20vw;
+  margin: 10px;
 }
 
 .LessonDataTitle {

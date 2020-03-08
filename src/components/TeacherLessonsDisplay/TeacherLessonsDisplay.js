@@ -6,15 +6,15 @@ import LessonInfoDisplay from "../LessonInfoDisplay/LessonInfoDisplay";
 
 const TeacherLessonsDisplay = ({ firebase }) => {
   const [adminLessons, setAdminLessons] = useState(null);
-  const [deployments, setDeployments] = useState(null);
+  const [lessonWordGroup, setLessonWordGroup] = useState(null);
   const [lessonWords, setLessonWords] = useState(null);
   const [students, setStudents] = useState(null);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
-  const [PRASHANT_ADMIN_ACCOUNT] = useState("fzgVPXseFeTQsOqBS4Q8KdX8EXv1");
+  const [ADMIN_ACCOUNT] = useState("AxtySwFjYwR0uEsyP3Ds9nO22CY2");
 
   useEffect(() => {
     // Get custom lessons made by admin
-    firebase.getAdminCustomLessons(PRASHANT_ADMIN_ACCOUNT).then(lesson => {
+    firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
       setAdminLessons(lesson);
     });
   }, []);
@@ -23,8 +23,9 @@ const TeacherLessonsDisplay = ({ firebase }) => {
     setDisplayLessonInfo(display);
   }
 
-  function handleClick(words, studentIds) {
+  function handleClick(wordGroup, words, studentIds) {
     handleChangeDisplayLessonInfo(!displayLessonInfo);
+    setLessonWordGroup(wordGroup);
     setLessonWords(words);
     setStudents(studentIds);
   }
@@ -37,7 +38,11 @@ const TeacherLessonsDisplay = ({ firebase }) => {
           adminLessons.map((lesson, index) => (
             <div
               onClick={() =>
-                handleClick(lesson.words, lesson.deploymentAccountIds)
+                handleClick(
+                  lesson.wordGroup,
+                  lesson.words,
+                  lesson.deploymentAccountIds
+                )
               }
             >
               <LessonDateDisplay number={index} date={lesson.dueDate} />
@@ -47,6 +52,7 @@ const TeacherLessonsDisplay = ({ firebase }) => {
       <div>
         {displayLessonInfo && (
           <LessonInfoDisplay
+            wordGroup={lessonWordGroup}
             words={lessonWords}
             students={students}
             setDisplay={handleChangeDisplayLessonInfo}
