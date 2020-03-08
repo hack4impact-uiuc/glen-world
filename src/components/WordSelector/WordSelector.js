@@ -29,6 +29,7 @@ function WordSelector(props) {
   function handleSelect() {
     props.selectWords(checkedWords);
     props.setSelectMode(false);
+    props.selectGroup(props.name);
   }
 
   function listWords(word) {

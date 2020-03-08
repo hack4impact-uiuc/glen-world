@@ -57,38 +57,31 @@ function StudentList(props) {
               </ListItem>
 
               <Collapse in={open[index]} timeout="auto" unmountOnExit>
-                {deployment["deploymentAccounts"] &&
-                  Object.keys(deployment["deploymentAccounts"]).map(
-                    deploymentAccountId => (
-                      <ListItem
-                        className={classes.nested}
-                        button
-                        onClick={handleToggle(deploymentAccountId)}
-                      >
-                        <ListItemIcon>
-                          <Checkbox
-                            classes={{
-                              root: classes.root,
-                              checked: classes.checked
-                            }}
-                            edge="start"
-                            tabIndex={-1}
-                            checked={
-                              checked.indexOf(deploymentAccountId) !== -1
-                            }
-                            disableRipple
-                          />
-                        </ListItemIcon>
-                        <ListItemText
-                          primary={`${
-                            deployment["deploymentAccounts"][
-                              deploymentAccountId
-                            ]["username"]
-                          }`}
+                {Object.keys(deployment.deploymentAccounts).map(
+                  deploymentAccountId => (
+                    <ListItem
+                      className={classes.nested}
+                      button
+                      onClick={handleToggle(deploymentAccountId)}
+                    >
+                      <ListItemIcon>
+                        <Checkbox
+                          classes={{
+                            root: classes.root,
+                            checked: classes.checked
+                          }}
+                          edge="start"
+                          tabIndex={-1}
+                          checked={checked.indexOf(deploymentAccountId) !== -1}
+                          disableRipple
                         />
-                      </ListItem>
-                    )
-                  )}
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={`${deployment.deploymentAccounts[deploymentAccountId].username}`}
+                      />
+                    </ListItem>
+                  )
+                )}
               </Collapse>
             </div>
           ))}

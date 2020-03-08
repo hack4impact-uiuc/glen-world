@@ -5,15 +5,19 @@ import { compose } from "recompose";
 import "bootstrap/dist/css/bootstrap.min.css";
 import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
-import getDeploymentAccountsFromAdmin from "utils/Firebase/firebase.js";
+import WordGroupSelector from "../../components/GroupSelector/WordGroupSelector";
+
+const LAM_ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";
+
 function AssignmentPage({ firebase }) {
-  const [Date, setDate] = useState();
+  const [Words, setWords] = useState([]);
+  const [WordGroup, setWordGroup] = useState();
+  const [Date_, setDate] = useState();
   const [DeploymentAccountIds, setDeploymentAccountIds] = useState([]);
   const [AdminDeployments, setAdminDeployments] = useState([]);
-
   useEffect(() => {
     firebase
-      .getDeploymentAccountsFromAdmin("q9SKXnmXunTooHg9yokcB9vKiZt2")
+      .getDeploymentAccountsFromAdmin(LAM_ADMIN_ACCOUNT)
       .then(deploymentAccounts => {
         setAdminDeployments(deploymentAccounts);
       });
@@ -25,25 +29,57 @@ function AssignmentPage({ firebase }) {
   function handleDeploymentAccounts(value) {
     setDeploymentAccountIds(value);
   }
+  function handleWordSelectorChange(value) {
+    setWords(value);
+  }
+  function handleWordGroupChange(value) {
+    setWordGroup(value);
+  }
+
+  const pushLesson = () => {
+    let adminAccountId = LAM_ADMIN_ACCOUNT;
+    let deploymentAccountIds = DeploymentAccountIds;
+    let lessonTemplate = "A2";
+    let wordGroup = WordGroup;
+    let words = Words;
+    let dueDate = Date_.date;
+
+    firebase.addCustomLesson(
+      adminAccountId,
+      deploymentAccountIds,
+      lessonTemplate,
+      wordGroup,
+      words,
+      dueDate
+    );
+  };
 
   return (
-    <div className="place_middle">
-      <Container>
-        <Row>
-          <h1>this is the assignment page yall</h1>
-        </Row>
-        <Row>
-          <Col>
-            <StudentList
-              deployments={AdminDeployments}
-              handleChange={handleDeploymentAccounts}
-            />
-          </Col>
-          <Col>
-            <DatePicker handleChange={handleDatePickerChange} />
-          </Col>
-        </Row>
-      </Container>
+    <div>
+      <WordGroupSelector
+        handleChange={handleWordSelectorChange}
+        wordGroupChange={handleWordGroupChange}
+      />
+      <div className="place_middle">
+        <Container>
+          <Row>
+            <h1>this is the assignment page yall</h1>
+          </Row>
+          <Row>
+            <Col>
+              <StudentList
+                deployments={AdminDeployments}
+                handleChange={handleDeploymentAccounts}
+              />
+            </Col>
+            <Col>
+              <DatePicker handleChange={handleDatePickerChange} />
+            </Col>
+          </Row>
+        </Container>
+
+        <button onClick={() => pushLesson()}>Assign Lesson</button>
+      </div>
     </div>
   );
 }
