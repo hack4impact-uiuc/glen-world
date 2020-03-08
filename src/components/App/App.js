@@ -4,10 +4,13 @@ import { withFirebase } from "utils/Firebase";
 import { compose } from "recompose";
 import ExampleComponent from "ExampleComponent/ExampleComponent";
 
+import TeacherLessonsDisplay from "components/TeacherLessonsDisplay/TeacherLessonsDisplay";
+
 function App() {
   return (
     <div className="App">
-      <ExampleComponent />
+      {/* <ExampleComponent /> */}
+      <TeacherLessonsDisplay />
     </div>
   );
 }
