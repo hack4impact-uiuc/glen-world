@@ -8,7 +8,7 @@ import DatePicker from "components/DatePicker/DatePicker.js";
 import getDeploymentAccountsFromAdmin from "utils/Firebase/firebase.js";
 function AssignmentPage({ firebase }) {
   const [Date, setDate] = useState();
-  const [DeploymentAccounts, setDeploymentAccounts] = useState([]);
+  const [DeploymentAccountIds, setDeploymentAccountIds] = useState([]);
   const [AdminDeployments, setAdminDeployments] = useState([]);
 
   useEffect(() => {
@@ -23,8 +23,9 @@ function AssignmentPage({ firebase }) {
     setDate(value);
   }
   function handleDeploymentAccounts(value) {
-    setDeploymentAccounts(value);
+    setDeploymentAccountIds(value);
   }
+
   return (
     <div className="place_middle">
       <Container>
