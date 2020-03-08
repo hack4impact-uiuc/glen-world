@@ -86,4 +86,4 @@ function StudentList(props) {
     </div>
   );
 }
-export default withFirebase(StudentList)
+export default withFirebase(StudentList);

@@ -6,7 +6,7 @@ import { compose } from "recompose";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DatePicker from "../DatePicker/DatePicker";
 import StudentList from "../StudentList/StudentList";
-import getDeploymentAccountsFromAdmin from "utils/Firebase/firebase.js"
+import getDeploymentAccountsFromAdmin from "utils/Firebase/firebase.js";
 function AssignmentPage({ firebase }) {
   const [Date, setDate] = useState();
   const [DeploymentAccounts, setDeploymentAccounts] = useState([]);
@@ -14,13 +14,11 @@ function AssignmentPage({ firebase }) {
 
   useEffect(() => {
     firebase
-        .getDeploymentAccountsFromAdmin(
-          'q9SKXnmXunTooHg9yokcB9vKiZt2'
-          )
-        .then(deploymentAccounts => {
-          setAdminDeployments(deploymentAccounts);
-        });
-  },[]);
+      .getDeploymentAccountsFromAdmin("q9SKXnmXunTooHg9yokcB9vKiZt2")
+      .then(deploymentAccounts => {
+        setAdminDeployments(deploymentAccounts);
+      });
+  }, []);
 
   function handleDatePickerChange(value) {
     setDate(value);
@@ -28,8 +26,8 @@ function AssignmentPage({ firebase }) {
   function handleDeploymentAccounts(value) {
     setDeploymentAccounts(value);
   }
-  console.log(Date)
-  console.log(DeploymentAccounts)
+  console.log(Date);
+  console.log(DeploymentAccounts);
   return (
     <div className="place_middle">
       <Container>
@@ -38,7 +36,10 @@ function AssignmentPage({ firebase }) {
         </Row>
         <Row>
           <Col>
-            <StudentList deployments = {AdminDeployments} handleChange = {handleDeploymentAccounts}/>
+            <StudentList
+              deployments={AdminDeployments}
+              handleChange={handleDeploymentAccounts}
+            />
           </Col>
           <Col>
             <DatePicker handleChange={handleDatePickerChange} />
