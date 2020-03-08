@@ -17,11 +17,9 @@ const ExampleComponent = ({ firebase }) => {
 
   useEffect(() => {
     // Get student accounts
-    firebase
-      .getDeploymentAccountsFromAdmin(LAM_ADMIN_ACCOUNT)
-      .then(deploymentAccounts => {
-        setDeployments(deploymentAccounts);
-      });
+    firebase.getDeploymentAccountsFromAdmin(LAM_ADMIN_ACCOUNT).then(deploymentAccounts => {
+      setDeployments(deploymentAccounts);
+    });
 
     // Get custom lessons made by admin
     firebase.getAdminCustomLessons(LAM_ADMIN_ACCOUNT).then(lessons => {
@@ -29,11 +27,9 @@ const ExampleComponent = ({ firebase }) => {
     });
 
     // Get custom lessons for student
-    firebase
-      .getDeploymentAccountCustomLessons(LAM_STUDENT_ACCOUNT)
-      .then(lessons => {
-        setStudentLessons(lessons);
-      });
+    firebase.getDeploymentAccountCustomLessons(LAM_STUDENT_ACCOUNT).then(lessons => {
+      setStudentLessons(lessons);
+    });
 
     // Get last mastered lesson
     firebase.getLastMasteredLesson(LAM_STUDENT_ACCOUNT).then(lesson => {
@@ -71,22 +67,22 @@ const ExampleComponent = ({ firebase }) => {
               Class {index} ({deployment.deploymentId}) students:
             </div>
             <ol>
-              {Array.isArray(deployment.deploymentAccounts) &&
-                deployment.deploymentAccounts.map(student => (
-                  <li> {student.username} </li>
-                ))}
+              {Object.keys(deployment.deploymentAccounts).map(deploymentAccountId => (
+                <li>
+                  {deploymentAccountId} :{" "}
+                  {deployment.deploymentAccounts[deploymentAccountId].username}{" "}
+                </li>
+              ))}
             </ol>
           </div>
         ))}
 
       <div> Lam's (admin) assigned custom lesson wordgroups: </div>
-      {adminLessons &&
-        adminLessons.map(lesson => <div> {lesson.wordGroup} </div>)}
+      {adminLessons && adminLessons.map(lesson => <div> {lesson.wordGroup} </div>)}
       <br></br>
 
       <div> Lam's (student) assigned custom lesson wordgroups: </div>
-      {studentLessons &&
-        studentLessons.map(lesson => <div> {lesson.wordGroup} </div>)}
+      {studentLessons && studentLessons.map(lesson => <div> {lesson.wordGroup} </div>)}
       <br></br>
 
       <div> Lam's (student) last mastered lesson: </div>
