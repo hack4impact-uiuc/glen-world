@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/GroupSelector/WordGroupSelector";
+import { withRouter, Redirect } from "react-router-dom";
 
 const LAM_ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";
 
@@ -15,6 +16,7 @@ function AssignmentPage({ firebase }) {
   const [Date_, setDate] = useState();
   const [DeploymentAccountIds, setDeploymentAccountIds] = useState([]);
   const [AdminDeployments, setAdminDeployments] = useState([]);
+  const [submitted, setSubmitted] = useState(false);
   useEffect(() => {
     firebase
       .getDeploymentAccountsFromAdmin(LAM_ADMIN_ACCOUNT)
@@ -52,7 +54,10 @@ function AssignmentPage({ firebase }) {
       words,
       dueDate
     );
+    setSubmitted(true);
   };
+
+  if (submitted) return <Redirect to="/" />;
 
   return (
     <div>
@@ -83,4 +88,7 @@ function AssignmentPage({ firebase }) {
   );
 }
 
-export default compose(withFirebase)(AssignmentPage);
+export default compose(
+  withFirebase,
+  withRouter
+)(AssignmentPage);
