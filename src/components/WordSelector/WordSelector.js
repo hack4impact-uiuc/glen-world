@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./WordSelector.css";
+import "./WordSelector.scss";
 
 function WordSelector(props) {
   const [wordCount, updateWordCount] = useState(0);

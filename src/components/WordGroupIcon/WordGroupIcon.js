@@ -1,5 +1,5 @@
 import React from "react";
-import "./WordGroupIcon.css";
+import "./WordGroupIcon.scss";
 
 function WordGroupIcon(props) {
   return (

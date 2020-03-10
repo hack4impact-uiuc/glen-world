@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { collectedWordGroupsService } from "util/GWUtil/resource";
-import "./WordGroupSelector.css";
+import "./WordGroupSelector.scss";
 import WordGroupIcon from "../WordGroupIcon/WordGroupIcon";
 import WordSelector from "../WordSelector/WordSelector";
 
