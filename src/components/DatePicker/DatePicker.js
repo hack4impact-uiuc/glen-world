@@ -1,7 +1,8 @@
-import React, { useState, setState, useEffect } from "react";
+import React from "react";
 import Calendar from "react-calendar/dist/entry.nostyle";
 import "DatePicker/DatePicker.css";
 import { withFirebase } from "utils/Firebase";
+
 function DatePicker(props) {
   function onChange(date) {
     props.handleChange({ date });

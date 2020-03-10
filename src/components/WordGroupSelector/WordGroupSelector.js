@@ -9,6 +9,7 @@ function WordGroupSelector(props) {
   const [wordGroups, setWordGroups] = useState({});
 
   useEffect(() => {
+    // TODO: take this out of useeffect?
     collectedWordGroupsService.all().then(function(collectedWordGroups) {
       wordKeys = Object.keys(collectedWordGroups);
       setWordGroups({
