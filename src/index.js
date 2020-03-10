@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "pages/Index/index.css";
+import "pages/Index/index.scss";
 import App from "components/App/App";
 import * as serviceWorker from "utils/serviceWorker";
 import Firebase, { FirebaseContext } from "utils/Firebase";

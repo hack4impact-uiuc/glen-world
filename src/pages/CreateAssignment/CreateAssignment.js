@@ -5,28 +5,28 @@ import { compose } from "recompose";
 import "bootstrap/dist/css/bootstrap.min.css";
 import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
-import WordGroupSelector from "../../components/GroupSelector/WordGroupSelector";
+import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 
 const LAM_ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";
 
-function AssignmentPage({ firebase }) {
-  const [Words, setWords] = useState([]);
-  const [WordGroup, setWordGroup] = useState();
-  const [Date_, setDate] = useState();
-  const [DeploymentAccountIds, setDeploymentAccountIds] = useState([]);
-  const [AdminDeployments, setAdminDeployments] = useState([]);
+function CreateAssignment({ firebase }) {
+  const [words, setWords] = useState([]);
+  const [wordGroup, setWordGroup] = useState();
+  const [date, setDate] = useState();
+  const [deploymentAccountIds, setDeploymentAccountIds] = useState([]);
+  const [adminDeployments, setAdminDeployments] = useState([]);
   useEffect(() => {
     firebase
       .getDeploymentAccountsFromAdmin(LAM_ADMIN_ACCOUNT)
       .then(deploymentAccounts => {
         setAdminDeployments(deploymentAccounts);
       });
-  }, []);
+  }, [firebase]);
 
   function handleDatePickerChange(value) {
     setDate(value);
   }
-  function handleDeploymentAccounts(value) {
+  function handleStudentListChange(value) {
     setDeploymentAccountIds(value);
   }
   function handleWordSelectorChange(value) {
@@ -37,20 +37,13 @@ function AssignmentPage({ firebase }) {
   }
 
   const pushLesson = () => {
-    let adminAccountId = LAM_ADMIN_ACCOUNT;
-    let deploymentAccountIds = DeploymentAccountIds;
-    let lessonTemplate = "A2";
-    let wordGroup = WordGroup;
-    let words = Words;
-    let dueDate = Date_.date;
-
     firebase.addCustomLesson(
-      adminAccountId,
+      LAM_ADMIN_ACCOUNT,
       deploymentAccountIds,
-      lessonTemplate,
+      "A2",
       wordGroup,
       words,
-      dueDate
+      date.date
     );
   };
 
@@ -67,8 +60,8 @@ function AssignmentPage({ firebase }) {
           <Row>
             <Col>
               <StudentList
-                deployments={AdminDeployments}
-                handleChange={handleDeploymentAccounts}
+                deployments={adminDeployments}
+                handleChange={handleStudentListChange}
               />
             </Col>
             <Col>
@@ -83,4 +76,4 @@ function AssignmentPage({ firebase }) {
   );
 }
 
-export default compose(withFirebase)(AssignmentPage);
+export default compose(withFirebase)(CreateAssignment);
