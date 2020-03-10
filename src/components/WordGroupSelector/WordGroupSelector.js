@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { collectedWordGroupsService } from "util/GWUtil/resource";
-import "./WordGroupSelector.css";
+import "./WordGroupSelector.scss";
 import WordGroupIcon from "../WordGroupIcon/WordGroupIcon";
 import WordSelector from "../WordSelector/WordSelector";
 
@@ -9,7 +9,6 @@ function WordGroupSelector(props) {
   const [wordGroups, setWordGroups] = useState({});
 
   useEffect(() => {
-    // TODO: take this out of useeffect?
     collectedWordGroupsService.all().then(function(collectedWordGroups) {
       wordKeys = Object.keys(collectedWordGroups);
       setWordGroups({
