@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from 'reactstrap';
+import { Button } from "reactstrap";
 import "./WordSelector.scss";
 
 function WordSelector(props) {
