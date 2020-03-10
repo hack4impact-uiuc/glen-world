@@ -49,7 +49,7 @@ const ExampleComponent = ({ firebase }) => {
     let words = ["couch", "chair", "television"];
     let dueDate = new Date();
 
-    firebase.addCustomLesson(
+    firebase.setCustomLesson(
       adminAccountId,
       deploymentAccountIds,
       lessonTemplate,

@@ -137,16 +137,17 @@ class Firebase {
       })
       .catch(error => console.log("Error getting admin account: ", error));
 
-  addCustomLesson = (
+  setCustomLesson = (
     adminAccountId,
     deploymentAccountIds,
     lessonTemplate,
     wordGroup,
     words,
-    dueDate
+    dueDate,
+    lessonDocId = null
   ) => {
     // Push specific custom lesson to admin account
-    let customLessonRef = this.db.collection("custom_lesson").doc();
+    let customLessonRef = this.db.collection("custom_lesson").doc(lessonDocId);
 
     customLessonRef
       .set({

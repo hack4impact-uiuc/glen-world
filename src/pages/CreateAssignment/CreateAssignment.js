@@ -37,7 +37,7 @@ function CreateAssignment({ firebase }) {
   }
 
   const pushLesson = () => {
-    firebase.addCustomLesson(
+    firebase.setCustomLesson(
       LAM_ADMIN_ACCOUNT,
       deploymentAccountIds,
       "A2",
