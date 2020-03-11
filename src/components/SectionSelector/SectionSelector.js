@@ -7,6 +7,9 @@ function SectionSelector(props) {
     return (
         <div>
             <Container className = 'place_middle'>
+            <Row>
+                <h1 className = 'header'>LESSON TYPE</h1>
+            </Row>
             <Row className = 'row'>
                 <Col>
                 <ButtonBase><img src="images/words.png" alt="my image"/></ButtonBase>
