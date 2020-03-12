@@ -9,18 +9,16 @@ import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelec
 
 const LAM_ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";
 
-function CreateAssignment({ firebase }) {
+function CreateAssignment({ firebase, lessonDocId = null }) {
   const [words, setWords] = useState([]);
   const [wordGroup, setWordGroup] = useState();
   const [date, setDate] = useState();
   const [deploymentAccountIds, setDeploymentAccountIds] = useState([]);
   const [adminDeployments, setAdminDeployments] = useState([]);
   useEffect(() => {
-    firebase
-      .getDeploymentAccountsFromAdmin(LAM_ADMIN_ACCOUNT)
-      .then(deploymentAccounts => {
-        setAdminDeployments(deploymentAccounts);
-      });
+    firebase.getDeploymentAccountsFromAdmin(LAM_ADMIN_ACCOUNT).then(deploymentAccounts => {
+      setAdminDeployments(deploymentAccounts);
+    });
   }, [firebase]);
 
   function handleDatePickerChange(value) {
@@ -59,10 +57,7 @@ function CreateAssignment({ firebase }) {
         <Container>
           <Row>
             <Col>
-              <StudentList
-                deployments={adminDeployments}
-                handleChange={handleStudentListChange}
-              />
+              <StudentList deployments={adminDeployments} handleChange={handleStudentListChange} />
             </Col>
             <Col>
               <DatePicker handleChange={handleDatePickerChange} />
