@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { Button } from "reactstrap";
 import { withFirebase } from "utils/Firebase";
 import { compose } from "recompose";
 import "bootstrap/dist/css/bootstrap.min.css";
