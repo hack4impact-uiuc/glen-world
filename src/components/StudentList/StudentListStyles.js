@@ -21,6 +21,13 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       backgroundColor: "#00d8a4"
     }
+  },
+  selectAllText: {
+    paddingRight: 0,
+    marginRight:0
+  },
+  deploymentName: {
+    cursor:"pointer"
   }
 }));
 export default useStyles;

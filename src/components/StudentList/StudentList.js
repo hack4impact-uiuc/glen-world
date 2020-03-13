@@ -79,27 +79,28 @@ function StudentList(props) {
               <ListItem
                 className={classes.listSection}
               >
-                <ListItemIcon>
-                  <Checkbox
-                    classes={{
-                      root: classes.root,
-                      checked: classes.checked
-                    }}
-                    onClick={() => handleSelectAllToggle(deployment)}
-                    edge="start"
-                    // tabIndex={-1}
-                    // checked={checked.indexOf(deploymentAccountId) !== -1}
-                    disableRipple
-                  />
-                  {selectAll ? "Select All" : "Deselect All" }
-                </ListItemIcon>
                 <ListItemText
-                  button
+                  className={classes.deploymentName}
                   onClick={() => handleClassClick(index)}
                 >
                   {`Class: ${index + 1}`}
                   {open[index] ? <ExpandLess /> : <ExpandMore />}
                 </ListItemText>
+                
+                <ListItemText
+                  className={classes.selectAllText}
+                >
+                  {selectAll ? "Select All" : "Deselect All" }
+                </ListItemText>
+                <ListItemIcon>
+                  <Checkbox
+                    classes={{
+                      checked: classes.checked
+                    }}
+                    onClick={() => handleSelectAllToggle(deployment)}
+                    disableRipple
+                  />
+                </ListItemIcon>
               </ListItem>
 
               <Collapse in={open[index]} timeout="auto" unmountOnExit>
