@@ -68,28 +68,28 @@ function StudentList(props) {
         openCopy[index] = true;
         setOpen(openCopy);
       }
-      // newChecked = [...checked];
+
       console.log(deployment);
       Object.keys(deployment.deploymentAccounts).forEach(function(
-          deploymentAccountId
-        ) { 
-            console.log("running on " + deploymentAccountId)
-            const currentIndex = checked.indexOf(deploymentAccountId);
-            if (currentIndex === -1) {
-              newChecked.push(deploymentAccountId);
-          }
+        deploymentAccountId
+      ) {
+        console.log("running on " + deploymentAccountId);
+        const currentIndex = checked.indexOf(deploymentAccountId);
+        if (currentIndex === -1) {
+          newChecked.push(deploymentAccountId);
+        }
       });
     } else {
       Object.keys(deployment.deploymentAccounts).forEach(function(
-          deploymentAccountId
-        ) { 
-            console.log(deployment);
-            console.log("running on " + deploymentAccountId)
-            const currentIndex = newChecked.indexOf(deploymentAccountId);
-            if (newChecked[currentIndex] !== -1) {
-              console.log("removing " + deploymentAccountId);
-              newChecked.splice(currentIndex, 1);
-          }
+        deploymentAccountId
+      ) {
+        console.log(deployment);
+        console.log("running on " + deploymentAccountId);
+        const currentIndex = newChecked.indexOf(deploymentAccountId);
+        if (newChecked[currentIndex] !== -1) {
+          console.log("removing " + deploymentAccountId);
+          newChecked.splice(currentIndex, 1);
+        }
       });
     }
 
@@ -121,7 +121,6 @@ function StudentList(props) {
                       checked: classes.checked
                     }}
                     onClick={() => handleSelectAllToggle(deployment)}
-                    // checked={selectAll[index]}
                     disableRipple
                   />
                 </ListItemIcon>
@@ -133,7 +132,10 @@ function StudentList(props) {
                     <ListItem
                       className={classes.nested}
                       button
-                      onClick={handleStudentToggle(deploymentAccountId, deployment)}
+                      onClick={handleStudentToggle(
+                        deploymentAccountId,
+                        deployment
+                      )}
                     >
                       <ListItemIcon>
                         <Checkbox
