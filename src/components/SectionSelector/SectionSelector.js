@@ -15,19 +15,6 @@ import { render } from "@testing-library/react";
 import StudentList from "../StudentList/StudentList";
 function SectionSelector(props) {
   const classes = useStyles();
-  // const [ShowWordsWriting, setShowWordsWriting] = React.useState(false);
-  // const [ShowPhonics, setShowPhonics] = React.useState(false);
-  //should I map it in case they add other categories too?
-  const lessonTypes = ["PHONICS", "WORDS", "WRITING"];
-
-  // const handleWordsAndWriting = () =>{
-  //     setShowPhonics(false)
-  //     setShowWordsWriting(true)
-  // };
-  // const handlePhonics = () => {
-  //     setShowPhonics(true)
-  //     setShowWordsWriting(false)
-  // }
   return (
     <div>
       <Container className={classes.container}>

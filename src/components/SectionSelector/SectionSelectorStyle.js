@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
       borderColor: "#FFFFFF"
     },
     "&:focus": {
-      borderColor: "#000000",
+      backgroundColor: "#FCFFFE",
       outline: "none"
     }
   },
