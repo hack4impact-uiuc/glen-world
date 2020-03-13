@@ -1,6 +1,6 @@
 .DateIcon {
-  width: 10vw;
-  height: 10vw;
+  width: 12vw;
+  height: 12vw;
   margin: 2em;
   padding: 20px;
   background-color: #e7e4e4;
@@ -8,10 +8,18 @@
   display: block;
 }
 
-.Date {
+.Month {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  font-size: 3.5em;
+  font-size: 1em;
+  color: #4d4d4c;
+  text-align: center;
+}
+
+.Day {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 4em;
   color: #7f7eff;
   text-align: center;
 }

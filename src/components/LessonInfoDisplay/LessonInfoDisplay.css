@@ -1,8 +1,10 @@
 .LessonInfo {
-  background-color: #7f7eff;
-  width: 25vw;
-  height: 25vw;
+  background-color: #e7e4e4;
+  font-family: "Roboto", sans-serif;
+  width: 70%;
+  height: 23vw;
   padding: 20px;
+  border: 1px solid #4d4d4c;
   border-radius: 2em;
   position: relative;
   margin: auto;
@@ -10,36 +12,72 @@
   z-index: 1;
 }
 
-.ColumnsGrid {
+.InfoDisplay {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  height: 20vw;
-  margin: 10px;
+  height: 18vw;
+}
+
+.Column {
+  height: 17vw;
+  margin: auto;
+}
+
+.WordGroupImage {
+  height: 13vw;
+  width: 13vw;
+  background-color: #7f7eff;
+  color: black;
+  border: 1px solid black;
+  border-radius: 100%;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.WordGroupName {
+  font-size: 1.3em;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: black;
 }
 
 .LessonDataTitle {
-  color: white;
-  font-size: 1.5em;
-  margin: 10px;
+  width: 15vw;
+  height: 3vw;
+  border: 1px solid black;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: lightgray;
+  color: black;
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .LessonData {
   width: 15vw;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  font-size: 1em;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
+  height: 12vw;
+  border: 1px solid black;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  font-size: 1.3em;
   overflow: scroll;
   margin: auto;
+  background-color: white;
   color: black;
 }
 
 .CloseButton {
   color: #ffc700;
-  font-family: Arial, Helvetica, sans-serif;
-  width: 10vw;
+  margin: auto;
+  border-radius: 8px;
+  width: 6vw;
   font-weight: bold;
-  font-size: 1.7em;
+  font-size: 1.4em;
+  transition-duration: 0.3s;
+}
+
+.CloseButton:hover {
+  background-color: #ffc700;
+  color: white;
 }

@@ -12,10 +12,11 @@
     "react-bootstrap": "^1.0.0-beta.17",
     "react-calendar": "^2.19.2",
     "react-dom": "^16.12.0",
-    "recompose": "^0.30.0",
     "react-scripts": "3.1.2",
     "react-scrollable-list": "^1.2.0",
-    "react-window": "^1.8.5"
+    "react-window": "^1.8.5",
+    "recompose": "^0.30.0",
+    "typeface-roboto": "^0.0.75"
   },
   "scripts": {
     "start": "react-scripts start",

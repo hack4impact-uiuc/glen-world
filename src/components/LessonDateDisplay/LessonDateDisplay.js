@@ -13,10 +13,10 @@ function LessonDateDisplay(props) {
   return (
     <div className="DateIcon">
       <br style={{ fontSize: 20 }}></br>
-      <p className="Date" style={{ margin: 0, padding: 0 }}>
+      <p className="Day" style={{ margin: 0, padding: 0 }}>
         {toDateTime()[2]}
       </p>
-      <p className="Date" style={{ margin: 0, padding: 0, fontSize: 30 }}>
+      <p className="Month" style={{ margin: 0, padding: 0, fontSize: 30 }}>
         {toDateTime()[1]}
       </p>
     </div>

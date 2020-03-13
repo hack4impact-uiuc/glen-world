@@ -7,13 +7,25 @@ import { withRouter, Redirect } from "react-router-dom";
 import LessonInfoDisplay from "../LessonInfoDisplay/LessonInfoDisplay";
 
 const TeacherLessonsDisplay = ({ firebase }) => {
-  const [adminLessons, setAdminLessons] = useState(null);
-  const [lessonWordGroup, setLessonWordGroup] = useState(null);
+  const [adminLessons, setAdminLessons] = useState([]);
+  const [template, setTemplate] = useState(null);
+  const [templateMap] = useState({ A: "VOCAB", A3: "WRITING", C: "PHONICS" });
   const [lessonWords, setLessonWords] = useState(null);
-  const [students, setStudents] = useState(null);
+  const [students, setStudents] = useState([]);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
   const [changePage, setChangePage] = useState(false);
   const [ADMIN_ACCOUNT] = useState("AxtySwFjYwR0uEsyP3Ds9nO22CY2");
+
+  function orderAdminLessons(reverse) {
+    const sortedLessons = [...adminLessons].sort((a, b) => {
+      if (reverse) {
+        return b.dueDate["seconds"] - a.dueDate["seconds"];
+      } else {
+        return a.dueDate["seconds"] - b.dueDate["seconds"];
+      }
+    });
+    setAdminLessons(sortedLessons);
+  }
 
   useEffect(() => {
     // Get custom lessons made by admin
@@ -26,11 +38,21 @@ const TeacherLessonsDisplay = ({ firebase }) => {
     setDisplayLessonInfo(display);
   }
 
-  function handleClick(wordGroup, words, studentIds) {
+  function handleClick(lessonTemplate, words, studentIds) {
     handleChangeDisplayLessonInfo(!displayLessonInfo);
-    setLessonWordGroup(wordGroup);
+    if (lessonTemplate in templateMap) {
+      setTemplate(templateMap[lessonTemplate]);
+    } else {
+      setTemplate(lessonTemplate);
+    }
     setLessonWords(words);
-    setStudents(studentIds);
+
+    for (var i = 0; i < studentIds.length; i++) {
+      // Get account info for a particular student
+      firebase.getDeploymentAccountInformation(studentIds[i]).then(info => {
+        setStudents([info["username"]]);
+      });
+    }
   }
 
   function handleAdd() {
@@ -47,7 +69,18 @@ const TeacherLessonsDisplay = ({ firebase }) => {
 
       <div>
         <center>
-          <button onClick={() => handleAdd()}> Create Lesson</button>
+          <button className="Button" onClick={() => handleAdd()}>
+            {" "}
+            Create Lesson
+          </button>
+          <button className="Button" onClick={() => orderAdminLessons(true)}>
+            {" "}
+            Sort by Latest
+          </button>
+          <button className="Button" onClick={() => orderAdminLessons(false)}>
+            {" "}
+            Sort by Oldest
+          </button>
         </center>
       </div>
       <div className="DateDisplay">
@@ -56,7 +89,7 @@ const TeacherLessonsDisplay = ({ firebase }) => {
             <div
               onClick={() =>
                 handleClick(
-                  lesson.wordGroup,
+                  lesson.lessonTemplate,
                   lesson.words,
                   lesson.deploymentAccountIds
                 )
@@ -69,9 +102,9 @@ const TeacherLessonsDisplay = ({ firebase }) => {
       <div>
         {displayLessonInfo && (
           <LessonInfoDisplay
-            wordGroup={lessonWordGroup}
+            template={template}
             words={lessonWords}
-            students={students}
+            studentNames={students}
             setDisplay={handleChangeDisplayLessonInfo}
           />
         )}

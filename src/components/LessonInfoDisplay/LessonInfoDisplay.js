@@ -8,20 +8,26 @@ function LessonInfoDisplay(props) {
 
   return (
     <div className="LessonInfo">
-      <div className="ColumnsGrid">
-        <div className="LessonData">
-          <div className="LessonDataTitle">Student Id:</div>
-          {props.students.map(studentId => (
-            <div>{studentId}</div>
-          ))}
+      <div className="InfoDisplay">
+        <div className="Column">
+          <div className="WordGroupImage"></div>
+          <div className="WordGroupName">{props.template}</div>
         </div>
-        <div className="LessonData">
-          <div className="LessonDataTitle">Word Group:</div>
-          <div>{props.wordGroup}</div>
-          <div className="LessonDataTitle">Words:</div>
-          {props.words.map(word => (
-            <div>{word}</div>
-          ))}
+        <div className="Column">
+          <div className="LessonDataTitle">WORDS</div>
+          <div className="LessonData">
+            {props.words.map(word => (
+              <div>{word}</div>
+            ))}
+          </div>
+        </div>
+        <div className="Column">
+          <div className="LessonDataTitle">STUDENTS</div>
+          <div className="LessonData">
+            {props.studentNames.map(name => (
+              <div>{name}</div>
+            ))}
+          </div>
         </div>
       </div>
       <div>
