@@ -44,20 +44,44 @@ function StudentList(props) {
   };
 
 
-  function handleSelectAllToggle() {
+  const handleSelectAllToggle = deployment => {
     // console.log(selected!)
     console.log("hello!")
     setSelectAll(!selectAll);
     console.log(selectAll);
 
-    console.log(checked);
-
-    
-
     if (selectAll) { // check all the boxes
       // let allChecked = Array(checked.length).fill().map((_, i) => true)
       // setChecked(allChecked);
       console.log("check all boxes!");
+      let newChecked = [...checked];
+      Object.keys(deployment.deploymentAccounts).forEach(function (deploymentAccountId) {
+        console.log(deploymentAccountId);
+        const currentIndex = checked.indexOf(deploymentAccountId);
+        if (currentIndex === -1) {
+          newChecked.push(deploymentAccountId);
+        }
+      });
+      console.log(newChecked);
+
+      setChecked(newChecked);
+      props.handleChange(newChecked);
+
+
+      // Object.keys(value.deploymentAccounts).map(
+      //   deploymentAccountId => (
+      //     const currentIndex = checked.indexOf(value);
+      //     const newChecked = [...checked];
+
+      //     if (currentIndex === -1) {
+      //       newChecked.push(value);
+      //     } else {
+      //       newChecked.splice(currentIndex, 1);
+      //     }
+
+      //     setChecked(newChecked);
+      //     props.handleChange(newChecked);
+      // ));
 
     } else { // unchecked all the boxes
       // let allUnchecked = Array(checked.length).fill().map((_, i) => false)
@@ -66,18 +90,6 @@ function StudentList(props) {
       setChecked(newChecked);
       props.handleChange(newChecked);
     }
-
-    // const currentIndex = checked.indexOf(value);
-    // const newChecked = [...checked];
-
-    // if (currentIndex === -1) {
-    //   newChecked.push(value);
-    // } else {
-    //   newChecked.splice(currentIndex, 1);
-    // }
-
-    // setChecked(newChecked);
-    // props.handleChange(newChecked);
   }
 
   return (
@@ -95,7 +107,7 @@ function StudentList(props) {
                       root: classes.root,
                       checked: classes.checked
                     }}
-                    onClick={handleSelectAllToggle}
+                    onClick={() => handleSelectAllToggle(deployment)}
                     edge="start"
                     // tabIndex={-1}
                     // checked={checked.indexOf(deploymentAccountId) !== -1}
