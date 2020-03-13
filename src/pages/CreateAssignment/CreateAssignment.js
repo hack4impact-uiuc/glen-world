@@ -8,6 +8,7 @@ import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
+import "./CreateAssignment.scss";
 
 const LAM_ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";
 
@@ -72,20 +73,23 @@ function CreateAssignment({ firebase }) {
   };
 
   return (
-    <div>
+    <>
       <SectionSelector
         handlePhonics={handlePhonics}
         handleVocab={handleVocab}
         handleWriting={handleWriting}
       />
-      {(ShowWriting || ShowVocab) && (
+      {(ShowWriting || ShowVocab || ShowPhonics) && (
         <div>
           <h1>Create Assignment</h1>
-          <WordGroupSelector
-            handleChange={handleWordSelectorChange}
-            wordGroupChange={handleWordGroupChange}
-          />
+          {(ShowWriting || ShowVocab) && (
+            <WordGroupSelector
+              handleChange={handleWordSelectorChange}
+              wordGroupChange={handleWordGroupChange}
+            />
+          )}
           <br />
+          <div className="spacing"></div>
           <div className="place_middle">
             <Container>
               <Row>
@@ -95,36 +99,19 @@ function CreateAssignment({ firebase }) {
                     handleChange={handleStudentListChange}
                   />
                 </Col>
+                <Col xs={1}></Col>
                 <Col>
                   <DatePicker handleChange={handleDatePickerChange} />
                 </Col>
               </Row>
             </Container>
-
-            <Button onClick={() => pushLesson()}>Assign Lesson</Button>
           </div>
+          <Button onClick={() => pushLesson()} className="assign">
+            Assign Lesson
+          </Button>
         </div>
       )}
-      {ShowPhonics && (
-        <div>
-          <Container>
-            <Row>
-              <Col>
-                <StudentList
-                  deployments={adminDeployments}
-                  handleChange={handleStudentListChange}
-                />
-              </Col>
-              <Col>
-                <DatePicker handleChange={handleDatePickerChange} />
-              </Col>
-            </Row>
-          </Container>
-
-          <Button onClick={() => pushLesson()}>Assign Lesson</Button>
-        </div>
-      )}
-    </div>
+    </>
   );
 }
 
