@@ -106,7 +106,7 @@ function CreateAssignment({ firebase }) {
         </div>
       )}
       {ShowPhonics && (
-        <div className="place_middle">
+        <div>
           <Container>
             <Row>
               <Col>
