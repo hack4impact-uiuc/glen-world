@@ -37,6 +37,7 @@ function StudentList(props) {
       newChecked.push(value);
     } else {
       newChecked.splice(currentIndex, 1);
+      setSelectAll(true);
     }
 
     setChecked(newChecked);
