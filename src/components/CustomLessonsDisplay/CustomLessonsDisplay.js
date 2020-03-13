@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { withFirebase } from "utils/Firebase";
-import "./TeacherLessonsDisplay.css";
+import "./CustomLessonsDisplay.css";
 import LessonDateDisplay from "../LessonDateDisplay/LessonDateDisplay";
 import { compose } from "recompose";
 import { withRouter, Redirect } from "react-router-dom";
 import LessonInfoDisplay from "../LessonInfoDisplay/LessonInfoDisplay";
 
-const TeacherLessonsDisplay = ({ firebase }) => {
+const CustomLessonsDisplay = ({ firebase }) => {
   const [adminLessons, setAdminLessons] = useState([]);
   const [template, setTemplate] = useState(null);
   const [templateMap] = useState({ A: "VOCAB", A3: "WRITING", C: "PHONICS" });
@@ -32,7 +32,7 @@ const TeacherLessonsDisplay = ({ firebase }) => {
     firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
       setAdminLessons(lesson);
     });
-  }, []);
+  });
 
   function handleChangeDisplayLessonInfo(display) {
     setDisplayLessonInfo(display);
@@ -120,4 +120,4 @@ const TeacherLessonsDisplay = ({ firebase }) => {
 export default compose(
   withFirebase,
   withRouter
-)(TeacherLessonsDisplay);
+)(CustomLessonsDisplay);
