@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { withRouter, Redirect } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { Button } from "reactstrap";
 import { withFirebase } from "utils/Firebase";
@@ -13,9 +14,10 @@ import "./CreateAssignment.scss";
 const LAM_ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";
 
 function CreateAssignment({ firebase }) {
-  const [ShowVocab, setShowVocab] = useState(false);
-  const [ShowWriting, setShowWriting] = useState(false);
-  const [ShowPhonics, setShowPhonics] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [showVocab, setShowVocab] = useState(false);
+  const [showWriting, setShowWriting] = useState(false);
+  const [showPhonics, setShowPhonics] = useState(false);
   const [lessonType, setLessonType] = useState();
   const [words, setWords] = useState([]);
   const [wordGroup, setWordGroup] = useState();
@@ -70,7 +72,12 @@ function CreateAssignment({ firebase }) {
       words,
       date.date
     );
+    setSubmitted(true);
   };
+
+  if (submitted) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <>
@@ -79,10 +86,10 @@ function CreateAssignment({ firebase }) {
         handleVocab={handleVocab}
         handleWriting={handleWriting}
       />
-      {(ShowWriting || ShowVocab || ShowPhonics) && (
+      {(showWriting || showVocab || showPhonics) && (
         <div>
           <h1>Create Assignment</h1>
-          {(ShowWriting || ShowVocab) && (
+          {(showWriting || showVocab) && (
             <WordGroupSelector
               handleChange={handleWordSelectorChange}
               wordGroupChange={handleWordGroupChange}
@@ -115,4 +122,7 @@ function CreateAssignment({ firebase }) {
   );
 }
 
-export default compose(withFirebase)(CreateAssignment);
+export default compose(
+  withFirebase,
+  withRouter
+)(CreateAssignment);
