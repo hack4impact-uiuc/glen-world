@@ -35,13 +35,15 @@ function WordSelector(props) {
   function listWords(word) {
     return (
       <div className="Words">
-        <label>
-          <input
+        <label class = "container">
+          <input class = "check"
             type="checkbox"
             name={word}
             onChange={() => handleCheck(word)}
           />
+          <div className="word">
           {word}
+          </div>
         </label>
       </div>
     );

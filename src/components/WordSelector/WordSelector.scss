@@ -1,5 +1,5 @@
 .WordSelector {
-  background-color: #7f7eff;
+  background-color: white;
   width: 25vw;
   height: 25vw;
   padding: 20px;
@@ -7,19 +7,21 @@
   position: relative;
   margin: auto;
   margin-top: 8em;
+  border-radius: 2em;
+  border: 5px solid #e6e6e6;
   z-index: 1;
 }
 
 .GroupTitle {
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
-  font-size: 1.2em;
-  color: white;
-  margin: auto;
+  font-size: 20pt;
+  color: #b1b0ff;
+  padding-bottom: 0;
 }
 
 .GroupTitleUnderline {
-  border-top: 2px solid white;
+  border-top: 2px solid #4d4c4c;
 }
 
 .WordDisplay {
@@ -33,22 +35,55 @@
 .Words {
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
-  font-size: 0.8em;
-  color: white;
+  font-size: 1em;
+  color: #4d4c4c;
 }
 
 .CloseButton {
-  color: #ffc700;
+  color: #4D4C4C;
+  background-color:#fafafa;
   font-family: 'Roboto', sans-serif;
-  width: 10vw;
+  width: 7vw;
   font-weight: bold;
-  margin-left: 3px;
+  position: absolute;
+  left: 1.5em;
+  bottom: .5em;  
+  border-radius: 1em;
 }
 
 .NextButton {
-  color: #00da84;
+  color: #4D4C4C;
+  background-color:#fafafa;
   font-family: 'Roboto', sans-serif;
-  width: 10vw;
+  width: 7vw;
   font-weight: bold;
-  margin-left: 3px;
+  position: absolute;
+  right: 1.5em;
+  bottom: .5em;
+  border-radius: 1em;
+}
+.word {
+  position:relative;
+  text-align:left;
+  padding-left: 1em;
+}
+
+.check {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+}
+
+.container {
+  display: block;
+  position: relative;
+  margin-bottom: 1em;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+:disabled {
+  background-color: #c9c7c7;
 }

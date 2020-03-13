@@ -7,13 +7,12 @@ function DatePicker(props) {
   function onChange(date) {
     props.handleChange({ date });
   }
-  
+
   return (
     <div>
       <Calendar
         onClickDay={event => {
           onChange(event);
-          
         }}
         defaultValue={new Date()}
         className="calendar"

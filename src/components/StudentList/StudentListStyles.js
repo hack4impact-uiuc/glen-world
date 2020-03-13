@@ -4,23 +4,27 @@ import { makeStyles } from "@material-ui/core/styles";
  */
 const useStyles = makeStyles(theme => ({
   root: {
-    color: "#e6e6e6",
+    color: "#4D4C4C",
     "&$checked": {
-      color: "#e6e6e6"
+      color: "#b1b0ff"
     }
   },
-  checked: {},
+  checked: {
+    color:"#b1b0ff"
+  },
   listSection: {
     backgroundColor: "#e7e4e4",
-    color: "#00d8a4"
+    color: "#4D4C4C",
+    fontSize: "14pt"
   },
   nested: {
-    backgroundColor: "#7f7eff",
-    color: "#e6e6e6",
+    backgroundColor: "#ffffff",
+    color: "#4D4C4C",
+    fontSize: "14pt",
     paddingLeft: theme.spacing(4),
     "&:hover": {
-      backgroundColor: "#00d8a4"
+      backgroundColor: "#efefef"
     }
-  }
+  },
 }));
 export default useStyles;

@@ -64,6 +64,8 @@ function CreateAssignment({ firebase }) {
                 handleChange={handleStudentListChange}
               />
             </Col>
+            <Col xs={1}>
+            </Col>
             <Col>
               <DatePicker handleChange={handleDatePickerChange} />
             </Col>
