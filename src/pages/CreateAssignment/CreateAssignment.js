@@ -10,17 +10,28 @@ import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelec
 
 const LAM_ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";
 
-function CreateAssignment({ firebase, lessonDocId = null }) {
+function CreateAssignment({ firebase, existingAssignment }) {
   const [words, setWords] = useState([]);
   const [wordGroup, setWordGroup] = useState();
   const [date, setDate] = useState();
   const [deploymentAccountIds, setDeploymentAccountIds] = useState([]);
   const [adminDeployments, setAdminDeployments] = useState([]);
   useEffect(() => {
-    firebase.getDeploymentAccountsFromAdmin(LAM_ADMIN_ACCOUNT).then(deploymentAccounts => {
-      setAdminDeployments(deploymentAccounts);
-    });
+    firebase
+      .getDeploymentAccountsFromAdmin(LAM_ADMIN_ACCOUNT)
+      .then(deploymentAccounts => {
+        setAdminDeployments(deploymentAccounts);
+      });
+
+    if (existingAssignment) prePopulateAssignment(existingAssignment);
   }, [firebase]);
+
+  function prePopulateAssignment(existingAssignment) {
+    handleDatePickerChange(existingAssignment.dueDate);
+    handleStudentListChange(existingAssignment.deploymentAccountIds);
+    handleWordSelectorChange(existingAssignment.words);
+    handleWordGroupChange(existingAssignment.wordGroup);
+  }
 
   function handleDatePickerChange(value) {
     setDate(value);
@@ -42,7 +53,8 @@ function CreateAssignment({ firebase, lessonDocId = null }) {
       "A2",
       wordGroup,
       words,
-      date.date
+      date,
+      existingAssignment?.id
     );
   };
 
@@ -58,10 +70,17 @@ function CreateAssignment({ firebase, lessonDocId = null }) {
         <Container>
           <Row>
             <Col>
-              <StudentList deployments={adminDeployments} handleChange={handleStudentListChange} />
+              <StudentList
+                deployments={adminDeployments}
+                handleChange={handleStudentListChange}
+                assignedStudents={existingAssignment?.deploymentAccountIds}
+              />
             </Col>
             <Col>
-              <DatePicker handleChange={handleDatePickerChange} />
+              <DatePicker
+                handleChange={handleDatePickerChange}
+                assignedDate={existingAssignment?.dueDate}
+              />
             </Col>
           </Row>
         </Container>
