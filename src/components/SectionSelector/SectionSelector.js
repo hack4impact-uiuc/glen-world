@@ -34,56 +34,54 @@ function SectionSelector(props) {
         <Box alignItems="flex-end">
           <h1 className={classes.header}>LESSON TYPE</h1>
           <Row className={classes.row}>
-            <ButtonGroup>
-              <Col>
-                <Button
-                  onClick={() => handleClick(0)}
-                  classes={{
-                    root: button[0]
-                      ? classes.button_root
-                      : classes.button_selected,
-                    label: classes.button_label
-                  }}
-                >
-                  <Row>
-                    <img src="images/icon.svg" alt="phonics" />
-                  </Row>
-                  <Row>PHONICS</Row>
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  onClick={() => handleClick(1)}
-                  classes={{
-                    root: button[1]
-                      ? classes.button_root
-                      : classes.button_selected,
-                    label: classes.button_label
-                  }}
-                >
-                  <Row>
-                    <img src="images/icon.svg" alt="vocab" />
-                  </Row>
-                  <Row>VOCAB</Row>
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  onClick={() => handleClick(2)}
-                  classes={{
-                    root: button[2]
-                      ? classes.button_root
-                      : classes.button_selected,
-                    label: classes.button_label
-                  }}
-                >
-                  <Row>
-                    <img src="images/icon.svg" alt="phonics" />
-                  </Row>
-                  <Row>WRITING</Row>
-                </Button>
-              </Col>
-            </ButtonGroup>
+            <Col>
+              <Button
+                onClick={() => handleClick(0)}
+                classes={{
+                  root: button[0]
+                    ? classes.button_root
+                    : classes.button_selected,
+                  label: classes.button_label
+                }}
+              >
+                <Row>
+                  <img src="images/icon.svg" alt="phonics" />
+                </Row>
+                <Row>PHONICS</Row>
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                onClick={() => handleClick(1)}
+                classes={{
+                  root: button[1]
+                    ? classes.button_root
+                    : classes.button_selected,
+                  label: classes.button_label
+                }}
+              >
+                <Row>
+                  <img src="images/icon.svg" alt="vocab" />
+                </Row>
+                <Row>VOCAB</Row>
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                onClick={() => handleClick(2)}
+                classes={{
+                  root: button[2]
+                    ? classes.button_root
+                    : classes.button_selected,
+                  label: classes.button_label
+                }}
+              >
+                <Row>
+                  <img src="images/icon.svg" alt="phonics" />
+                </Row>
+                <Row>WRITING</Row>
+              </Button>
+            </Col>
           </Row>
         </Box>
       </Container>
