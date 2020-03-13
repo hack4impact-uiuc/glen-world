@@ -1,18 +1,8 @@
 import React from "react";
 import { withFirebase } from "utils/Firebase";
-import { Button, Box, ButtonGroup } from "@material-ui/core/";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  withRouter
-} from "react-router-dom";
+import { Button, Box} from "@material-ui/core/";
 import { Row, Col, Container } from "react-bootstrap";
 import useStyles from "SectionSelector/SectionSelectorStyle.js";
-import CreateAssignment from "../../pages/CreateAssignment/CreateAssignment";
-import { render } from "@testing-library/react";
-import StudentList from "../StudentList/StudentList";
 function SectionSelector(props) {
   const classes = useStyles();
   const [button, setButton] = React.useState([true, true, true]);
@@ -85,8 +75,6 @@ function SectionSelector(props) {
           </Row>
         </Box>
       </Container>
-      {/* {ShowWordsWriting && <CreateAssignment/>}
-        {ShowPhonics && <div> hello sumit, how are you doing </div>} */}
     </div>
   );
 }

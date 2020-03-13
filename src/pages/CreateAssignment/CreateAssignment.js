@@ -105,7 +105,23 @@ function CreateAssignment({ firebase }) {
           </div>
         </div>
       )}
-      {ShowPhonics && <div> hi sumit, how are you today </div>}
+      {ShowPhonics && <div className="place_middle">
+            <Container>
+              <Row>
+                <Col>
+                  <StudentList
+                    deployments={adminDeployments}
+                    handleChange={handleStudentListChange}
+                  />
+                </Col>
+                <Col>
+                  <DatePicker handleChange={handleDatePickerChange} />
+                </Col>
+              </Row>
+            </Container>
+
+            <Button onClick={() => pushLesson()}>Assign Lesson</Button>
+          </div>}
     </div>
   );
 }
