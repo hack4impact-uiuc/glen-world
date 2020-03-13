@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
+import "./CreateAssignment.scss";
 
 const LAM_ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";
 
@@ -55,7 +56,7 @@ function CreateAssignment({ firebase }) {
         handleChange={handleWordSelectorChange}
         wordGroupChange={handleWordGroupChange}
       />
-      <br />
+      <div className="spacing"></div>
       <div className="place_middle">
         <Container>
           <Row>
@@ -65,14 +66,16 @@ function CreateAssignment({ firebase }) {
                 handleChange={handleStudentListChange}
               />
             </Col>
+            <Col xs={1}></Col>
             <Col>
               <DatePicker handleChange={handleDatePickerChange} />
             </Col>
           </Row>
         </Container>
-
-        <Button onClick={() => pushLesson()}>Assign Lesson</Button>
       </div>
+      <button onClick={() => pushLesson()} className="assign">
+        Assign Lesson
+      </button>
     </div>
   );
 }
