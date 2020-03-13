@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { collectedWordGroupsService } from "util/GWUtil/resource";
-import "./WordGroupSelector.css";
+import "./WordGroupSelector.scss";
 import WordGroupIcon from "../WordGroupIcon/WordGroupIcon";
 import WordSelector from "../WordSelector/WordSelector";
 
 function WordGroupSelector(props) {
-  var wordKeys = null;
+  const wordKeys = useRef(null);
   const [wordGroups, setWordGroups] = useState({});
 
   useEffect(() => {
     collectedWordGroupsService.all().then(function(collectedWordGroups) {
-      wordKeys = Object.keys(collectedWordGroups);
+      wordKeys.current = Object.keys(collectedWordGroups);
       setWordGroups({
-        People: collectedWordGroups[wordKeys[0]],
-        Action: collectedWordGroups[wordKeys[1]],
-        Toys: collectedWordGroups[wordKeys[2]],
-        Colors: collectedWordGroups[wordKeys[3]],
-        Animals: collectedWordGroups[wordKeys[4]],
-        Transport: collectedWordGroups[wordKeys[5]],
-        "Body Parts": collectedWordGroups[wordKeys[6]],
-        Clothing: collectedWordGroups[wordKeys[7]],
-        Food: collectedWordGroups[wordKeys[8]],
-        "More Food": collectedWordGroups[wordKeys[9]],
-        Furniture: collectedWordGroups[wordKeys[10]],
-        Emotion: collectedWordGroups[wordKeys[11]],
-        Media: collectedWordGroups[wordKeys[12]],
-        "More Animals": collectedWordGroups[wordKeys[13]],
-        "Even More Animals!": collectedWordGroups[wordKeys[14]]
+        People: collectedWordGroups[wordKeys.current[0]],
+        Action: collectedWordGroups[wordKeys.current[1]],
+        Toys: collectedWordGroups[wordKeys.current[2]],
+        Colors: collectedWordGroups[wordKeys.current[3]],
+        Animals: collectedWordGroups[wordKeys.current[4]],
+        Transport: collectedWordGroups[wordKeys.current[5]],
+        "Body Parts": collectedWordGroups[wordKeys.current[6]],
+        Clothing: collectedWordGroups[wordKeys.current[7]],
+        Food: collectedWordGroups[wordKeys.current[8]],
+        "More Food": collectedWordGroups[wordKeys.current[9]],
+        Furniture: collectedWordGroups[wordKeys.current[10]],
+        Emotion: collectedWordGroups[wordKeys.current[11]],
+        Media: collectedWordGroups[wordKeys.current[12]],
+        "More Animals": collectedWordGroups[wordKeys.current[13]],
+        "Even More Animals!": collectedWordGroups[wordKeys.current[14]]
       });
     });
   }, []);

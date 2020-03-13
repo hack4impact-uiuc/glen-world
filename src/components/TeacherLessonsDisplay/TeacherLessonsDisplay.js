@@ -47,12 +47,16 @@ const TeacherLessonsDisplay = ({ firebase }) => {
     }
     setLessonWords(words);
 
-    for (var i = 0; i < studentIds.length; i++) {
-      // Get account info for a particular student
-      firebase.getDeploymentAccountInformation(studentIds[i]).then(info => {
-        setStudents([info["username"]]);
+    Promise.all(
+      studentIds.map(id => {
+        return firebase.getDeploymentAccountInformation(id);
+      })
+    ).then(value => {
+      let usernames = value.map(studentInfo => {
+        return studentInfo["username"];
       });
-    }
+      setStudents(usernames);
+    });
   }
 
   function handleAdd() {

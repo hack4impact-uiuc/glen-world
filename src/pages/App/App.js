@@ -1,9 +1,9 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import { withFirebase } from "utils/Firebase";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { compose } from "recompose";
-import AssignmentPage from "../../pages/AssignmentPage/AssignmentPage";
+import CreateAssignment from "../../pages/CreateAssignment/CreateAssignment";
 import TeacherLessonsDisplay from "TeacherLessonsDisplay/TeacherLessonsDisplay";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path={"/"} component={TeacherLessonsDisplay} />
-          <Route path={"/createlesson"} component={AssignmentPage} />
+          <Route path={"/createlesson"} component={CreateAssignment} />
         </Switch>
       </Router>
     </div>
