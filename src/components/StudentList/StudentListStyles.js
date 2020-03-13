@@ -24,10 +24,10 @@ const useStyles = makeStyles(theme => ({
   },
   selectAllText: {
     paddingRight: 0,
-    marginRight:0
+    marginRight: 0
   },
   deploymentName: {
-    cursor:"pointer"
+    cursor: "pointer"
   }
 }));
 export default useStyles;

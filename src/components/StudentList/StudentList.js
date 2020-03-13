@@ -44,20 +44,22 @@ function StudentList(props) {
     props.handleChange(newChecked);
   };
 
-
   const handleSelectAllToggle = deployment => {
     setSelectAll(!selectAll);
     let newChecked = [];
 
-    if (selectAll) { // check all the boxes
+    if (selectAll) {
+      // check all the boxes
       let index = deployments.indexOf(deployment);
-      if(!open[index]) {
+      if (!open[index]) {
         let openCopy = [...open];
         openCopy[index] = true;
         setOpen(openCopy);
       }
       newChecked = [...checked];
-      Object.keys(deployment.deploymentAccounts).forEach(function (deploymentAccountId) {
+      Object.keys(deployment.deploymentAccounts).forEach(function(
+        deploymentAccountId
+      ) {
         console.log(deploymentAccountId);
         const currentIndex = checked.indexOf(deploymentAccountId);
         if (currentIndex === -1) {
@@ -68,7 +70,7 @@ function StudentList(props) {
 
     setChecked(newChecked);
     props.handleChange(newChecked);
-  }
+  };
 
   return (
     <div>
@@ -76,9 +78,7 @@ function StudentList(props) {
         {Array.isArray(deployments) &&
           deployments.map((deployment, index) => (
             <div>
-              <ListItem
-                className={classes.listSection}
-              >
+              <ListItem className={classes.listSection}>
                 <ListItemText
                   className={classes.deploymentName}
                   onClick={() => handleClassClick(index)}
@@ -86,11 +86,9 @@ function StudentList(props) {
                   {`Class: ${index + 1}`}
                   {open[index] ? <ExpandLess /> : <ExpandMore />}
                 </ListItemText>
-                
-                <ListItemText
-                  className={classes.selectAllText}
-                >
-                  {selectAll ? "Select All" : "Deselect All" }
+
+                <ListItemText className={classes.selectAllText}>
+                  {selectAll ? "Select All" : "Deselect All"}
                 </ListItemText>
                 <ListItemIcon>
                   <Checkbox
