@@ -16,16 +16,15 @@ const useStyles = makeStyles(theme => ({
     width: "300px",
     height: "300px",
     top: "28px",
-    background: "#CCCCFF",
+    background: "#b1b0ff",
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
     borderRadius: "15%",
     borderColor: "#FFFFFF",
     "&:hover": {
-      backgroundColor: "#CCCCFF",
+      backgroundColor: "#b1b0ff",
       borderColor: "#FFFFFF"
     },
     "&:focus": {
-      backgroundColor: "#FCFFFE",
       outline: "none"
     }
   },
@@ -34,6 +33,22 @@ const useStyles = makeStyles(theme => ({
     fontSize: "60px",
     fontWeight: "bold",
     fontFamily: "Roboto"
+  },
+  button_selected: {
+    width: "300px",
+    height: "300px",
+    top: "28px",
+    background: "#f5f5f5",
+    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    borderRadius: "15%",
+    borderColor: "#000000",
+    "&:hover": {
+      backgroundColor: "#f5f5f5",
+      borderColor: "#FFFFFF"
+    },
+    "&:focus": {
+      outline: "none"
+    }
   },
   header: {
     fontSize: "65px",
