@@ -15,7 +15,11 @@ import useStyles from "StudentList/StudentListStyles.js";
 function StudentList(props) {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([]);
-  const [selectAll, setSelectAll] = React.useState(true);
+  const [selectAll, setSelectAll] = React.useState(
+    Array(props.deployments.length)
+      .fill()
+      .map((_, i) => true)
+  );
   const [open, setOpen] = React.useState(
     Array(props.deployments.length)
       .fill()
@@ -29,15 +33,17 @@ function StudentList(props) {
     setOpen(openCopy);
   };
 
-  const handleStudentToggle = value => () => {
-    const currentIndex = checked.indexOf(value);
+  const handleStudentToggle = (studentId, deploymentIndex) => () => {
+    const currentIndex = checked.indexOf(studentId);
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
-      newChecked.push(value);
+      newChecked.push(studentId);
     } else {
       newChecked.splice(currentIndex, 1);
-      setSelectAll(true);
+      let selectAllCopy = [...selectAll];
+      selectAllCopy[deploymentIndex] = true;
+      setSelectAll(selectAllCopy);
     }
 
     setChecked(newChecked);
@@ -45,12 +51,17 @@ function StudentList(props) {
   };
 
   const handleSelectAllToggle = deployment => {
-    setSelectAll(!selectAll);
+    let selectAllCopy = [...selectAll];
+    console.log("select all copy original: " + selectAllCopy);
+    let index = deployments.indexOf(deployment);
+    console.log("index: " + index)
+    selectAllCopy[index] = !selectAllCopy[index];
+    console.log("post change: " + selectAllCopy);
+    setSelectAll(selectAllCopy);
+
     let newChecked = [];
 
-    if (selectAll) {
-      // check all the boxes
-      let index = deployments.indexOf(deployment);
+    if (selectAll[index]) {
       if (!open[index]) {
         let openCopy = [...open];
         openCopy[index] = true;
@@ -58,13 +69,13 @@ function StudentList(props) {
       }
       newChecked = [...checked];
       Object.keys(deployment.deploymentAccounts).forEach(function(
-        deploymentAccountId
-      ) {
-        console.log(deploymentAccountId);
-        const currentIndex = checked.indexOf(deploymentAccountId);
-        if (currentIndex === -1) {
-          newChecked.push(deploymentAccountId);
-        }
+          deploymentAccountId
+        ) {
+            console.log(deploymentAccountId);
+            const currentIndex = checked.indexOf(deploymentAccountId);
+            if (currentIndex === -1) {
+              newChecked.push(deploymentAccountId);
+          }
       });
     }
 
@@ -88,7 +99,7 @@ function StudentList(props) {
                 </ListItemText>
 
                 <ListItemText className={classes.selectAllText}>
-                  {selectAll ? "Select All" : "Deselect All"}
+                  {selectAll[index] ? "Select All" : "Deselect All"}
                 </ListItemText>
                 <ListItemIcon>
                   <Checkbox
@@ -96,6 +107,7 @@ function StudentList(props) {
                       checked: classes.checked
                     }}
                     onClick={() => handleSelectAllToggle(deployment)}
+                    checked={selectAll[index]}
                     disableRipple
                   />
                 </ListItemIcon>
@@ -107,7 +119,7 @@ function StudentList(props) {
                     <ListItem
                       className={classes.nested}
                       button
-                      onClick={handleStudentToggle(deploymentAccountId)}
+                      onClick={() => handleStudentToggle(deploymentAccountId, index)}
                     >
                       <ListItemIcon>
                         <Checkbox
