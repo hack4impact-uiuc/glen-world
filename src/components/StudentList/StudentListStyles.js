@@ -6,7 +6,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     color: "#4D4C4C",
     "&$checked": {
-      color: "#b1b0ff"
+      color: "#b1b0ffs"
     }
   },
   checked: {
