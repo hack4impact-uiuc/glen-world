@@ -7,10 +7,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
+import SectionSelector from "../../components/SectionSelector/SectionSelector";
+import "./CreateAssignment.scss";
 
 const LAM_ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";
 
 function CreateAssignment({ firebase, existingAssignment }) {
+  const [ShowVocab, setShowVocab] = useState(false);
+  const [ShowWriting, setShowWriting] = useState(false);
+  const [ShowPhonics, setShowPhonics] = useState(false);
+  const [lessonType, setLessonType] = useState();
   const [words, setWords] = useState([]);
   const [wordGroup, setWordGroup] = useState();
   const [date, setDate] = useState();
@@ -45,12 +51,30 @@ function CreateAssignment({ firebase, existingAssignment }) {
   function handleWordGroupChange(value) {
     setWordGroup(value);
   }
+  function handleVocab() {
+    setLessonType("A");
+    setShowVocab(true);
+    setShowPhonics(false);
+    setShowWriting(false);
+  }
+  function handlePhonics() {
+    setLessonType("C");
+    setShowVocab(false);
+    setShowPhonics(true);
+    setShowWriting(false);
+  }
+  function handleWriting() {
+    setLessonType("A3");
+    setShowVocab(false);
+    setShowPhonics(false);
+    setShowWriting(true);
+  }
 
   const pushLesson = () => {
     firebase.setCustomLesson(
       LAM_ADMIN_ACCOUNT,
       deploymentAccountIds,
-      "A2",
+      lessonType,
       wordGroup,
       words,
       date,
@@ -59,35 +83,49 @@ function CreateAssignment({ firebase, existingAssignment }) {
   };
 
   return (
-    <div>
-      <h1>Create Assignment</h1>
-      <WordGroupSelector
-        handleChange={handleWordSelectorChange}
-        wordGroupChange={handleWordGroupChange}
+    <>
+      <SectionSelector
+        handlePhonics={handlePhonics}
+        handleVocab={handleVocab}
+        handleWriting={handleWriting}
       />
-      <br />
-      <div className="place_middle">
-        <Container>
-          <Row>
-            <Col>
-              <StudentList
-                deployments={adminDeployments}
-                handleChange={handleStudentListChange}
-                assignedStudents={existingAssignment?.deploymentAccountIds}
-              />
-            </Col>
-            <Col>
-              <DatePicker
-                handleChange={handleDatePickerChange}
-                assignedDate={existingAssignment?.dueDate}
-              />
-            </Col>
-          </Row>
-        </Container>
-
-        <Button onClick={() => pushLesson()}>Assign Lesson</Button>
-      </div>
-    </div>
+      {(ShowWriting || ShowVocab || ShowPhonics) && (
+        <div>
+          <h1>Create Assignment</h1>
+          {(ShowWriting || ShowVocab) && (
+            <WordGroupSelector
+              handleChange={handleWordSelectorChange}
+              wordGroupChange={handleWordGroupChange}
+            />
+          )}
+          <br />
+          <div className="spacing"></div>
+          <div className="place_middle">
+            <Container>
+              <Row>
+                <Col>
+                  <StudentList
+                    deployments={adminDeployments}
+                    handleChange={handleStudentListChange}
+                    assignedStudents={existingAssignment?.deploymentAccountIds}
+                  />
+                </Col>
+                <Col xs={1}></Col>
+                <Col>
+                  <DatePicker
+                    handleChange={handleDatePickerChange}
+                    assignedDate={existingAssignment?.dueDate}
+                  />
+                </Col>
+              </Row>
+            </Container>
+          </div>
+          <Button onClick={() => pushLesson()} className="assign">
+            Assign Lesson
+          </Button>
+        </div>
+      )}
+    </>
   );
 }
 
