@@ -77,7 +77,6 @@ function StudentList(props) {
                         />
                       </ListItemIcon>
                       <ListItemText
-                      
                         primary={`${deployment.deploymentAccounts[deploymentAccountId].username}`}
                       />
                     </ListItem>

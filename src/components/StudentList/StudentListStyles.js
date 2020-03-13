@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   checked: {
-    color:"#b1b0ff"
+    color: "#b1b0ff"
   },
   listSection: {
     backgroundColor: "#e7e4e4",
@@ -25,6 +25,6 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       backgroundColor: "#efefef"
     }
-  },
+  }
 }));
 export default useStyles;
