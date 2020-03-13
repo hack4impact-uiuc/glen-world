@@ -18,7 +18,7 @@ function StudentList(props) {
   const [selectAll, setSelectAll] = React.useState(
     Array(props.deployments.length)
       .fill()
-      .map((_, i) => true)
+      .map((_, i) => false)
   );
   const [open, setOpen] = React.useState(
     Array(props.deployments.length)
@@ -27,14 +27,18 @@ function StudentList(props) {
   );
   let deployments = props.deployments;
 
+  console.log(selectAll);
+
   const handleClassClick = index => {
     let openCopy = [...open];
     openCopy[index] = !openCopy[index];
     setOpen(openCopy);
   };
 
-  const handleStudentToggle = (studentId, deploymentIndex) => () => {
+  const handleStudentToggle = (studentId, deployment) => () => {
     const currentIndex = checked.indexOf(studentId);
+    const deploymentIndex = deployments.indexOf(deployment);
+    console.log(deploymentIndex);
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
@@ -42,7 +46,7 @@ function StudentList(props) {
     } else {
       newChecked.splice(currentIndex, 1);
       let selectAllCopy = [...selectAll];
-      selectAllCopy[deploymentIndex] = true;
+      selectAllCopy[deploymentIndex] = false;
       setSelectAll(selectAllCopy);
     }
 
@@ -52,29 +56,39 @@ function StudentList(props) {
 
   const handleSelectAllToggle = deployment => {
     let selectAllCopy = [...selectAll];
-    console.log("select all copy original: " + selectAllCopy);
     let index = deployments.indexOf(deployment);
-    console.log("index: " + index)
     selectAllCopy[index] = !selectAllCopy[index];
-    console.log("post change: " + selectAllCopy);
     setSelectAll(selectAllCopy);
 
-    let newChecked = [];
+    let newChecked = [...checked];
 
-    if (selectAll[index]) {
+    if (!selectAll[index]) {
       if (!open[index]) {
         let openCopy = [...open];
         openCopy[index] = true;
         setOpen(openCopy);
       }
-      newChecked = [...checked];
+      // newChecked = [...checked];
+      console.log(deployment);
       Object.keys(deployment.deploymentAccounts).forEach(function(
           deploymentAccountId
-        ) {
-            console.log(deploymentAccountId);
+        ) { 
+            console.log("running on " + deploymentAccountId)
             const currentIndex = checked.indexOf(deploymentAccountId);
             if (currentIndex === -1) {
               newChecked.push(deploymentAccountId);
+          }
+      });
+    } else {
+      Object.keys(deployment.deploymentAccounts).forEach(function(
+          deploymentAccountId
+        ) { 
+            console.log(deployment);
+            console.log("running on " + deploymentAccountId)
+            const currentIndex = newChecked.indexOf(deploymentAccountId);
+            if (newChecked[currentIndex] !== -1) {
+              console.log("removing " + deploymentAccountId);
+              newChecked.splice(currentIndex, 1);
           }
       });
     }
@@ -99,7 +113,7 @@ function StudentList(props) {
                 </ListItemText>
 
                 <ListItemText className={classes.selectAllText}>
-                  {selectAll[index] ? "Select All" : "Deselect All"}
+                  {selectAll[index] ? "Deselect All" : "Select All"}
                 </ListItemText>
                 <ListItemIcon>
                   <Checkbox
@@ -107,7 +121,7 @@ function StudentList(props) {
                       checked: classes.checked
                     }}
                     onClick={() => handleSelectAllToggle(deployment)}
-                    checked={selectAll[index]}
+                    // checked={selectAll[index]}
                     disableRipple
                   />
                 </ListItemIcon>
@@ -119,7 +133,7 @@ function StudentList(props) {
                     <ListItem
                       className={classes.nested}
                       button
-                      onClick={() => handleStudentToggle(deploymentAccountId, index)}
+                      onClick={handleStudentToggle(deploymentAccountId, deployment)}
                     >
                       <ListItemIcon>
                         <Checkbox
