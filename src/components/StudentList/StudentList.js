@@ -46,16 +46,17 @@ function StudentList(props) {
 
 
   const handleSelectAllToggle = deployment => {
-    // console.log(selected!)
-    console.log("hello!")
     setSelectAll(!selectAll);
-    console.log(selectAll);
+    let newChecked = [];
 
     if (selectAll) { // check all the boxes
-      // let allChecked = Array(checked.length).fill().map((_, i) => true)
-      // setChecked(allChecked);
-      console.log("check all boxes!");
-      let newChecked = [...checked];
+      let index = deployments.indexOf(deployment);
+      if(!open[index]) {
+        let openCopy = [...open];
+        openCopy[index] = true;
+        setOpen(openCopy);
+      }
+      newChecked = [...checked];
       Object.keys(deployment.deploymentAccounts).forEach(function (deploymentAccountId) {
         console.log(deploymentAccountId);
         const currentIndex = checked.indexOf(deploymentAccountId);
@@ -63,34 +64,10 @@ function StudentList(props) {
           newChecked.push(deploymentAccountId);
         }
       });
-      console.log(newChecked);
-
-      setChecked(newChecked);
-      props.handleChange(newChecked);
-
-
-      // Object.keys(value.deploymentAccounts).map(
-      //   deploymentAccountId => (
-      //     const currentIndex = checked.indexOf(value);
-      //     const newChecked = [...checked];
-
-      //     if (currentIndex === -1) {
-      //       newChecked.push(value);
-      //     } else {
-      //       newChecked.splice(currentIndex, 1);
-      //     }
-
-      //     setChecked(newChecked);
-      //     props.handleChange(newChecked);
-      // ));
-
-    } else { // unchecked all the boxes
-      // let allUnchecked = Array(checked.length).fill().map((_, i) => false)
-      // setChecked(allUnchecked);
-      let newChecked = [];
-      setChecked(newChecked);
-      props.handleChange(newChecked);
     }
+
+    setChecked(newChecked);
+    props.handleChange(newChecked);
   }
 
   return (
