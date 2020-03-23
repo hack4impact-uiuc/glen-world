@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { withFirebase } from "utils/Firebase";
+import { TEMPLATE_LESSON_MAP, ADMIN_ACCOUNT } from "utils/constants.js";
 import "./CustomLessonsDisplay.css";
 import LessonDateDisplay from "../LessonDateDisplay/LessonDateDisplay";
 import { compose } from "recompose";
@@ -9,12 +10,10 @@ import LessonInfoDisplay from "../LessonInfoDisplay/LessonInfoDisplay";
 const CustomLessonsDisplay = ({ firebase }) => {
   const [adminLessons, setAdminLessons] = useState([]);
   const [template, setTemplate] = useState(null);
-  const [templateMap] = useState({ A: "VOCAB", A3: "WRITING", C: "PHONICS" });
   const [lessonWords, setLessonWords] = useState(null);
   const [students, setStudents] = useState([]);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
-  const [changePage, setChangePage] = useState(false);
-  const [ADMIN_ACCOUNT] = useState("AxtySwFjYwR0uEsyP3Ds9nO22CY2");
+  const [createLessonRedirect, setCreateLessonRedirect] = useState(false);
 
   function orderAdminLessons(reverse) {
     const sortedLessons = [...adminLessons].sort((a, b) => {
@@ -32,7 +31,7 @@ const CustomLessonsDisplay = ({ firebase }) => {
     firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
       setAdminLessons(lesson);
     });
-  });
+  }, [firebase]);
 
   function handleChangeDisplayLessonInfo(display) {
     setDisplayLessonInfo(display);
@@ -40,8 +39,8 @@ const CustomLessonsDisplay = ({ firebase }) => {
 
   function handleClick(lessonTemplate, words, studentIds) {
     handleChangeDisplayLessonInfo(!displayLessonInfo);
-    if (lessonTemplate in templateMap) {
-      setTemplate(templateMap[lessonTemplate]);
+    if (lessonTemplate in TEMPLATE_LESSON_MAP) {
+      setTemplate(TEMPLATE_LESSON_MAP[lessonTemplate]);
     } else {
       setTemplate(lessonTemplate);
     }
@@ -59,11 +58,7 @@ const CustomLessonsDisplay = ({ firebase }) => {
     });
   }
 
-  function handleAdd() {
-    setChangePage(true);
-  }
-
-  if (changePage) {
+  if (createLessonRedirect) {
     return <Redirect to="/createlesson" />;
   }
 
@@ -73,16 +68,16 @@ const CustomLessonsDisplay = ({ firebase }) => {
 
       <div>
         <center>
-          <button className="Button" onClick={() => handleAdd()}>
-            {" "}
+          <button
+            className="Button"
+            onClick={() => setCreateLessonRedirect(true)}
+          >
             Create Lesson
           </button>
           <button className="Button" onClick={() => orderAdminLessons(true)}>
-            {" "}
             Sort by Latest
           </button>
           <button className="Button" onClick={() => orderAdminLessons(false)}>
-            {" "}
             Sort by Oldest
           </button>
         </center>

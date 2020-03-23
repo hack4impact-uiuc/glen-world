@@ -5,13 +5,12 @@ import { Button } from "reactstrap";
 import { withFirebase } from "utils/Firebase";
 import { compose } from "recompose";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./CreateAssignment.scss";
+import { ADMIN_ACCOUNT } from "utils/constants.js";
 import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
-import "./CreateAssignment.scss";
-
-const LAM_ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";
 
 function CreateAssignment({ firebase }) {
   const [submitted, setSubmitted] = useState(false);
@@ -26,7 +25,7 @@ function CreateAssignment({ firebase }) {
   const [adminDeployments, setAdminDeployments] = useState([]);
   useEffect(() => {
     firebase
-      .getDeploymentAccountsFromAdmin(LAM_ADMIN_ACCOUNT)
+      .getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT)
       .then(deploymentAccounts => {
         setAdminDeployments(deploymentAccounts);
       });
@@ -65,7 +64,7 @@ function CreateAssignment({ firebase }) {
 
   const pushLesson = () => {
     firebase.addCustomLesson(
-      LAM_ADMIN_ACCOUNT,
+      ADMIN_ACCOUNT,
       deploymentAccountIds,
       lessonType,
       wordGroup,
