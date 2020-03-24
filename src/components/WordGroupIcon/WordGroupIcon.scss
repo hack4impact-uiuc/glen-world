@@ -1,3 +1,5 @@
+@import "../../pages/Index/index.scss";
+
 .WordGroupIcon {
   width: 12vw;
   height: 12vw;
@@ -7,20 +9,15 @@
   border-radius: 2em;
   box-shadow: 0em .2em #e6e6e6;
   display: block;
-  //border: inset #4D4C4C .05em;
 }
 
-.WordGroupNumber {
+.WordGroupNumber, .WordGroupName {
   font-family: 'Roboto', sans-serif;
   text-align: center;
   vertical-align:bottom;
-  color: #4D4C4C;
+  color: $assignments-font-color;
 }
 
 .WordGroupName {
   font-weight: bold;
-  font-family: 'Roboto', sans-serif;
-  text-align: center;
-  vertical-align: bottom;
-  color: #4D4C4C;
 }

@@ -56,7 +56,7 @@ function StudentList(props) {
                 onClick={() => handleClick(index)}
                 className={classes.listSection}
               >
-                {`Class: ${index + 1}`}
+                {`Deployment: ${index + 1}`}
                 {open[index] ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
 

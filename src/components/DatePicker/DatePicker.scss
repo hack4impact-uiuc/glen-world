@@ -1,3 +1,5 @@
+@import "../../pages/Index/index.scss";
+
 .calendar {
   color: white;
 }
@@ -31,14 +33,16 @@
   height: 2em;
   font-size: 200%;
   color: #00d8a4;
-  background-color: #e7e4e4;
+  background-color: $assignments-darker-color;
   border-radius: 10px 10px 0px 0px;
+
+  button {
+    min-width: 20px;
+    background: none;
+    color: black;
+  }
 }
-.react-calendar__navigation button {
-  min-width: 20px;
-  background: none;
-  color: black;
-}
+.react-calendar__navigation 
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
   background-color: #e6e6e6;
@@ -50,7 +54,7 @@
   text-align: center;
   text-transform: uppercase;
   color: #00d8a4;
-  background-color: #e7e4e4;
+  background-color: $assignments-darker-color;
   font-weight: bold;
   font-size: 1.0em;
   color: black;
@@ -63,8 +67,9 @@
 }
 
 .react-calendar__month-view__days .react-calendar__month-view__days__day--neighboringMonth {
-  color: #4D4C4C;
+  color: $assignments-font-color;
 }
+
 .react-calendar__month-view__weekNumbers .react-calendar__tile {
   display: flex;
   align-items: center;
