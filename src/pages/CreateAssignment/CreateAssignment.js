@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { Button } from "reactstrap";
-import { withFirebase } from "utils/Firebase";
-import { compose } from "recompose";
+import { withRouter, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./CreateAssignment.scss";
+import { Container, Row, Col } from "react-bootstrap";
+import { compose } from "recompose";
+import { Button } from "reactstrap";
+import { ADMIN_ACCOUNT } from "utils/constants.js";
+import { withFirebase } from "utils/Firebase";
 import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
-import "./CreateAssignment.scss";
-
-const LAM_ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";
 
 function CreateAssignment({ firebase }) {
-  const [ShowVocab, setShowVocab] = useState(false);
-  const [ShowWriting, setShowWriting] = useState(false);
-  const [ShowPhonics, setShowPhonics] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [showVocab, setShowVocab] = useState(false);
+  const [showWriting, setShowWriting] = useState(false);
+  const [showPhonics, setShowPhonics] = useState(false);
   const [lessonType, setLessonType] = useState();
   const [words, setWords] = useState([]);
   const [wordGroup, setWordGroup] = useState();
@@ -24,7 +25,7 @@ function CreateAssignment({ firebase }) {
   const [adminDeployments, setAdminDeployments] = useState([]);
   useEffect(() => {
     firebase
-      .getDeploymentAccountsFromAdmin(LAM_ADMIN_ACCOUNT)
+      .getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT)
       .then(deploymentAccounts => {
         setAdminDeployments(deploymentAccounts);
       });
@@ -63,14 +64,19 @@ function CreateAssignment({ firebase }) {
 
   const pushLesson = () => {
     firebase.addCustomLesson(
-      LAM_ADMIN_ACCOUNT,
+      ADMIN_ACCOUNT,
       deploymentAccountIds,
       lessonType,
       wordGroup,
       words,
       date.date
     );
+    setSubmitted(true);
   };
+
+  if (submitted) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <>
@@ -79,10 +85,10 @@ function CreateAssignment({ firebase }) {
         handleVocab={handleVocab}
         handleWriting={handleWriting}
       />
-      {(ShowWriting || ShowVocab || ShowPhonics) && (
+      {(showWriting || showVocab || showPhonics) && (
         <div>
           <h1>Create Assignment</h1>
-          {(ShowWriting || ShowVocab) && (
+          {(showWriting || showVocab) && (
             <WordGroupSelector
               handleChange={handleWordSelectorChange}
               wordGroupChange={handleWordGroupChange}
@@ -115,4 +121,7 @@ function CreateAssignment({ firebase }) {
   );
 }
 
-export default compose(withFirebase)(CreateAssignment);
+export default compose(
+  withFirebase,
+  withRouter
+)(CreateAssignment);

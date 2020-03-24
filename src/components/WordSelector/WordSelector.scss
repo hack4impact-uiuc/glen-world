@@ -1,3 +1,5 @@
+@import "../../pages/Index/index.scss";
+
 .WordSelector {
   background-color: white;
   width: 25vw;
@@ -21,7 +23,7 @@
 }
 
 .GroupTitleUnderline {
-  border-top: 2px solid #4d4c4c;
+  border-top: 2px solid $assignments-font-color;
 }
 
 .WordDisplay {
@@ -36,12 +38,12 @@
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   font-size: 1em;
-  color: #4d4c4c;
+  color: $assignments-font-color;
 }
 
 .CloseButton {
-  color: #4D4C4C;
-  background-color:#fafafa;
+  color: $assignments-font-color;
+  background-color:$assignments-background-color;
   font-family: 'Roboto', sans-serif;
   width: 7vw;
   font-weight: bold;
@@ -52,8 +54,8 @@
 }
 
 .NextButton {
-  color: #4D4C4C;
-  background-color:#fafafa;
+  color: $assignments-font-color;
+  background-color:$assignments-background-color;
   font-family: 'Roboto', sans-serif;
   width: 7vw;
   font-weight: bold;
