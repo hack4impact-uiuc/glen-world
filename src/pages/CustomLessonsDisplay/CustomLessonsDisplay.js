@@ -4,8 +4,8 @@ import { TEMPLATE_LESSON_MAP, ADMIN_ACCOUNT } from "utils/constants.js";
 import "./CustomLessonsDisplay.css";
 import { compose } from "recompose";
 import { withRouter, Redirect } from "react-router-dom";
-import LessonDateDisplay from "../LessonDateDisplay/LessonDateDisplay";
-import LessonInfoDisplay from "../LessonInfoDisplay/LessonInfoDisplay";
+import LessonDateDisplay from "../../components/LessonDateDisplay/LessonDateDisplay";
+import LessonInfoDisplay from "../../components/LessonInfoDisplay/LessonInfoDisplay";
 
 const CustomLessonsDisplay = ({ firebase }) => {
   const [adminLessons, setAdminLessons] = useState([]);
