@@ -1,5 +1,5 @@
 import React from "react";
-import "./LessonDateDisplay.css";
+import "./LessonDateDisplay.scss";
 
 function LessonDateDisplay(props) {
   function toDateTime() {

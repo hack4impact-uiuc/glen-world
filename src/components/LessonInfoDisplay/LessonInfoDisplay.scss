@@ -1,5 +1,7 @@
+@import "../../pages/Index/index.scss";
+
 .LessonInfo {
-  background-color: #e7e4e4;
+  background-color: $assignments-darker-color;
   font-family: "Roboto", sans-serif;
   width: 70%;
   height: 23vw;

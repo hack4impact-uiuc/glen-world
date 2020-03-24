@@ -1,9 +1,11 @@
+@import "../../pages/Index/index.scss";
+
 .DateIcon {
   width: 12vw;
   height: 12vw;
   margin: 2em;
   padding: 20px;
-  background-color: #e7e4e4;
+  background-color: $assignments-darker-color;
   border-radius: 5em;
   display: block;
 }

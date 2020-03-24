@@ -1,5 +1,5 @@
 import React from "react";
-import "./LessonInfoDisplay.css";
+import "./LessonInfoDisplay.scss";
 
 function LessonInfoDisplay(props) {
   function handleClose() {
