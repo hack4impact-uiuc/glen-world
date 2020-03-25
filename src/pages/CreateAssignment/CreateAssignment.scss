@@ -1,6 +1,24 @@
+@import "../../pages/Index/index.scss";
+
 .place_middle {
   position: "absolute";
   left: "50%";
   top: "50%";
   transform: "translate(-50%, -50%)";
+}
+.assign {
+  color: $assignments-font-color;
+  background-color:$assignments-background-color;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  border-radius: 1em;
+  position:"absolute";
+}
+
+.input {
+  width: 29em;
+}
+
+.spacing {
+  padding: 3em;
 }

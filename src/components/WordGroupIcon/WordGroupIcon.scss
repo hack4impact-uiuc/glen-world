@@ -1,22 +1,23 @@
+@import "../../pages/Index/index.scss";
+
 .WordGroupIcon {
   width: 12vw;
   height: 12vw;
   margin: 2em;
   padding: 20px;
-  background-color: #ffc700;
-  border-radius: 5em;
+  background-color: white;
+  border-radius: 2em;
+  box-shadow: 0em .2em #e6e6e6;
   display: block;
 }
 
-.WordGroupNumber {
-  font-family: Arial, Helvetica, sans-serif;
+.WordGroupNumber, .WordGroupName {
+  font-family: 'Roboto', sans-serif;
   text-align: center;
-  color: white;
+  vertical-align:bottom;
+  color: $assignments-font-color;
 }
 
 .WordGroupName {
   font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
-  text-align: center;
-  color: white;
 }

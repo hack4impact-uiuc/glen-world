@@ -68,6 +68,23 @@ class Firebase {
       })
       .catch(error => console.log("Error getting custom lessons: ", error));
 
+  getDeploymentAccountInformation = deploymentAccountId =>
+    this.db
+      .doc(`deployment_account/${deploymentAccountId}/`)
+      .get()
+      .then(deploymentAccountDoc => {
+        const deploymentAccountData = deploymentAccountDoc.data();
+
+        return new Promise((resolve, reject) => {
+          if (deploymentAccountDoc) {
+            resolve(deploymentAccountData);
+          } else {
+            reject(Error("No deployment account found."));
+          }
+        });
+      })
+      .catch(error => console.log("Error getting student account: ", error));
+
   // Get student's assigned custom lessons
   getDeploymentAccountCustomLessons = deploymentAccountId =>
     this.db

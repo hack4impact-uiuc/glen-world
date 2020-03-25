@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button } from "reactstrap";
 import "./WordSelector.scss";
 
 function WordSelector(props) {
@@ -35,13 +36,14 @@ function WordSelector(props) {
   function listWords(word) {
     return (
       <div className="Words">
-        <label>
+        <label class="container">
           <input
+            class="check"
             type="checkbox"
             name={word}
             onChange={() => handleCheck(word)}
           />
-          {word}
+          <div className="word">{word}</div>
         </label>
       </div>
     );
@@ -53,16 +55,16 @@ function WordSelector(props) {
       <hr className="GroupTitleUnderline"></hr>
       <div className="WordDisplay">{props.group.map(listWords)}</div>
       <div>
-        <button onClick={() => handleClose()} className="CloseButton">
+        <Button onClick={() => handleClose()} className="CloseButton">
           Close
-        </button>
-        <button
+        </Button>
+        <Button
           disabled={disableNext()}
           onClick={() => handleSelect()}
           className="NextButton"
         >
           Select
-        </button>
+        </Button>
       </div>
     </div>
   );
