@@ -11,6 +11,7 @@ import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
+import InvalidAssignment from "../../components/InvalidAssignment/InvalidAssignment";
 
 function CreateAssignment({ firebase }) {
   const [submitted, setSubmitted] = useState(false);
@@ -23,6 +24,10 @@ function CreateAssignment({ firebase }) {
   const [date, setDate] = useState();
   const [deploymentAccountIds, setDeploymentAccountIds] = useState([]);
   const [adminDeployments, setAdminDeployments] = useState([]);
+  const [validAssignment, setValidAssignment] = useState(true);
+  // Message that displays when an assignment hasn't been created properly
+  const [invalidMessage, setInvalidMessage] = useState("");
+
   useEffect(() => {
     firebase
       .getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT)
@@ -61,6 +66,20 @@ function CreateAssignment({ firebase }) {
     setShowPhonics(false);
     setShowWriting(true);
   }
+  function validateAssignment() {
+    if (lessonType != "C" && (wordGroup == null || words.length < 4)) {
+      setInvalidMessage("Please include at least 4 words.");
+      setValidAssignment(false);
+    } else if (deploymentAccountIds < 1) {
+      setInvalidMessage("Please assign to at least one student.");
+      setValidAssignment(false);
+    } else if (date == null) {
+      setInvalidMessage("Please select a date on the calendar.");
+      setValidAssignment(false);
+    } else {
+      pushLesson();
+    }
+  }
 
   const pushLesson = () => {
     firebase.addCustomLesson(
@@ -87,34 +106,45 @@ function CreateAssignment({ firebase }) {
       />
       {(showWriting || showVocab || showPhonics) && (
         <div>
-          <h1>Create Assignment</h1>
-          {(showWriting || showVocab) && (
-            <WordGroupSelector
-              handleChange={handleWordSelectorChange}
-              wordGroupChange={handleWordGroupChange}
-            />
-          )}
-          <br />
-          <div className="spacing"></div>
-          <div className="place_middle">
-            <Container>
-              <Row>
-                <Col>
-                  <StudentList
-                    deployments={adminDeployments}
-                    handleChange={handleStudentListChange}
-                  />
-                </Col>
-                <Col xs={1}></Col>
-                <Col>
-                  <DatePicker handleChange={handleDatePickerChange} />
-                </Col>
-              </Row>
-            </Container>
+          <div className="assignment_creation">
+            <h1>Create Assignment</h1>
+            {(showWriting || showVocab) && (
+              <WordGroupSelector
+                handleChange={handleWordSelectorChange}
+                wordGroupChange={handleWordGroupChange}
+              />
+            )}
+            <br />
+            <div className="spacing"></div>
+            <div className="place_middle">
+              <Container>
+                <Row>
+                  <Col>
+                    <StudentList
+                      deployments={adminDeployments}
+                      handleChange={handleStudentListChange}
+                    />
+                  </Col>
+                  <Col xs={1}></Col>
+                  <Col>
+                    <DatePicker handleChange={handleDatePickerChange} />
+                  </Col>
+                </Row>
+              </Container>
+            </div>
+            <Button onClick={() => validateAssignment()} className="assign">
+              Assign Lesson
+            </Button>
           </div>
-          <Button onClick={() => pushLesson()} className="assign">
-            Assign Lesson
-          </Button>
+          <div>
+            {!validAssignment && (
+              <InvalidAssignment
+                message={invalidMessage}
+                setValid={setValidAssignment}
+                setMessage={setInvalidMessage}
+              />
+            )}
+          </div>
         </div>
       )}
     </>

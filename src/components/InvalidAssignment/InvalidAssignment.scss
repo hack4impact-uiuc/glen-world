@@ -1,0 +1,41 @@
+@import "../../pages/Index/index.scss";
+
+.InvalidAssignment {
+  background-color: #b1b0ff;
+  width: 15vw;
+  height: 12vw;
+  border-radius: 1em;
+  border: 2px solid black;
+  position: relative;
+  z-index: 1;
+  margin: auto;
+  top: 60em;
+}
+
+.Message {
+  width: 12vw;
+  height: 8vw;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5em;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.CloseMessage {
+  color: $close-button-color;
+  background-color: $assignments-background-color;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5em;
+  width: 5vw;
+  border-radius: 8px;
+  transition-duration: 0.3s;
+  font-weight: bold;
+  margin: auto;
+}
+
+.CloseMessage:hover {
+  background-color: $close-button-color;
+  color: white;
+}

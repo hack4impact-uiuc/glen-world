@@ -1,5 +1,8 @@
 @import "../../pages/Index/index.scss";
 
+.assignment_creation {
+  position: absolute;
+}
 .place_middle {
   position: "absolute";
   left: "50%";
@@ -8,13 +11,12 @@
 }
 .assign {
   color: $assignments-font-color;
-  background-color:$assignments-background-color;
-  font-family: 'Roboto', sans-serif;
+  background-color: $assignments-background-color;
+  font-family: "Roboto", sans-serif;
   font-weight: bold;
   border-radius: 1em;
-  position:"absolute";
+  position: "absolute";
 }
-
 .spacing {
   padding: 3em;
 }
