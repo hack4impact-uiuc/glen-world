@@ -4,7 +4,7 @@ import "./LessonDateDisplay.scss";
 function LessonDateDisplay(props) {
   function toDateTime() {
     let dateComponents = props.date
-      .getDate()
+      .toDate()
       .toDateString()
       .split(" ");
     return dateComponents;

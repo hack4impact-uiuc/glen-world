@@ -4,7 +4,7 @@ import { withFirebase } from "utils/Firebase";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { compose } from "recompose";
 import CreateAssignment from "../../pages/CreateAssignment/CreateAssignment";
-import CustomLessonsDisplay from "CustomLessonsDisplay/CustomLessonsDisplay";
+import CustomLessonsDisplay from "../../pages/CustomLessonsDisplay/CustomLessonsDisplay";
 
 function App() {
   return (

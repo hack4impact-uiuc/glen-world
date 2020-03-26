@@ -74,7 +74,7 @@ function CreateAssignment({ firebase }) {
       } else {
         console.log("custom date not chosen")
       }
-      setLessonName(nameDate.getMonth() + 1 + "/" + nameDate.getDate())
+      setLessonName(nameDate.getMonth() + 1 + "/" + nameDate.getDate() + "/" + nameDate.getFullYear())
       
     }
   }
