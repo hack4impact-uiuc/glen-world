@@ -88,7 +88,8 @@ function CreateAssignment({ firebase }) {
       lessonType,
       wordGroup,
       words,
-      date.date
+      date.date,
+      lessonName
     );
     setSubmitted(true);
   };
