@@ -63,17 +63,19 @@ function CreateAssignment({ firebase }) {
     setShowWriting(true);
   }
   
+  /** Name will be the due date by default or the current date if no due date chosen */
   function verifyName(){
     if (lessonName == null || lessonName == '') { 
       console.log("Name was empty")
+      let nameDate = new Date();
       if (date != undefined) {
         console.log("custom date chosen")
-        setLessonName(date.date.getMonth() + 1 + "/" + date.date.getDate())
+        nameDate = date.date;
       } else {
         console.log("custom date not chosen")
-        let currentDate = new Date();
-        setLessonName(currentDate.getMonth() + 1 + "/" + currentDate.getDate())
       }
+      setLessonName(nameDate.getMonth() + 1 + "/" + nameDate.getDate())
+      
     }
   }
   console.log(lessonName)
