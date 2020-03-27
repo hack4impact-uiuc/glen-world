@@ -55,7 +55,7 @@ function WordSelector(props) {
       <hr className="GroupTitleUnderline"></hr>
       <div className="WordDisplay">{props.group.map(listWords)}</div>
       <div>
-        <Button onClick={() => handleClose()} className="CloseButtonClass">
+        <Button onClick={() => handleClose()} className="CloseSelection">
           Close
         </Button>
         <Button
