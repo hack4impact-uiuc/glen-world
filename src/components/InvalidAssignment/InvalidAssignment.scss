@@ -2,25 +2,25 @@
 
 .InvalidAssignment {
   background-color: #b1b0ff;
-  width: 15vw;
-  height: 12vw;
+  width: 100vw;
+  height: 7vw;
   border-radius: 1em;
   border: 2px solid black;
-  position: relative;
+  position: fixed;
+  top: 0;
   z-index: 1;
   margin: auto;
-  top: 60em;
 }
 
 .Message {
-  width: 12vw;
-  height: 8vw;
+  padding-top: 1vw;
+  width: 90vw;
+  height: 4vw;
   font-family: "Roboto", sans-serif;
   font-size: 1.5em;
+  text-align: center;
   margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+  display: inline-block;
 }
 
 .CloseMessage {
