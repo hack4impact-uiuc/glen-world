@@ -4,6 +4,7 @@ import { withFirebase } from "utils/Firebase";
 import { compose } from "recompose";
 import CreateAssignment from "../../pages/CreateAssignment/CreateAssignment";
 import SectionSelector from "../SectionSelector/SectionSelector";
+import CustomLessonsDisplay from "../../pages/CustomLessonsDisplay/CustomLessonsDisplay";
 
 function App() {
   return (

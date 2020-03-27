@@ -109,6 +109,8 @@ function CreateAssignment({ firebase }) {
       {(showWriting || showVocab || showPhonics) && (
         <div>
           <h1>Create Assignment</h1>
+          <Input className = "input" placeholder="Lesson Name" onChange={e => setLessonName(e.target.value)}/>
+          <br />
           {(showWriting || showVocab) && (
             <WordGroupSelector
               handleChange={handleWordSelectorChange}
@@ -133,7 +135,6 @@ function CreateAssignment({ firebase }) {
               </Row>
             </Container>
           </div>
-          <Input placeholder="Lesson Name" onChange={e => setLessonName(e.target.value)}> </Input>
           <Button onClick={() => pushLesson()} className="assign">
             Assign Lesson
           </Button>
