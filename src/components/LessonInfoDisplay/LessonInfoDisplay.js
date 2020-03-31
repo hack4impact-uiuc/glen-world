@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import { compose } from "recompose";
+import { withRouter, Redirect } from "react-router-dom";
 import "./LessonInfoDisplay.scss";
 
 function LessonInfoDisplay(props) {
+  const [editLessonRedirect, setEditLessonRedirect] = useState(false);
+
   function handleClose() {
     props.setDisplay(false);
+  }
+
+  if (editLessonRedirect) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/createlesson",
+          state: { existingAssignment: props.lesson }
+        }}
+      />
+    );
   }
 
   return (
@@ -30,13 +45,19 @@ function LessonInfoDisplay(props) {
           </div>
         </div>
       </div>
-      <div>
-        <button onClick={() => handleClose()} className="CloseButton">
+      <div className="buttonContainer">
+        <button onClick={() => handleClose()} className="CloseButton2">
           Close
+        </button>
+        <button
+          onClick={() => setEditLessonRedirect(true)}
+          className="CloseButton2"
+        >
+          Edit
         </button>
       </div>
     </div>
   );
 }
 
-export default LessonInfoDisplay;
+export default compose(withRouter)(LessonInfoDisplay);

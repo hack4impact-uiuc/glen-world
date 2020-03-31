@@ -12,7 +12,9 @@ import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
 
-function CreateAssignment({ firebase }) {
+function CreateAssignment(props) {
+  const { firebase } = props;
+  const { existingAssignment } = props?.location.state;
   const [submitted, setSubmitted] = useState(false);
   const [showVocab, setShowVocab] = useState(false);
   const [showWriting, setShowWriting] = useState(false);
@@ -24,9 +26,11 @@ function CreateAssignment({ firebase }) {
   const [deploymentAccountIds, setDeploymentAccountIds] = useState([]);
   const [adminDeployments, setAdminDeployments] = useState([]);
   useEffect(() => {
-    firebase.getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT).then(deploymentAccounts => {
-      setAdminDeployments(deploymentAccounts);
-    });
+    firebase
+      .getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT)
+      .then(deploymentAccounts => {
+        setAdminDeployments(deploymentAccounts);
+      });
 
     if (existingAssignment) prePopulateAssignment(existingAssignment);
   }, [firebase]);
@@ -36,6 +40,7 @@ function CreateAssignment({ firebase }) {
     handleStudentListChange(existingAssignment.deploymentAccountIds);
     handleWordSelectorChange(existingAssignment.words);
     handleWordGroupChange(existingAssignment.wordGroup);
+    handleSectionSelection(existingAssignment.lessonTemplate);
   }
 
   function handleDatePickerChange(value) {
@@ -49,6 +54,11 @@ function CreateAssignment({ firebase }) {
   }
   function handleWordGroupChange(value) {
     setWordGroup(value);
+  }
+  function handleSectionSelection(value) {
+    if (value === "A") handleVocab();
+    else if (value === "C") handlePhonics();
+    else if (value === "A3") handleWriting();
   }
   function handleVocab() {
     setLessonType("A");
@@ -71,19 +81,19 @@ function CreateAssignment({ firebase }) {
 
   const pushLesson = () => {
     firebase.setCustomLesson(
-      LAM_ADMIN_ACCOUNT,
+      ADMIN_ACCOUNT,
       deploymentAccountIds,
       lessonType,
       wordGroup,
       words,
       date,
-      existingAssignment?.id
+      props?.location.state.existingAssignment?.id
     );
     setSubmitted(true);
   };
 
   if (submitted) {
-    return <Redirect to="/" />;
+    return <Redirect push to="/" />;
   }
 
   return (

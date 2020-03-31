@@ -212,18 +212,8 @@ class Firebase {
           });
         }
 
-        // Remove old deployment assignments
-        console.log("currently assigned");
-
-        console.log(currentAssignedDeploymentIds);
-        console.log("deployment accounts");
-
-        console.log(deploymentAccountIds);
         for (let deploymentAccountId of currentAssignedDeploymentIds) {
           if (!deploymentAccountIds.includes(deploymentAccountId)) {
-            console.log("to remove");
-            console.log(deploymentAccountId);
-
             let deploymentRef = this.db.doc(
               `deployment_account/${deploymentAccountId}/`
             );
