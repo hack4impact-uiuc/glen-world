@@ -14,7 +14,7 @@
 }
 
 .GroupTitle {
-  font-family: "Roboto", sans-serif;
+  font-family: $assignments-roboto-font;
   font-weight: bold;
   font-size: 20pt;
   color: #b1b0ff;
@@ -34,7 +34,7 @@
 }
 
 .Words {
-  font-family: "Roboto", sans-serif;
+  font-family: $assignments-roboto-font;
   font-weight: bold;
   font-size: 1em;
   color: $assignments-font-color;
@@ -43,7 +43,7 @@
 .CloseSelection {
   color: $assignments-font-color;
   background-color: $assignments-background-color;
-  font-family: "Roboto", sans-serif;
+  font-family: $assignments-roboto-font;
   width: 7vw;
   font-weight: bold;
   position: absolute;
@@ -55,7 +55,7 @@
 .NextButton {
   color: $assignments-font-color;
   background-color: $assignments-background-color;
-  font-family: "Roboto", sans-serif;
+  font-family: $assignments-roboto-font;
   width: 7vw;
   font-weight: bold;
   position: absolute;

@@ -24,9 +24,8 @@ function CreateAssignment({ firebase }) {
   const [date, setDate] = useState();
   const [deploymentAccountIds, setDeploymentAccountIds] = useState([]);
   const [adminDeployments, setAdminDeployments] = useState([]);
-  const [validAssignment, setValidAssignment] = useState(true);
   // Message that displays when an assignment hasn't been created properly
-  const [invalidMessage, setInvalidMessage] = useState("");
+  const [invalidMessage, setInvalidMessage] = useState([]);
 
   useEffect(() => {
     firebase
@@ -67,16 +66,30 @@ function CreateAssignment({ firebase }) {
     setShowWriting(true);
   }
   function validateAssignment() {
+    var validAssignment = true;
+    // TODO: Add validation for Phonics based on pending requirements
     if (lessonType != "C" && (wordGroup == null || words.length < 4)) {
-      setInvalidMessage("Please include at least 4 words.");
-      setValidAssignment(false);
-    } else if (deploymentAccountIds < 1) {
-      setInvalidMessage("Please assign to at least one student.");
-      setValidAssignment(false);
-    } else if (date == null) {
-      setInvalidMessage("Please select a date on the calendar.");
-      setValidAssignment(false);
-    } else {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Please include at least 4 words."
+      ]);
+      validAssignment = false;
+    }
+    if (deploymentAccountIds < 1) {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Please assign to at least one student."
+      ]);
+      validAssignment = false;
+    }
+    if (date == null) {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Please select a date on the calendar."
+      ]);
+      validAssignment = false;
+    }
+    if (validAssignment) {
       pushLesson();
     }
   }
@@ -132,15 +145,14 @@ function CreateAssignment({ firebase }) {
                 </Row>
               </Container>
             </div>
-            <Button onClick={() => validateAssignment()} className="assign">
+            <Button onClick={validateAssignment} className="assign">
               Assign Lesson
             </Button>
           </div>
           <div>
-            {!validAssignment && (
+            {invalidMessage.length > 0 && (
               <InvalidAssignment
                 message={invalidMessage}
-                setValid={setValidAssignment}
                 setMessage={setInvalidMessage}
               />
             )}

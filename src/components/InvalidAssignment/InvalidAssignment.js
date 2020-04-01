@@ -3,13 +3,16 @@ import "./InvalidAssignment.scss";
 
 function InvalidAssignment(props) {
   function handleClose() {
-    props.setValid(true);
-    props.setMessage("");
+    props.setMessage([]);
+  }
+
+  function displayMessage(message) {
+    return <div className="Message">{message}</div>;
   }
 
   return (
     <div className="InvalidAssignment">
-      <div className="Message">{props.message}</div>
+      <div className="MessageArea">{props.message.map(displayMessage)}</div>
       <div className="CloseMessage" onClick={() => handleClose()}>
         Close
       </div>

@@ -1,22 +1,23 @@
 @import "../../pages/Index/index.scss";
 
 .InvalidAssignment {
-  background-color: #b1b0ff;
+  background-color: $assignments-light-purple;
   width: 100vw;
-  height: 7vw;
-  border-radius: 1em;
-  border: 2px solid black;
+  padding-bottom: 1vw;
   position: fixed;
   top: 0;
   z-index: 1;
   margin: auto;
 }
 
+.MessageArea {
+  padding-bottom: 1vw;
+}
+
 .Message {
-  padding-top: 1vw;
   width: 90vw;
-  height: 4vw;
-  font-family: "Roboto", sans-serif;
+  height: 2vw;
+  font-family: $assignments-roboto-font;
   font-size: 1.5em;
   text-align: center;
   margin: auto;
@@ -26,7 +27,7 @@
 .CloseMessage {
   color: $close-button-color;
   background-color: $assignments-background-color;
-  font-family: "Roboto", sans-serif;
+  font-family: $assignments-roboto-font;
   font-size: 1.5em;
   width: 5vw;
   border-radius: 8px;
