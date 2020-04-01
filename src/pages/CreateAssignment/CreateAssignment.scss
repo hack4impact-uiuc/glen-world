@@ -12,6 +12,7 @@
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   border-radius: 1em;
+  margin-left: 10em;
   position:"absolute";
 }
 
@@ -22,7 +23,19 @@
   border-radius: 1em;
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
-  width: 55em;
+  width: 30em;
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+}
+.input-header {
+  color: $assignments-background-color;
+  background-color:$assignments-font-color;
+  border-color: $assignments-font-color;
+  border-radius: 1em;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  width: 15em;
   position: absolute;
   left: 30%;
   margin-left: -50px;

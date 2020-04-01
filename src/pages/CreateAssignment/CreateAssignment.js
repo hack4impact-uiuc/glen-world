@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CreateAssignment.scss";
-import { Container, Row, Col, Form, InputGroup} from "react-bootstrap";
+import { Container, Row, Col, Form, InputGroup, FormControl} from "react-bootstrap";
 import { compose } from "recompose";
 import { Button, Input } from "reactstrap";
 import { ADMIN_ACCOUNT } from "utils/constants.js";
@@ -11,7 +11,6 @@ import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
-import { FormControl } from "@material-ui/core";
 
 function CreateAssignment({ firebase }) {
   const [lessonName, setLessonName] = useState();
@@ -141,7 +140,16 @@ function verifyNameAndPush () {
           </div>
           <Row>
             <Col>
-            <Input className = "input" placeholder="Lesson Name" onChange={e => handleLessonNameChange(e.target.value)}/>
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text className = "input-header">Lesson Name</InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl className = "input"
+                placeholder="Ex. Vocab"
+                onChange={e => handleLessonNameChange(e.target.value)}
+              />
+            </InputGroup>
+  
             </Col>
             <Col>
             <Button onClick={() => verifyNameAndPush()} className="assign">
