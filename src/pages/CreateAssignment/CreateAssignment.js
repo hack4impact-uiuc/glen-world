@@ -11,8 +11,10 @@ import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
+import { FormControl } from "@material-ui/core";
 
 function CreateAssignment({ firebase }) {
+  const [lessonName, setLessonName] = useState();
   const [submitted, setSubmitted] = useState(false);
   const [showVocab, setShowVocab] = useState(false);
   const [showWriting, setShowWriting] = useState(false);
@@ -22,7 +24,6 @@ function CreateAssignment({ firebase }) {
   const [wordGroup, setWordGroup] = useState();
   const [date, setDate] = useState();
   const [deploymentAccountIds, setDeploymentAccountIds] = useState([]);
-  const [lessonName, setLessonName] = useState();
   const [adminDeployments, setAdminDeployments] = useState([]);
   useEffect(() => {
     firebase
@@ -44,6 +45,9 @@ function CreateAssignment({ firebase }) {
   function handleWordGroupChange(value) {
     setWordGroup(value);
   }
+  function handleLessonNameChange(value) {
+    setLessonName(value);
+  }
   function handleVocab() {
     setLessonType("A");
     setShowVocab(true);
@@ -62,10 +66,8 @@ function CreateAssignment({ firebase }) {
     setShowPhonics(false);
     setShowWriting(true);
   }
-  
-  /** Name will be the due date by default or the current date if no due date chosen */
-  function verifyName(){
-    if (lessonName == null || lessonName == '') { 
+function verifyNameAndPush () {
+    if (lessonName == null || lessonName == '' || typeof lessonName == 'undefined') { 
       console.log("Name was empty")
       let nameDate = new Date();
       if (date != undefined) {
@@ -75,14 +77,18 @@ function CreateAssignment({ firebase }) {
         console.log("custom date not chosen")
       }
       var options = { month: 'long'};
-      setLessonName(wordGroup + ": " + new Intl.DateTimeFormat('en-US', options).format(nameDate) + " " + nameDate.getDate() + " " + nameDate.getFullYear())
-      
+      setLessonName(wordGroup + ": " + new Intl.DateTimeFormat('en-US', options).format(nameDate) + " " 
+      + nameDate.getDate() + " " + nameDate.getFullYear()) 
+      console.log("lessonName")
+      console.log(lessonName) 
+      pushLesson(wordGroup + ": " + new Intl.DateTimeFormat('en-US', options).format(nameDate) + " " 
+      + nameDate.getDate() + " " + nameDate.getFullYear())   
+    } else {
+      pushLesson(lessonName)
     }
   }
-  console.log(lessonName)
 
-  const pushLesson = () => {
-    verifyName();
+  const pushLesson =(nameValue) =>{
     firebase.addCustomLesson(
       ADMIN_ACCOUNT,
       deploymentAccountIds,
@@ -90,7 +96,7 @@ function CreateAssignment({ firebase }) {
       wordGroup,
       words,
       date.date,
-      lessonName
+      nameValue,
     );
     setSubmitted(true);
   };
@@ -109,7 +115,6 @@ function CreateAssignment({ firebase }) {
       {(showWriting || showVocab || showPhonics) && (
         <div>
           <h1>Create Assignment</h1>
-          <Input className = "input" placeholder="Lesson Name" onChange={e => setLessonName(e.target.value)}/>
           <br />
           {(showWriting || showVocab) && (
             <WordGroupSelector
@@ -117,7 +122,6 @@ function CreateAssignment({ firebase }) {
               wordGroupChange={handleWordGroupChange}
             />
           )}
-          <br />
           <div className="spacing"></div>
           <div className="place_middle">
             <Container>
@@ -135,12 +139,18 @@ function CreateAssignment({ firebase }) {
               </Row>
             </Container>
           </div>
-          <Button onClick={() => pushLesson()} className="assign">
-            Assign Lesson
+          <Row>
+            <Col>
+            <Input className = "input" placeholder="Lesson Name" onChange={e => handleLessonNameChange(e.target.value)}/>
+            </Col>
+            <Col>
+            <Button onClick={() => verifyNameAndPush()} className="assign">
+            CREATE
           </Button>
-          <Button onClick={() => verifyName()} className="assign">
-            Verify name
-          </Button>
+            </Col>
+          </Row>
+          <br/>
+          <br/>
         </div>
       )}
     </>

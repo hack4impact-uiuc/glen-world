@@ -16,7 +16,13 @@
 }
 
 .input {
-  width: 40em;
+  color: $assignments-font-color;
+  background-color:$assignments-background-color;
+  border-color: $assignments-font-color;
+  border-radius: 1em;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  width: 55em;
   position: absolute;
   left: 30%;
   margin-left: -50px;
