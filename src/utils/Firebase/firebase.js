@@ -175,7 +175,6 @@ class Firebase {
         words: words,
         dueDate: dueDate,
         lessonName: lessonName
-
       })
       .catch(error => console.log("Error creating custom lesson: ", error));
 

@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CreateAssignment.scss";
-import { Container, Row, Col, Form, InputGroup, FormControl} from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  InputGroup,
+  FormControl
+} from "react-bootstrap";
 import { compose } from "recompose";
 import { Button, Input } from "reactstrap";
 import { ADMIN_ACCOUNT } from "utils/constants.js";
@@ -65,29 +72,47 @@ function CreateAssignment({ firebase }) {
     setShowPhonics(false);
     setShowWriting(true);
   }
-function verifyNameAndPush () {
-    if (lessonName == null || lessonName == '' || typeof lessonName == 'undefined') { 
-      console.log("Name was empty")
+  function verifyNameAndPush() {
+    if (
+      lessonName == null ||
+      lessonName == "" ||
+      typeof lessonName == "undefined"
+    ) {
+      console.log("Name was empty");
       let nameDate = new Date();
       if (date != undefined) {
-        console.log("custom date chosen")
+        console.log("custom date chosen");
         nameDate = date.date;
       } else {
-        console.log("custom date not chosen")
+        console.log("custom date not chosen");
       }
-      var options = { month: 'long'};
-      setLessonName(wordGroup + ": " + new Intl.DateTimeFormat('en-US', options).format(nameDate) + " " 
-      + nameDate.getDate() + " " + nameDate.getFullYear()) 
-      console.log("lessonName")
-      console.log(lessonName) 
-      pushLesson(wordGroup + ": " + new Intl.DateTimeFormat('en-US', options).format(nameDate) + " " 
-      + nameDate.getDate() + " " + nameDate.getFullYear())   
+      var options = { month: "long" };
+      setLessonName(
+        wordGroup +
+          ": " +
+          new Intl.DateTimeFormat("en-US", options).format(nameDate) +
+          " " +
+          nameDate.getDate() +
+          " " +
+          nameDate.getFullYear()
+      );
+      console.log("lessonName");
+      console.log(lessonName);
+      pushLesson(
+        wordGroup +
+          ": " +
+          new Intl.DateTimeFormat("en-US", options).format(nameDate) +
+          " " +
+          nameDate.getDate() +
+          " " +
+          nameDate.getFullYear()
+      );
     } else {
-      pushLesson(lessonName)
+      pushLesson(lessonName);
     }
   }
 
-  const pushLesson =(nameValue) =>{
+  const pushLesson = nameValue => {
     firebase.addCustomLesson(
       ADMIN_ACCOUNT,
       deploymentAccountIds,
@@ -95,7 +120,7 @@ function verifyNameAndPush () {
       wordGroup,
       words,
       date.date,
-      nameValue,
+      nameValue
     );
     setSubmitted(true);
   };
@@ -140,25 +165,27 @@ function verifyNameAndPush () {
           </div>
           <Row>
             <Col>
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text className = "input-header">Lesson Name</InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl className = "input"
-                placeholder="Ex. Vocab"
-                onChange={e => handleLessonNameChange(e.target.value)}
-              />
-            </InputGroup>
-  
+              <InputGroup>
+                <InputGroup.Prepend>
+                  <InputGroup.Text className="input-header">
+                    Lesson Name
+                  </InputGroup.Text>
+                </InputGroup.Prepend>
+                <FormControl
+                  className="input"
+                  placeholder="Ex. Vocab"
+                  onChange={e => handleLessonNameChange(e.target.value)}
+                />
+              </InputGroup>
             </Col>
             <Col>
-            <Button onClick={() => verifyNameAndPush()} className="assign">
-            CREATE
-          </Button>
+              <Button onClick={() => verifyNameAndPush()} className="assign">
+                CREATE
+              </Button>
             </Col>
           </Row>
-          <br/>
-          <br/>
+          <br />
+          <br />
         </div>
       )}
     </>

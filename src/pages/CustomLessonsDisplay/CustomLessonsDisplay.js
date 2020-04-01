@@ -95,7 +95,7 @@ const CustomLessonsDisplay = ({ firebase }) => {
                 )
               }
             >
-              <LessonNameDisplay lessonName = {lesson.lessonName}/>
+              <LessonNameDisplay lessonName={lesson.lessonName} />
             </div>
           ))}
       </div>

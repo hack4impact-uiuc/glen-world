@@ -2,7 +2,6 @@ import React from "react";
 import "./LessonNameDisplay.scss";
 
 function LessonNameDisplay(props) {
-
   return (
     <div className="DateIcon">
       <br style={{ fontSize: 20 }}></br>
