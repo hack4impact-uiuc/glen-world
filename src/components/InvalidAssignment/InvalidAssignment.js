@@ -13,7 +13,7 @@ function InvalidAssignment(props) {
   return (
     <div className="InvalidAssignment">
       <div className="MessageArea">{props.message.map(displayMessage)}</div>
-      <div className="CloseMessage" onClick={() => handleClose()}>
+      <div className="CloseMessage" onClick={handleClose}>
         Close
       </div>
     </div>
