@@ -4,8 +4,7 @@ import "./WordGroupIcon.scss";
 function WordGroupIcon(props) {
   return (
     <div className="WordGroupIcon">
-      {/* <p className="WordGroupNumber">{props.number}</p> */}
-      <img src={props.image}/>
+      <img src={props.image} />
       <p className="WordGroupName">{props.name}</p>
     </div>
   );

@@ -146,6 +146,7 @@ function CreateAssignment({ firebase }) {
               wordGroupChange={handleWordGroupChange}
             />
           )}
+          <br />
           <div className="spacing"></div>
           <div className="place_middle">
             <Container>
