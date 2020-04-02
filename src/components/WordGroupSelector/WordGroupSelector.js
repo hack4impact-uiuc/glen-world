@@ -12,21 +12,21 @@ function WordGroupSelector(props) {
     collectedWordGroupsService.all().then(function(collectedWordGroups) {
       wordKeys.current = Object.keys(collectedWordGroups);
       setWordGroups({
-        People: collectedWordGroups[wordKeys.current[0]],
-        Action: collectedWordGroups[wordKeys.current[1]],
-        Toys: collectedWordGroups[wordKeys.current[2]],
-        Colors: collectedWordGroups[wordKeys.current[3]],
-        Animals: collectedWordGroups[wordKeys.current[4]],
-        Transport: collectedWordGroups[wordKeys.current[5]],
-        "Body Parts": collectedWordGroups[wordKeys.current[6]],
-        Clothing: collectedWordGroups[wordKeys.current[7]],
-        Food: collectedWordGroups[wordKeys.current[8]],
-        "More Food": collectedWordGroups[wordKeys.current[9]],
-        Furniture: collectedWordGroups[wordKeys.current[10]],
-        Emotion: collectedWordGroups[wordKeys.current[11]],
-        Media: collectedWordGroups[wordKeys.current[12]],
-        "More Animals": collectedWordGroups[wordKeys.current[13]],
-        "Even More Animals!": collectedWordGroups[wordKeys.current[14]]
+        People: [collectedWordGroups[wordKeys.current[0]], "images/word-group/person.svg"],
+        Action: [collectedWordGroups[wordKeys.current[1]], "images/word-group/action.svg"],
+        Toys: [collectedWordGroups[wordKeys.current[2]], "images/word-group/toys.svg"],
+        // Colors: collectedWordGroups[wordKeys.current[3]],
+        // Animals: collectedWordGroups[wordKeys.current[4]],
+        // Transport: collectedWordGroups[wordKeys.current[5]],
+        // "Body Parts": collectedWordGroups[wordKeys.current[6]],
+        // Clothing: collectedWordGroups[wordKeys.current[7]],
+        // Food: collectedWordGroups[wordKeys.current[8]],
+        // "More Food": collectedWordGroups[wordKeys.current[9]],
+        // Furniture: collectedWordGroups[wordKeys.current[10]],
+        // Emotion: collectedWordGroups[wordKeys.current[11]],
+        // Media: collectedWordGroups[wordKeys.current[12]],
+        // "More Animals": collectedWordGroups[wordKeys.current[13]],
+        // "Even More Animals!": collectedWordGroups[wordKeys.current[14]]
       });
     });
   }, []);
@@ -50,8 +50,8 @@ function WordGroupSelector(props) {
     <div className="Background">
       <div className="WordGroups">
         {Object.keys(wordGroups).map((key, index) => (
-          <div onClick={() => handleClick(wordGroups[key], key)}>
-            <WordGroupIcon number={index} name={key} />
+          <div onClick={() => handleClick(wordGroups[key][0], key)}>
+            <WordGroupIcon number={index} name={key} image = {wordGroups[key][1]}/>
           </div>
         ))}
       </div>
