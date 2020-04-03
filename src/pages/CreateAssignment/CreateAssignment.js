@@ -18,6 +18,7 @@ import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
+import PhonicSelector from "../../components/PhonicSelector/PhonicSelector";
 
 function CreateAssignment({ firebase }) {
   const [lessonName, setLessonName] = useState();
@@ -131,6 +132,7 @@ function CreateAssignment({ firebase }) {
 
   return (
     <>
+      <PhonicSelector/>
       <SectionSelector
         handlePhonics={handlePhonics}
         handleVocab={handleVocab}
