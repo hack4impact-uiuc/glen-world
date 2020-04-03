@@ -14,6 +14,7 @@ const CustomLessonsDisplay = ({ firebase }) => {
   const [students, setStudents] = useState([]);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
   const [createLessonRedirect, setCreateLessonRedirect] = useState(false);
+  const [confirmationRedirect, setConfirmationRedirect] = useState(false);
 
   function orderAdminLessons(reverse) {
     const sortedLessons = [...adminLessons].sort((a, b) => {
@@ -61,7 +62,7 @@ const CustomLessonsDisplay = ({ firebase }) => {
   if (createLessonRedirect) {
     return <Redirect to="/createlesson" />;
   }
-
+  
   return (
     <div>
       <div className="Heading">Lesson Plans</div>
@@ -79,6 +80,12 @@ const CustomLessonsDisplay = ({ firebase }) => {
           </button>
           <button className="Button" onClick={() => orderAdminLessons(false)}>
             Sort by Oldest
+          </button>
+          <button
+          className="Button"
+            onClick={() => setConfirmationRedirect(true)}
+            >
+              Confirmation (temp)
           </button>
         </center>
       </div>

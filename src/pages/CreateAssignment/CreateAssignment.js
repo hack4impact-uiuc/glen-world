@@ -63,6 +63,7 @@ function CreateAssignment({ firebase }) {
   }
 
   const pushLesson = () => {
+    /*
     firebase.addCustomLesson(
       ADMIN_ACCOUNT,
       deploymentAccountIds,
@@ -71,11 +72,21 @@ function CreateAssignment({ firebase }) {
       words,
       date.date
     );
+    */
     setSubmitted(true);
   };
 
   if (submitted) {
-    return <Redirect to="/" />;
+    return <Redirect to={{
+      pathname: "/confirmation",
+      state: {
+        deploymentIds: deploymentAccountIds,
+        selectedWords : words,
+        lesson : lessonType,
+        group : wordGroup,
+        dueDate : date
+      }
+    }}/>;
   }
 
   return (
