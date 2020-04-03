@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { withFirebase } from "utils/Firebase";
 import { TEMPLATE_LESSON_MAP, ADMIN_ACCOUNT } from "utils/constants.js";
-import "./CustomLessonsDisplay.css";
+import "./CustomLessonsDisplay.scss";
 import { compose } from "recompose";
 import { withRouter, Redirect } from "react-router-dom";
 import LessonDateDisplay from "../../components/LessonDateDisplay/LessonDateDisplay";

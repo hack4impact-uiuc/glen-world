@@ -18,6 +18,7 @@ import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
+import InvalidAssignment from "../../components/InvalidAssignment/InvalidAssignment";
 
 function CreateAssignment({ firebase }) {
   const [lessonName, setLessonName] = useState();
@@ -31,6 +32,9 @@ function CreateAssignment({ firebase }) {
   const [date, setDate] = useState();
   const [deploymentAccountIds, setDeploymentAccountIds] = useState([]);
   const [adminDeployments, setAdminDeployments] = useState([]);
+  // Message that displays when an assignment hasn't been created properly
+  const [invalidMessage, setInvalidMessage] = useState([]);
+
   useEffect(() => {
     firebase
       .getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT)
@@ -111,7 +115,34 @@ function CreateAssignment({ firebase }) {
       pushLesson(lessonName);
     }
   }
-
+  function validateAssignment() {
+    var validAssignment = true;
+    // TODO: Add validation for Phonics based on pending requirements
+    if (lessonType != "C" && (wordGroup == null || words.length < 4)) {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Please include at least 4 words."
+      ]);
+      validAssignment = false;
+    }
+    if (deploymentAccountIds < 1) {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Please assign to at least one student."
+      ]);
+      validAssignment = false;
+    }
+    if (date == null) {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Please select a date on the calendar."
+      ]);
+      validAssignment = false;
+    }
+    if (validAssignment) {
+      verifyNameAndPush();
+    }
+  }
   const pushLesson = nameValue => {
     firebase.addCustomLesson(
       ADMIN_ACCOUNT,
@@ -124,7 +155,6 @@ function CreateAssignment({ firebase }) {
     );
     setSubmitted(true);
   };
-
   if (submitted) {
     return <Redirect to="/" />;
   }
@@ -179,19 +209,23 @@ function CreateAssignment({ firebase }) {
               </InputGroup>
             </Col>
             <Col>
-              <Button onClick={() => verifyNameAndPush()} className="assign">
-                CREATE
-              </Button>
+            <Button onClick={validateAssignment} className="assign">
+              Assign Lesson
+            </Button>
             </Col>
           </Row>
-          <br />
-          <br />
+          <div>
+            {invalidMessage.length > 0 && (
+              <InvalidAssignment
+                message={invalidMessage}
+                setMessage={setInvalidMessage}
+              />
+            )}
+          </div>
         </div>
       )}
     </>
-  );
-}
-
+  );}
 export default compose(
   withFirebase,
   withRouter
