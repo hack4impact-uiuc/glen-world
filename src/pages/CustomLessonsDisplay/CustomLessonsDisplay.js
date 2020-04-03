@@ -62,7 +62,7 @@ const CustomLessonsDisplay = ({ firebase }) => {
   if (createLessonRedirect) {
     return <Redirect to="/createlesson" />;
   }
-  
+
   return (
     <div>
       <div className="Heading">Lesson Plans</div>
@@ -82,10 +82,10 @@ const CustomLessonsDisplay = ({ firebase }) => {
             Sort by Oldest
           </button>
           <button
-          className="Button"
+            className="Button"
             onClick={() => setConfirmationRedirect(true)}
-            >
-              Confirmation (temp)
+          >
+            Confirmation (temp)
           </button>
         </center>
       </div>

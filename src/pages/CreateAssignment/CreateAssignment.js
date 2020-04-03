@@ -77,16 +77,21 @@ function CreateAssignment({ firebase }) {
   };
 
   if (submitted) {
-    return <Redirect to={{
-      pathname: "/confirmation",
-      state: {
-        deploymentIds: deploymentAccountIds,
-        selectedWords : words,
-        lesson : lessonType,
-        group : wordGroup,
-        dueDate : date
-      }
-    }}/>;
+    return (
+      <Redirect
+        to={{
+          pathname: "/confirmation",
+          state: {
+            deploymentIds: deploymentAccountIds,
+            selectedWords: words,
+            lesson: lessonType,
+            group: wordGroup,
+            dueDate: date,
+            deployments: adminDeployments
+          }
+        }}
+      />
+    );
   }
 
   return (
