@@ -7,14 +7,15 @@
   padding: 20px;
   background-color: white;
   border-radius: 2em;
-  box-shadow: 0em .2em #e6e6e6;
+  box-shadow: 0em 0.2em #e6e6e6;
   display: block;
 }
 
-.WordGroupNumber, .WordGroupName {
-  font-family: 'Roboto', sans-serif;
+.WordGroupNumber,
+.WordGroupName {
+  font-family: $assignments-roboto-font;
   text-align: center;
-  vertical-align:bottom;
+  vertical-align: bottom;
   color: $assignments-font-color;
 }
 

@@ -1,24 +1,23 @@
+@import "../../pages/Index/index.scss";
+
 .Heading {
-  font-family: "Roboto", sans-serif;
+  font-family: $assignments-roboto-font;
   font-weight: bold;
   font-size: 4em;
   color: #4d4d4c;
   margin: auto;
 }
-
 .Button {
-  font-family: "Roboto", sans-serif;
+  font-family: $assignments-roboto-font;
   border-radius: 8px;
   transition-duration: 0.3s;
+  &:hover {
+    background-color: $assignments-light-purple;
+    color: white;
+  }
 }
-
-.Button:hover {
-  background-color: #7f7eff;
-  color: white;
-}
-
 .DateDisplay {
-  font-family: "Roboto", sans-serif;
+  font-family: $assignments-roboto-font;
   width: 100vw;
   display: flex;
   flex-wrap: wrap;
