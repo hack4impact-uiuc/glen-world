@@ -77,40 +77,19 @@ function CreateAssignment({ firebase }) {
     setShowWriting(true);
   }
   function verifyNameAndPush() {
-    if (
-      lessonName == null ||
-      lessonName == "" ||
-      typeof lessonName == "undefined"
-    ) {
-      console.log("Name was empty");
-      let nameDate = new Date();
-      if (date != undefined) {
-        console.log("custom date chosen");
-        nameDate = date.date;
-      } else {
-        console.log("custom date not chosen");
-      }
+    if (!lessonName) {
       var options = { month: "long" };
-      setLessonName(
+      let nameDate =
         wordGroup +
-          ": " +
-          new Intl.DateTimeFormat("en-US", options).format(nameDate) +
-          " " +
-          nameDate.getDate() +
-          " " +
-          nameDate.getFullYear()
-      );
-      console.log("lessonName");
-      console.log(lessonName);
-      pushLesson(
-        wordGroup +
-          ": " +
-          new Intl.DateTimeFormat("en-US", options).format(nameDate) +
-          " " +
-          nameDate.getDate() +
-          " " +
-          nameDate.getFullYear()
-      );
+        ": " +
+        new Intl.DateTimeFormat("en-US", options).format(date.date) +
+        " " +
+        date.date.getDate() +
+        " " +
+        date.date.getFullYear();
+
+      setLessonName(nameDate);
+      pushLesson(nameDate);
     } else {
       pushLesson(lessonName);
     }
@@ -209,9 +188,9 @@ function CreateAssignment({ firebase }) {
               </InputGroup>
             </Col>
             <Col>
-            <Button onClick={validateAssignment} className="assign">
-              Assign Lesson
-            </Button>
+              <Button onClick={validateAssignment} className="assign">
+                Assign Lesson
+              </Button>
             </Col>
           </Row>
           <div>
@@ -225,7 +204,8 @@ function CreateAssignment({ firebase }) {
         </div>
       )}
     </>
-  );}
+  );
+}
 export default compose(
   withFirebase,
   withRouter
