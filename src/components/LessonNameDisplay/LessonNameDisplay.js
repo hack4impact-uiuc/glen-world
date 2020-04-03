@@ -4,10 +4,8 @@ import "./LessonNameDisplay.scss";
 function LessonNameDisplay(props) {
   return (
     <div className="DateIcon">
-      <br></br>
-      <p className="Name" style={{ margin: 0, padding: 0 }}>
-        {props.lessonName}
-      </p>
+      <br />
+      <p className="Name">{props.lessonName}</p>
     </div>
   );
 }

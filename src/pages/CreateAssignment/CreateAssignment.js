@@ -88,6 +88,7 @@ function CreateAssignment({ firebase }) {
         " " +
         date.date.getFullYear();
 
+      //react sets state asynchronously so lessonName doesn't actually update until rerender
       setLessonName(nameDate);
       pushLesson(nameDate);
     } else {
