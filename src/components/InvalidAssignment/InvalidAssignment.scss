@@ -2,21 +2,24 @@
 
 .InvalidAssignment {
   background-color: $assignments-light-purple;
-  width: 100vw;
+  width: 80vw;
   padding-bottom: 1vw;
   position: fixed;
-  top: 0;
+  top: 2vw;
   z-index: 1;
-  margin: auto;
+  left: 50%;
+  border-radius: 20px;
+  transform: translateX(-50%);
 }
 
 .MessageArea {
-  padding-bottom: 1vw;
+  padding-top: 1vw;
+  margin: auto;
 }
 
 .Message {
-  width: 90vw;
-  height: 2vw;
+  width: 50vw;
+  height: 4vw;
   font-family: $assignments-roboto-font;
   font-size: 1.5em;
   text-align: center;
