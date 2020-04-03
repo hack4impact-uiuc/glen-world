@@ -15,7 +15,7 @@ import InvalidAssignment from "../../components/InvalidAssignment/InvalidAssignm
 
 function CreateAssignment(props) {
   const { firebase } = props;
-  const { existingAssignment } = props?.location.state;
+  const { existingAssignment } = props?.location.state || {};
   const [submitted, setSubmitted] = useState(false);
   const [showVocab, setShowVocab] = useState(false);
   const [showWriting, setShowWriting] = useState(false);
@@ -30,9 +30,11 @@ function CreateAssignment(props) {
   const [invalidMessage, setInvalidMessage] = useState([]);
 
   useEffect(() => {
-    firebase.getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT).then(deploymentAccounts => {
-      setAdminDeployments(deploymentAccounts);
-    });
+    firebase
+      .getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT)
+      .then(deploymentAccounts => {
+        setAdminDeployments(deploymentAccounts);
+      });
 
     if (existingAssignment) prePopulateAssignment(existingAssignment);
   }, [firebase]);
@@ -84,7 +86,10 @@ function CreateAssignment(props) {
     var validAssignment = true;
     // TODO: Add validation for Phonics based on pending requirements
     if (lessonType != "C" && (wordGroup == null || words.length < 4)) {
-      setInvalidMessage(invalidMessage => [...invalidMessage, "Please include at least 4 words."]);
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Please include at least 4 words."
+      ]);
       validAssignment = false;
     }
     if (deploymentAccountIds < 1) {
@@ -133,6 +138,7 @@ function CreateAssignment(props) {
   return (
     <>
       <SectionSelector
+        default={[!showPhonics, !showVocab, !showWriting]}
         handlePhonics={handlePhonics}
         handleVocab={handleVocab}
         handleWriting={handleWriting}
@@ -171,7 +177,10 @@ function CreateAssignment(props) {
           </div>
           <div>
             {invalidMessage.length > 0 && (
-              <InvalidAssignment message={invalidMessage} setMessage={setInvalidMessage} />
+              <InvalidAssignment
+                message={invalidMessage}
+                setMessage={setInvalidMessage}
+              />
             )}
           </div>
         </div>
