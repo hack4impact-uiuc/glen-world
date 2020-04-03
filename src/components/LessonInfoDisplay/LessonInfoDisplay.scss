@@ -69,7 +69,7 @@
   color: black;
 }
 
-.CloseButton2 {
+.LessonButton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,12 +82,12 @@
   transition-duration: 0.3s;
 }
 
-.CloseButton2:hover {
+.LessonButton:hover {
   background-color: #ffc700;
   color: white;
 }
 
-.buttonContainer {
+.ButtonContainer {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

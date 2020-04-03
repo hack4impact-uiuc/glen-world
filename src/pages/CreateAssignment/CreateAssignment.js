@@ -79,7 +79,7 @@ function CreateAssignment(props) {
     setShowWriting(true);
   }
 
-  const pushLesson = () => {
+  function pushLesson() {
     firebase.setCustomLesson(
       ADMIN_ACCOUNT,
       deploymentAccountIds,
@@ -90,10 +90,17 @@ function CreateAssignment(props) {
       props?.location.state.existingAssignment?.id
     );
     setSubmitted(true);
-  };
+  }
 
   if (submitted) {
-    return <Redirect push to="/" />;
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+          state: { redirect: true }
+        }}
+      />
+    );
   }
 
   return (

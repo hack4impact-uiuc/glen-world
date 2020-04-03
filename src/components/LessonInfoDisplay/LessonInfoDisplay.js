@@ -45,13 +45,13 @@ function LessonInfoDisplay(props) {
           </div>
         </div>
       </div>
-      <div className="buttonContainer">
-        <button onClick={() => handleClose()} className="CloseButton2">
+      <div className="ButtonContainer">
+        <button onClick={() => handleClose()} className="LessonButton">
           Close
         </button>
         <button
           onClick={() => setEditLessonRedirect(true)}
-          className="CloseButton2"
+          className="LessonButton"
         >
           Edit
         </button>

@@ -48,7 +48,7 @@ class Firebase {
           }
         });
       })
-      .catch(error => console.log("Error getting student account: ", error));
+      .catch(error => console.error("Error getting student account: ", error));
 
   // Gets custom lessons made by admin
   getAdminCustomLessons = adminAccountId =>
@@ -74,7 +74,7 @@ class Firebase {
           }
         });
       })
-      .catch(error => console.log("Error getting custom lessons: ", error));
+      .catch(error => console.error("Error getting custom lessons: ", error));
 
   getDeploymentAccountInformation = deploymentAccountId =>
     this.db
@@ -91,7 +91,7 @@ class Firebase {
           }
         });
       })
-      .catch(error => console.log("Error getting student account: ", error));
+      .catch(error => console.error("Error getting student account: ", error));
 
   // Get student's assigned custom lessons
   getDeploymentAccountCustomLessons = deploymentAccountId =>
@@ -110,10 +110,10 @@ class Firebase {
             return customLessons;
           })
           .catch(error =>
-            console.log("Error getting all custom lessons: ", error)
+            console.error("Error getting all custom lessons: ", error)
           );
       })
-      .catch(error => console.log("Error getting student account: ", error));
+      .catch(error => console.error("Error getting student account: ", error));
 
   // Get students of admin
   getDeploymentAccountsFromAdmin = adminAccountId =>
@@ -149,7 +149,7 @@ class Firebase {
                   }
                 })
                 .catch(error =>
-                  console.log("Error gettng all deployments: ", error)
+                  console.error("Error gettng all deployments: ", error)
                 );
 
               deployments.push(deployment);
@@ -157,10 +157,10 @@ class Firebase {
             return deployments;
           })
           .catch(error =>
-            console.log("Error getting all deployment refs: ", error)
+            console.error("Error getting all deployment refs: ", error)
           );
       })
-      .catch(error => console.log("Error getting admin account: ", error));
+      .catch(error => console.error("Error getting admin account: ", error));
 
   setCustomLesson = (
     adminAccountId,
@@ -194,7 +194,9 @@ class Firebase {
             words: words,
             dueDate: dueDate
           })
-          .catch(error => console.log("Error creating custom lesson: ", error));
+          .catch(error =>
+            console.error("Error creating custom lesson: ", error)
+          );
 
         // Push custom lessons to deployments
         let batch = this.db.batch();
@@ -228,11 +230,14 @@ class Firebase {
         return batch
           .commit()
           .catch(error =>
-            console.log("Pushing custom lessons to deployments failed: ", error)
+            console.error(
+              "Pushing custom lessons to deployments failed: ",
+              error
+            )
           );
         // needs better promise rejection
       })
-      .catch(error => console.log("Error getting custom lesson: ", error));
+      .catch(error => console.error("Error getting custom lesson: ", error));
   };
 }
 

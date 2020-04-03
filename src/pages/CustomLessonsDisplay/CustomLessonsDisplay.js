@@ -7,14 +7,15 @@ import { withRouter, Redirect, useHistory } from "react-router-dom";
 import LessonDateDisplay from "../../components/LessonDateDisplay/LessonDateDisplay";
 import LessonInfoDisplay from "../../components/LessonInfoDisplay/LessonInfoDisplay";
 
-const CustomLessonsDisplay = ({ firebase }) => {
+const CustomLessonsDisplay = props => {
+  const { firebase } = props;
   const [adminLessons, setAdminLessons] = useState([]);
   const [displayLesson, setDisplayLesson] = useState(null);
   const [displayLessonTemplate, setDisplayTemplate] = useState(null);
   const [displayLessonStudents, setDisplayStudents] = useState([]);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
   const [createLessonRedirect, setCreateLessonRedirect] = useState(false);
-  const history = useHistory();
+  const editLessonRedirect = props?.location.state?.redirect;
 
   function orderAdminLessons(reverse) {
     const sortedLessons = [...adminLessons].sort((a, b) => {
@@ -34,7 +35,7 @@ const CustomLessonsDisplay = ({ firebase }) => {
         setAdminLessons(lesson);
       });
     }, 50); // Timeout for firebase to update and display updated lessons properly
-  }, [history.length]); // Updates lessons when redirected to page from CreateAssignment
+  }, [editLessonRedirect]); // Updates lessons when redirected to page from CreateAssignment
 
   function handleChangeDisplayLessonInfo(display) {
     setDisplayLessonInfo(display);
