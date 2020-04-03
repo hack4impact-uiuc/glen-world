@@ -6,6 +6,7 @@ import { compose } from "recompose";
 import { withRouter, Redirect } from "react-router-dom";
 import LessonDateDisplay from "../../components/LessonDateDisplay/LessonDateDisplay";
 import LessonInfoDisplay from "../../components/LessonInfoDisplay/LessonInfoDisplay";
+import LessonNameDisplay from "../../components/LessonNameDisplay/LessonNameDisplay";
 
 const CustomLessonsDisplay = ({ firebase }) => {
   const [adminLessons, setAdminLessons] = useState([]);
@@ -94,7 +95,7 @@ const CustomLessonsDisplay = ({ firebase }) => {
                 )
               }
             >
-              <LessonDateDisplay number={index} date={lesson.dueDate} />
+              <LessonNameDisplay lessonName={lesson.lessonName} />
             </div>
           ))}
       </div>

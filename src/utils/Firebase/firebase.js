@@ -160,7 +160,8 @@ class Firebase {
     lessonTemplate,
     wordGroup,
     words,
-    dueDate
+    dueDate,
+    lessonName
   ) => {
     // Push specific custom lesson to admin account
     let customLessonRef = this.db.collection("custom_lesson").doc();
@@ -172,7 +173,8 @@ class Firebase {
         lessonTemplate: lessonTemplate,
         wordGroup: wordGroup,
         words: words,
-        dueDate: dueDate
+        dueDate: dueDate,
+        lessonName: lessonName
       })
       .catch(error => console.log("Error creating custom lesson: ", error));
 
