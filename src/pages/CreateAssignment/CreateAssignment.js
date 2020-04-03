@@ -11,6 +11,7 @@ import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
+import InvalidAssignment from "../../components/InvalidAssignment/InvalidAssignment";
 
 function CreateAssignment(props) {
   const { firebase } = props;
@@ -25,12 +26,13 @@ function CreateAssignment(props) {
   const [date, setDate] = useState();
   const [deploymentAccountIds, setDeploymentAccountIds] = useState([]);
   const [adminDeployments, setAdminDeployments] = useState([]);
+  // Message that displays when an assignment hasn't been created properly
+  const [invalidMessage, setInvalidMessage] = useState([]);
+
   useEffect(() => {
-    firebase
-      .getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT)
-      .then(deploymentAccounts => {
-        setAdminDeployments(deploymentAccounts);
-      });
+    firebase.getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT).then(deploymentAccounts => {
+      setAdminDeployments(deploymentAccounts);
+    });
 
     if (existingAssignment) prePopulateAssignment(existingAssignment);
   }, [firebase]);
@@ -78,6 +80,31 @@ function CreateAssignment(props) {
     setShowPhonics(false);
     setShowWriting(true);
   }
+  function validateAssignment() {
+    var validAssignment = true;
+    // TODO: Add validation for Phonics based on pending requirements
+    if (lessonType != "C" && (wordGroup == null || words.length < 4)) {
+      setInvalidMessage(invalidMessage => [...invalidMessage, "Please include at least 4 words."]);
+      validAssignment = false;
+    }
+    if (deploymentAccountIds < 1) {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Please assign to at least one student."
+      ]);
+      validAssignment = false;
+    }
+    if (date == null) {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Please select a date on the calendar."
+      ]);
+      validAssignment = false;
+    }
+    if (validAssignment) {
+      pushLesson();
+    }
+  }
 
   function pushLesson() {
     firebase.setCustomLesson(
@@ -112,38 +139,41 @@ function CreateAssignment(props) {
       />
       {(showWriting || showVocab || showPhonics) && (
         <div>
-          <h1>Create Assignment</h1>
-          {(showWriting || showVocab) && (
-            <WordGroupSelector
-              handleChange={handleWordSelectorChange}
-              wordGroupChange={handleWordGroupChange}
-            />
-          )}
-          <br />
-          <div className="spacing"></div>
-          <div className="place_middle">
-            <Container>
-              <Row>
-                <Col>
-                  <StudentList
-                    deployments={adminDeployments}
-                    handleChange={handleStudentListChange}
-                    assignedStudents={existingAssignment?.deploymentAccountIds}
-                  />
-                </Col>
-                <Col xs={1}></Col>
-                <Col>
-                  <DatePicker
-                    handleChange={handleDatePickerChange}
-                    assignedDate={existingAssignment?.dueDate}
-                  />
-                </Col>
-              </Row>
-            </Container>
+          <div className="assignment_creation">
+            <h1>Create Assignment</h1>
+            {(showWriting || showVocab) && (
+              <WordGroupSelector
+                handleChange={handleWordSelectorChange}
+                wordGroupChange={handleWordGroupChange}
+              />
+            )}
+            <br />
+            <div className="spacing"></div>
+            <div className="place_middle">
+              <Container>
+                <Row>
+                  <Col>
+                    <StudentList
+                      deployments={adminDeployments}
+                      handleChange={handleStudentListChange}
+                    />
+                  </Col>
+                  <Col xs={1}></Col>
+                  <Col>
+                    <DatePicker handleChange={handleDatePickerChange} />
+                  </Col>
+                </Row>
+              </Container>
+            </div>
+            <Button onClick={validateAssignment} className="assign">
+              Assign Lesson
+            </Button>
           </div>
-          <Button onClick={() => pushLesson()} className="assign">
-            Assign Lesson
-          </Button>
+          <div>
+            {invalidMessage.length > 0 && (
+              <InvalidAssignment message={invalidMessage} setMessage={setInvalidMessage} />
+            )}
+          </div>
         </div>
       )}
     </>
