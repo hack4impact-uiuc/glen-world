@@ -73,7 +73,10 @@ const CustomLessonsDisplay = props => {
 
       <div>
         <center>
-          <button className="Button" onClick={() => setCreateLessonRedirect(true)}>
+          <button
+            className="Button"
+            onClick={() => setCreateLessonRedirect(true)}
+          >
             Create Lesson
           </button>
           <button className="Button" onClick={() => orderAdminLessons(true)}>

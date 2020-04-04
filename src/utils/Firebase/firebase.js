@@ -37,7 +37,9 @@ class Firebase {
       .doc(`deployment_account/${deploymentAccountId}/`)
       .get()
       .then(deploymentAccountDoc => {
-        const lastMasteredLesson = deploymentAccountDoc.get("profile.glenLearn.lastMasteredLesson");
+        const lastMasteredLesson = deploymentAccountDoc.get(
+          "profile.glenLearn.lastMasteredLesson"
+        );
         return new Promise((resolve, reject) => {
           if (deploymentAccountDoc) {
             resolve(lastMasteredLesson);
@@ -107,7 +109,9 @@ class Firebase {
             const customLessons = customLessonDocs.map(doc => doc.data());
             return customLessons;
           })
-          .catch(error => console.error("Error getting all custom lessons: ", error));
+          .catch(error =>
+            console.error("Error getting all custom lessons: ", error)
+          );
       })
       .catch(error => console.error("Error getting student account: ", error));
 
@@ -119,7 +123,9 @@ class Firebase {
       .then(adminDoc => {
         const deploymentIds = Object.keys(adminDoc.get("deployments"));
         const deploymentRefs = deploymentIds.map(id =>
-          this.db.collection(`deployment_account`).where("deploymentId", "==", id)
+          this.db
+            .collection(`deployment_account`)
+            .where("deploymentId", "==", id)
         );
 
         return Promise.all(deploymentRefs)
@@ -137,16 +143,22 @@ class Firebase {
                 .then(querySnapshot => {
                   let deploymentDocs = querySnapshot.docs;
                   for (let deploymentDoc of deploymentDocs) {
-                    deployment.deploymentAccounts[deploymentDoc.id] = deploymentDoc.data();
+                    deployment.deploymentAccounts[
+                      deploymentDoc.id
+                    ] = deploymentDoc.data();
                   }
                 })
-                .catch(error => console.error("Error gettng all deployments: ", error));
+                .catch(error =>
+                  console.error("Error gettng all deployments: ", error)
+                );
 
               deployments.push(deployment);
             }
             return deployments;
           })
-          .catch(error => console.error("Error getting all deployment refs: ", error));
+          .catch(error =>
+            console.error("Error getting all deployment refs: ", error)
+          );
       })
       .catch(error => console.error("Error getting admin account: ", error));
 
@@ -169,7 +181,9 @@ class Firebase {
     customLessonRef
       .get()
       .then(customLessonDoc => {
-        let currentAssignedDeploymentIds = customLessonDoc.get("deploymentAccountIds");
+        let currentAssignedDeploymentIds = customLessonDoc.get(
+          "deploymentAccountIds"
+        );
 
         // Create or update lesson
         customLessonRef
@@ -182,7 +196,9 @@ class Firebase {
             dueDate: dueDate,
             lessonName: lessonName
           })
-          .catch(error => console.error("Error creating custom lesson: ", error));
+          .catch(error =>
+            console.error("Error creating custom lesson: ", error)
+          );
 
         // Push custom lessons to deployments
         let batch = this.db.batch();
@@ -190,24 +206,37 @@ class Firebase {
 
         // Add/update deploymentAccount docs
         for (deploymentAccountId of deploymentAccountIds) {
-          let deploymentRef = this.db.doc(`deployment_account/${deploymentAccountId}/`);
+          let deploymentRef = this.db.doc(
+            `deployment_account/${deploymentAccountId}/`
+          );
           batch.update(deploymentRef, {
-            customLessons: app.firestore.FieldValue.arrayUnion(customLessonRef.id)
+            customLessons: app.firestore.FieldValue.arrayUnion(
+              customLessonRef.id
+            )
           });
         }
 
         for (let deploymentAccountId of currentAssignedDeploymentIds) {
           if (!deploymentAccountIds.includes(deploymentAccountId)) {
-            let deploymentRef = this.db.doc(`deployment_account/${deploymentAccountId}/`);
+            let deploymentRef = this.db.doc(
+              `deployment_account/${deploymentAccountId}/`
+            );
             batch.update(deploymentRef, {
-              customLessons: app.firestore.FieldValue.arrayRemove(customLessonRef.id)
+              customLessons: app.firestore.FieldValue.arrayRemove(
+                customLessonRef.id
+              )
             });
           }
         }
 
         return batch
           .commit()
-          .catch(error => console.error("Pushing custom lessons to deployments failed: ", error));
+          .catch(error =>
+            console.error(
+              "Pushing custom lessons to deployments failed: ",
+              error
+            )
+          );
         // needs better promise rejection
       })
       .catch(error => console.error("Error getting custom lesson: ", error));
