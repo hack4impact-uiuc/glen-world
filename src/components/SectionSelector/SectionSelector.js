@@ -39,7 +39,7 @@ function SectionSelector(props) {
                 }}
               >
                 <Row>
-                  <img src="images/icon.svg" alt="phonics" />
+                  <img src="images/lesson-group/phonics.svg" alt="phonics" />
                 </Row>
                 <Row>PHONICS</Row>
               </Button>
@@ -55,9 +55,9 @@ function SectionSelector(props) {
                 }}
               >
                 <Row>
-                  <img src="images/icon.svg" alt="vocab" />
+                  <img src="images/lesson-group/words.svg" alt="words" />
                 </Row>
-                <Row>VOCAB</Row>
+                <Row>WORDS</Row>
               </Button>
             </Col>
             <Col>
@@ -71,7 +71,7 @@ function SectionSelector(props) {
                 }}
               >
                 <Row>
-                  <img src="images/icon.svg" alt="phonics" />
+                  <img src="images/lesson-group/writing.svg" alt="writing" />
                 </Row>
                 <Row>WRITING</Row>
               </Button>

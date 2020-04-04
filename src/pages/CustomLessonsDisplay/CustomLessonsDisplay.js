@@ -6,6 +6,7 @@ import { compose } from "recompose";
 import { withRouter, Redirect, useHistory } from "react-router-dom";
 import LessonDateDisplay from "../../components/LessonDateDisplay/LessonDateDisplay";
 import LessonInfoDisplay from "../../components/LessonInfoDisplay/LessonInfoDisplay";
+import LessonNameDisplay from "../../components/LessonNameDisplay/LessonNameDisplay";
 
 const CustomLessonsDisplay = props => {
   const { firebase } = props;
@@ -72,10 +73,7 @@ const CustomLessonsDisplay = props => {
 
       <div>
         <center>
-          <button
-            className="Button"
-            onClick={() => setCreateLessonRedirect(true)}
-          >
+          <button className="Button" onClick={() => setCreateLessonRedirect(true)}>
             Create Lesson
           </button>
           <button className="Button" onClick={() => orderAdminLessons(true)}>
@@ -88,9 +86,9 @@ const CustomLessonsDisplay = props => {
       </div>
       <div className="DateDisplay">
         {adminLessons &&
-          adminLessons.map((lesson, index) => (
+          adminLessons.map(lesson => (
             <div onClick={() => handleClick(lesson)}>
-              <LessonDateDisplay number={index} date={lesson.dueDate} />
+              <LessonNameDisplay lessonName={lesson.lessonName} />
             </div>
           ))}
       </div>

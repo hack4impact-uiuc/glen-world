@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CreateAssignment.scss";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Form, InputGroup, FormControl } from "react-bootstrap";
 import { compose } from "recompose";
-import { Button } from "reactstrap";
+import { Button, Input } from "reactstrap";
 import { ADMIN_ACCOUNT } from "utils/constants.js";
 import { withFirebase } from "utils/Firebase";
 import StudentList from "components/StudentList/StudentList";
@@ -16,6 +16,7 @@ import InvalidAssignment from "../../components/InvalidAssignment/InvalidAssignm
 function CreateAssignment(props) {
   const { firebase } = props;
   const { existingAssignment } = props?.location.state || {};
+  const [lessonName, setLessonName] = useState();
   const [submitted, setSubmitted] = useState(false);
   const [showVocab, setShowVocab] = useState(false);
   const [showWriting, setShowWriting] = useState(false);
@@ -30,11 +31,9 @@ function CreateAssignment(props) {
   const [invalidMessage, setInvalidMessage] = useState([]);
 
   useEffect(() => {
-    firebase
-      .getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT)
-      .then(deploymentAccounts => {
-        setAdminDeployments(deploymentAccounts);
-      });
+    firebase.getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT).then(deploymentAccounts => {
+      setAdminDeployments(deploymentAccounts);
+    });
 
     if (existingAssignment) prePopulateAssignment(existingAssignment);
   }, [firebase]);
@@ -64,6 +63,10 @@ function CreateAssignment(props) {
     else if (value === "C") handlePhonics();
     else if (value === "A3") handleWriting();
   }
+
+  function handleLessonNameChange(value) {
+    setLessonName(value);
+  }
   function handleVocab() {
     setLessonType("A");
     setShowVocab(true);
@@ -82,14 +85,30 @@ function CreateAssignment(props) {
     setShowPhonics(false);
     setShowWriting(true);
   }
+  function verifyNameAndPush() {
+    if (!lessonName) {
+      var options = { month: "long" };
+      let nameDate =
+        wordGroup +
+        ": " +
+        new Intl.DateTimeFormat("en-US", options).format(date.date) +
+        " " +
+        date.date.getDate() +
+        " " +
+        date.date.getFullYear();
+
+      //react sets state asynchronously so lessonName doesn't actually update until rerender
+      setLessonName(nameDate);
+      pushLesson(nameDate);
+    } else {
+      pushLesson(lessonName);
+    }
+  }
   function validateAssignment() {
     var validAssignment = true;
     // TODO: Add validation for Phonics based on pending requirements
     if (lessonType != "C" && (wordGroup == null || words.length < 4)) {
-      setInvalidMessage(invalidMessage => [
-        ...invalidMessage,
-        "Please include at least 4 words."
-      ]);
+      setInvalidMessage(invalidMessage => [...invalidMessage, "Please include at least 4 words."]);
       validAssignment = false;
     }
     if (deploymentAccountIds < 1) {
@@ -107,11 +126,11 @@ function CreateAssignment(props) {
       validAssignment = false;
     }
     if (validAssignment) {
-      pushLesson();
+      verifyNameAndPush();
     }
   }
 
-  function pushLesson() {
+  const pushLesson = nameValue => {
     firebase.setCustomLesson(
       ADMIN_ACCOUNT,
       deploymentAccountIds,
@@ -119,10 +138,11 @@ function CreateAssignment(props) {
       wordGroup,
       words,
       date,
+      nameValue,
       props?.location.state.existingAssignment?.id
     );
     setSubmitted(true);
-  }
+  };
 
   if (submitted) {
     return (
@@ -145,42 +165,53 @@ function CreateAssignment(props) {
       />
       {(showWriting || showVocab || showPhonics) && (
         <div>
-          <div className="assignment_creation">
-            <h1>Create Assignment</h1>
-            {(showWriting || showVocab) && (
-              <WordGroupSelector
-                handleChange={handleWordSelectorChange}
-                wordGroupChange={handleWordGroupChange}
-              />
-            )}
-            <br />
-            <div className="spacing"></div>
-            <div className="place_middle">
-              <Container>
-                <Row>
-                  <Col>
-                    <StudentList
-                      deployments={adminDeployments}
-                      handleChange={handleStudentListChange}
-                    />
-                  </Col>
-                  <Col xs={1}></Col>
-                  <Col>
-                    <DatePicker handleChange={handleDatePickerChange} />
-                  </Col>
-                </Row>
-              </Container>
-            </div>
-            <Button onClick={validateAssignment} className="assign">
-              Assign Lesson
-            </Button>
+          <h1>Create Assignment</h1>
+          <br />
+          {(showWriting || showVocab) && (
+            <WordGroupSelector
+              handleChange={handleWordSelectorChange}
+              wordGroupChange={handleWordGroupChange}
+            />
+          )}
+          <div className="spacing"></div>
+          <div className="place_middle">
+            <Container>
+              <Row>
+                <Col>
+                  <StudentList
+                    deployments={adminDeployments}
+                    handleChange={handleStudentListChange}
+                  />
+                </Col>
+                <Col xs={1}></Col>
+                <Col>
+                  <DatePicker handleChange={handleDatePickerChange} />
+                </Col>
+              </Row>
+            </Container>
           </div>
+          <Row>
+            <Col>
+              <InputGroup>
+                <InputGroup.Prepend>
+                  <InputGroup.Text className="input-header">Lesson Name</InputGroup.Text>
+                </InputGroup.Prepend>
+                <FormControl
+                  className="input"
+                  placeholder="Ex. Vocab"
+                  onChange={e => handleLessonNameChange(e.target.value)}
+                />
+              </InputGroup>
+            </Col>
+            <Col>
+              <Button onClick={validateAssignment} className="assign">
+                Assign Lesson
+              </Button>
+            </Col>
+          </Row>
           <div>
             {invalidMessage.length > 0 && (
-              <InvalidAssignment
-                message={invalidMessage}
-                setMessage={setInvalidMessage}
-              />
+              <InvalidAssignment message={invalidMessage} setMessage={setInvalidMessage} />
             )}
           </div>
         </div>
@@ -188,7 +219,6 @@ function CreateAssignment(props) {
     </>
   );
 }
-
 export default compose(
   withFirebase,
   withRouter
