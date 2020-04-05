@@ -48,8 +48,7 @@ function CreateAssignment(props) {
   }, [firebase]);
 
   function prePopulateAssignment(existingAssignment) {
-    console.log(existingAssignment.dueDate);
-    handleDatePickerChange(new Date(existingAssignment.dueDate));
+    handleDatePickerChange(existingAssignment.dueDate.toDate());
     handleStudentListChange(existingAssignment.deploymentAccountIds);
     handleWordSelectorChange(existingAssignment.words);
     handleWordGroupChange(existingAssignment.wordGroup);
@@ -193,8 +192,8 @@ function CreateAssignment(props) {
             <WordGroupSelector
               handleChange={handleWordSelectorChange}
               wordGroupChange={handleWordGroupChange}
-              assignedWords={existingAssignment?.words}
-              assignedWordGroup={existingAssignment?.wordGroup}
+              assignedWords={words || existingAssignment?.words}
+              assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
             />
           )}
           <div className="spacing"></div>

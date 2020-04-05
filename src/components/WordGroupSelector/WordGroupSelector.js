@@ -7,6 +7,10 @@ import WordSelector from "../WordSelector/WordSelector";
 function WordGroupSelector(props) {
   const wordKeys = useRef(null);
   const [wordGroups, setWordGroups] = useState({});
+  const [clickedName, setClickedName] = useState("");
+  const [clickedGroup, setClickedGroup] = useState([]);
+  // selectMode dictates whether WordSelector component appears and a group's words can be selected
+  const [selectMode, setSelectMode] = useState(false);
 
   useEffect(() => {
     if (Object.keys(wordGroups).length == 0) {
@@ -37,11 +41,6 @@ function WordGroupSelector(props) {
     }
   }, [wordGroups]);
 
-  const [clickedName, setClickedName] = useState("");
-  const [clickedGroup, setClickedGroup] = useState([]);
-  // selectMode dictates whether WordSelector component appears and a group's words can be selected
-  const [selectMode, setSelectMode] = useState(false);
-
   function handleClick(group, groupName) {
     setClickedGroup(group);
     setClickedName(groupName);
@@ -69,6 +68,7 @@ function WordGroupSelector(props) {
             setSelectMode={handleChangeSelectMode}
             selectWords={props.handleChange}
             selectGroup={props.wordGroupChange}
+            assignedWordGroup={props.assignedWordGroup}
             assignedWords={props.assignedWords}
           />
         )}

@@ -6,11 +6,13 @@ function WordSelector(props) {
   const [wordCount, updateWordCount] = useState(0);
   const [minWords] = useState(4);
   const [checkedWords, updateWords] = useState([]);
+  const [wordGroup, updateWordGroup] = useState();
 
   useEffect(() => {
     if (props.assignedWords) {
       updateWords(props.assignedWords);
       updateWordCount(props.assignedWords.length);
+      updateWordGroup(props.assignedWordGroup);
     }
   }, []);
 
@@ -18,24 +20,21 @@ function WordSelector(props) {
     return wordCount < minWords;
   }
 
-  function removePastWords() {
-    // Sanitize checkedWords of any old words from another group
-    if (props.assignedWords) {
-      let filteredWords = checkedWords.filter(
-        word => !props.assignedWords.includes(word)
-      );
-      updateWords(filteredWords);
-    }
-  }
-
   function handleCheck(word) {
-    if (checkedWords.includes(word)) {
-      const index = checkedWords.indexOf(word);
-      checkedWords.splice(index, 1);
-      updateWordCount(wordCount - 1);
+    // reset words if word group changed
+    if (props.name !== wordGroup) {
+      updateWords([word]);
+      updateWordCount(1);
+      updateWordGroup(props.name);
     } else {
-      updateWords([...checkedWords, word]);
-      updateWordCount(wordCount + 1);
+      if (checkedWords.includes(word)) {
+        const index = checkedWords.indexOf(word);
+        checkedWords.splice(index, 1);
+        updateWordCount(wordCount - 1);
+      } else {
+        updateWords([...checkedWords, word]);
+        updateWordCount(wordCount + 1);
+      }
     }
   }
 
@@ -44,8 +43,6 @@ function WordSelector(props) {
   }
 
   function handleSelect() {
-    removePastWords();
-    console.log(checkedWords);
     props.selectWords(checkedWords);
     props.setSelectMode(false);
     props.selectGroup(props.name);
