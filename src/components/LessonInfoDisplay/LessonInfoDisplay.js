@@ -15,7 +15,7 @@ function LessonInfoDisplay(props) {
       <Redirect
         to={{
           pathname: "/createlesson",
-          state: { existingAssignment: props.lesson },
+          state: { existingAssignment: props.lesson }
         }}
       />
     );
@@ -49,7 +49,10 @@ function LessonInfoDisplay(props) {
         <button onClick={() => handleClose()} className="LessonButton">
           Close
         </button>
-        <button onClick={() => setEditLessonRedirect(true)} className="LessonButton">
+        <button
+          onClick={() => setEditLessonRedirect(true)}
+          className="LessonButton"
+        >
           Edit
         </button>
       </div>

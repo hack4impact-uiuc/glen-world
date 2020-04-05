@@ -27,7 +27,7 @@ function WordGroupSelector(props) {
           Emotion: collectedWordGroups[wordKeys.current[11]],
           Media: collectedWordGroups[wordKeys.current[12]],
           "More Animals": collectedWordGroups[wordKeys.current[13]],
-          "Even More Animals!": collectedWordGroups[wordKeys.current[14]],
+          "Even More Animals!": collectedWordGroups[wordKeys.current[14]]
         });
       });
     } else if (props.assignedWordGroup) {

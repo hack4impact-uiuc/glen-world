@@ -21,7 +21,9 @@ function WordSelector(props) {
   function removePastWords() {
     // Sanitize checkedWords of any old words from another group
     if (props.assignedWords) {
-      let filteredWords = checkedWords.filter((word) => !props.assignedWords.includes(word));
+      let filteredWords = checkedWords.filter(
+        word => !props.assignedWords.includes(word)
+      );
       updateWords(filteredWords);
     }
   }
@@ -75,7 +77,11 @@ function WordSelector(props) {
         <Button onClick={() => handleClose()} className="CloseSelection">
           Close
         </Button>
-        <Button disabled={disableNext()} onClick={() => handleSelect()} className="NextButton">
+        <Button
+          disabled={disableNext()}
+          onClick={() => handleSelect()}
+          className="NextButton"
+        >
           Select
         </Button>
       </div>

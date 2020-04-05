@@ -8,7 +8,7 @@ import LessonDateDisplay from "../../components/LessonDateDisplay/LessonDateDisp
 import LessonInfoDisplay from "../../components/LessonInfoDisplay/LessonInfoDisplay";
 import LessonNameDisplay from "../../components/LessonNameDisplay/LessonNameDisplay";
 
-const CustomLessonsDisplay = (props) => {
+const CustomLessonsDisplay = props => {
   const { firebase } = props;
   const [adminLessons, setAdminLessons] = useState([]);
   const [displayLesson, setDisplayLesson] = useState(null);
@@ -32,7 +32,7 @@ const CustomLessonsDisplay = (props) => {
   useEffect(() => {
     setTimeout(() => {
       // Get custom lessons made by admin
-      firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then((lesson) => {
+      firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
         setAdminLessons(lesson);
       });
     }, 50); // Timeout for firebase to update and display updated lessons properly
@@ -52,11 +52,11 @@ const CustomLessonsDisplay = (props) => {
     }
 
     Promise.all(
-      lesson.deploymentAccountIds.map((id) => {
+      lesson.deploymentAccountIds.map(id => {
         return firebase.getDeploymentAccountInformation(id);
       })
-    ).then((value) => {
-      let usernames = value.map((studentInfo) => {
+    ).then(value => {
+      let usernames = value.map(studentInfo => {
         return studentInfo["username"];
       });
       setDisplayStudents(usernames);
@@ -73,7 +73,10 @@ const CustomLessonsDisplay = (props) => {
 
       <div>
         <center>
-          <button className="Button" onClick={() => setCreateLessonRedirect(true)}>
+          <button
+            className="Button"
+            onClick={() => setCreateLessonRedirect(true)}
+          >
             Create Lesson
           </button>
           <button className="Button" onClick={() => orderAdminLessons(true)}>
@@ -86,7 +89,7 @@ const CustomLessonsDisplay = (props) => {
       </div>
       <div className="DateDisplay">
         {adminLessons &&
-          adminLessons.map((lesson) => (
+          adminLessons.map(lesson => (
             <div key={lesson.id} onClick={() => handleClick(lesson)}>
               <LessonNameDisplay lessonName={lesson.lessonName} />
             </div>

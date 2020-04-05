@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CreateAssignment.scss";
-import { Container, Row, Col, Form, InputGroup, FormControl } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  InputGroup,
+  FormControl
+} from "react-bootstrap";
 import { compose } from "recompose";
 import { Button, Input } from "reactstrap";
 import { ADMIN_ACCOUNT } from "utils/constants.js";
@@ -31,9 +38,11 @@ function CreateAssignment(props) {
   const [invalidMessage, setInvalidMessage] = useState([]);
 
   useEffect(() => {
-    firebase.getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT).then((deploymentAccounts) => {
-      setAdminDeployments(deploymentAccounts);
-    });
+    firebase
+      .getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT)
+      .then(deploymentAccounts => {
+        setAdminDeployments(deploymentAccounts);
+      });
 
     if (existingAssignment) prePopulateAssignment(existingAssignment);
   }, [firebase]);
@@ -118,23 +127,23 @@ function CreateAssignment(props) {
     var validAssignment = true;
     // TODO: Add validation for Phonics based on pending requirements
     if (lessonType != "C" && (wordGroup == null || words.length < 4)) {
-      setInvalidMessage((invalidMessage) => [
+      setInvalidMessage(invalidMessage => [
         ...invalidMessage,
-        "Please include at least 4 words.",
+        "Please include at least 4 words."
       ]);
       validAssignment = false;
     }
     if (deploymentAccountIds < 1) {
-      setInvalidMessage((invalidMessage) => [
+      setInvalidMessage(invalidMessage => [
         ...invalidMessage,
-        "Please assign to at least one student.",
+        "Please assign to at least one student."
       ]);
       validAssignment = false;
     }
     if (date == null) {
-      setInvalidMessage((invalidMessage) => [
+      setInvalidMessage(invalidMessage => [
         ...invalidMessage,
-        "Please select a date on the calendar.",
+        "Please select a date on the calendar."
       ]);
       validAssignment = false;
     }
@@ -143,7 +152,7 @@ function CreateAssignment(props) {
     }
   }
 
-  const pushLesson = (lessonNameValue) => {
+  const pushLesson = lessonNameValue => {
     firebase.setCustomLesson(
       ADMIN_ACCOUNT,
       deploymentAccountIds,
@@ -162,7 +171,7 @@ function CreateAssignment(props) {
       <Redirect
         to={{
           pathname: "/",
-          state: { redirect: true },
+          state: { redirect: true }
         }}
       />
     );
@@ -213,13 +222,15 @@ function CreateAssignment(props) {
             <Col>
               <InputGroup>
                 <InputGroup.Prepend>
-                  <InputGroup.Text className="input-header">Lesson Name</InputGroup.Text>
+                  <InputGroup.Text className="input-header">
+                    Lesson Name
+                  </InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl
                   className="input"
                   placeholder={"Ex. Vocab"}
                   defaultValue={lessonName || ""}
-                  onChange={(e) => handleLessonNameChange(e.target.value)}
+                  onChange={e => handleLessonNameChange(e.target.value)}
                 />
               </InputGroup>
             </Col>
@@ -231,7 +242,10 @@ function CreateAssignment(props) {
           </Row>
           <div>
             {invalidMessage.length > 0 && (
-              <InvalidAssignment message={invalidMessage} setMessage={setInvalidMessage} />
+              <InvalidAssignment
+                message={invalidMessage}
+                setMessage={setInvalidMessage}
+              />
             )}
           </div>
         </div>
