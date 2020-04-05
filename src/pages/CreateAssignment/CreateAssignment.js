@@ -2,14 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CreateAssignment.scss";
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  InputGroup,
-  FormControl
-} from "react-bootstrap";
+import { Container, Row, Col, Form, InputGroup, FormControl } from "react-bootstrap";
 import { compose } from "recompose";
 import { Button, Input } from "reactstrap";
 import { ADMIN_ACCOUNT } from "utils/constants.js";
@@ -38,20 +31,20 @@ function CreateAssignment(props) {
   const [invalidMessage, setInvalidMessage] = useState([]);
 
   useEffect(() => {
-    firebase
-      .getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT)
-      .then(deploymentAccounts => {
-        setAdminDeployments(deploymentAccounts);
-      });
+    firebase.getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT).then((deploymentAccounts) => {
+      setAdminDeployments(deploymentAccounts);
+    });
 
     if (existingAssignment) prePopulateAssignment(existingAssignment);
   }, [firebase]);
 
   function prePopulateAssignment(existingAssignment) {
-    handleDatePickerChange(existingAssignment.dueDate);
+    console.log(existingAssignment.dueDate);
+    handleDatePickerChange(new Date(existingAssignment.dueDate));
     handleStudentListChange(existingAssignment.deploymentAccountIds);
     handleWordSelectorChange(existingAssignment.words);
     handleWordGroupChange(existingAssignment.wordGroup);
+    handleLessonNameChange(existingAssignment.lessonName);
     handleSectionSelection(existingAssignment.lessonTemplate);
   }
 
@@ -95,45 +88,53 @@ function CreateAssignment(props) {
     setShowWriting(true);
   }
   function verifyNameAndPush() {
-    if (!lessonName) {
-      var options = { month: "long" };
-      let nameDate =
-        wordGroup +
-        ": " +
-        new Intl.DateTimeFormat("en-US", options).format(date.date) +
-        " " +
-        date.date.getDate() +
-        " " +
-        date.date.getFullYear();
+    var options = { month: "long" };
+    let month = new Intl.DateTimeFormat("en-US", options).format(date);
+    let day = date.getDate();
+    let year = date.getFullYear();
+    let defaultName = `${wordGroup}: ${month} ${day} ${year}`;
 
-      //react sets state asynchronously so lessonName doesn't actually update until rerender
-      setLessonName(nameDate);
-      pushLesson(nameDate);
+    // regex expression to check if lessonName is defaultName format by checking if last four chars are numbers (year format)
+    // TODO: better check defaultName
+    const defaultNameRegExp = /.([0-9]{4})$/;
+
+    if (!lessonName) {
+      // set default name if no lesson name
+      setLessonName(defaultName);
+
+      // react sets state asynchronously so lessonName doesn't actually update until rerender
+      pushLesson(defaultName);
     } else {
-      pushLesson(lessonName);
+      if (defaultNameRegExp.test(lessonName)) {
+        // set default name if old lesson name was a default name (date may have updated)
+        setLessonName(defaultName);
+        pushLesson(defaultName);
+      } else {
+        pushLesson(lessonName);
+      }
     }
   }
   function validateAssignment() {
     var validAssignment = true;
     // TODO: Add validation for Phonics based on pending requirements
     if (lessonType != "C" && (wordGroup == null || words.length < 4)) {
-      setInvalidMessage(invalidMessage => [
+      setInvalidMessage((invalidMessage) => [
         ...invalidMessage,
-        "Please include at least 4 words."
+        "Please include at least 4 words.",
       ]);
       validAssignment = false;
     }
     if (deploymentAccountIds < 1) {
-      setInvalidMessage(invalidMessage => [
+      setInvalidMessage((invalidMessage) => [
         ...invalidMessage,
-        "Please assign to at least one student."
+        "Please assign to at least one student.",
       ]);
       validAssignment = false;
     }
     if (date == null) {
-      setInvalidMessage(invalidMessage => [
+      setInvalidMessage((invalidMessage) => [
         ...invalidMessage,
-        "Please select a date on the calendar."
+        "Please select a date on the calendar.",
       ]);
       validAssignment = false;
     }
@@ -142,7 +143,7 @@ function CreateAssignment(props) {
     }
   }
 
-  const pushLesson = nameValue => {
+  const pushLesson = (lessonNameValue) => {
     firebase.setCustomLesson(
       ADMIN_ACCOUNT,
       deploymentAccountIds,
@@ -150,8 +151,8 @@ function CreateAssignment(props) {
       wordGroup,
       words,
       date,
-      nameValue,
-      props?.location.state.existingAssignment?.id
+      lessonNameValue,
+      existingAssignment?.id
     );
     setSubmitted(true);
   };
@@ -161,7 +162,7 @@ function CreateAssignment(props) {
       <Redirect
         to={{
           pathname: "/",
-          state: { redirect: true }
+          state: { redirect: true },
         }}
       />
     );
@@ -183,6 +184,8 @@ function CreateAssignment(props) {
             <WordGroupSelector
               handleChange={handleWordSelectorChange}
               wordGroupChange={handleWordGroupChange}
+              assignedWords={existingAssignment?.words}
+              assignedWordGroup={existingAssignment?.wordGroup}
             />
           )}
           <div className="spacing"></div>
@@ -193,11 +196,15 @@ function CreateAssignment(props) {
                   <StudentList
                     deployments={adminDeployments}
                     handleChange={handleStudentListChange}
+                    assignedStudents={existingAssignment?.deploymentAccountIds}
                   />
                 </Col>
                 <Col xs={1}></Col>
                 <Col>
-                  <DatePicker handleChange={handleDatePickerChange} />
+                  <DatePicker
+                    handleChange={handleDatePickerChange}
+                    assignedDate={existingAssignment?.dueDate}
+                  />
                 </Col>
               </Row>
             </Container>
@@ -206,14 +213,13 @@ function CreateAssignment(props) {
             <Col>
               <InputGroup>
                 <InputGroup.Prepend>
-                  <InputGroup.Text className="input-header">
-                    Lesson Name
-                  </InputGroup.Text>
+                  <InputGroup.Text className="input-header">Lesson Name</InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl
                   className="input"
-                  placeholder="Ex. Vocab"
-                  onChange={e => handleLessonNameChange(e.target.value)}
+                  placeholder={"Ex. Vocab"}
+                  defaultValue={lessonName || ""}
+                  onChange={(e) => handleLessonNameChange(e.target.value)}
                 />
               </InputGroup>
             </Col>
@@ -225,10 +231,7 @@ function CreateAssignment(props) {
           </Row>
           <div>
             {invalidMessage.length > 0 && (
-              <InvalidAssignment
-                message={invalidMessage}
-                setMessage={setInvalidMessage}
-              />
+              <InvalidAssignment message={invalidMessage} setMessage={setInvalidMessage} />
             )}
           </div>
         </div>

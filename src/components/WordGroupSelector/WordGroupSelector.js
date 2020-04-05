@@ -9,27 +9,33 @@ function WordGroupSelector(props) {
   const [wordGroups, setWordGroups] = useState({});
 
   useEffect(() => {
-    collectedWordGroupsService.all().then(function(collectedWordGroups) {
-      wordKeys.current = Object.keys(collectedWordGroups);
-      setWordGroups({
-        People: collectedWordGroups[wordKeys.current[0]],
-        Action: collectedWordGroups[wordKeys.current[1]],
-        Toys: collectedWordGroups[wordKeys.current[2]],
-        Colors: collectedWordGroups[wordKeys.current[3]],
-        Animals: collectedWordGroups[wordKeys.current[4]],
-        Transport: collectedWordGroups[wordKeys.current[5]],
-        "Body Parts": collectedWordGroups[wordKeys.current[6]],
-        Clothing: collectedWordGroups[wordKeys.current[7]],
-        Food: collectedWordGroups[wordKeys.current[8]],
-        "More Food": collectedWordGroups[wordKeys.current[9]],
-        Furniture: collectedWordGroups[wordKeys.current[10]],
-        Emotion: collectedWordGroups[wordKeys.current[11]],
-        Media: collectedWordGroups[wordKeys.current[12]],
-        "More Animals": collectedWordGroups[wordKeys.current[13]],
-        "Even More Animals!": collectedWordGroups[wordKeys.current[14]]
+    if (Object.keys(wordGroups).length == 0) {
+      collectedWordGroupsService.all().then(function(collectedWordGroups) {
+        wordKeys.current = Object.keys(collectedWordGroups);
+        setWordGroups({
+          People: collectedWordGroups[wordKeys.current[0]],
+          Action: collectedWordGroups[wordKeys.current[1]],
+          Toys: collectedWordGroups[wordKeys.current[2]],
+          Colors: collectedWordGroups[wordKeys.current[3]],
+          Animals: collectedWordGroups[wordKeys.current[4]],
+          Transport: collectedWordGroups[wordKeys.current[5]],
+          "Body Parts": collectedWordGroups[wordKeys.current[6]],
+          Clothing: collectedWordGroups[wordKeys.current[7]],
+          Food: collectedWordGroups[wordKeys.current[8]],
+          "More Food": collectedWordGroups[wordKeys.current[9]],
+          Furniture: collectedWordGroups[wordKeys.current[10]],
+          Emotion: collectedWordGroups[wordKeys.current[11]],
+          Media: collectedWordGroups[wordKeys.current[12]],
+          "More Animals": collectedWordGroups[wordKeys.current[13]],
+          "Even More Animals!": collectedWordGroups[wordKeys.current[14]],
+        });
       });
-    });
-  }, []);
+    } else if (props.assignedWordGroup) {
+      setClickedName(props.assignedWordGroup);
+      setClickedGroup(wordGroups[props.assignedWordGroup]);
+      setSelectMode(!selectMode);
+    }
+  }, [wordGroups]);
 
   const [clickedName, setClickedName] = useState("");
   const [clickedGroup, setClickedGroup] = useState([]);
@@ -50,7 +56,7 @@ function WordGroupSelector(props) {
     <div className="Background">
       <div className="WordGroups">
         {Object.keys(wordGroups).map((key, index) => (
-          <div onClick={() => handleClick(wordGroups[key], key)}>
+          <div key={index} onClick={() => handleClick(wordGroups[key], key)}>
             <WordGroupIcon number={index} name={key} />
           </div>
         ))}
@@ -63,6 +69,7 @@ function WordGroupSelector(props) {
             setSelectMode={handleChangeSelectMode}
             selectWords={props.handleChange}
             selectGroup={props.wordGroupChange}
+            assignedWords={props.assignedWords}
           />
         )}
       </div>

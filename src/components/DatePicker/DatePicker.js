@@ -18,7 +18,7 @@ function DatePicker(props) {
   return (
     <div>
       <Calendar
-        onClickDay={event => {
+        onClickDay={(event) => {
           onChange(event);
         }}
         value={date}
