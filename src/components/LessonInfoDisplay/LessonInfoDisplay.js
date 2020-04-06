@@ -46,7 +46,7 @@ function LessonInfoDisplay(props) {
         </div>
       </div>
       <div className="ButtonContainer">
-        <button onClick={() => handleClose()} className="LessonButton">
+        <button onClick={handleClose} className="LessonButton">
           Close
         </button>
         <button
