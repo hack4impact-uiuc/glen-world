@@ -102,7 +102,8 @@ function CreateAssignment(props) {
     let year = date.getFullYear();
     let defaultName = `${wordGroup}: ${month} ${day} ${year}`;
 
-    // regex expression to check if lessonName is defaultName format by checking if last four chars are numbers (year format)
+    // regex expression to check if lessonName is defaultName format
+    // by checking if last four chars are numbers (year format)
     // TODO: better check defaultName
     const defaultNameRegExp = /.([0-9]{4})$/;
 

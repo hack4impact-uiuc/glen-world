@@ -31,6 +31,7 @@ const CustomLessonsDisplay = props => {
 
   useEffect(() => {
     setTimeout(() => {
+      // TODO: figure out better solution to resolve this
       // Get custom lessons made by admin
       firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
         setAdminLessons(lesson);
