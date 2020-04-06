@@ -102,11 +102,6 @@ function CreateAssignment(props) {
     let year = date.getFullYear();
     let defaultName = `${wordGroup}: ${month} ${day} ${year}`;
 
-    // regex expression to check if lessonName is defaultName format
-    // by checking if last four chars are numbers (year format)
-    // TODO: better check defaultName
-    const defaultNameRegExp = /.([0-9]{4})$/;
-
     if (!lessonName) {
       // set default name if no lesson name
       setLessonName(defaultName);
@@ -114,13 +109,7 @@ function CreateAssignment(props) {
       // react sets state asynchronously so lessonName doesn't actually update until rerender
       pushLesson(defaultName);
     } else {
-      if (defaultNameRegExp.test(lessonName)) {
-        // set default name if old lesson name was a default name (date may have updated)
-        setLessonName(defaultName);
-        pushLesson(defaultName);
-      } else {
-        pushLesson(lessonName);
-      }
+      pushLesson(lessonName);
     }
   }
   function validateAssignment() {
