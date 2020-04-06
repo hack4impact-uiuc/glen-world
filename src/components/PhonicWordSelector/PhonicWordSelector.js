@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { Button } from "reactstrap";
 import "../WordSelector/WordSelector.scss";
+import "../PhonicIcon/PhonicIcon.scss";
 function PhonicWordSelector(props) {
-    // const [data, setData] = useState(JSON.parse(props.data));
-    function handleClose() {
-    props.setSelectMode(false);
-    }
-  
     function handleSelect() {
     //   props.selectWords(checkedWords);
-    //   props.setSelectMode(false);
-    //   props.selectGroup(props.name);
+        props.setSelectMode(false, props.index);
+        //word group is phonics and words are the phonic sounds. 
+        props.selectGroup("phonics");
     }
   
     function wordDisplay(word) {
@@ -21,21 +18,17 @@ function PhonicWordSelector(props) {
       );
     }
     return (
-      <div className="WordSelector">
+      <div className="PhonicIcon">
         <div className="GroupTitle">{props.name}</div>
         <hr className="GroupTitleUnderline"></hr>
-        <div className="WordDisplay">{props.data.map(word => (
+        <div>{props.data.map(word => (
             word.words.map(wordDisplay
             )
         ))}</div>
         <div>
-          <Button onClick={() => handleClose()} className="CloseSelection">
-            Close
-          </Button>
           <Button
             onClick={() => handleSelect()}
-            className="NextButton"
-          >
+            className="SelectButton">
             Select
           </Button>
         </div>

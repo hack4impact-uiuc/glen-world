@@ -3,6 +3,7 @@ import { lessonService } from "util/GWUtil/resource";
 import phonics from "utils/phonics.json";
 import PhonicIcon from "../PhonicIcon/PhonicIcon";
 import PhonicWordSelector from "../PhonicWordSelector/PhonicWordSelector";
+import ReactCardFlip from 'react-card-flip';
 import "../WordGroupSelector/WordGroupSelector.scss";
 function PhonicSelector(props) {
     const phonicKeys = useRef(null);
@@ -26,27 +27,50 @@ function PhonicSelector(props) {
       }, []);
     const [clickedName, setClickedName] = useState("");
     const [clickedGroup, setClickedGroup] = useState([]);
-    const [selectMode, setSelectMode] = useState(false);
+    const [selectMode, setSelectMode] = useState(Array(phonicGroups.length)
+    .fill()
+    .map((_, i) => false));
 
-    function handleClick(data, name) {
-      setClickedGroup(data);
-      setClickedName(name);
-      setSelectMode(!selectMode);
+    function handleClick(data, name, index) {
+      //dont need to do this since we're passing it directly in. 
+      // setClickedGroup(data);
+      // setClickedName(name);
+      handleChangeSelectMode(!selectMode[index], index)
     }
-    function handleChangeSelectMode(selectStatus) {
-      setSelectMode(selectStatus);
+    function handleChangeSelectMode(selectStatus, index) {
+      let selectModeCopy = [...selectMode];
+      selectModeCopy[index] = selectStatus;
+      setSelectMode(selectModeCopy);
     }
     return (
         <div className="Background">
             <div className = "WordGroups">
-          {Object.keys(phonicGroups).map(key => (
-        <div onClick={() => handleClick(phonicGroups[key], key)}>
-            <PhonicIcon name = {key}/>
-            
+            {Object.keys(phonicGroups).map((key,index) => (
+          <div>
+              <ReactCardFlip isFlipped={selectMode[index]} flipDirection="vertical">
+              <div onClick={() => handleClick(phonicGroups[key], key, index)}>
+              <PhonicIcon name = {key}/> 
+              </div>
+              <div onClick={() =>handleChangeSelectMode(false, index)}>
+              <PhonicWordSelector
+              index = {index}
+              data={phonicGroups[key]}
+              name={key}
+              setSelectMode={handleChangeSelectMode}
+              selectWords={props.handleChange}
+              selectGroup={props.wordGroupChange}
+            />
+              </div>
+              </ReactCardFlip>    
+          </div>
+          ))}
+          {/* {Object.keys(phonicGroups).map(key => (
+          <div onClick={() => handleClick(phonicGroups[key], key)}>
+              <PhonicIcon name = {key}/>     
+          </div>
+          ))} */}
         </div>
-        ))}
-        </div>
-        <div>
+        {/* <div>
           {selectMode && (
             <PhonicWordSelector
               data={clickedGroup}
@@ -56,7 +80,7 @@ function PhonicSelector(props) {
               selectGroup={props.wordGroupChange}
             />
           )}
-        </div>
+        </div> */}
         </div>
       );
 }
@@ -69,4 +93,7 @@ export default PhonicSelector;
  * 2. make it look prettier
  * 3. clear up confusion on how the word groups are gonna be
  * 3. make sure assigning phonics works
+ * 
+ * 
+ * ** WRITE FUNCTION TO HANDLE WHEN THE USER SELECTS A PHONICS GROUP
  */

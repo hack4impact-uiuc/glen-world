@@ -10,14 +10,27 @@
     display: box;
   }
   
-   .PhonicName {
-    padding-top: 28%;
-    font-family: 'Roboto', sans-serif;
-    font-size: 4em;
-    text-transform: uppercase;
-    text-align: center;
-    font-weight: bold;
-    color: $assignments-font-color;
-  }
-  
+  .PhonicName {
+  padding-top: 28%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 4em;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+  color: $assignments-font-color;
+}
+
+.SelectButton {
+  color: $assignments-font-color;
+  background-color: $assignments-background-color;
+  font-family: $assignments-roboto-font;
+  width: 7vw;
+  font-weight: bold;
+  position: absolute;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  bottom: 0.5em;
+  border-radius: 1em;
+}
   
