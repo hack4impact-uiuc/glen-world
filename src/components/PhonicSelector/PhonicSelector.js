@@ -5,6 +5,7 @@ import PhonicIcon from "../PhonicIcon/PhonicIcon";
 import PhonicWordSelector from "../PhonicWordSelector/PhonicWordSelector";
 import ReactCardFlip from 'react-card-flip';
 import "../WordGroupSelector/WordGroupSelector.scss";
+import "./PhonicSelector.scss";
 function PhonicSelector(props) {
     const phonicKeys = useRef(null);
     const [phonicGroups, setPhonicGroups] = useState({});
@@ -64,7 +65,7 @@ function PhonicSelector(props) {
     }
 
     return (
-        <div className="Background">
+        <div className="PhonicBackground">
             <div className = "WordGroups">
             {Object.keys(phonicGroups).map((key,index) => (
           <div>

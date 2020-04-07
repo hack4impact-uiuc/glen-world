@@ -194,7 +194,6 @@ function CreateAssignment(props) {
               assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
             />
           )}
-          <div className="spacing"></div>
           <div className="place_middle">
             <Container>
               <Row>
