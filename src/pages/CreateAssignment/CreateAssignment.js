@@ -143,10 +143,6 @@ function CreateAssignment({ firebase }) {
   console.log(words)
   return (
     <>
-      <PhonicSelector
-      handlePhonicsChange={handleWordSelectorChange}
-      handleGroupChange={handleWordGroupChange}
-      />
       <SectionSelector
         handlePhonics={handlePhonics}
         handleVocab={handleVocab}
@@ -156,6 +152,12 @@ function CreateAssignment({ firebase }) {
         <div>
           <h1>Create Assignment</h1>
           <br />
+          {showPhonics && 
+          <PhonicSelector
+            handlePhonicsChange={handleWordSelectorChange}
+            handleGroupChange={handleWordGroupChange}
+            />
+          }
           {(showWriting || showVocab) && (
             <WordGroupSelector
               handleChange={handleWordSelectorChange}
