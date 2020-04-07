@@ -99,6 +99,7 @@ function CreateAssignment(props) {
     setShowWriting(true);
   }
   function createLessonCard() {
+    console.log("Creating New Card!");
     var validCard = true;
     if (deploymentAccountIds < 1) {
       setInvalidMessage((invalidMessage) => [
@@ -159,7 +160,7 @@ function CreateAssignment(props) {
       ]);
       validAssignment = false;
     }
-    if (lessonCards.length < 2) {
+    if (lessonCards.length < 1) {
       setInvalidMessage((invalidMessage) => [
         ...invalidMessage,
         "Please assign students to due dates on the Calendar by clicking the Create Button.",
@@ -253,12 +254,11 @@ function CreateAssignment(props) {
             </Container>
           </div>
           <div>
-            <Button onClick={createLessonCard} className="assign">
-              Create
-            </Button>
-          </div>
-          <div>
-            <LessonCardsDisplay cards={lessonCards} setCards={setLessonCards} />
+            <LessonCardsDisplay
+              cards={lessonCards}
+              addCard={createLessonCard}
+              setCards={setLessonCards}
+            />
           </div>
           <div>
             <Button onClick={validateAssignment} className="assign">

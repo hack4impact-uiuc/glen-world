@@ -10,11 +10,17 @@ function LessonCardsDisplay(props) {
     props.setCards(tempCards);
   }
 
+  function addLessonCard() {
+    props.addCard();
+  }
+
   return (
     <div className="LessonCardsDisplay">
-      {props.cards.length == 0 && <DefaultCard />}
+      <div onClick={addLessonCard}>
+        <DefaultCard />
+      </div>
       {props.cards.length > 0 &&
-        props.cards.map((card, index) => (
+        props.cards.reverse().map((card, index) => (
           <div key={index}>
             <LessonCard
               lessonDate={card[1]}
