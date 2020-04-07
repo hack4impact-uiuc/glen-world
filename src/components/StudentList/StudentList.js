@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { withFirebase } from "utils/Firebase";
 import {
   Checkbox,
@@ -14,13 +14,17 @@ import useStyles from "StudentList/StudentListStyles.js";
 
 function StudentList(props) {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState([]);
-  const [open, setOpen] = React.useState(
+  const [checked, setChecked] = useState([]);
+  const [open, setOpen] = useState(
     Array(props.deployments.length)
       .fill()
       .map((_, i) => false)
   );
   let deployments = props.deployments;
+
+  useEffect(() => {
+    if (props.assignedStudents) setChecked(props.assignedStudents);
+  }, []);
 
   const handleClick = index => {
     let openCopy = [...open];
@@ -46,7 +50,7 @@ function StudentList(props) {
       <List>
         {Array.isArray(deployments) &&
           deployments.map((deployment, index) => (
-            <div>
+            <div key={index}>
               <ListItem
                 button
                 onClick={() => handleClick(index)}
@@ -60,6 +64,7 @@ function StudentList(props) {
                 {Object.keys(deployment.deploymentAccounts).map(
                   deploymentAccountId => (
                     <ListItem
+                      key={deploymentAccountId}
                       className={classes.nested}
                       button
                       onClick={handleToggle(deploymentAccountId)}
