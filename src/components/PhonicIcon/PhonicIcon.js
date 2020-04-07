@@ -3,7 +3,9 @@ import "./PhonicIcon.scss"
 
 function PhonicIcon(props) {
   return (
-    <div className = "PhonicIcon">
+    <div className= {props.colored
+      ? "PurplePhonicIcon"
+      : "PhonicIcon"}>
       <p className = "PhonicName">{props.name}</p>
     </div>
   );
