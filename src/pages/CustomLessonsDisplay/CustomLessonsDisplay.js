@@ -31,6 +31,7 @@ const CustomLessonsDisplay = props => {
 
   useEffect(() => {
     setTimeout(() => {
+      // TODO: figure out better solution to resolve this
       // Get custom lessons made by admin
       firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
         setAdminLessons(lesson);
@@ -90,7 +91,7 @@ const CustomLessonsDisplay = props => {
       <div className="DateDisplay">
         {adminLessons &&
           adminLessons.map(lesson => (
-            <div onClick={() => handleClick(lesson)}>
+            <div key={lesson.id} onClick={() => handleClick(lesson)}>
               <LessonNameDisplay lessonName={lesson.lessonName} />
             </div>
           ))}

@@ -48,10 +48,11 @@ function CreateAssignment(props) {
   }, [firebase]);
 
   function prePopulateAssignment(existingAssignment) {
-    handleDatePickerChange(existingAssignment.dueDate);
+    handleDatePickerChange(existingAssignment.dueDate.toDate());
     handleStudentListChange(existingAssignment.deploymentAccountIds);
     handleWordSelectorChange(existingAssignment.words);
     handleWordGroupChange(existingAssignment.wordGroup);
+    handleLessonNameChange(existingAssignment.lessonName);
     handleSectionSelection(existingAssignment.lessonTemplate);
   }
 
@@ -95,20 +96,18 @@ function CreateAssignment(props) {
     setShowWriting(true);
   }
   function verifyNameAndPush() {
-    if (!lessonName) {
-      var options = { month: "long" };
-      let nameDate =
-        wordGroup +
-        ": " +
-        new Intl.DateTimeFormat("en-US", options).format(date.date) +
-        " " +
-        date.date.getDate() +
-        " " +
-        date.date.getFullYear();
+    var options = { month: "long" };
+    let month = new Intl.DateTimeFormat("en-US", options).format(date);
+    let day = date.getDate();
+    let year = date.getFullYear();
+    let defaultName = `${wordGroup}: ${month} ${day} ${year}`;
 
-      //react sets state asynchronously so lessonName doesn't actually update until rerender
-      setLessonName(nameDate);
-      pushLesson(nameDate);
+    if (!lessonName) {
+      // set default name if no lesson name
+      setLessonName(defaultName);
+
+      // react sets state asynchronously so lessonName doesn't actually update until rerender
+      pushLesson(defaultName);
     } else {
       pushLesson(lessonName);
     }
@@ -142,7 +141,7 @@ function CreateAssignment(props) {
     }
   }
 
-  const pushLesson = nameValue => {
+  const pushLesson = lessonNameValue => {
     firebase.setCustomLesson(
       ADMIN_ACCOUNT,
       deploymentAccountIds,
@@ -150,8 +149,8 @@ function CreateAssignment(props) {
       wordGroup,
       words,
       date,
-      nameValue,
-      props?.location.state.existingAssignment?.id
+      lessonNameValue,
+      existingAssignment?.id
     );
     setSubmitted(true);
   };
@@ -183,6 +182,8 @@ function CreateAssignment(props) {
             <WordGroupSelector
               handleChange={handleWordSelectorChange}
               wordGroupChange={handleWordGroupChange}
+              assignedWords={words || existingAssignment?.words}
+              assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
             />
           )}
           <div className="spacing"></div>
@@ -193,11 +194,15 @@ function CreateAssignment(props) {
                   <StudentList
                     deployments={adminDeployments}
                     handleChange={handleStudentListChange}
+                    assignedStudents={existingAssignment?.deploymentAccountIds}
                   />
                 </Col>
                 <Col xs={1}></Col>
                 <Col>
-                  <DatePicker handleChange={handleDatePickerChange} />
+                  <DatePicker
+                    handleChange={handleDatePickerChange}
+                    assignedDate={existingAssignment?.dueDate}
+                  />
                 </Col>
               </Row>
             </Container>
@@ -212,7 +217,8 @@ function CreateAssignment(props) {
                 </InputGroup.Prepend>
                 <FormControl
                   className="input"
-                  placeholder="Ex. Vocab"
+                  placeholder={"Ex. Vocab"}
+                  defaultValue={lessonName || ""}
                   onChange={e => handleLessonNameChange(e.target.value)}
                 />
               </InputGroup>

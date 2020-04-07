@@ -50,7 +50,7 @@ function StudentList(props) {
       <List>
         {Array.isArray(deployments) &&
           deployments.map((deployment, index) => (
-            <div>
+            <div key={index}>
               <ListItem
                 button
                 onClick={() => handleClick(index)}
@@ -64,6 +64,7 @@ function StudentList(props) {
                 {Object.keys(deployment.deploymentAccounts).map(
                   deploymentAccountId => (
                     <ListItem
+                      key={deploymentAccountId}
                       className={classes.nested}
                       button
                       onClick={handleToggle(deploymentAccountId)}
