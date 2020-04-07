@@ -2,7 +2,7 @@
 
 .LessonInfo {
   background-color: $assignments-darker-color;
-  font-family: "Roboto", sans-serif;
+  font-family: $assignments-roboto-font;
   width: 70%;
   height: 23vw;
   padding: 20px;
@@ -29,7 +29,7 @@
 .WordGroupImage {
   height: 13vw;
   width: 13vw;
-  background-color: #7f7eff;
+  background-color: $assignments-light-purple;
   color: black;
   border: 1px solid black;
   border-radius: 100%;
@@ -69,7 +69,10 @@
   color: black;
 }
 
-.CloseButton {
+.LessonButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #ffc700;
   margin: auto;
   border-radius: 8px;
@@ -79,7 +82,14 @@
   transition-duration: 0.3s;
 }
 
-.CloseButton:hover {
+.LessonButton:hover {
   background-color: #ffc700;
   color: white;
+}
+
+.ButtonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
 }

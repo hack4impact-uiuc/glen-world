@@ -48,7 +48,7 @@ class Firebase {
           }
         });
       })
-      .catch(error => console.log("Error getting student account: ", error));
+      .catch(error => console.error("Error getting student account: ", error));
 
   // Gets custom lessons made by admin
   getAdminCustomLessons = adminAccountId =>
@@ -57,7 +57,15 @@ class Firebase {
       .where("adminAccountId", "==", adminAccountId)
       .get()
       .then(lessonQuerySnapshot => {
-        const customLessons = lessonQuerySnapshot.docs.map(doc => doc.data());
+        const customLessons = lessonQuerySnapshot.docs.map(doc => {
+          let docData = doc.data();
+          let lessonDoc = {
+            id: doc.id,
+            ...docData
+          };
+
+          return lessonDoc;
+        });
         return new Promise((resolve, reject) => {
           if (lessonQuerySnapshot) {
             resolve(customLessons);
@@ -66,7 +74,7 @@ class Firebase {
           }
         });
       })
-      .catch(error => console.log("Error getting custom lessons: ", error));
+      .catch(error => console.error("Error getting custom lessons: ", error));
 
   getDeploymentAccountInformation = deploymentAccountId =>
     this.db
@@ -83,7 +91,7 @@ class Firebase {
           }
         });
       })
-      .catch(error => console.log("Error getting student account: ", error));
+      .catch(error => console.error("Error getting student account: ", error));
 
   // Get student's assigned custom lessons
   getDeploymentAccountCustomLessons = deploymentAccountId =>
@@ -102,10 +110,10 @@ class Firebase {
             return customLessons;
           })
           .catch(error =>
-            console.log("Error getting all custom lessons: ", error)
+            console.error("Error getting all custom lessons: ", error)
           );
       })
-      .catch(error => console.log("Error getting student account: ", error));
+      .catch(error => console.error("Error getting student account: ", error));
 
   // Get students of admin
   getDeploymentAccountsFromAdmin = adminAccountId =>
@@ -141,7 +149,7 @@ class Firebase {
                   }
                 })
                 .catch(error =>
-                  console.log("Error gettng all deployments: ", error)
+                  console.error("Error gettng all deployments: ", error)
                 );
 
               deployments.push(deployment);
@@ -149,54 +157,89 @@ class Firebase {
             return deployments;
           })
           .catch(error =>
-            console.log("Error getting all deployment refs: ", error)
+            console.error("Error getting all deployment refs: ", error)
           );
       })
-      .catch(error => console.log("Error getting admin account: ", error));
+      .catch(error => console.error("Error getting admin account: ", error));
 
-  addCustomLesson = (
+  setCustomLesson = (
     adminAccountId,
     deploymentAccountIds,
     lessonTemplate,
     wordGroup,
     words,
-    dueDate
+    dueDate,
+    lessonName,
+    lessonDocId = null
   ) => {
     // Push specific custom lesson to admin account
-    let customLessonRef = this.db.collection("custom_lesson").doc();
-
-    customLessonRef
-      .set({
-        adminAccountId: adminAccountId,
-        deploymentAccountIds: deploymentAccountIds,
-        lessonTemplate: lessonTemplate,
-        wordGroup: wordGroup,
-        words: words,
-        dueDate: dueDate
-      })
-      .catch(error => console.log("Error creating custom lesson: ", error));
+    let customLessonRef = this.db.collection("custom_lesson");
+    if (lessonDocId) customLessonRef = customLessonRef.doc(lessonDocId);
+    else customLessonRef.doc();
 
     // TODO: needs error validation to stop function if customLesson fails
+    customLessonRef
+      .get()
+      .then(customLessonDoc => {
+        let currentAssignedDeploymentIds = customLessonDoc.get(
+          "deploymentAccountIds"
+        );
 
-    // Push custom lessons to deployments
-    let batch = this.db.batch();
-    let deploymentAccountId;
+        // Create or update lesson
+        customLessonRef
+          .set({
+            adminAccountId: adminAccountId,
+            deploymentAccountIds: deploymentAccountIds,
+            lessonTemplate: lessonTemplate,
+            wordGroup: wordGroup,
+            words: words,
+            dueDate: dueDate,
+            lessonName: lessonName
+          })
+          .catch(error =>
+            console.error("Error creating custom lesson: ", error)
+          );
 
-    for (deploymentAccountId of deploymentAccountIds) {
-      let deploymentRef = this.db.doc(
-        `deployment_account/${deploymentAccountId}/`
-      );
-      batch.update(deploymentRef, {
-        customLessons: app.firestore.FieldValue.arrayUnion(customLessonRef.id)
-      });
-    }
+        // Push custom lessons to deployments
+        let batch = this.db.batch();
+        let deploymentAccountId;
 
-    return batch
-      .commit()
-      .catch(error =>
-        console.log("Pushing custom lessons to deployments failed: ", error)
-      );
-    // needs better promise rejection
+        // Add/update deploymentAccount docs
+        for (deploymentAccountId of deploymentAccountIds) {
+          let deploymentRef = this.db.doc(
+            `deployment_account/${deploymentAccountId}/`
+          );
+          batch.update(deploymentRef, {
+            customLessons: app.firestore.FieldValue.arrayUnion(
+              customLessonRef.id
+            )
+          });
+        }
+
+        for (let deploymentAccountId of currentAssignedDeploymentIds) {
+          if (!deploymentAccountIds.includes(deploymentAccountId)) {
+            let deploymentRef = this.db.doc(
+              `deployment_account/${deploymentAccountId}/`
+            );
+            batch.update(deploymentRef, {
+              customLessons: app.firestore.FieldValue.arrayRemove(
+                customLessonRef.id
+              )
+            });
+          }
+        }
+
+        return batch
+          .commit()
+          .catch(error =>
+            console.error(
+              "Pushing custom lessons to deployments failed: ",
+              error
+            )
+          );
+        // needs better promise rejection
+      })
+      .catch(error => console.error("Error getting custom lesson: ", error));
   };
 }
 

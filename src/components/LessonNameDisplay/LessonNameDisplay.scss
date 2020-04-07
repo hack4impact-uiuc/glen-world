@@ -1,6 +1,6 @@
 @import "../../pages/Index/index.scss";
 
-.DateIcon {
+.NameIcon {
   width: 12vw;
   height: 12vw;
   margin: 2em;
@@ -10,18 +10,10 @@
   display: block;
 }
 
-.Month {
+.Name {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 1em;
   color: #4d4d4c;
-  text-align: center;
-}
-
-.Day {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  font-size: 4em;
-  color: $assignments-light-purple;
   text-align: center;
 }
