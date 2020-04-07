@@ -139,10 +139,14 @@ function CreateAssignment({ firebase }) {
   if (submitted) {
     return <Redirect to="/" />;
   }
-
+  console.log(wordGroup)
+  console.log(words)
   return (
     <>
-      <PhonicSelector/>
+      <PhonicSelector
+      handlePhonicsChange={handleWordSelectorChange}
+      handleGroupChange={handleWordGroupChange}
+      />
       <SectionSelector
         handlePhonics={handlePhonics}
         handleVocab={handleVocab}

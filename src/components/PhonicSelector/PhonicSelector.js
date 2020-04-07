@@ -25,40 +25,54 @@ function PhonicSelector(props) {
             ],
           });
       }, []);
-    const [clickedName, setClickedName] = useState("");
-    const [clickedGroup, setClickedGroup] = useState([]);
-    const [selectMode, setSelectMode] = useState(Array(phonicGroups.length)
+    const [chosenPhonics, setChosenPhonics] = useState([]);
+    const [flipCard, setFlipCard] = useState(Array(phonicGroups.length)
     .fill()
     .map((_, i) => false));
-
-    function handleClick(data, name, index) {
-      //dont need to do this since we're passing it directly in. 
-      // setClickedGroup(data);
-      // setClickedName(name);
-      handleChangeSelectMode(!selectMode[index], index)
+    function handleChangeFlipMode(flipMode, index) {
+      let flipModeCopy = [...flipCard];
+      flipModeCopy[index] = flipMode;
+      setFlipCard(flipModeCopy);
     }
-    function handleChangeSelectMode(selectStatus, index) {
-      let selectModeCopy = [...selectMode];
-      selectModeCopy[index] = selectStatus;
-      setSelectMode(selectModeCopy);
+    function handleSelectPhonicGroup(shouldSelect, phonicName) {
+      //all phonics lessons will be in the "phonics" word group
+      props.handleGroupChange("phonics")
+      let chosenPhonicsCopy = [...chosenPhonics];
+      if (shouldSelect) {
+        chosenPhonicsCopy.push(phonicName)
+        console.log("add phonics to the list")
+      } 
+      else {
+        //why is there no build in remove method :(
+        for( var i = 0; i < chosenPhonicsCopy.length; i++){ 
+          if ( chosenPhonicsCopy[i] === phonicName) { 
+            chosenPhonicsCopy.splice(i, 1); 
+          }
+        }
+        console.log("remove from list")
+      }
+      //functions in this order bc react sets state asynchronously
+      props.handlePhonicsChange(chosenPhonicsCopy)
+      setChosenPhonics(chosenPhonicsCopy)
     }
+    
     return (
         <div className="Background">
             <div className = "WordGroups">
             {Object.keys(phonicGroups).map((key,index) => (
           <div>
-              <ReactCardFlip isFlipped={selectMode[index]} flipDirection="vertical">
-              <div onClick={() => handleClick(phonicGroups[key], key, index)}>
+              <ReactCardFlip isFlipped={flipCard[index]} flipDirection="vertical">
+              <div onClick={() => handleChangeFlipMode(true, index)}>
               <PhonicIcon name = {key}/> 
               </div>
-              <div onClick={() =>handleChangeSelectMode(false, index)}>
+              <div onClick={() =>handleChangeFlipMode(false, index)}>
               <PhonicWordSelector
-              index = {index}
+              index ={index}
               data={phonicGroups[key]}
               name={key}
-              setSelectMode={handleChangeSelectMode}
-              selectWords={props.handleChange}
-              selectGroup={props.wordGroupChange}
+              setFlipMode={handleChangeFlipMode}
+              handleSelectPhonics={handleSelectPhonicGroup}
+              //selectWords={props.handleChange}
             />
               </div>
               </ReactCardFlip>    
@@ -94,6 +108,7 @@ export default PhonicSelector;
  * 3. clear up confusion on how the word groups are gonna be
  * 3. make sure assigning phonics works
  * 
- * 
+ * TODO:::
  * ** WRITE FUNCTION TO HANDLE WHEN THE USER SELECTS A PHONICS GROUP
+ * **Clean up code. 
  */
