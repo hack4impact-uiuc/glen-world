@@ -107,22 +107,18 @@ class Firebase {
         return Promise.all(customLessonRefs)
           .then(customLessonDocs => {
             let customLessons = customLessonDocs.map(doc => doc.data());
+            let assignments = [];
 
             // Get due dates for assignments
             for (let customLesson in customLessons) {
-              for (
-                let i = 0;
-                i < customLesson.deploymentAccountIds.length;
-                i++
-              ) {
-                if (
-                  customLesson.deploymentAccountIds[i] === deploymentAccountId
-                ) {
-                  customLesson.dueDate = customLesson.dueDates[i];
-                }
+              for (let dueDate in customLesson.dueDates[deploymentAccountId]) {
+                let lessonCopy = JSON.parse(JSON.stringify(customLesson));
+                delete lessonCopy.dueDates;
+                lessonCopy.dueDate = dueDate;
+                assignments.push(lessonCopy);
               }
             }
-            return customLessons;
+            return assignments;
           })
           .catch(error =>
             console.error("Error getting all custom lessons: ", error)
@@ -204,7 +200,6 @@ class Firebase {
         customLessonRef
           .set({
             adminAccountId: adminAccountId,
-            deploymentAccountIds: deploymentAccountIds,
             lessonTemplate: lessonTemplate,
             wordGroup: wordGroup,
             words: words,
