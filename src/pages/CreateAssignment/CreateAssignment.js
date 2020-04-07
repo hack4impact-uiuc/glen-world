@@ -115,10 +115,20 @@ function CreateAssignment(props) {
       validCard = false;
     }
     if (validCard) {
-      setLessonCards((lessonCards) => [
-        ...lessonCards,
-        [deploymentAccountIds, date],
-      ]);
+      Promise.all(
+        deploymentAccountIds.map((id) => {
+          return firebase.getDeploymentAccountInformation(id);
+        })
+      ).then((value) => {
+        let usernames = value.map((studentInfo) => {
+          return studentInfo["username"];
+        });
+        // Storing deploymentAccountIds specific to date (in addition to usernames) so that we don't need to repeat API call when lesson is pushed to DB
+        setLessonCards((lessonCards) => [
+          ...lessonCards,
+          [usernames, date, deploymentAccountIds],
+        ]);
+      });
     }
   }
 

@@ -17,9 +17,11 @@ function LessonCard(props) {
           onClick={() => props.deleteLessons(props.lessonNumber)}
         ></div>
       </div>
-      <div className="LessonCardStudents">
+      <div className="LessonCardContent">
         {props.lessonStudents.map((student, index) => (
-          <div key={index}>{student}</div>
+          <div key={index} className="LessonCardStudent">
+            {student}
+          </div>
         ))}
       </div>
     </div>

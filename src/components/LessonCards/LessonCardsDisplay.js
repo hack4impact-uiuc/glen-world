@@ -5,7 +5,9 @@ import DefaultCard from "./DefaultCard";
 
 function LessonCardsDisplay(props) {
   function deleteLessonCard(lessonNumber) {
-    props.setCards(props.cards.splice(lessonNumber, lessonNumber));
+    const tempCards = [...props.cards];
+    tempCards.splice(lessonNumber, 1);
+    props.setCards(tempCards);
   }
 
   return (
