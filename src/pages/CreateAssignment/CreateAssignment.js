@@ -8,7 +8,7 @@ import {
   Col,
   Form,
   InputGroup,
-  FormControl
+  FormControl,
 } from "react-bootstrap";
 import { compose } from "recompose";
 import { Button, Input } from "reactstrap";
@@ -19,6 +19,7 @@ import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
 import InvalidAssignment from "../../components/InvalidAssignment/InvalidAssignment";
+import LessonCardsDisplay from "../../components/LessonCards/LessonCardsDisplay";
 
 function CreateAssignment(props) {
   const { firebase } = props;
@@ -36,11 +37,13 @@ function CreateAssignment(props) {
   const [adminDeployments, setAdminDeployments] = useState([]);
   // Message that displays when an assignment hasn't been created properly
   const [invalidMessage, setInvalidMessage] = useState([]);
+  // A lesson "card" contains a group of students that have been assigned a due date for the current lesson.
+  const [lessonCards, setLessonCards] = useState([]);
 
   useEffect(() => {
     firebase
       .getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT)
-      .then(deploymentAccounts => {
+      .then((deploymentAccounts) => {
         setAdminDeployments(deploymentAccounts);
       });
 
@@ -95,6 +98,30 @@ function CreateAssignment(props) {
     setShowPhonics(false);
     setShowWriting(true);
   }
+  function createLessonCard() {
+    var validCard = true;
+    if (deploymentAccountIds < 1) {
+      setInvalidMessage((invalidMessage) => [
+        ...invalidMessage,
+        "Please assign to at least one student.",
+      ]);
+      validCard = false;
+    }
+    if (date == null) {
+      setInvalidMessage((invalidMessage) => [
+        ...invalidMessage,
+        "Please select a date on the calendar.",
+      ]);
+      validCard = false;
+    }
+    if (validCard) {
+      setLessonCards((lessonCards) => [
+        ...lessonCards,
+        [deploymentAccountIds, date],
+      ]);
+    }
+  }
+
   function verifyNameAndPush() {
     var options = { month: "long" };
     let month = new Intl.DateTimeFormat("en-US", options).format(date);
@@ -116,23 +143,16 @@ function CreateAssignment(props) {
     var validAssignment = true;
     // TODO: Add validation for Phonics based on pending requirements
     if (lessonType != "C" && (wordGroup == null || words.length < 4)) {
-      setInvalidMessage(invalidMessage => [
+      setInvalidMessage((invalidMessage) => [
         ...invalidMessage,
-        "Please include at least 4 words."
+        "Please include at least 4 words.",
       ]);
       validAssignment = false;
     }
-    if (deploymentAccountIds < 1) {
-      setInvalidMessage(invalidMessage => [
+    if (lessonCards.length < 2) {
+      setInvalidMessage((invalidMessage) => [
         ...invalidMessage,
-        "Please assign to at least one student."
-      ]);
-      validAssignment = false;
-    }
-    if (date == null) {
-      setInvalidMessage(invalidMessage => [
-        ...invalidMessage,
-        "Please select a date on the calendar."
+        "Please assign students to due dates on the Calendar by clicking the Create Button.",
       ]);
       validAssignment = false;
     }
@@ -141,7 +161,7 @@ function CreateAssignment(props) {
     }
   }
 
-  const pushLesson = lessonNameValue => {
+  const pushLesson = (lessonNameValue) => {
     firebase.setCustomLesson(
       ADMIN_ACCOUNT,
       deploymentAccountIds,
@@ -160,7 +180,7 @@ function CreateAssignment(props) {
       <Redirect
         to={{
           pathname: "/",
-          state: { redirect: true }
+          state: { redirect: true },
         }}
       />
     );
@@ -178,6 +198,21 @@ function CreateAssignment(props) {
         <div>
           <h1>Create Assignment</h1>
           <br />
+          <div>
+            <InputGroup className="name-assignment">
+              <InputGroup.Prepend>
+                <InputGroup.Text className="input-header">
+                  Lesson Name
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                className="input"
+                placeholder={"Ex. Vocab"}
+                defaultValue={lessonName || ""}
+                onChange={(e) => handleLessonNameChange(e.target.value)}
+              />
+            </InputGroup>
+          </div>
           {(showWriting || showVocab) && (
             <WordGroupSelector
               handleChange={handleWordSelectorChange}
@@ -207,28 +242,19 @@ function CreateAssignment(props) {
               </Row>
             </Container>
           </div>
-          <Row>
-            <Col>
-              <InputGroup>
-                <InputGroup.Prepend>
-                  <InputGroup.Text className="input-header">
-                    Lesson Name
-                  </InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                  className="input"
-                  placeholder={"Ex. Vocab"}
-                  defaultValue={lessonName || ""}
-                  onChange={e => handleLessonNameChange(e.target.value)}
-                />
-              </InputGroup>
-            </Col>
-            <Col>
-              <Button onClick={validateAssignment} className="assign">
-                Assign Lesson
-              </Button>
-            </Col>
-          </Row>
+          <div>
+            <Button onClick={createLessonCard} className="assign">
+              Create
+            </Button>
+          </div>
+          <div>
+            <LessonCardsDisplay cards={lessonCards} setCards={setLessonCards} />
+          </div>
+          <div>
+            <Button onClick={validateAssignment} className="assign">
+              Assign Lesson
+            </Button>
+          </div>
           <div>
             {invalidMessage.length > 0 && (
               <InvalidAssignment

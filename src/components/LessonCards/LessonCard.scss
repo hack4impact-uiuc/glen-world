@@ -1,0 +1,51 @@
+@import "../../pages/Index/index.scss";
+
+.LessonCard {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  overflow: scroll;
+  height: 15vw;
+  width: 12vw;
+  border-radius: 20px;
+  margin: 2vw;
+  margin-bottom: 0vw;
+  background-color: $assignments-background-color;
+  color: $assignments-font-color;
+  font-family: $assignments-roboto-font;
+  font-size: 1.2em;
+}
+
+.LessonCardHeading {
+  display: flex;
+  flex-wrap: wrap;
+  height: 4vw;
+  width: 12vw;
+  top: 1vw;
+  background-color: $assignments-light-purple;
+  font-family: $assignments-roboto-font;
+}
+
+.DeleteLessonCard {
+  height: 2vw;
+  width: 2vw;
+  background-color: lightcoral;
+}
+
+.LessonCardMonth {
+  margin: auto;
+  margin-right: 0.2vw;
+}
+
+.LessonCardDay {
+  margin: auto;
+  margin-left: 0.2vw;
+}
+
+.LessonCardStudents {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: scroll;
+  font-family: $assignments-roboto-font;
+  color: $assignments-font-color;
+}

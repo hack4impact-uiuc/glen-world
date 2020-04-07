@@ -1,0 +1,16 @@
+@import "../../pages/Index/index.scss";
+
+.LessonCardsDisplay {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow: scroll;
+  width: 80vw;
+  height: 20vw;
+  border-radius: 20px;
+  margin: auto;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  padding-bottom: 1vw;
+  background-color: $assignments-darker-color;
+}
