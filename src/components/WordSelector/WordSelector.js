@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "reactstrap";
 import "./WordSelector.scss";
 
@@ -6,25 +6,40 @@ function WordSelector(props) {
   const [wordCount, updateWordCount] = useState(0);
   const [minWords] = useState(4);
   const [checkedWords, updateWords] = useState([]);
+  const [wordGroup, updateWordGroup] = useState();
+
+  useEffect(() => {
+    if (props.assignedWords) {
+      updateWords(props.assignedWords);
+      updateWordCount(props.assignedWords.length);
+      updateWordGroup(props.assignedWordGroup);
+    }
+  }, []);
 
   function disableNext() {
     return wordCount < minWords;
   }
 
   function handleCheck(word) {
-    if (checkedWords.includes(word)) {
-      const index = checkedWords.indexOf(word);
-      checkedWords.splice(index, 1);
-      updateWordCount(wordCount - 1);
+    // reset words if word group changed
+    if (props.name !== wordGroup) {
+      updateWords([word]);
+      updateWordCount(1);
+      updateWordGroup(props.name);
     } else {
-      updateWords([...checkedWords, word]);
-      updateWordCount(wordCount + 1);
+      if (checkedWords.includes(word)) {
+        const index = checkedWords.indexOf(word);
+        checkedWords.splice(index, 1);
+        updateWordCount(wordCount - 1);
+      } else {
+        updateWords([...checkedWords, word]);
+        updateWordCount(wordCount + 1);
+      }
     }
   }
 
   function handleClose() {
     props.setSelectMode(false);
-    updateWords([]);
   }
 
   function handleSelect() {
@@ -33,12 +48,13 @@ function WordSelector(props) {
     props.selectGroup(props.name);
   }
 
-  function listWords(word) {
+  function wordSelection(word, index) {
     return (
-      <div className="Words">
+      <div className="Words" key={index}>
         <label class="container">
           <input
             class="check"
+            checked={checkedWords.includes(word) ? true : null}
             type="checkbox"
             name={word}
             onChange={() => handleCheck(word)}
@@ -53,7 +69,7 @@ function WordSelector(props) {
     <div className="WordSelector">
       <div className="GroupTitle">{props.name}</div>
       <hr className="GroupTitleUnderline"></hr>
-      <div className="WordDisplay">{props.group.map(listWords)}</div>
+      <div className="WordDisplay">{props.group.map(wordSelection)}</div>
       <div>
         <Button onClick={() => handleClose()} className="CloseSelection">
           Close

@@ -3,18 +3,20 @@ import { withFirebase } from "utils/Firebase";
 import { TEMPLATE_LESSON_MAP, ADMIN_ACCOUNT } from "utils/constants.js";
 import "./CustomLessonsDisplay.scss";
 import { compose } from "recompose";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter, Redirect, useHistory } from "react-router-dom";
 import LessonDateDisplay from "../../components/LessonDateDisplay/LessonDateDisplay";
 import LessonInfoDisplay from "../../components/LessonInfoDisplay/LessonInfoDisplay";
 import LessonNameDisplay from "../../components/LessonNameDisplay/LessonNameDisplay";
 
-const CustomLessonsDisplay = ({ firebase }) => {
+const CustomLessonsDisplay = props => {
+  const { firebase } = props;
   const [adminLessons, setAdminLessons] = useState([]);
-  const [template, setTemplate] = useState(null);
-  const [lessonWords, setLessonWords] = useState(null);
-  const [students, setStudents] = useState([]);
+  const [displayLesson, setDisplayLesson] = useState(null);
+  const [displayLessonTemplate, setDisplayTemplate] = useState(null);
+  const [displayLessonStudents, setDisplayStudents] = useState([]);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
   const [createLessonRedirect, setCreateLessonRedirect] = useState(false);
+  const editLessonRedirect = props?.location.state?.redirect;
 
   function orderAdminLessons(reverse) {
     const sortedLessons = [...adminLessons].sort((a, b) => {
@@ -28,34 +30,37 @@ const CustomLessonsDisplay = ({ firebase }) => {
   }
 
   useEffect(() => {
-    // Get custom lessons made by admin
-    firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
-      setAdminLessons(lesson);
-    });
-  }, [firebase]);
+    setTimeout(() => {
+      // TODO: figure out better solution to resolve this
+      // Get custom lessons made by admin
+      firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
+        setAdminLessons(lesson);
+      });
+    }, 50); // Timeout for firebase to update and display updated lessons properly
+  }, [editLessonRedirect]); // Updates lessons when redirected to page from CreateAssignment
 
   function handleChangeDisplayLessonInfo(display) {
     setDisplayLessonInfo(display);
   }
 
-  function handleClick(lessonTemplate, words, studentIds) {
+  function handleClick(lesson) {
     handleChangeDisplayLessonInfo(!displayLessonInfo);
-    if (lessonTemplate in TEMPLATE_LESSON_MAP) {
-      setTemplate(TEMPLATE_LESSON_MAP[lessonTemplate]);
+    setDisplayLesson(lesson);
+    if (lesson.lessonTemplate in TEMPLATE_LESSON_MAP) {
+      setDisplayTemplate(TEMPLATE_LESSON_MAP[lesson.lessonTemplate]);
     } else {
-      setTemplate(lessonTemplate);
+      setDisplayTemplate(lesson.lessonTemplate);
     }
-    setLessonWords(words);
 
     Promise.all(
-      studentIds.map(id => {
+      lesson.deploymentAccountIds.map(id => {
         return firebase.getDeploymentAccountInformation(id);
       })
     ).then(value => {
       let usernames = value.map(studentInfo => {
         return studentInfo["username"];
       });
-      setStudents(usernames);
+      setDisplayStudents(usernames);
     });
   }
 
@@ -85,26 +90,19 @@ const CustomLessonsDisplay = ({ firebase }) => {
       </div>
       <div className="DateDisplay">
         {adminLessons &&
-          adminLessons.map((lesson, index) => (
-            <div
-              onClick={() =>
-                handleClick(
-                  lesson.lessonTemplate,
-                  lesson.words,
-                  lesson.deploymentAccountIds
-                )
-              }
-            >
+          adminLessons.map(lesson => (
+            <div key={lesson.id} onClick={() => handleClick(lesson)}>
               <LessonNameDisplay lessonName={lesson.lessonName} />
             </div>
           ))}
       </div>
       <div>
-        {displayLessonInfo && (
+        {displayLessonInfo && displayLesson && (
           <LessonInfoDisplay
-            template={template}
-            words={lessonWords}
-            studentNames={students}
+            lesson={displayLesson}
+            template={displayLessonTemplate}
+            words={displayLesson.words}
+            studentNames={displayLessonStudents}
             setDisplay={handleChangeDisplayLessonInfo}
           />
         )}

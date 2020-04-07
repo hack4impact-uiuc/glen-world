@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { withFirebase } from "utils/Firebase";
 import { Button, Box } from "@material-ui/core/";
 import { Row, Col, Container } from "react-bootstrap";
 import useStyles from "SectionSelector/SectionSelectorStyle.js";
 function SectionSelector(props) {
   const classes = useStyles();
-  const [button, setButton] = React.useState([true, true, true]);
+  const [button, setButton] = useState(props.default);
   const propFunctions = [
     props.handlePhonics,
     props.handleVocab,
     props.handleWriting
   ];
+
+  useEffect(() => {
+    setButton(props.default);
+  }, [props.default]);
 
   const handleClick = index => {
     let buttonCopy = [true, true, true];

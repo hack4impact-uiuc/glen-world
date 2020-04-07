@@ -20,7 +20,9 @@ import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelec
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
 import InvalidAssignment from "../../components/InvalidAssignment/InvalidAssignment";
 
-function CreateAssignment({ firebase }) {
+function CreateAssignment(props) {
+  const { firebase } = props;
+  const { existingAssignment } = props?.location.state || {};
   const [lessonName, setLessonName] = useState();
   const [submitted, setSubmitted] = useState(false);
   const [showVocab, setShowVocab] = useState(false);
@@ -41,7 +43,18 @@ function CreateAssignment({ firebase }) {
       .then(deploymentAccounts => {
         setAdminDeployments(deploymentAccounts);
       });
+
+    if (existingAssignment) prePopulateAssignment(existingAssignment);
   }, [firebase]);
+
+  function prePopulateAssignment(existingAssignment) {
+    handleDatePickerChange(existingAssignment.dueDate.toDate());
+    handleStudentListChange(existingAssignment.deploymentAccountIds);
+    handleWordSelectorChange(existingAssignment.words);
+    handleWordGroupChange(existingAssignment.wordGroup);
+    handleLessonNameChange(existingAssignment.lessonName);
+    handleSectionSelection(existingAssignment.lessonTemplate);
+  }
 
   function handleDatePickerChange(value) {
     setDate(value);
@@ -55,6 +68,12 @@ function CreateAssignment({ firebase }) {
   function handleWordGroupChange(value) {
     setWordGroup(value);
   }
+  function handleSectionSelection(value) {
+    if (value === "A") handleVocab();
+    else if (value === "C") handlePhonics();
+    else if (value === "A3") handleWriting();
+  }
+
   function handleLessonNameChange(value) {
     setLessonName(value);
   }
@@ -77,20 +96,18 @@ function CreateAssignment({ firebase }) {
     setShowWriting(true);
   }
   function verifyNameAndPush() {
-    if (!lessonName) {
-      var options = { month: "long" };
-      let nameDate =
-        wordGroup +
-        ": " +
-        new Intl.DateTimeFormat("en-US", options).format(date.date) +
-        " " +
-        date.date.getDate() +
-        " " +
-        date.date.getFullYear();
+    var options = { month: "long" };
+    let month = new Intl.DateTimeFormat("en-US", options).format(date);
+    let day = date.getDate();
+    let year = date.getFullYear();
+    let defaultName = `${wordGroup}: ${month} ${day} ${year}`;
 
-      //react sets state asynchronously so lessonName doesn't actually update until rerender
-      setLessonName(nameDate);
-      pushLesson(nameDate);
+    if (!lessonName) {
+      // set default name if no lesson name
+      setLessonName(defaultName);
+
+      // react sets state asynchronously so lessonName doesn't actually update until rerender
+      pushLesson(defaultName);
     } else {
       pushLesson(lessonName);
     }
@@ -123,25 +140,36 @@ function CreateAssignment({ firebase }) {
       verifyNameAndPush();
     }
   }
-  const pushLesson = nameValue => {
-    firebase.addCustomLesson(
+
+  const pushLesson = lessonNameValue => {
+    firebase.setCustomLesson(
       ADMIN_ACCOUNT,
       deploymentAccountIds,
       lessonType,
       wordGroup,
       words,
-      date.date,
-      nameValue
+      date,
+      lessonNameValue,
+      existingAssignment?.id
     );
     setSubmitted(true);
   };
+
   if (submitted) {
-    return <Redirect to="/" />;
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+          state: { redirect: true }
+        }}
+      />
+    );
   }
 
   return (
     <>
       <SectionSelector
+        default={[!showPhonics, !showVocab, !showWriting]}
         handlePhonics={handlePhonics}
         handleVocab={handleVocab}
         handleWriting={handleWriting}
@@ -154,6 +182,8 @@ function CreateAssignment({ firebase }) {
             <WordGroupSelector
               handleChange={handleWordSelectorChange}
               wordGroupChange={handleWordGroupChange}
+              assignedWords={words || existingAssignment?.words}
+              assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
             />
           )}
           <div className="spacing"></div>
@@ -164,11 +194,15 @@ function CreateAssignment({ firebase }) {
                   <StudentList
                     deployments={adminDeployments}
                     handleChange={handleStudentListChange}
+                    assignedStudents={existingAssignment?.deploymentAccountIds}
                   />
                 </Col>
                 <Col xs={1}></Col>
                 <Col>
-                  <DatePicker handleChange={handleDatePickerChange} />
+                  <DatePicker
+                    handleChange={handleDatePickerChange}
+                    assignedDate={existingAssignment?.dueDate}
+                  />
                 </Col>
               </Row>
             </Container>
@@ -183,7 +217,8 @@ function CreateAssignment({ firebase }) {
                 </InputGroup.Prepend>
                 <FormControl
                   className="input"
-                  placeholder="Ex. Vocab"
+                  placeholder={"Ex. Vocab"}
+                  defaultValue={lessonName || ""}
                   onChange={e => handleLessonNameChange(e.target.value)}
                 />
               </InputGroup>
