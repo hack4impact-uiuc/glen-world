@@ -6,7 +6,9 @@ function PhonicIcon(props) {
     <div className= {props.colored
       ? "PurplePhonicIcon"
       : "PhonicIcon"}>
-      <p className = "PhonicName">{props.name}</p>
+        <div className="PhonicIconBorder">
+        <p className = "PhonicName">{props.name}</p>
+      </div>
     </div>
   );
 }

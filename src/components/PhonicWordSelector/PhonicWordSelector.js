@@ -23,8 +23,8 @@ function PhonicWordSelector(props) {
     }
     return (
       <div className= "PhonicIcon">
+        <div className="PhonicIconBorder">
         <div className="GroupTitle">{props.name}</div>
-        <hr className="GroupTitleUnderline"></hr>
         <div>{props.data.map(word => (
             word.words.map(wordDisplay
             )
@@ -42,6 +42,7 @@ function PhonicWordSelector(props) {
         className="SelectButton">
             UNDO
         </Button>}
+        </div>
         </div>
       </div>
     );
