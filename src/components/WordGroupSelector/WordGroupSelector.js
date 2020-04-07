@@ -13,7 +13,10 @@ function WordGroupSelector(props) {
   const [selectMode, setSelectMode] = useState(false);
 
   useEffect(() => {
-    if (Object.keys(wordGroups).length == 0 || props.assignedWordGroup == "phonics") {
+    if (
+      Object.keys(wordGroups).length == 0 ||
+      props.assignedWordGroup == "phonics"
+    ) {
       collectedWordGroupsService.all().then(function(collectedWordGroups) {
         wordKeys.current = Object.keys(collectedWordGroups);
         setWordGroups({

@@ -166,8 +166,6 @@ function CreateAssignment(props) {
       />
     );
   }
-  console.log(wordGroup)
-  console.log(words)
   return (
     <>
       <SectionSelector
@@ -180,12 +178,12 @@ function CreateAssignment(props) {
         <div>
           <h1>Create Assignment</h1>
           <br />
-          {showPhonics && 
-          <PhonicSelector
-            handlePhonicsChange={handleWordSelectorChange}
-            handleGroupChange={handleWordGroupChange}
+          {showPhonics && (
+            <PhonicSelector
+              handlePhonicsChange={handleWordSelectorChange}
+              handleGroupChange={handleWordGroupChange}
             />
-          }
+          )}
           {(showWriting || showVocab) && (
             <WordGroupSelector
               handleChange={handleWordSelectorChange}
