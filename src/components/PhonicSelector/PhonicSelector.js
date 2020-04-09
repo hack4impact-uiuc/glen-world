@@ -10,12 +10,21 @@ function PhonicSelector(props) {
   const [phonicGroups, setPhonicGroups] = useState({});
   useEffect(() => {
     phonicKeys.current = Object.keys(phonics);
-    setPhonicGroups({
-      buh: [phonics[phonicKeys.current[0]]],
-      duh: [phonics[phonicKeys.current[1]]],
-      kuh: [phonics[phonicKeys.current[2]]],
-      fuh: [phonics[phonicKeys.current[3]]]
-    });
+    var tempPhonicGroups = {};
+    phonicKeys.current.forEach((element, index) => {
+      // tempPhonicGroups.push({
+      //   key: element,
+      //   value: phonics[element]
+      // })
+      tempPhonicGroups[element] = [phonics[element]]
+    })
+    // setPhonicGroups({
+    //   buh: [phonics[phonicKeys.current[0]]],
+    //   duh: [phonics[phonicKeys.current[1]]],
+    //   kuh: [phonics[phonicKeys.current[2]]],
+    //   fuh: [phonics[phonicKeys.current[3]]]
+    // });
+    setPhonicGroups(tempPhonicGroups)
   }, []);
   const [chosenPhonics, setChosenPhonics] = useState([]);
   const [flipCard, setFlipCard] = useState(
