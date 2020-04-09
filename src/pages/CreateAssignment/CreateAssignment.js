@@ -175,7 +175,7 @@ function CreateAssignment(props) {
         handleWriting={handleWriting}
       />
       {(showWriting || showVocab || showPhonics) && (
-        <div>
+        <div className="place_middle">
           <h1>Create Assignment</h1>
           <br />
           {showPhonics && (
