@@ -1,11 +1,11 @@
 @import "../../pages/Index/index.scss";
 
 .Background {
-  height: 175vh;
+  height: 160vh;
   max-width: 150vh;
+  background-image: url("squiggly.svg");
   background-color: #f5f5f5;
   overflow: auto;
-  display: block;
   margin: auto;
 }
 
@@ -17,4 +17,8 @@
   margin-left: auto;
   margin-right: auto;
   position: absolute;
+}
+
+.SelectWords {
+  margin-top: 35%;
 }

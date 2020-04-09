@@ -14,11 +14,15 @@
   background-color: $assignments-light-purple;
 }
 
+.image {
+  width: 150px; 
+  height: 130px;
+}
+
 .WordGroupName {
   font-family: $assignments-roboto-font;
-  font-weight: bold;
   text-align: center;
-  vertical-align: bottom;
   color: $assignments-font-color;
+  margin-top: 10%;
 }
 

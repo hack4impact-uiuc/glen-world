@@ -118,7 +118,7 @@ function WordGroupSelector(props) {
           </div>
         ))}
       </div>
-      <div>
+      <div className = "SelectWords">
         {selectMode && (
           <WordSelector
             group={clickedGroup}
