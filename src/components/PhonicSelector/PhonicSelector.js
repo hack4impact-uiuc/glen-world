@@ -43,20 +43,18 @@ function PhonicSelector(props) {
       cardColoredCopy[index] = true;
       console.log("add phonics to the list");
     } else {
-      for (var i = 0; i < chosenPhonicsCopy.length; i++) {
-        if (chosenPhonicsCopy[i] === phonicName) {
-          chosenPhonicsCopy.splice(i, 1);
+      chosenPhonicsCopy.forEach((element,index) => {
+        if (element == phonicName) {
+          chosenPhonicsCopy.splice(index, 1)
         }
-      }
+        })
       cardColoredCopy[index] = false;
-      console.log("remove from list");
     }
     //functions in this order bc react sets state asynchronously
     props.handlePhonicsChange(chosenPhonicsCopy);
     setChosenPhonics(chosenPhonicsCopy);
     setCardColored(cardColoredCopy);
   }
-
   return (
     <div className="PhonicBackground">
       <div className="WordGroups">
