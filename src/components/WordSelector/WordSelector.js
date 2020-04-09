@@ -46,6 +46,8 @@ function WordSelector(props) {
     props.selectWords(checkedWords);
     props.setSelectMode(false);
     props.selectGroup(props.name);
+    props.changeColor(props.index);
+
   }
 
   function wordSelection(word, index) {

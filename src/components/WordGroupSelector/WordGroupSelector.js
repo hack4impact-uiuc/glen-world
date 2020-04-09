@@ -9,9 +9,9 @@ function WordGroupSelector(props) {
   const [wordGroups, setWordGroups] = useState({});
   const [clickedName, setClickedName] = useState("");
   const [clickedGroup, setClickedGroup] = useState([]);
+  const [clickedIndex, setClickedIndex] = useState();
   // selectMode dictates whether WordSelector component appears and a group's words can be selected
   const [selectMode, setSelectMode] = useState(false);
-
   useEffect(() => {
     if (
       Object.keys(wordGroups).length == 0 ||
@@ -88,11 +88,27 @@ function WordGroupSelector(props) {
       setSelectMode(!selectMode);
     }
   }, [wordGroups]);
-
-  function handleClick(group, groupName) {
+  const [cardColored, setCardColored] = useState(
+    Array(wordGroups.length)
+      .fill()
+      .map((_, i) => false)
+  );
+  /**
+   * TODO:
+   * have color change when editing lesson, so setCardColored above to true for that index. The index is props.assignedWordGroup
+   * 
+   */
+  function handleClick(group, groupName, index) {
     setClickedGroup(group);
     setClickedName(groupName);
     setSelectMode(!selectMode);
+    setClickedIndex(index);
+  }
+  function handleChangeColor(index) {
+    //only one colored at a time bc you can only choose one word group
+    let cardColoredCopy = Array(wordGroups.length).fill().map((_, i) => false);
+    cardColoredCopy[index] = true;
+    setCardColored(cardColoredCopy);
   }
 
   function handleChangeSelectMode(selectStatus) {
@@ -102,9 +118,9 @@ function WordGroupSelector(props) {
   return (
     <div className="Background">
       <div className="WordGroups">
-        {Object.keys(wordGroups).map(key => (
-          <div onClick={() => handleClick(wordGroups[key][0], key)}>
-            <WordGroupIcon name={key} image={wordGroups[key][1]} />
+        {Object.keys(wordGroups).map((key, index) => (
+          <div onClick={() => handleClick(wordGroups[key][0], key, index)}>
+            <WordGroupIcon name={key} image={wordGroups[key][1]} colored = {cardColored[index]} />
           </div>
         ))}
       </div>
@@ -113,11 +129,13 @@ function WordGroupSelector(props) {
           <WordSelector
             group={clickedGroup}
             name={clickedName}
+            index = {clickedIndex}
             setSelectMode={handleChangeSelectMode}
             selectWords={props.handleChange}
             selectGroup={props.wordGroupChange}
             assignedWordGroup={props.assignedWordGroup}
             assignedWords={props.assignedWords}
+            changeColor ={handleChangeColor}
           />
         )}
       </div>
