@@ -1,6 +1,49 @@
+@import "../../pages/Index/index.scss";
+
+.assignment_creation {
+  position: absolute;
+}
 .place_middle {
   position: "absolute";
   left: "50%";
   top: "50%";
   transform: "translate(-50%, -50%)";
+}
+.assign {
+  color: $assignments-font-color;
+  background-color: $assignments-background-color;
+  font-family: $assignments-roboto-font;
+  font-weight: bold;
+  border-radius: 1em;
+  margin-left: 10em;
+  position:"absolute";
+}
+
+.input {
+  color: $assignments-font-color;
+  background-color:$assignments-background-color;
+  border-color: $assignments-font-color;
+  border-radius: 1em;
+  font-family: $assignments-roboto-font;
+  font-weight: bold;
+  width: 30em;
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+}
+.input-header {
+  color: $assignments-background-color;
+  background-color:$assignments-font-color;
+  border-color: $assignments-font-color;
+  border-radius: 1em;
+  font-family: $assignments-roboto-font;
+  font-weight: bold;
+  width: 15em;
+  position: absolute;
+  left: 30%;
+  margin-left: -50px;
+}
+
+.spacing {
+  padding: 3em;
 }
