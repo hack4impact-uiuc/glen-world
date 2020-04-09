@@ -9,7 +9,6 @@ function WordGroupSelector(props) {
   const [wordGroups, setWordGroups] = useState({});
   const [clickedName, setClickedName] = useState("");
   const [clickedGroup, setClickedGroup] = useState([]);
-  const [clickedIndex, setClickedIndex] = useState();
   // selectMode dictates whether WordSelector component appears and a group's words can be selected
   const [selectMode, setSelectMode] = useState(false);
   useEffect(() => {
@@ -22,63 +21,63 @@ function WordGroupSelector(props) {
         setWordGroups({
           People: [
             collectedWordGroups[wordKeys.current[0]],
-            "images/word-group/person.svg"
+            "images/word-group/person.svg", 0
           ],
           Action: [
             collectedWordGroups[wordKeys.current[1]],
-            "images/word-group/action.svg"
+            "images/word-group/action.svg", 1
           ],
           Toys: [
             collectedWordGroups[wordKeys.current[2]],
-            "images/word-group/toys.svg"
+            "images/word-group/toys.svg", 2
           ],
           Colors: [
             collectedWordGroups[wordKeys.current[3]],
-            "images/word-group/colors.svg"
+            "images/word-group/colors.svg", 3
           ],
           Animals: [
             collectedWordGroups[wordKeys.current[4]],
-            "images/word-group/animals-1.svg"
+            "images/word-group/animals-1.svg", 4
           ],
           Transport: [
             collectedWordGroups[wordKeys.current[5]],
-            "images/word-group/travel.svg"
+            "images/word-group/travel.svg", 5
           ],
           "Body Parts": [
             collectedWordGroups[wordKeys.current[6]],
-            "images/word-group/body.svg"
+            "images/word-group/body.svg", 6
           ],
           Clothing: [
             collectedWordGroups[wordKeys.current[7]],
-            "images/word-group/clothes.svg"
+            "images/word-group/clothes.svg", 7
           ],
           Food: [
             collectedWordGroups[wordKeys.current[8]],
-            "images/word-group/food-1.svg"
+            "images/word-group/food-1.svg", 8
           ],
           "More Food": [
             collectedWordGroups[wordKeys.current[9]],
-            "images/word-group/food-2.svg"
+            "images/word-group/food-2.svg", 9
           ],
           Furniture: [
             collectedWordGroups[wordKeys.current[10]],
-            "images/word-group/home.svg"
+            "images/word-group/home.svg", 10
           ],
           Emotion: [
             collectedWordGroups[wordKeys.current[11]],
-            "images/word-group/emotions.svg"
+            "images/word-group/emotions.svg", 11
           ],
           Media: [
             collectedWordGroups[wordKeys.current[12]],
-            "images/word-group/media.svg"
+            "images/word-group/media.svg", 12
           ],
           "More Animals": [
             collectedWordGroups[wordKeys.current[13]],
-            "images/word-group/animals-2.svg"
+            "images/word-group/animals-2.svg", 13
           ],
           "Even More Animals!": [
             collectedWordGroups[wordKeys.current[14]],
-            "images/word-group/animals-3.svg"
+            "images/word-group/animals-3.svg", 14
           ]
         });
       });
@@ -86,6 +85,7 @@ function WordGroupSelector(props) {
       setClickedName(props.assignedWordGroup);
       setClickedGroup(wordGroups[props.assignedWordGroup][0]);
       setSelectMode(!selectMode);
+      handleChangeColor(wordGroups[props.assignedWordGroup][2])
     }
   }, [wordGroups]);
   const [cardColored, setCardColored] = useState(
@@ -93,16 +93,10 @@ function WordGroupSelector(props) {
       .fill()
       .map((_, i) => false)
   );
-  /**
-   * TODO:
-   * have color change when editing lesson, so setCardColored above to true for that index. The index is props.assignedWordGroup
-   * 
-   */
-  function handleClick(group, groupName, index) {
+  function handleClick(group, groupName) {
     setClickedGroup(group);
     setClickedName(groupName);
     setSelectMode(!selectMode);
-    setClickedIndex(index);
   }
   function handleChangeColor(index) {
     //only one colored at a time bc you can only choose one word group
@@ -129,7 +123,7 @@ function WordGroupSelector(props) {
           <WordSelector
             group={clickedGroup}
             name={clickedName}
-            index = {clickedIndex}
+            index = {wordGroups[clickedName][2]}
             setSelectMode={handleChangeSelectMode}
             selectWords={props.handleChange}
             selectGroup={props.wordGroupChange}
