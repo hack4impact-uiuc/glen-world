@@ -12,19 +12,9 @@ function PhonicSelector(props) {
     phonicKeys.current = Object.keys(phonics);
     var tempPhonicGroups = {};
     phonicKeys.current.forEach((element, index) => {
-      // tempPhonicGroups.push({
-      //   key: element,
-      //   value: phonics[element]
-      // })
-      tempPhonicGroups[element] = [phonics[element]]
-    })
-    // setPhonicGroups({
-    //   buh: [phonics[phonicKeys.current[0]]],
-    //   duh: [phonics[phonicKeys.current[1]]],
-    //   kuh: [phonics[phonicKeys.current[2]]],
-    //   fuh: [phonics[phonicKeys.current[3]]]
-    // });
-    setPhonicGroups(tempPhonicGroups)
+      tempPhonicGroups[element] = [phonics[element]];
+    });
+    setPhonicGroups(tempPhonicGroups);
   }, []);
   const [chosenPhonics, setChosenPhonics] = useState([]);
   const [flipCard, setFlipCard] = useState(
@@ -50,13 +40,12 @@ function PhonicSelector(props) {
     if (shouldSelect) {
       chosenPhonicsCopy.push(phonicName);
       cardColoredCopy[index] = true;
-      console.log("add phonics to the list");
     } else {
-      chosenPhonicsCopy.forEach((element,index) => {
+      chosenPhonicsCopy.forEach((element, index) => {
         if (element == phonicName) {
-          chosenPhonicsCopy.splice(index, 1)
+          chosenPhonicsCopy.splice(index, 1);
         }
-        })
+      });
       cardColoredCopy[index] = false;
     }
     //functions in this order bc react sets state asynchronously

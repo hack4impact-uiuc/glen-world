@@ -141,8 +141,6 @@ function CreateAssignment(props) {
       verifyNameAndPush();
     }
   }
-  console.log(wordGroup)
-  console.log(words)
   const pushLesson = lessonNameValue => {
     firebase.setCustomLesson(
       ADMIN_ACCOUNT,
@@ -154,7 +152,6 @@ function CreateAssignment(props) {
       lessonNameValue,
       existingAssignment?.id
     );
-    console.log("LESSON WAS PUSHED")
     setSubmitted(true);
   };
 
