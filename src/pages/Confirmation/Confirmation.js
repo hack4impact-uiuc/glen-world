@@ -24,24 +24,52 @@ function Confirmation(props) {
   const wordGroup = lesson.group;
   const date = lesson.dueDate;
   const allDeployments = lesson.deployments;
+  const lessonName = lesson.lessonNameValue;
+  const existingId = lesson.id;
   const [submitted, setSubmitted] = useState(false);
+  const [editRedirect, setEditRedirect] = useState(false);
   const classes = useStyles();
 
-  const pushLesson = () => {
-    firebase.addCustomLesson(
+  function pushLesson() {
+    firebase.setCustomLesson(
       ADMIN_ACCOUNT,
       deploymentAccountIds,
       lessonType,
       wordGroup,
       words,
-      date.date
+      date,
+      lessonName,
+      existingId
     );
-
     setSubmitted(true);
   };
 
   if (submitted) {
     return <Redirect to="/" />;
+  }
+
+  if(editRedirect) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/createlesson",
+          state: {
+            existingAssignment: {
+              deploymentAccountIds: deploymentAccountIds,
+              words: words,
+              lessonTemplate: lessonType,
+              wordGroup: wordGroup,
+              dueDate: date,
+              lessonName: lessonName,
+              id: existingId,
+              confirm: {
+                redirect: true
+              }
+            }
+          }
+        }}
+      />
+    );
   }
 
   return (
@@ -68,23 +96,13 @@ function Confirmation(props) {
             </Row>
           </Col>
           <Col xl={20}></Col>
-          <List>
-            {Array.isArray(allDeployments) &&
-              allDeployments.map((deployment, index) => (
-                <div>
-                  {deploymentAccountIds.map(deploymentId => (
-                    <ListItem className={classes.nested}>
-                      <ListItemText
-                        primary={`${deployment.deploymentAccounts[deploymentId].username}`}
-                      />
-                    </ListItem>
-                  ))}
-                </div>
-              ))}
-          </List>
+            {lessonName}
         </Row>
       </Container>
-      <Button onClick={() => pushLesson()} className="assign">
+      <Button onClick={() => setEditRedirect(true)} className="assign">
+        Edit
+      </Button>
+      <Button onClick={pushLesson} className="assign">
         Confirm
       </Button>
     </div>

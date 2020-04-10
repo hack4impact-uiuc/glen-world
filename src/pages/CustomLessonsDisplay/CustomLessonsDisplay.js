@@ -87,12 +87,6 @@ const CustomLessonsDisplay = props => {
           <button className="Button" onClick={() => orderAdminLessons(false)}>
             Sort by Oldest
           </button>
-          <button
-            className="Button"
-            onClick={() => setConfirmationRedirect(true)}
-          >
-            Confirmation (temp)
-          </button>
         </center>
       </div>
       <div className="DateDisplay">

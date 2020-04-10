@@ -7,7 +7,7 @@ function DatePicker(props) {
   const [date, setDate] = useState(null);
 
   useEffect(() => {
-    if (props.assignedDate) setDate(props.assignedDate.toDate());
+    if (props.assignedDate) setDate(props.assignedDate);
     else setDate(new Date());
   }, []);
 

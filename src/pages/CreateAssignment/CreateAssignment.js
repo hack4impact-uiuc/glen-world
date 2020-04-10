@@ -44,11 +44,16 @@ function CreateAssignment(props) {
         setAdminDeployments(deploymentAccounts);
       });
 
-    if (existingAssignment) prePopulateAssignment(existingAssignment);
+    if (existingAssignment) {
+      if(!existingAssignment.confirm?.redirect)
+        existingAssignment.dueDate = existingAssignment.dueDate.toDate()
+      console.log(existingAssignment);
+      prePopulateAssignment(existingAssignment);
+    }
   }, [firebase]);
 
   function prePopulateAssignment(existingAssignment) {
-    handleDatePickerChange(existingAssignment.dueDate.toDate());
+    handleDatePickerChange(existingAssignment.dueDate);
     handleStudentListChange(existingAssignment.deploymentAccountIds);
     handleWordSelectorChange(existingAssignment.words);
     handleWordGroupChange(existingAssignment.wordGroup);
@@ -105,11 +110,12 @@ function CreateAssignment(props) {
     if (!lessonName) {
       // set default name if no lesson name
       setLessonName(defaultName);
-
+      setSubmitted(true);
       // react sets state asynchronously so lessonName doesn't actually update until rerender
-      pushLesson(defaultName);
+      //pushLesson(defaultName);
     } else {
-      pushLesson(lessonName);
+      setLessonName(lessonName);
+      setSubmitted(true);
     }
   }
   function validateAssignment() {
@@ -141,23 +147,6 @@ function CreateAssignment(props) {
     }
   }
 
-
-  const pushLesson = lessonNameValue => {
-    /*
-    firebase.setCustomLesson(
-      ADMIN_ACCOUNT,
-      deploymentAccountIds,
-      lessonType,
-      wordGroup,
-      words,
-      date,
-      lessonNameValue,
-      existingAssignment?.id
-    );
-    */
-    setSubmitted(true);
-  };
-
   if (submitted) {
     return (
       <Redirect
@@ -169,7 +158,9 @@ function CreateAssignment(props) {
             lesson: lessonType,
             group: wordGroup,
             dueDate: date,
-            deployments: adminDeployments
+            deployments: adminDeployments,
+            lessonNameValue: lessonName,
+            id: existingAssignment?.id
           }
           /*
           pathname: "/",
