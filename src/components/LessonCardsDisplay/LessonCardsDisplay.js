@@ -1,7 +1,6 @@
 import React from "react";
 import "./LessonCardsDisplay.scss";
-import LessonCard from "./LessonCard";
-import DefaultCard from "./DefaultCard";
+import LessonCard from "../LessonCards/LessonCard";
 
 function LessonCardsDisplay(props) {
   function deleteLessonCard(lessonNumber) {
@@ -17,7 +16,9 @@ function LessonCardsDisplay(props) {
   return (
     <div className="LessonCardsDisplay">
       <div onClick={addLessonCard}>
-        <DefaultCard />
+        <div className="DefaultCard">
+          Click to assign students to a selected date!
+        </div>
       </div>
       {props.cards.length > 0 &&
         props.cards.map((card, index) => (

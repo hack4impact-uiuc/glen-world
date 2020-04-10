@@ -8,7 +8,7 @@ import {
   Col,
   Form,
   InputGroup,
-  FormControl,
+  FormControl
 } from "react-bootstrap";
 import { compose } from "recompose";
 import { Button, Input } from "reactstrap";
@@ -19,7 +19,7 @@ import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
 import InvalidAssignment from "../../components/InvalidAssignment/InvalidAssignment";
-import LessonCardsDisplay from "../../components/LessonCards/LessonCardsDisplay";
+import LessonCardsDisplay from "../../components/LessonCardsDisplay/LessonCardsDisplay";
 
 function CreateAssignment(props) {
   const { firebase } = props;
@@ -43,7 +43,7 @@ function CreateAssignment(props) {
   useEffect(() => {
     firebase
       .getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT)
-      .then((deploymentAccounts) => {
+      .then(deploymentAccounts => {
         setAdminDeployments(deploymentAccounts);
       });
 
@@ -99,35 +99,34 @@ function CreateAssignment(props) {
     setShowWriting(true);
   }
   function createLessonCard() {
-    console.log("Creating New Card!");
     var validCard = true;
     if (deploymentAccountIds < 1) {
-      setInvalidMessage((invalidMessage) => [
+      setInvalidMessage(invalidMessage => [
         ...invalidMessage,
-        "Please assign to at least one student.",
+        "Please assign to at least one student."
       ]);
       validCard = false;
     }
     if (date == null) {
-      setInvalidMessage((invalidMessage) => [
+      setInvalidMessage(invalidMessage => [
         ...invalidMessage,
-        "Please select a date on the calendar.",
+        "Please select a date on the calendar."
       ]);
       validCard = false;
     }
     if (validCard) {
       Promise.all(
-        deploymentAccountIds.map((id) => {
+        deploymentAccountIds.map(id => {
           return firebase.getDeploymentAccountInformation(id);
         })
-      ).then((value) => {
-        let usernames = value.map((studentInfo) => {
+      ).then(value => {
+        let usernames = value.map(studentInfo => {
           return studentInfo["username"];
         });
         // Storing deploymentAccountIds specific to date (in addition to usernames) so that we don't need to repeat API call when lesson is pushed to DB
-        setLessonCards((lessonCards) => [
+        setLessonCards(lessonCards => [
           [usernames, date, deploymentAccountIds],
-          ...lessonCards,
+          ...lessonCards
         ]);
       });
     }
@@ -154,16 +153,16 @@ function CreateAssignment(props) {
     var validAssignment = true;
     // TODO: Add validation for Phonics based on pending requirements
     if (lessonType != "C" && (wordGroup == null || words.length < 4)) {
-      setInvalidMessage((invalidMessage) => [
+      setInvalidMessage(invalidMessage => [
         ...invalidMessage,
-        "Please include at least 4 words.",
+        "Please include at least 4 words."
       ]);
       validAssignment = false;
     }
     if (lessonCards.length < 1) {
-      setInvalidMessage((invalidMessage) => [
+      setInvalidMessage(invalidMessage => [
         ...invalidMessage,
-        "Please assign students to due dates on the Calendar by clicking the Create Button.",
+        "Please assign students to due dates on the Calendar by clicking the Create Button."
       ]);
       validAssignment = false;
     }
@@ -172,7 +171,7 @@ function CreateAssignment(props) {
     }
   }
 
-  const pushLesson = (lessonNameValue) => {
+  const pushLesson = lessonNameValue => {
     firebase.setCustomLesson(
       ADMIN_ACCOUNT,
       deploymentAccountIds,
@@ -191,7 +190,7 @@ function CreateAssignment(props) {
       <Redirect
         to={{
           pathname: "/",
-          state: { redirect: true },
+          state: { redirect: true }
         }}
       />
     );
@@ -220,7 +219,7 @@ function CreateAssignment(props) {
                 className="input"
                 placeholder={"Ex. Vocab"}
                 defaultValue={lessonName || ""}
-                onChange={(e) => handleLessonNameChange(e.target.value)}
+                onChange={e => handleLessonNameChange(e.target.value)}
               />
             </InputGroup>
           </div>

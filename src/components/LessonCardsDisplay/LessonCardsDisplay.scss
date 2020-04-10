@@ -14,3 +14,18 @@
   padding-bottom: 1vw;
   background-color: $assignments-darker-color;
 }
+
+.DefaultCard {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: scroll;
+  height: 15vw;
+  width: 10vw;
+  border-radius: 20px;
+  margin: 2vw;
+  margin-right: auto;
+  background-color: $assignments-background-color;
+  color: $assignments-font-color;
+  font-family: $assignments-roboto-font;
+  font-size: 1.2em;
+}

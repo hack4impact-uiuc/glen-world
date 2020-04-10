@@ -16,12 +16,12 @@
   font-weight: bold;
   border-radius: 1em;
   margin-left: 10em;
-  // margin-right: 1em;
   position: "absolute";
 }
 
 .name-assignment {
   margin: auto;
+  width: 60vw;
 }
 .input {
   color: $assignments-font-color;
@@ -31,8 +31,6 @@
   font-family: $assignments-roboto-font;
   font-weight: bold;
   width: 20vw;
-  position: absolute;
-  left: 20%;
 }
 .input-header {
   color: $assignments-background-color;
@@ -41,9 +39,6 @@
   border-radius: 1em;
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  width: 10vw;
-  position: absolute;
-  left: 10%;
 }
 
 .spacing {

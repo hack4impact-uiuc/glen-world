@@ -13,9 +13,11 @@ function LessonCard(props) {
         <div className="LessonCardMonth">{toDateTime()[1]}</div>
         <div className="LessonCardDay">{toDateTime()[2]}</div>
         <div
-          className="DeleteLessonCard"
           onClick={() => props.deleteLessons(props.lessonNumber)}
-        ></div>
+          className="DeleteLessonCard"
+        >
+          <img src="images/icons/remove-card.svg" />
+        </div>
       </div>
       <div className="LessonCardContent">
         {props.lessonStudents.map((student, index) => (
