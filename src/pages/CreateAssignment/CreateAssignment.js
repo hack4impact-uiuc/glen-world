@@ -126,8 +126,8 @@ function CreateAssignment(props) {
         });
         // Storing deploymentAccountIds specific to date (in addition to usernames) so that we don't need to repeat API call when lesson is pushed to DB
         setLessonCards((lessonCards) => [
-          ...lessonCards,
           [usernames, date, deploymentAccountIds],
+          ...lessonCards,
         ]);
       });
     }

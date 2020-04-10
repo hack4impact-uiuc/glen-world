@@ -20,7 +20,7 @@ function LessonCardsDisplay(props) {
         <DefaultCard />
       </div>
       {props.cards.length > 0 &&
-        props.cards.reverse().map((card, index) => (
+        props.cards.map((card, index) => (
           <div key={index}>
             <LessonCard
               lessonDate={card[1]}
