@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "reactstrap";
+import { Button , Row, Col} from "reactstrap";
 import "./WordSelector.scss";
 
 function WordSelector(props) {
@@ -7,6 +7,7 @@ function WordSelector(props) {
   const [minWords] = useState(4);
   const [checkedWords, updateWords] = useState([]);
   const [wordGroup, updateWordGroup] = useState();
+  const [chooseAll, setChooseAll] = useState(false);
 
   useEffect(() => {
     if (props.assignedWords) {
@@ -50,6 +51,14 @@ function WordSelector(props) {
 
   }
 
+  function handleChooseAll() {
+    if (!chooseAll) {
+      updateWords(props.group)
+    } else {
+      updateWords([])
+    }
+    setChooseAll(!chooseAll)
+  }
   function wordSelection(word, index) {
     return (
       <div className="Words" key={index}>
@@ -69,7 +78,20 @@ function WordSelector(props) {
 
   return (
     <div className="WordSelector">
+      <Row>
+      <Col>
       <div className="GroupTitle">{props.name}</div>
+      </Col>
+      <Col>
+      <input
+            class="check"
+            checked={checkedWords.length == props.group.length ? true : null}
+            type="checkbox"
+            name= "Select All"
+            onChange={() => handleChooseAll()}
+          />
+        </Col>
+      </Row>
       <hr className="GroupTitleUnderline"></hr>
       <div className="WordDisplay">{props.group.map(wordSelection)}</div>
       <div>

@@ -168,6 +168,7 @@ function CreateAssignment(props) {
   }
   return (
     <>
+    <div className = "create-assignment">
       <SectionSelector
         default={[!showPhonics, !showVocab, !showWriting]}
         handlePhonics={handlePhonics}
@@ -176,21 +177,26 @@ function CreateAssignment(props) {
       />
       {(showWriting || showVocab || showPhonics) && (
         <div className="place_middle">
-          <h1>Create Assignment</h1>
           <br />
           {showPhonics && (
+            <div>
+            <h1 className = "header">Phonics</h1>
             <PhonicSelector
               handlePhonicsChange={handleWordSelectorChange}
               handleGroupChange={handleWordGroupChange}
             />
+            </div>
           )}
           {(showWriting || showVocab) && (
+            <div>
+            {showWriting && <h1 className = "header">Writing</h1> || <h1 className = "header">Words</h1>}
             <WordGroupSelector
               handleChange={handleWordSelectorChange}
               wordGroupChange={handleWordGroupChange}
               assignedWords={words || existingAssignment?.words}
               assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
             />
+            </div>
           )}
           <div className="place_middle">
             <Container>
@@ -244,6 +250,7 @@ function CreateAssignment(props) {
           </div>
         </div>
       )}
+      </div>
     </>
   );
 }

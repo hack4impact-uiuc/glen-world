@@ -1,8 +1,8 @@
 @import "../../pages/Index/index.scss";
 
 .WordGroupIcon, .PurpleWordGroupIcon {
-  width: 16vw;
-  height: 16vw;
+  width: 15vw;
+  height: 15vw;
   margin: 2em;
   padding: 20px;
   background-color: white;
@@ -22,7 +22,8 @@
 .WordGroupName {
   font-family: $assignments-roboto-font;
   text-align: center;
-  color: $assignments-font-color;
+  // color: $assignments-font-color;
   margin-top: 10%;
+  color: violet;
 }
 
