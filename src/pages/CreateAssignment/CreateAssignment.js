@@ -45,8 +45,8 @@ function CreateAssignment(props) {
       });
 
     if (existingAssignment) {
-      if(!existingAssignment.confirm?.redirect)
-        existingAssignment.dueDate = existingAssignment.dueDate.toDate()
+      if (!existingAssignment.confirm?.redirect)
+        existingAssignment.dueDate = existingAssignment.dueDate.toDate();
       console.log(existingAssignment);
       prePopulateAssignment(existingAssignment);
     }

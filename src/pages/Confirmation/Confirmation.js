@@ -42,13 +42,13 @@ function Confirmation(props) {
       existingId
     );
     setSubmitted(true);
-  };
+  }
 
   if (submitted) {
     return <Redirect to="/" />;
   }
 
-  if(editRedirect) {
+  if (editRedirect) {
     return (
       <Redirect
         to={{
@@ -96,7 +96,7 @@ function Confirmation(props) {
             </Row>
           </Col>
           <Col xl={20}></Col>
-            {lessonName}
+          {lessonName}
         </Row>
       </Container>
       <Button onClick={() => setEditRedirect(true)} className="assign">
