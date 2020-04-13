@@ -33,11 +33,16 @@
   flex-direction: column;
 }
 
-.Words {
+.Words, .SelectCheckbox {
   font-family: $assignments-roboto-font;
   font-weight: bold;
   font-size: 1em;
   color: $assignments-font-color;
+}
+
+.SelectCheckbox {
+  margin-top: 8%;
+  margin-left: 10%;
 }
 
 .CloseSelection {
@@ -69,7 +74,7 @@
   padding-left: 1em;
 }
 
-.check {
+.check, .ChooseAllCheck {
   position: absolute;
   top: 0;
   left: 0;

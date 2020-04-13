@@ -83,13 +83,18 @@ function WordSelector(props) {
       <div className="GroupTitle">{props.name}</div>
       </Col>
       <Col>
-      <input
-            class="check"
-            checked={checkedWords.length == props.group.length ? true : null}
-            type="checkbox"
-            name= "Select All"
-            onChange={() => handleChooseAll()}
+      <div className = "SelectCheckbox">
+      <label class="container">
+          <input
+                class="check"
+                checked={checkedWords.length == props.group.length ? true : null}
+                type="checkbox"
+                name= "Select All"
+                onChange={() => handleChooseAll()}
           />
+          <div className = "word">Choose All</div>
+      </label>
+      </div>
         </Col>
       </Row>
       <hr className="GroupTitleUnderline"></hr>
