@@ -3,8 +3,8 @@ import "./WordGroupIcon.scss";
 
 function WordGroupIcon(props) {
   return (
-    <div className = {props.colored ? "PurpleWordGroupIcon" : "WordGroupIcon"}>
-      <img src={props.image} className = "image" />
+    <div className={props.colored ? "PurpleWordGroupIcon" : "WordGroupIcon"}>
+      <img src={props.image} className="image" />
       <div className="WordGroupName">{props.name}</div>
     </div>
   );

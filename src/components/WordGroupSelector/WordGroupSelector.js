@@ -21,63 +21,78 @@ function WordGroupSelector(props) {
         setWordGroups({
           People: [
             collectedWordGroups[wordKeys.current[0]],
-            "images/word-group/person.svg", 0
+            "images/word-group/person.svg",
+            0
           ],
           Action: [
             collectedWordGroups[wordKeys.current[1]],
-            "images/word-group/action.svg", 1
+            "images/word-group/action.svg",
+            1
           ],
           Toys: [
             collectedWordGroups[wordKeys.current[2]],
-            "images/word-group/toys.svg", 2
+            "images/word-group/toys.svg",
+            2
           ],
           Colors: [
             collectedWordGroups[wordKeys.current[3]],
-            "images/word-group/colors.svg", 3
+            "images/word-group/colors.svg",
+            3
           ],
           Animals: [
             collectedWordGroups[wordKeys.current[4]],
-            "images/word-group/animals-1.svg", 4
+            "images/word-group/animals-1.svg",
+            4
           ],
           Transport: [
             collectedWordGroups[wordKeys.current[5]],
-            "images/word-group/travel.svg", 5
+            "images/word-group/travel.svg",
+            5
           ],
           "Body Parts": [
             collectedWordGroups[wordKeys.current[6]],
-            "images/word-group/body.svg", 6
+            "images/word-group/body.svg",
+            6
           ],
           Clothing: [
             collectedWordGroups[wordKeys.current[7]],
-            "images/word-group/clothes.svg", 7
+            "images/word-group/clothes.svg",
+            7
           ],
           Food: [
             collectedWordGroups[wordKeys.current[8]],
-            "images/word-group/food-1.svg", 8
+            "images/word-group/food-1.svg",
+            8
           ],
           "More Food": [
             collectedWordGroups[wordKeys.current[9]],
-            "images/word-group/food-2.svg", 9
+            "images/word-group/food-2.svg",
+            9
           ],
           Furniture: [
             collectedWordGroups[wordKeys.current[10]],
-            "images/word-group/home.svg", 10
+            "images/word-group/home.svg",
+            10
           ],
           Emotion: [
             collectedWordGroups[wordKeys.current[11]],
-            "images/word-group/emotions.svg", 11
+            "images/word-group/emotions.svg",
+            11
           ],
           Media: [
             collectedWordGroups[wordKeys.current[12]],
-            "images/word-group/media.svg", 12
+            "images/word-group/media.svg",
+            12
           ],
           "Animals 2": [
             collectedWordGroups[wordKeys.current[13]],
-            "images/word-group/animals-2.svg", 13
+            "images/word-group/animals-2.svg",
+            13
           ],
           "Animals 3": [
             collectedWordGroups[wordKeys.current[14]],
-            "images/word-group/animals-3.svg", 14
+            "images/word-group/animals-3.svg",
+            14
           ]
         });
       });
@@ -85,7 +100,7 @@ function WordGroupSelector(props) {
       setClickedName(props.assignedWordGroup);
       setClickedGroup(wordGroups[props.assignedWordGroup][0]);
       setSelectMode(!selectMode);
-      handleChangeColor(wordGroups[props.assignedWordGroup][2])
+      handleChangeColor(wordGroups[props.assignedWordGroup][2]);
     }
   }, [wordGroups]);
   const [cardColored, setCardColored] = useState(
@@ -100,7 +115,9 @@ function WordGroupSelector(props) {
   }
   function handleChangeColor(index) {
     //only one colored at a time bc you can only choose one word group
-    let cardColoredCopy = Array(wordGroups.length).fill().map((_, i) => false);
+    let cardColoredCopy = Array(wordGroups.length)
+      .fill()
+      .map((_, i) => false);
     cardColoredCopy[index] = true;
     setCardColored(cardColoredCopy);
   }
@@ -114,22 +131,26 @@ function WordGroupSelector(props) {
       <div className="WordGroups">
         {Object.keys(wordGroups).map((key, index) => (
           <div onClick={() => handleClick(wordGroups[key][0], key, index)}>
-            <WordGroupIcon name={key} image={wordGroups[key][1]} colored = {cardColored[index]} />
+            <WordGroupIcon
+              name={key}
+              image={wordGroups[key][1]}
+              colored={cardColored[index]}
+            />
           </div>
         ))}
       </div>
-      <div className = "SelectWords">
+      <div className="SelectWords">
         {selectMode && (
           <WordSelector
             group={clickedGroup}
             name={clickedName}
-            index = {wordGroups[clickedName][2]}
+            index={wordGroups[clickedName][2]}
             setSelectMode={handleChangeSelectMode}
             selectWords={props.handleChange}
             selectGroup={props.wordGroupChange}
             assignedWordGroup={props.assignedWordGroup}
             assignedWords={props.assignedWords}
-            changeColor ={handleChangeColor}
+            changeColor={handleChangeColor}
           />
         )}
       </div>
