@@ -52,8 +52,15 @@ const CustomLessonsDisplay = props => {
       setDisplayTemplate(lesson.lessonTemplate);
     }
 
+    let deploymentAccountIds = new Set();
+    for (const dueDate in lesson.dueDates) {
+      for (const deploymentAccount of lesson.dueDates[dueDate]) {
+        deploymentAccountIds.add(deploymentAccount);
+      }
+    }
+
     Promise.all(
-      lesson.deploymentAccountIds.map(id => {
+      Array.from(deploymentAccountIds).map(id => {
         return firebase.getDeploymentAccountInformation(id);
       })
     ).then(value => {
@@ -91,19 +98,19 @@ const CustomLessonsDisplay = props => {
       <div className="DateDisplay">
         {adminLessons &&
           adminLessons.map(lesson => (
-            // <div key={lesson.id} onClick={() => handleClick(lesson)}>
-            //   <LessonNameDisplay lessonName={lesson.lessonName} />
-            // </div>
+            <div key={lesson.id} onClick={() => handleClick(lesson)}>
+              <LessonNameDisplay lessonName={lesson.lessonName} />
+            </div>
 
             // TODO: Redo Lesson Info Display.
             // Also commented out the above code due to API issues (fix once page / LessonInfoDisplay overhauled)
-            <div key={lesson.id}>
-              <LessonNameDisplay lessonName={lesson.lessonName} />
-            </div>
+            // <div key={lesson.id}>
+            //   <LessonNameDisplay lessonName={lesson.lessonName} />
+            // </div>
           ))}
       </div>
       <div>
-        {/* {displayLessonInfo && displayLesson && (
+        {displayLessonInfo && displayLesson && (
           <LessonInfoDisplay
             lesson={displayLesson}
             template={displayLessonTemplate}
@@ -111,7 +118,7 @@ const CustomLessonsDisplay = props => {
             studentNames={displayLessonStudents}
             setDisplay={handleChangeDisplayLessonInfo}
           />
-        )} */}
+        )}
       </div>
     </div>
   );

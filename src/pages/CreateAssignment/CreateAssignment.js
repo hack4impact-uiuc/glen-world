@@ -43,9 +43,41 @@ function CreateAssignment(props) {
     if (existingAssignment) prePopulateAssignment(existingAssignment);
   }, [firebase]);
 
+  function parseCardsFromLesson(lesson) {
+    let lessonCards = {};
+    let deploymentAccountIds = new Set();
+    for (const dueDate in lesson.dueDates) {
+      for (const deploymentAccount of lesson.dueDates[dueDate]) {
+        deploymentAccountIds.add(deploymentAccount);
+      }
+    }
+
+    let deploymentNameMap = {};
+    Array.from(deploymentAccountIds).forEach(id => {
+      firebase.getDeploymentAccountInformation(id).then(deploymentAccount => {
+        deploymentNameMap[id] = deploymentAccount.username;
+      }).catch(error => console.error("Error getting custom lesson: ", error));
+    })
+
+    for (const date in lesson.dueDates) {
+      let lessonCard = [[], []];
+      for (const deploymentAccountId of lesson.dueDates[date]) {
+        lessonCard[0].push(deploymentAccountId); // inputting account id
+        lessonCard[1].push(deploymentNameMap[deploymentAccountId]); // input corresponding username
+      }
+
+      lessonCards[date] = lessonCard;
+    }
+
+    setLessonCards(lessonCards);
+  }
+
   function prePopulateAssignment(existingAssignment) {
-    handleDatePickerChange(existingAssignment.dueDate.toDate());
-    handleStudentListChange(existingAssignment.deploymentAccountIds);
+    parseCardsFromLesson(existingAssignment);
+    // handleDatePickerChange(existingAssignment.dueDate.toDate());
+    // handleStudentListChange(existingAssignment.deploymentAccountIds);
+
+    // TODO: make sure lesson cards display properly, date, deploymentAccounts are updated to first card
     handleWordSelectorChange(existingAssignment.words);
     handleWordGroupChange(existingAssignment.wordGroup);
     handleLessonNameChange(existingAssignment.lessonName);
