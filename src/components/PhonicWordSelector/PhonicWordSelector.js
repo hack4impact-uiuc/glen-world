@@ -20,9 +20,9 @@ function PhonicWordSelector(props) {
           )}
         </div>
         <div>
-        <Button onClick={handleSelect} className="SelectButton">
-        {selected ? "UNDO" : "SELECT"}
-        </Button>
+          <Button onClick={handleSelect} className="SelectButton">
+            {selected ? "UNDO" : "SELECT"}
+          </Button>
         </div>
       </div>
     </div>
