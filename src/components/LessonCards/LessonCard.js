@@ -2,18 +2,18 @@ import React from "react";
 import "./LessonCard.scss";
 
 function LessonCard(props) {
-  function toDateTime() {
-    let dateComponents = props.lessonDate.toDateString().split(" ");
-    return dateComponents;
+  function getCardDate() {
+    var dateComponents = props.lessonDate.split(" ");
+    var dateString = dateComponents[1] + "  " + dateComponents[2];
+    return dateString;
   }
 
   return (
     <div className="LessonCard">
       <div className="LessonCardHeading">
-        <div className="LessonCardMonth">{toDateTime()[1]}</div>
-        <div className="LessonCardDay">{toDateTime()[2]}</div>
+        <div className="LessonCardDate">{getCardDate()}</div>
         <div
-          onClick={() => props.deleteLessons(props.lessonNumber)}
+          onClick={() => props.deleteCard(props.lessonDate)}
           className="DeleteLessonCard"
         >
           <img src="images/icons/remove-card.svg" />

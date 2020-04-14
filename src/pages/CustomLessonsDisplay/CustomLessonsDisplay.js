@@ -80,24 +80,30 @@ const CustomLessonsDisplay = props => {
           >
             Create Lesson
           </button>
-          <button className="Button" onClick={() => orderAdminLessons(true)}>
+          {/* <button className="Button" onClick={() => orderAdminLessons(true)}>
             Sort by Latest
           </button>
           <button className="Button" onClick={() => orderAdminLessons(false)}>
             Sort by Oldest
-          </button>
+          </button> */}
         </center>
       </div>
       <div className="DateDisplay">
         {adminLessons &&
           adminLessons.map(lesson => (
-            <div key={lesson.id} onClick={() => handleClick(lesson)}>
+            // <div key={lesson.id} onClick={() => handleClick(lesson)}>
+            //   <LessonNameDisplay lessonName={lesson.lessonName} />
+            // </div>
+
+            // TODO: Redo Lesson Info Display.
+            // Also commented out the above code due to API issues (fix once page / LessonInfoDisplay overhauled)
+            <div key={lesson.id}>
               <LessonNameDisplay lessonName={lesson.lessonName} />
             </div>
           ))}
       </div>
       <div>
-        {displayLessonInfo && displayLesson && (
+        {/* {displayLessonInfo && displayLesson && (
           <LessonInfoDisplay
             lesson={displayLesson}
             template={displayLessonTemplate}
@@ -105,7 +111,7 @@ const CustomLessonsDisplay = props => {
             studentNames={displayLessonStudents}
             setDisplay={handleChangeDisplayLessonInfo}
           />
-        )}
+        )} */}
       </div>
     </div>
   );

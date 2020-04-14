@@ -2,16 +2,9 @@ import React, { useState, useEffect } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CreateAssignment.scss";
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  InputGroup,
-  FormControl
-} from "react-bootstrap";
+import { Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
 import { compose } from "recompose";
-import { Button, Input } from "reactstrap";
+import { Button } from "reactstrap";
 import { ADMIN_ACCOUNT } from "utils/constants.js";
 import { withFirebase } from "utils/Firebase";
 import StudentList from "components/StudentList/StudentList";
@@ -38,7 +31,7 @@ function CreateAssignment(props) {
   // Message that displays when an assignment hasn't been created properly
   const [invalidMessage, setInvalidMessage] = useState([]);
   // A lesson "card" contains a group of students that have been assigned a due date for the current lesson.
-  const [lessonCards, setLessonCards] = useState([]);
+  const [lessonCards, setLessonCards] = useState({});
 
   useEffect(() => {
     firebase
@@ -113,6 +106,12 @@ function CreateAssignment(props) {
         "Please select a date on the calendar."
       ]);
       validCard = false;
+    } else if (date in lessonCards) {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Cannot have duplicate dates in the same lesson."
+      ]);
+      validCard = false;
     }
     if (validCard) {
       Promise.all(
@@ -123,13 +122,17 @@ function CreateAssignment(props) {
         let usernames = value.map(studentInfo => {
           return studentInfo["username"];
         });
-        // Storing deploymentAccountIds specific to date (in addition to usernames) so that we don't need to repeat API call when lesson is pushed to DB
-        setLessonCards(lessonCards => [
-          [usernames, date, deploymentAccountIds],
-          ...lessonCards
-        ]);
+        setLessonCards({
+          ...lessonCards,
+          [date]: [deploymentAccountIds, usernames]
+        });
       });
     }
+  }
+  function deleteLessonCard(cardDate) {
+    const tempCards = { ...lessonCards };
+    delete tempCards[cardDate];
+    setLessonCards(tempCards);
   }
 
   function verifyNameAndPush() {
@@ -152,7 +155,7 @@ function CreateAssignment(props) {
   function validateAssignment() {
     var validAssignment = true;
     // TODO: Add validation for Phonics based on pending requirements
-    if (lessonType != "C" && (wordGroup == null || words.length < 4)) {
+    if (lessonType !== "C" && (wordGroup == null || words.length < 4)) {
       setInvalidMessage(invalidMessage => [
         ...invalidMessage,
         "Please include at least 4 words."
@@ -172,13 +175,19 @@ function CreateAssignment(props) {
   }
 
   const pushLesson = lessonNameValue => {
+    var dates = {};
+    const lessonKeys = Object.keys(lessonCards);
+    for (const key of lessonKeys) {
+      dates[key] = lessonCards[key][0];
+    }
+
     firebase.setCustomLesson(
       ADMIN_ACCOUNT,
       deploymentAccountIds,
       lessonType,
       wordGroup,
       words,
-      date,
+      dates,
       lessonNameValue,
       existingAssignment?.id
     );
@@ -256,7 +265,7 @@ function CreateAssignment(props) {
             <LessonCardsDisplay
               cards={lessonCards}
               addCard={createLessonCard}
-              setCards={setLessonCards}
+              removeCard={deleteLessonCard}
             />
           </div>
           <div>
