@@ -11,6 +11,7 @@ import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
+import PhonicSelector from "../../components/PhonicSelector/PhonicSelector";
 import InvalidAssignment from "../../components/InvalidAssignment/InvalidAssignment";
 import LessonCardsDisplay from "../../components/LessonCardsDisplay/LessonCardsDisplay";
 
@@ -173,7 +174,6 @@ function CreateAssignment(props) {
       verifyNameAndPush();
     }
   }
-
   const pushLesson = lessonNameValue => {
     var dates = {};
     const lessonKeys = Object.keys(lessonCards);
@@ -204,7 +204,6 @@ function CreateAssignment(props) {
       />
     );
   }
-
   return (
     <>
       <SectionSelector
@@ -217,21 +216,12 @@ function CreateAssignment(props) {
         <div>
           <h1>Create Assignment</h1>
           <br />
-          <div>
-            <InputGroup className="name-assignment">
-              <InputGroup.Prepend>
-                <InputGroup.Text className="input-header">
-                  Lesson Name
-                </InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl
-                className="input"
-                placeholder={"Ex. Vocab"}
-                defaultValue={lessonName || ""}
-                onChange={e => handleLessonNameChange(e.target.value)}
-              />
-            </InputGroup>
-          </div>
+          {showPhonics && (
+            <PhonicSelector
+              handlePhonicsChange={handleWordSelectorChange}
+              handleGroupChange={handleWordGroupChange}
+            />
+          )}
           {(showWriting || showVocab) && (
             <WordGroupSelector
               handleChange={handleWordSelectorChange}
@@ -240,7 +230,6 @@ function CreateAssignment(props) {
               assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
             />
           )}
-          <div className="spacing"></div>
           <div className="place_middle">
             <Container>
               <Row>

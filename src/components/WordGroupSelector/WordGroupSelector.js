@@ -13,30 +13,78 @@ function WordGroupSelector(props) {
   const [selectMode, setSelectMode] = useState(false);
 
   useEffect(() => {
-    if (Object.keys(wordGroups).length == 0) {
+    if (
+      Object.keys(wordGroups).length == 0 ||
+      props.assignedWordGroup == "phonics"
+    ) {
       collectedWordGroupsService.all().then(function(collectedWordGroups) {
         wordKeys.current = Object.keys(collectedWordGroups);
         setWordGroups({
-          People: collectedWordGroups[wordKeys.current[0]],
-          Action: collectedWordGroups[wordKeys.current[1]],
-          Toys: collectedWordGroups[wordKeys.current[2]],
-          Colors: collectedWordGroups[wordKeys.current[3]],
-          Animals: collectedWordGroups[wordKeys.current[4]],
-          Transport: collectedWordGroups[wordKeys.current[5]],
-          "Body Parts": collectedWordGroups[wordKeys.current[6]],
-          Clothing: collectedWordGroups[wordKeys.current[7]],
-          Food: collectedWordGroups[wordKeys.current[8]],
-          "More Food": collectedWordGroups[wordKeys.current[9]],
-          Furniture: collectedWordGroups[wordKeys.current[10]],
-          Emotion: collectedWordGroups[wordKeys.current[11]],
-          Media: collectedWordGroups[wordKeys.current[12]],
-          "More Animals": collectedWordGroups[wordKeys.current[13]],
-          "Even More Animals!": collectedWordGroups[wordKeys.current[14]]
+          People: [
+            collectedWordGroups[wordKeys.current[0]],
+            "images/word-group/person.svg"
+          ],
+          Action: [
+            collectedWordGroups[wordKeys.current[1]],
+            "images/word-group/action.svg"
+          ],
+          Toys: [
+            collectedWordGroups[wordKeys.current[2]],
+            "images/word-group/toys.svg"
+          ],
+          Colors: [
+            collectedWordGroups[wordKeys.current[3]],
+            "images/word-group/colors.svg"
+          ],
+          Animals: [
+            collectedWordGroups[wordKeys.current[4]],
+            "images/word-group/animals-1.svg"
+          ],
+          Transport: [
+            collectedWordGroups[wordKeys.current[5]],
+            "images/word-group/travel.svg"
+          ],
+          "Body Parts": [
+            collectedWordGroups[wordKeys.current[6]],
+            "images/word-group/body.svg"
+          ],
+          Clothing: [
+            collectedWordGroups[wordKeys.current[7]],
+            "images/word-group/clothes.svg"
+          ],
+          Food: [
+            collectedWordGroups[wordKeys.current[8]],
+            "images/word-group/food-1.svg"
+          ],
+          "More Food": [
+            collectedWordGroups[wordKeys.current[9]],
+            "images/word-group/food-2.svg"
+          ],
+          Furniture: [
+            collectedWordGroups[wordKeys.current[10]],
+            "images/word-group/home.svg"
+          ],
+          Emotion: [
+            collectedWordGroups[wordKeys.current[11]],
+            "images/word-group/emotions.svg"
+          ],
+          Media: [
+            collectedWordGroups[wordKeys.current[12]],
+            "images/word-group/media.svg"
+          ],
+          "More Animals": [
+            collectedWordGroups[wordKeys.current[13]],
+            "images/word-group/animals-2.svg"
+          ],
+          "Even More Animals!": [
+            collectedWordGroups[wordKeys.current[14]],
+            "images/word-group/animals-3.svg"
+          ]
         });
       });
     } else if (props.assignedWordGroup) {
       setClickedName(props.assignedWordGroup);
-      setClickedGroup(wordGroups[props.assignedWordGroup]);
+      setClickedGroup(wordGroups[props.assignedWordGroup][0]);
       setSelectMode(!selectMode);
     }
   }, [wordGroups]);
@@ -54,9 +102,9 @@ function WordGroupSelector(props) {
   return (
     <div className="Background">
       <div className="WordGroups">
-        {Object.keys(wordGroups).map((key, index) => (
-          <div key={index} onClick={() => handleClick(wordGroups[key], key)}>
-            <WordGroupIcon number={index} name={key} />
+        {Object.keys(wordGroups).map(key => (
+          <div onClick={() => handleClick(wordGroups[key][0], key)}>
+            <WordGroupIcon name={key} image={wordGroups[key][1]} />
           </div>
         ))}
       </div>

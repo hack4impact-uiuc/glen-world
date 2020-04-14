@@ -1,0 +1,6 @@
+{
+  "buh": { "count": 2, "words": ["baby", "ball", "boy", "bird"] },
+  "duh": { "count": 2, "words": ["dog", "doll", "duck", "drink"] },
+  "kuh": { "count": 2, "words": ["car", "cat", "cow", "kick"] },
+  "fuh": { "count": 4, "words": ["foot", "fish", "fall down", "fox"] }
+}
