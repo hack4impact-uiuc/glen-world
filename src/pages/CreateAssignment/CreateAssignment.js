@@ -18,6 +18,7 @@ import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
+import PhonicSelector from "../../components/PhonicSelector/PhonicSelector";
 import InvalidAssignment from "../../components/InvalidAssignment/InvalidAssignment";
 
 function CreateAssignment(props) {
@@ -140,7 +141,6 @@ function CreateAssignment(props) {
       verifyNameAndPush();
     }
   }
-
   const pushLesson = lessonNameValue => {
     firebase.setCustomLesson(
       ADMIN_ACCOUNT,
@@ -165,7 +165,6 @@ function CreateAssignment(props) {
       />
     );
   }
-
   return (
     <>
       <SectionSelector
@@ -178,6 +177,12 @@ function CreateAssignment(props) {
         <div>
           <h1>Create Assignment</h1>
           <br />
+          {showPhonics && (
+            <PhonicSelector
+              handlePhonicsChange={handleWordSelectorChange}
+              handleGroupChange={handleWordGroupChange}
+            />
+          )}
           {(showWriting || showVocab) && (
             <WordGroupSelector
               handleChange={handleWordSelectorChange}
@@ -186,7 +191,6 @@ function CreateAssignment(props) {
               assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
             />
           )}
-          <div className="spacing"></div>
           <div className="place_middle">
             <Container>
               <Row>
