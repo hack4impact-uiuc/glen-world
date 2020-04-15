@@ -16,34 +16,52 @@
 .GroupTitle {
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 20pt;
+  font-size: 30pt;
+  text-align: left;
   color: #b1b0ff;
   padding-bottom: 0;
+  padding-top: 0;
   margin-right: 40%;
+  margin-top: 0%;
+  overflow: visible;
 }
 
 .GroupTitleUnderline {
+  margin-top: 0%;
   border-top: 2px solid $assignments-font-color;
 }
 
 .WordDisplay {
-  display: flex;
-  width: 20vw;
-  height: 12vw;
+  display: inline-flex;
+  width: 35vw;
+  height: 5vw;
   flex-wrap: wrap;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .Words, .SelectCheckbox {
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 20px;
   color: $assignments-font-color;
 }
 
 .SelectCheckbox {
-  margin-top: 8%;
-  margin-left: 10%;
+  margin-top: 10%;
+  margin-left: 0%;
+  align-items: flex-start;
+}
+input[type='checkbox'] {
+  -webkit-appearance:none;
+  width:30px;
+  height:30px;
+  background:white;
+  border-radius:5px;
+  border:2px solid #555;
+  margin-top: 0%;
+}
+input[type='checkbox']:checked {
+  background: $assignments-light-purple;
 }
 
 .CloseSelection {
