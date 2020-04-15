@@ -33,6 +33,7 @@ function CreateAssignment(props) {
   const [invalidMessage, setInvalidMessage] = useState([]);
   // A lesson "card" contains a group of students that have been assigned a due date for the current lesson.
   const [lessonCards, setLessonCards] = useState({});
+  const [lessonCreationDate, setLessonCreationDate] = useState();
 
   useEffect(() => {
     firebase
@@ -42,6 +43,13 @@ function CreateAssignment(props) {
       });
 
     if (existingAssignment) prePopulateAssignment(existingAssignment);
+    let originalDate = new Date();
+    // The following are set to 0 to allow for edge case where teacher wants to include today in lesson dates.
+    originalDate.setHours(0);
+    originalDate.setMinutes(0);
+    originalDate.setSeconds(0);
+    originalDate.setMilliseconds(0);
+    setLessonCreationDate(originalDate);
   }, [firebase]);
 
   function prePopulateAssignment(existingAssignment) {
@@ -113,6 +121,12 @@ function CreateAssignment(props) {
         "Cannot have duplicate dates in the same lesson."
       ]);
       validCard = false;
+    } else if (date.getTime() < lessonCreationDate.getTime()) {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Cannot select a date before the current date."
+      ]);
+      validCard = false;
     }
     if (validCard) {
       Promise.all(
@@ -138,9 +152,11 @@ function CreateAssignment(props) {
 
   function verifyNameAndPush() {
     var options = { month: "long" };
-    let month = new Intl.DateTimeFormat("en-US", options).format(date);
-    let day = date.getDate();
-    let year = date.getFullYear();
+    let month = new Intl.DateTimeFormat("en-US", options).format(
+      lessonCreationDate
+    );
+    let day = lessonCreationDate.getDate();
+    let year = lessonCreationDate.getFullYear();
     let defaultName = `${wordGroup}: ${month} ${day} ${year}`;
 
     if (!lessonName) {
@@ -155,8 +171,7 @@ function CreateAssignment(props) {
   }
   function validateAssignment() {
     var validAssignment = true;
-    // TODO: Add validation for Phonics based on pending requirements
-    if (lessonType !== "C" && (wordGroup == null || words.length < 4)) {
+    if (wordGroup == null || words.length < 4) {
       setInvalidMessage(invalidMessage => [
         ...invalidMessage,
         "Please include at least 4 words."
@@ -216,6 +231,21 @@ function CreateAssignment(props) {
         <div>
           <h1>Create Assignment</h1>
           <br />
+          <div>
+            <InputGroup className="name-assignment">
+              <InputGroup.Prepend>
+                <InputGroup.Text className="input-header">
+                  Lesson Name
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                className="input"
+                placeholder={"Ex. Vocab"}
+                defaultValue={lessonName || ""}
+                onChange={e => handleLessonNameChange(e.target.value)}
+              />
+            </InputGroup>
+          </div>
           {showPhonics && (
             <PhonicSelector
               handlePhonicsChange={handleWordSelectorChange}
