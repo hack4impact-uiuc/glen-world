@@ -2,7 +2,6 @@
 
 .WordSelector {
   background-color: white;
-  height: 25vw;
   width: 40vw;
   padding: 20px;
   border-radius: 1em;
@@ -34,7 +33,7 @@
 .WordDisplay {
   display: inline-flex;
   width: 35vw;
-  height: 5vw;
+  max-height: 35vw;
   flex-wrap: wrap;
   flex-direction: row;
 }
@@ -74,6 +73,9 @@ input[type='checkbox']:checked {
   left: 1.5em;
   bottom: 0.5em;
   border-radius: 1em;
+}
+.Padding {
+  padding-top: 2em;
 }
 
 .NextButton {

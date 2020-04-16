@@ -66,18 +66,18 @@ function WordSelector(props) {
   function wordSelection(word, index) {
     return (
       <Col sm="4">
-      <div className="Words" key={index}>
-        <label class="container">
-          <input
-            class="check"
-            checked={checkedWords.includes(word) ? true : null}
-            type="checkbox"
-            name={word}
-            onChange={() => handleCheck(word)}
-          />
-          <div className="word">{word}</div>
-        </label>
-      </div>
+        <div className="Words" key={index}>
+          <label class="container">
+            <input
+              class="check"
+              checked={checkedWords.includes(word) ? true : null}
+              type="checkbox"
+              name={word}
+              onChange={() => handleCheck(word)}
+            />
+            <div className="word">{word}</div>
+          </label>
+        </div>
       </Col>
     );
   }
@@ -85,10 +85,10 @@ function WordSelector(props) {
   return (
     <div className="WordSelector">
       <Row>
-        <Col sm = "8">
+        <Col sm="8">
           <div className="GroupTitle">{props.name}</div>
         </Col>
-        <Col sm = "4">
+        <Col sm="4">
           <div className="SelectCheckbox">
             <label class="container">
               <input
@@ -102,18 +102,16 @@ function WordSelector(props) {
                 name="Select All"
                 onChange={() => handleChooseAll()}
               />
-               <div className="word">Choose All</div>
+              <div className="word">Choose All</div>
             </label>
           </div>
         </Col>
       </Row>
       <hr className="GroupTitleUnderline"></hr>
       <div className="WordDisplay">
-        {props.group.map((word, index) => (
-          wordSelection(word, index)
-        ))}  
+        {props.group.map((word, index) => wordSelection(word, index))}
       </div>
-      <div>
+      <div className="Padding">
         <Button
           disabled={disableNext()}
           onClick={() => handleSelect()}
