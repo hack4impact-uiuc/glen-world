@@ -141,7 +141,6 @@ function CreateAssignment(props) {
       verifyNameAndPush();
     }
   }
-
   const pushLesson = lessonNameValue => {
     firebase.setCustomLesson(
       ADMIN_ACCOUNT,

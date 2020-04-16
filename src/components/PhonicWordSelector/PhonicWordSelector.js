@@ -23,16 +23,9 @@ function PhonicWordSelector(props) {
         <div className="PhonicGroupTitle">{props.name}</div>
         <div>{props.data.map(word => word.words.map(wordDisplay))}</div>
         <div>
-          {!selected && (
-            <Button onClick={() => handleSelect()} className="SelectButton">
-              SELECT
-            </Button>
-          )}
-          {selected && (
-            <Button onClick={() => handleSelect()} className="SelectButton">
-              UNDO
-            </Button>
-          )}
+          <Button onClick={handleSelect} className="SelectButton">
+            {selected ? "UNDO" : "SELECT"}
+          </Button>
         </div>
       </div>
     </div>
