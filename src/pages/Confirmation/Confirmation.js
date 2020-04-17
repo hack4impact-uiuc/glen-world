@@ -22,7 +22,7 @@ function Confirmation(props) {
   const deploymentAccountIds = lesson.deploymentIds;
   const lessonType = lesson.lesson;
   const wordGroup = lesson.group;
-  const date = lesson.dueDate;
+  const dates = lesson.dueDate;
   const allDeployments = lesson.deployments;
   const lessonName = lesson.lessonNameValue;
   const existingId = lesson.id;
@@ -37,7 +37,7 @@ function Confirmation(props) {
       lessonType,
       wordGroup,
       words,
-      date,
+      dates,
       lessonName,
       existingId
     );
@@ -59,7 +59,7 @@ function Confirmation(props) {
               words: words,
               lessonTemplate: lessonType,
               wordGroup: wordGroup,
-              dueDate: date,
+              dueDates: dates,
               lessonName: lessonName,
               id: existingId,
               confirm: {

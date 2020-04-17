@@ -209,7 +209,7 @@ function CreateAssignment(props) {
             selectedWords: words,
             lesson: lessonType,
             group: wordGroup,
-            dueDate: date,
+            dueDates: dates,
             deployments: adminDeployments,
             lessonNameValue: lessonName,
             id: existingAssignment?.id
