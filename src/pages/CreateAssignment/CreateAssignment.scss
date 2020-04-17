@@ -8,6 +8,10 @@
   left: "50%";
   top: "50%";
   transform: "translate(-50%, -50%)";
+  position: relative;
+}
+.container {
+  flex-direction: column-reverse;
 }
 .assign {
   color: $assignments-font-color;

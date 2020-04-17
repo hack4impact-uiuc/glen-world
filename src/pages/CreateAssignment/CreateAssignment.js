@@ -11,6 +11,7 @@ import StudentList from "components/StudentList/StudentList";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
+import PhonicSelector from "../../components/PhonicSelector/PhonicSelector";
 import InvalidAssignment from "../../components/InvalidAssignment/InvalidAssignment";
 import LessonCardsDisplay from "../../components/LessonCardsDisplay/LessonCardsDisplay";
 
@@ -32,6 +33,7 @@ function CreateAssignment(props) {
   const [invalidMessage, setInvalidMessage] = useState([]);
   // A lesson "card" contains a group of students that have been assigned a due date for the current lesson.
   const [lessonCards, setLessonCards] = useState({});
+  const [lessonCreationDate, setLessonCreationDate] = useState();
 
   useEffect(() => {
     firebase
@@ -41,9 +43,16 @@ function CreateAssignment(props) {
       });
 
     if (existingAssignment) prePopulateAssignment(existingAssignment);
+    let originalDate = new Date();
+    // The following are set to 0 to allow for edge case where teacher wants to include today in lesson dates.
+    originalDate.setHours(0);
+    originalDate.setMinutes(0);
+    originalDate.setSeconds(0);
+    originalDate.setMilliseconds(0);
+    setLessonCreationDate(originalDate);
   }, [firebase]);
 
-  function parseCardsFromLesson(lesson) {
+  async function parseCardsFromLesson(lesson) {
     let lessonCards = {};
     let deploymentAccountIds = new Set();
     for (const dueDate in lesson.dueDates) {
@@ -54,19 +63,28 @@ function CreateAssignment(props) {
 
     let deploymentNameMap = {};
     Array.from(deploymentAccountIds).forEach(id => {
-      firebase.getDeploymentAccountInformation(id).then(deploymentAccount => {
-        deploymentNameMap[id] = deploymentAccount.username;
-      }).catch(error => console.error("Error getting custom lesson: ", error));
-    })
+      firebase
+        .getDeploymentAccountInformation(id)
+        .then(deploymentAccount => {
+          deploymentNameMap[id] = deploymentAccount.username;
+        })
+        .catch(error => console.error("Error getting custom lesson: ", error));
+    });
 
-    for (const date in lesson.dueDates) {
+    // Wait for deploymentNameMap to finish resolving
+    while (Object.keys(deploymentNameMap).length == 0) {
+      await new Promise(r => setTimeout(r, 500));
+    }
+
+    for (const dueDate in lesson.dueDates) {
       let lessonCard = [[], []];
-      for (const deploymentAccountId of lesson.dueDates[date]) {
+
+      for (const deploymentAccountId of lesson.dueDates[dueDate]) {
         lessonCard[0].push(deploymentAccountId); // inputting account id
         lessonCard[1].push(deploymentNameMap[deploymentAccountId]); // input corresponding username
       }
 
-      lessonCards[date] = lessonCard;
+      lessonCards[dueDate] = lessonCard;
     }
 
     setLessonCards(lessonCards);
@@ -74,10 +92,6 @@ function CreateAssignment(props) {
 
   function prePopulateAssignment(existingAssignment) {
     parseCardsFromLesson(existingAssignment);
-    // handleDatePickerChange(existingAssignment.dueDate.toDate());
-    // handleStudentListChange(existingAssignment.deploymentAccountIds);
-
-    // TODO: make sure lesson cards display properly, date, deploymentAccounts are updated to first card
     handleWordSelectorChange(existingAssignment.words);
     handleWordGroupChange(existingAssignment.wordGroup);
     handleLessonNameChange(existingAssignment.lessonName);
@@ -123,6 +137,11 @@ function CreateAssignment(props) {
     setShowPhonics(false);
     setShowWriting(true);
   }
+
+  function selectCard(cardDate) {
+    handleDatePickerChange(new Date(cardDate));
+    handleStudentListChange(lessonCards[cardDate][0]);
+  }
   function createLessonCard() {
     var validCard = true;
     if (deploymentAccountIds < 1) {
@@ -142,6 +161,12 @@ function CreateAssignment(props) {
       setInvalidMessage(invalidMessage => [
         ...invalidMessage,
         "Cannot have duplicate dates in the same lesson."
+      ]);
+      validCard = false;
+    } else if (date.getTime() < lessonCreationDate.getTime()) {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Cannot select a date before the current date."
       ]);
       validCard = false;
     }
@@ -169,9 +194,11 @@ function CreateAssignment(props) {
 
   function verifyNameAndPush() {
     var options = { month: "long" };
-    let month = new Intl.DateTimeFormat("en-US", options).format(date);
-    let day = date.getDate();
-    let year = date.getFullYear();
+    let month = new Intl.DateTimeFormat("en-US", options).format(
+      lessonCreationDate
+    );
+    let day = lessonCreationDate.getDate();
+    let year = lessonCreationDate.getFullYear();
     let defaultName = `${wordGroup}: ${month} ${day} ${year}`;
 
     if (!lessonName) {
@@ -186,8 +213,7 @@ function CreateAssignment(props) {
   }
   function validateAssignment() {
     var validAssignment = true;
-    // TODO: Add validation for Phonics based on pending requirements
-    if (lessonType !== "C" && (wordGroup == null || words.length < 4)) {
+    if (wordGroup == null || words.length < 4) {
       setInvalidMessage(invalidMessage => [
         ...invalidMessage,
         "Please include at least 4 words."
@@ -205,7 +231,6 @@ function CreateAssignment(props) {
       verifyNameAndPush();
     }
   }
-
   const pushLesson = lessonNameValue => {
     var dates = {};
     const lessonKeys = Object.keys(lessonCards);
@@ -236,7 +261,6 @@ function CreateAssignment(props) {
       />
     );
   }
-
   return (
     <>
       <SectionSelector
@@ -264,6 +288,12 @@ function CreateAssignment(props) {
               />
             </InputGroup>
           </div>
+          {showPhonics && (
+            <PhonicSelector
+              handlePhonicsChange={handleWordSelectorChange}
+              handleGroupChange={handleWordGroupChange}
+            />
+          )}
           {(showWriting || showVocab) && (
             <WordGroupSelector
               handleChange={handleWordSelectorChange}
@@ -272,7 +302,6 @@ function CreateAssignment(props) {
               assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
             />
           )}
-          <div className="spacing"></div>
           <div className="place_middle">
             <Container>
               <Row>
@@ -280,14 +309,14 @@ function CreateAssignment(props) {
                   <StudentList
                     deployments={adminDeployments}
                     handleChange={handleStudentListChange}
-                    assignedStudents={existingAssignment?.deploymentAccountIds}
+                    assignedStudents={deploymentAccountIds}
                   />
                 </Col>
                 <Col xs={1}></Col>
                 <Col>
                   <DatePicker
                     handleChange={handleDatePickerChange}
-                    assignedDate={existingAssignment?.dueDate}
+                    assignedDate={date}
                   />
                 </Col>
               </Row>
@@ -296,6 +325,7 @@ function CreateAssignment(props) {
           <div>
             <LessonCardsDisplay
               cards={lessonCards}
+              selectCard={selectCard}
               addCard={createLessonCard}
               removeCard={deleteLessonCard}
             />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./LessonCard.scss";
 
 function LessonCard(props) {
@@ -9,14 +9,17 @@ function LessonCard(props) {
   }
 
   return (
-    <div className="LessonCard">
+    <div
+      className="LessonCard"
+      onClick={() => props.selectCard(props.lessonDate)}
+    >
       <div className="LessonCardHeading">
         <div className="LessonCardDate">{getCardDate()}</div>
         <div
           onClick={() => props.deleteCard(props.lessonDate)}
           className="DeleteLessonCard"
         >
-          <img src="images/icons/remove-card.svg" />
+          <img src="images/icons/remove-card.svg" alt="Close" />
         </div>
       </div>
       <div className="LessonCardContent">
