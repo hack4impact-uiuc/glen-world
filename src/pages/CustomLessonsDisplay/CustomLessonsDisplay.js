@@ -81,24 +81,35 @@ const CustomLessonsDisplay = props => {
           >
             Create Lesson
           </button>
-          <button className="Button" onClick={() => orderAdminLessons(true)}>
+          {/* The below code was previously used to sort lessons by date. 
+          Currently causes API error, but might not be used as lessons can now be named. */}
+          {/* <button className="Button" onClick={() => orderAdminLessons(true)}>
             Sort by Latest
           </button>
           <button className="Button" onClick={() => orderAdminLessons(false)}>
             Sort by Oldest
-          </button>
+          </button> */}
         </center>
       </div>
       <div className="DateDisplay">
         {adminLessons &&
           adminLessons.map(lesson => (
-            <div key={lesson.id} onClick={() => handleClick(lesson)}>
+            // The below code previously displayed lesson names.
+            // Currently commented out due to Firebase endpoint changes
+
+            // <div key={lesson.id} onClick={() => handleClick(lesson)}>
+            //   <LessonNameDisplay lessonName={lesson.lessonName} />
+            // </div>
+
+            // TODO: Remove the code below this line once the above is fixed
+            <div key={lesson.id}>
               <LessonNameDisplay lessonName={lesson.lessonName} />
             </div>
           ))}
       </div>
       <div>
-        {displayLessonInfo && displayLesson && (
+        {/* TODO: LessonInfoDisplay will require overhaul. */}
+        {/* {displayLessonInfo && displayLesson && (
           <LessonInfoDisplay
             lesson={displayLesson}
             template={displayLessonTemplate}
@@ -106,7 +117,7 @@ const CustomLessonsDisplay = props => {
             studentNames={displayLessonStudents}
             setDisplay={handleChangeDisplayLessonInfo}
           />
-        )}
+        )} */}
       </div>
     </div>
   );
