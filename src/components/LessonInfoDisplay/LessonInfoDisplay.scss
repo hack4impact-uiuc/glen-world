@@ -4,7 +4,7 @@
   background-color: $assignments-darker-color;
   font-family: $assignments-roboto-font;
   width: 70%;
-  height: 23vw;
+  height: 25vw;
   padding: 20px;
   border: 1px solid #4d4d4c;
   border-radius: 2em;
@@ -22,26 +22,34 @@
 }
 
 .Column {
-  height: 17vw;
-  margin: auto;
+  float: left;
+  height: 25vw;
+  width: 18vw;
+  background-color: black;
+  margin-top: -8%;
+  margin-left: -8%;
+  border-top-left-radius: 2em;
+  border-bottom-left-radius: 2em;
 }
 
-.WordGroupImage {
-  height: 13vw;
-  width: 13vw;
+.WordGroupDisplay {
+  height: 5vw;
+  width: 16vw;
   background-color: $assignments-light-purple;
-  color: black;
+  color: #4D4C4C;
   border: 1px solid black;
-  border-radius: 100%;
+  border-radius: 2em;
   margin: auto;
-  margin-bottom: 10px;
+  margin-top: 1em;
 }
 
 .WordGroupName {
-  font-size: 1.3em;
-  font-weight: normal;
+  margin-top: 5%;
+  padding:auto;
+  font-size: 2em;
+  font-weight: bold;
   text-transform: uppercase;
-  color: black;
+  color: $assignments-font-color;
 }
 
 .LessonDataTitle {

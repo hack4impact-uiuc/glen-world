@@ -1,13 +1,22 @@
 @import "../../pages/Index/index.scss";
 
 .NameIcon {
-  width: 12vw;
-  height: 12vw;
-  margin: 2em;
-  padding: 20px;
-  background-color: $assignments-darker-color;
-  border-radius: 5em;
+  width: 16vw;
+  height: 10vw;
+  margin-top: 1vw;
+  background-color: white;
+  border-radius: 2em;
+  box-shadow: "5px 10px #888888";
   display: block;
+  overflow: hidden;
+}
+.InnerBorder {
+  border: 4px solid $assignments-light-purple;
+  padding-top: 5px;
+  width: 15vw;
+  height: 9vw;
+  border-radius: 2em;
+  margin-top: 8px;
 }
 
 .Name {
@@ -16,4 +25,6 @@
   font-size: 1em;
   color: #4d4d4c;
   text-align: center;
+  margin: auto;
+  width: 50%;
 }
