@@ -13,11 +13,11 @@ function LessonCardsDisplay(props) {
       {Object.keys(props.cards).length > 0 &&
         Object.keys(props.cards)
           .reverse()
-          .map((date) => {
-            const date_temp = date;
+          .map(date => {
+            const dateTemp = date;
             return (
               <LessonCard
-                lessonDate={date_temp}
+                lessonDate={dateTemp}
                 lessonStudents={props.cards[date][1]}
                 deleteCard={props.removeCard}
               />

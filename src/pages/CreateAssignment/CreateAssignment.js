@@ -44,11 +44,8 @@ function CreateAssignment(props) {
 
     if (existingAssignment) prePopulateAssignment(existingAssignment);
     let originalDate = new Date();
-    // The following are set to 0 to allow for edge case where teacher wants to include today in lesson dates.
-    originalDate.setHours(0);
-    originalDate.setMinutes(0);
-    originalDate.setSeconds(0);
-    originalDate.setMilliseconds(0);
+    // Set time on current date to 0 to allow for edge case where teacher wants to include today in lesson dates.
+    originalDate.setHours(0, 0, 0, 0);
     setLessonCreationDate(originalDate);
   }, [firebase]);
 
