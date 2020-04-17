@@ -1,0 +1,31 @@
+@import "../../pages/Index/index.scss";
+
+.LessonCardsDisplay {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow: scroll;
+  width: 80vw;
+  height: 20vw;
+  border-radius: 20px;
+  margin: auto;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  padding-bottom: 1vw;
+  background-color: $assignments-darker-color;
+}
+
+.DefaultCard {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: scroll;
+  height: 15vw;
+  width: 10vw;
+  border-radius: 20px;
+  margin: 2vw;
+  margin-right: auto;
+  background-color: $assignments-background-color;
+  color: $assignments-font-color;
+  font-family: $assignments-roboto-font;
+  font-size: 1.2em;
+}
