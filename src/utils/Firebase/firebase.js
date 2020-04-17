@@ -9,7 +9,7 @@ const config = {
   databaseURL: process.env.REACT_APP_DATABASE_URL,
   projectId: process.env.REACT_APP_PROJECT_ID,
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
 
 class Firebase {
@@ -32,11 +32,11 @@ class Firebase {
   doSignOut = () => this.auth.signOut();
 
   // Gets the most recent lesson that a student has completed
-  getLastMasteredLesson = deploymentAccountId =>
+  getLastMasteredLesson = (deploymentAccountId) =>
     this.db
       .doc(`deployment_account/${deploymentAccountId}/`)
       .get()
-      .then(deploymentAccountDoc => {
+      .then((deploymentAccountDoc) => {
         const lastMasteredLesson = deploymentAccountDoc.get(
           "profile.glenLearn.lastMasteredLesson"
         );
@@ -48,20 +48,22 @@ class Firebase {
           }
         });
       })
-      .catch(error => console.error("Error getting student account: ", error));
+      .catch((error) =>
+        console.error("Error getting student account: ", error)
+      );
 
   // Gets custom lessons made by admin
-  getAdminCustomLessons = adminAccountId =>
+  getAdminCustomLessons = (adminAccountId) =>
     this.db
       .collection(`custom_lesson`)
       .where("adminAccountId", "==", adminAccountId)
       .get()
-      .then(lessonQuerySnapshot => {
-        const customLessons = lessonQuerySnapshot.docs.map(doc => {
+      .then((lessonQuerySnapshot) => {
+        const customLessons = lessonQuerySnapshot.docs.map((doc) => {
           let docData = doc.data();
           let lessonDoc = {
             id: doc.id,
-            ...docData
+            ...docData,
           };
 
           return lessonDoc;
@@ -74,13 +76,13 @@ class Firebase {
           }
         });
       })
-      .catch(error => console.error("Error getting custom lessons: ", error));
+      .catch((error) => console.error("Error getting custom lessons: ", error));
 
-  getDeploymentAccountInformation = deploymentAccountId =>
+  getDeploymentAccountInformation = (deploymentAccountId) =>
     this.db
       .doc(`deployment_account/${deploymentAccountId}/`)
       .get()
-      .then(deploymentAccountDoc => {
+      .then((deploymentAccountDoc) => {
         const deploymentAccountData = deploymentAccountDoc.data();
 
         return new Promise((resolve, reject) => {
@@ -91,27 +93,30 @@ class Firebase {
           }
         });
       })
-      .catch(error => console.error("Error getting student account: ", error));
+      .catch((error) =>
+        console.error("Error getting student account: ", error)
+      );
 
   // Get student's assigned custom lessons
-  getDeploymentAccountCustomLessons = deploymentAccountId =>
+  getDeploymentAccountCustomLessons = (deploymentAccountId) =>
     this.db
       .doc(`deployment_account/${deploymentAccountId}/`)
       .get()
-      .then(deploymentAccountDoc => {
+      .then((deploymentAccountDoc) => {
         const customLessonIds = deploymentAccountDoc.get("customLessons");
-        const customLessonRefs = customLessonIds.map(id =>
+        const customLessonRefs = customLessonIds.map((id) =>
           this.db.doc(`custom_lesson/${id}`).get()
         );
 
         return Promise.all(customLessonRefs)
-          .then(customLessonDocs => {
-            let customLessons = customLessonDocs.map(doc => doc.data());
+          .then((customLessonDocs) => {
+            let customLessons = customLessonDocs.map((doc) => doc.data());
             let assignments = [];
 
             // Get due dates for assignments
             for (let customLesson in customLessons) {
               for (let dueDate in customLesson.dueDates[deploymentAccountId]) {
+                // Creates deep copy of lesson
                 let lessonCopy = JSON.parse(JSON.stringify(customLesson));
                 delete lessonCopy.dueDates;
                 lessonCopy.dueDate = dueDate;
@@ -120,38 +125,40 @@ class Firebase {
             }
             return assignments;
           })
-          .catch(error =>
+          .catch((error) =>
             console.error("Error getting all custom lessons: ", error)
           );
       })
-      .catch(error => console.error("Error getting student account: ", error));
+      .catch((error) =>
+        console.error("Error getting student account: ", error)
+      );
 
   // Get students of admin
-  getDeploymentAccountsFromAdmin = adminAccountId =>
+  getDeploymentAccountsFromAdmin = (adminAccountId) =>
     this.db
       .doc(`admin_account/${adminAccountId}/`)
       .get()
-      .then(adminDoc => {
+      .then((adminDoc) => {
         const deploymentIds = Object.keys(adminDoc.get("deployments"));
-        const deploymentRefs = deploymentIds.map(id =>
+        const deploymentRefs = deploymentIds.map((id) =>
           this.db
             .collection(`deployment_account`)
             .where("deploymentId", "==", id)
         );
 
         return Promise.all(deploymentRefs)
-          .then(deploymentQuery => {
+          .then((deploymentQuery) => {
             let deployments = [];
             for (var i = 0; i < deploymentIds.length; i++) {
               let deployment = {
                 deploymentId: deploymentIds[i],
-                deploymentAccounts: {}
+                deploymentAccounts: {},
               };
 
               // Getting deployment accounts from deploymentId query
               deploymentQuery[i]
                 .get()
-                .then(querySnapshot => {
+                .then((querySnapshot) => {
                   let deploymentDocs = querySnapshot.docs;
                   for (let deploymentDoc of deploymentDocs) {
                     deployment.deploymentAccounts[
@@ -159,7 +166,7 @@ class Firebase {
                     ] = deploymentDoc.data();
                   }
                 })
-                .catch(error =>
+                .catch((error) =>
                   console.error("Error gettng all deployments: ", error)
                 );
 
@@ -167,11 +174,11 @@ class Firebase {
             }
             return deployments;
           })
-          .catch(error =>
+          .catch((error) =>
             console.error("Error getting all deployment refs: ", error)
           );
       })
-      .catch(error => console.error("Error getting admin account: ", error));
+      .catch((error) => console.error("Error getting admin account: ", error));
 
   setCustomLesson = (
     adminAccountId,
@@ -191,7 +198,7 @@ class Firebase {
     // TODO: needs error validation to stop function if customLesson fails
     customLessonRef
       .get()
-      .then(customLessonDoc => {
+      .then((customLessonDoc) => {
         let currentAssignedDeploymentIds;
         if (lessonDocId) {
           currentAssignedDeploymentIds = customLessonDoc.get(
@@ -207,9 +214,9 @@ class Firebase {
             wordGroup: wordGroup,
             words: words,
             dueDates: dueDates,
-            lessonName: lessonName
+            lessonName: lessonName,
           })
-          .catch(error =>
+          .catch((error) =>
             console.error("Error creating custom lesson: ", error)
           );
 
@@ -226,7 +233,7 @@ class Firebase {
             batch.update(deploymentRef, {
               customLessons: app.firestore.FieldValue.arrayUnion(
                 customLessonRef.id
-              )
+              ),
             });
           }
 
@@ -238,14 +245,14 @@ class Firebase {
               batch.update(deploymentRef, {
                 customLessons: app.firestore.FieldValue.arrayRemove(
                   customLessonRef.id
-                )
+                ),
               });
             }
           }
 
           return batch
             .commit()
-            .catch(error =>
+            .catch((error) =>
               console.error(
                 "Pushing custom lessons to deployments failed: ",
                 error
@@ -254,7 +261,7 @@ class Firebase {
           // needs better promise rejection
         }
       })
-      .catch(error => console.error("Error getting custom lesson: ", error));
+      .catch((error) => console.error("Error getting custom lesson: ", error));
   };
 }
 

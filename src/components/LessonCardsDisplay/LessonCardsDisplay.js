@@ -13,13 +13,16 @@ function LessonCardsDisplay(props) {
       {Object.keys(props.cards).length > 0 &&
         Object.keys(props.cards)
           .reverse()
-          .map(date => (
-            <LessonCard
-              lessonDate={date}
-              lessonStudents={props.cards[date][1]}
-              deleteCard={props.removeCard}
-            />
-          ))}
+          .map((date) => {
+            const date_temp = date;
+            return (
+              <LessonCard
+                lessonDate={date_temp}
+                lessonStudents={props.cards[date][1]}
+                deleteCard={props.removeCard}
+              />
+            );
+          })}
     </div>
   );
 }
