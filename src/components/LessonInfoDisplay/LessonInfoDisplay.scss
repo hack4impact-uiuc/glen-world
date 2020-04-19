@@ -88,6 +88,25 @@
   text-transform: capitalize;
   color: $assignments-font-color;
 }
+.StudentDateCard {
+  height: 16vw;
+  width: 12vw;
+  background-color: $assignments-light-purple;
+  display:inline-block;
+  vertical-align: top; /*Makes sure all the divs are correctly aligned.*/
+  white-space: normal;
+  margin: 5px;
+}
+
+.CardContainer {
+  margin:auto;
+  min-width: 47vw;
+  max-height: 20vw;
+  background-color: white;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap; /*Prevents Wrapping*/
+}
 
 .LessonDataTitle {
   width: 15vw;

@@ -11,6 +11,16 @@ function LessonInfoDisplay(props) {
     props.setDisplay(false);
   }
 
+  function LessonCard(date, students) {
+    return (
+      <Col sm = "4">
+      <div className = "StudentDateCard">
+      <div>{date}</div>
+      </div>
+      </Col>
+    )
+  }
+
   if (editLessonRedirect) {
     return (
       <Redirect
@@ -44,14 +54,24 @@ function LessonInfoDisplay(props) {
           </div>
         </div>
         </Col>
-        <div>
-          {console.log(props.lesson.dueDates)}
+
+        <Col>
+        <div className = "CardContainer">
+          <Row>
           {Object.keys(props.lesson.dueDates).map(key => (
             // <div> {key} </div>
             //map the deployments below
-          <div> {props.lesson.dueDates[key]}</div>
+          // <div> {props.lesson.dueDates[key]}</div>
+          <div>
+            {LessonCard(key, props.lesson.dueDates[key])}
+            <Col>
+            WTFFFFFFF</Col>
+            {/* {props.lesson.dueDates[key]} */}
+          </div>
           ))}
+          </Row>
         </div>
+        </Col>
         {/* <div className="Column">
           <div className="LessonDataTitle">WORDS</div>
           <div className="LessonData">
@@ -70,7 +90,7 @@ function LessonInfoDisplay(props) {
         </div> */}
       </div> 
       </Row>
-      <Row>
+      {/* <Row>
         <Col>
         
         </Col>
@@ -90,7 +110,7 @@ function LessonInfoDisplay(props) {
         </button>
       </div>
       </Col>
-      </Row>
+      </Row> */}
   </div>
   );
 }
