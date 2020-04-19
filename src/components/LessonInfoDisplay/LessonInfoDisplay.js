@@ -29,10 +29,24 @@ function LessonInfoDisplay(props) {
         <Col>
         <div className="Column">
           <div className="WordGroupDisplay">
-          <div className="WordGroupName">{props.template}</div>
+          <div className="LessonGroupName">{props.template}</div>
+          </div>
+          <div className = "WordDisplay">
+            <div className = "GreyBox">
+              <div className = "WordGroupName"> {props.lesson.wordGroup} </div>
+            </div>
+            <div>
+              {props.lesson.words.map((word) => (
+                <div className = "Word">{word}</div>
+
+              ))}
+            </div>
           </div>
         </div>
         </Col>
+        <div>
+          {console.log(props.lesson.dueDates)}
+        </div>
         {/* <div className="Column">
           <div className="LessonDataTitle">WORDS</div>
           <div className="LessonData">
@@ -52,6 +66,13 @@ function LessonInfoDisplay(props) {
       </div> 
       </Row>
       <Row>
+        <Col>
+        
+        </Col>
+        <Col>
+        HOEEEEES
+        </Col>
+      <Col>
       <div className="ButtonContainer">
         <button onClick={handleClose} className="LessonButton">
           Close
@@ -63,6 +84,7 @@ function LessonInfoDisplay(props) {
           Edit
         </button>
       </div>
+      </Col>
       </Row>
   </div>
   );

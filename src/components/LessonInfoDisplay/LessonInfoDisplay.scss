@@ -43,12 +43,43 @@
   margin-top: 1em;
 }
 
-.WordGroupName {
+.LessonGroupName {
   margin-top: 5%;
   padding:auto;
   font-size: 2em;
   font-weight: bold;
   text-transform: uppercase;
+  color: $assignments-font-color;
+}
+
+.WordDisplay {
+  height: 16vw;
+  width: 15vw;
+  background-color: white;
+  border-radius: 1em;
+  margin: auto;
+  margin-top: 1em;
+  display: inline-block;
+  overflow: scroll;
+}
+.GreyBox {
+  height: 3vw;
+  background-color: #C4C4C4;
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+  display: block;
+}
+.WordGroupName {
+  font-size: 1.7em;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-style: $assignments-roboto-font;
+  color: black;
+}
+.Word {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-transform: capitalize;
   color: $assignments-font-color;
 }
 
