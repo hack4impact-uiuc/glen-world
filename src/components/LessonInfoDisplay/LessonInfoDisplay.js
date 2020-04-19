@@ -35,7 +35,7 @@ function LessonInfoDisplay(props) {
             <div className = "GreyBox">
               <div className = "WordGroupName"> {props.lesson.wordGroup} </div>
             </div>
-            <div>
+            <div className = "WordsList">
               {props.lesson.words.map((word) => (
                 <div className = "Word">{word}</div>
 
@@ -46,6 +46,11 @@ function LessonInfoDisplay(props) {
         </Col>
         <div>
           {console.log(props.lesson.dueDates)}
+          {Object.keys(props.lesson.dueDates).map(key => (
+            // <div> {key} </div>
+            //map the deployments below
+          <div> {props.lesson.dueDates[key]}</div>
+          ))}
         </div>
         {/* <div className="Column">
           <div className="LessonDataTitle">WORDS</div>
