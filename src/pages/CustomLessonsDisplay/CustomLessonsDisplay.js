@@ -30,13 +30,10 @@ const CustomLessonsDisplay = props => {
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      // TODO: figure out better solution to resolve this
-      // Get custom lessons made by admin
-      firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
-        setAdminLessons(lesson);
-      });
-    }, 500); // Timeout for firebase to update and display updated lessons properly
+    // Get custom lessons made by admin
+    firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
+      setAdminLessons(lesson);
+    });
   }, [editLessonRedirect]); // Updates lessons when redirected to page from CreateAssignment
 
   function handleChangeDisplayLessonInfo(display) {
