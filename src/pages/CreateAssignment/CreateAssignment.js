@@ -49,9 +49,46 @@ function CreateAssignment(props) {
     setLessonCreationDate(originalDate);
   }, [firebase]);
 
+  async function parseCardsFromLesson(lesson) {
+    let lessonCards = {};
+    let deploymentAccountIds = new Set();
+    for (const dueDate in lesson.dueDates) {
+      for (const deploymentAccount of lesson.dueDates[dueDate]) {
+        deploymentAccountIds.add(deploymentAccount);
+      }
+    }
+
+    let deploymentNameMap = {};
+    Array.from(deploymentAccountIds).forEach(id => {
+      firebase
+        .getDeploymentAccountInformation(id)
+        .then(deploymentAccount => {
+          deploymentNameMap[id] = deploymentAccount.username;
+        })
+        .catch(error => console.error("Error getting custom lesson: ", error));
+    });
+
+    // Wait for deploymentNameMap to finish resolving
+    while (Object.keys(deploymentNameMap).length == 0) {
+      await new Promise(r => setTimeout(r, 500));
+    }
+
+    for (const dueDate in lesson.dueDates) {
+      let lessonCard = [[], []];
+
+      for (const deploymentAccountId of lesson.dueDates[dueDate]) {
+        lessonCard[0].push(deploymentAccountId); // inputting account id
+        lessonCard[1].push(deploymentNameMap[deploymentAccountId]); // input corresponding username
+      }
+
+      lessonCards[dueDate] = lessonCard;
+    }
+
+    setLessonCards(lessonCards);
+  }
+
   function prePopulateAssignment(existingAssignment) {
-    handleDatePickerChange(existingAssignment.dueDate.toDate());
-    handleStudentListChange(existingAssignment.deploymentAccountIds);
+    parseCardsFromLesson(existingAssignment);
     handleWordSelectorChange(existingAssignment.words);
     handleWordGroupChange(existingAssignment.wordGroup);
     handleLessonNameChange(existingAssignment.lessonName);
@@ -264,15 +301,11 @@ function CreateAssignment(props) {
                   <StudentList
                     deployments={adminDeployments}
                     handleChange={handleStudentListChange}
-                    assignedStudents={existingAssignment?.deploymentAccountIds}
                   />
                 </Col>
                 <Col xs={1}></Col>
                 <Col>
-                  <DatePicker
-                    handleChange={handleDatePickerChange}
-                    assignedDate={existingAssignment?.dueDate}
-                  />
+                  <DatePicker handleChange={handleDatePickerChange} />
                 </Col>
               </Row>
             </Container>
