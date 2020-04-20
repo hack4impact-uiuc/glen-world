@@ -64,8 +64,6 @@ function LessonInfoDisplay(props) {
           // <div> {props.lesson.dueDates[key]}</div>
           <div>
             {LessonCard(key, props.lesson.dueDates[key])}
-            <Col>
-            WTFFFFFFF</Col>
             {/* {props.lesson.dueDates[key]} */}
           </div>
           ))}

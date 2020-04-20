@@ -112,6 +112,7 @@ class Firebase {
             // Get due dates for assignments
             for (let customLesson in customLessons) {
               for (let dueDate in customLesson.dueDates[deploymentAccountId]) {
+                // Creates deep copy of lesson
                 let lessonCopy = JSON.parse(JSON.stringify(customLesson));
                 delete lessonCopy.dueDates;
                 lessonCopy.dueDate = dueDate;

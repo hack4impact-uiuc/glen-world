@@ -118,7 +118,7 @@ const CustomLessonsDisplay = props => {
             studentNames={displayLessonStudents}
             setDisplay={handleChangeDisplayLessonInfo}
           />
-        )}
+        )} 
       </div>
     </div>
   );

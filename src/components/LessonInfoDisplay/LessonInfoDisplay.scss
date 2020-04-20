@@ -89,11 +89,11 @@
   color: $assignments-font-color;
 }
 .StudentDateCard {
-  height: 16vw;
-  width: 12vw;
+  height: 18vw;
+  width: 14vw;
   background-color: $assignments-light-purple;
   display:inline-block;
-  vertical-align: top; /*Makes sure all the divs are correctly aligned.*/
+  vertical-align: top;
   white-space: normal;
   margin: 5px;
 }
@@ -105,7 +105,7 @@
   background-color: white;
   overflow-x: scroll;
   overflow-y: hidden;
-  white-space: nowrap; /*Prevents Wrapping*/
+  white-space: nowrap;
 }
 
 .LessonDataTitle {
