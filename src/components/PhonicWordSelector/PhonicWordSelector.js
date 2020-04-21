@@ -20,7 +20,7 @@ function PhonicWordSelector(props) {
   return (
     <div className="PhonicIcon">
       <div className="PhonicIconBorder">
-        <div className="PhonicGroupTitle">{props.name}</div>
+        <div className="GroupTitle">{props.name}</div>
         <div>{props.data.map(word => word.words.map(wordDisplay))}</div>
         <div>
           <Button onClick={handleSelect} className="SelectButton">
