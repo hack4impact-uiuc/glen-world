@@ -22,10 +22,6 @@ function StudentList(props) {
   );
   let deployments = props.deployments;
 
-  useEffect(() => {
-    if (props.assignedStudents) setChecked(props.assignedStudents);
-  }, []);
-
   const handleClick = index => {
     let openCopy = [...open];
     openCopy[index] = !openCopy[index];

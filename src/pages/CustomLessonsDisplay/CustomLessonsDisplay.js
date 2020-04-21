@@ -31,13 +31,10 @@ const CustomLessonsDisplay = props => {
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      // TODO: figure out better solution to resolve this
-      // Get custom lessons made by admin
-      firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
-        setAdminLessons(lesson);
-      });
-    }, 50); // Timeout for firebase to update and display updated lessons properly
+    // Get custom lessons made by admin
+    firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
+      setAdminLessons(lesson);
+    });
   }, [editLessonRedirect]); // Updates lessons when redirected to page from CreateAssignment
 
   function handleChangeDisplayLessonInfo(display) {
@@ -53,8 +50,15 @@ const CustomLessonsDisplay = props => {
       setDisplayTemplate(lesson.lessonTemplate);
     }
 
+    let deploymentAccountIds = new Set();
+    for (const dueDate in lesson.dueDates) {
+      for (const deploymentAccount of lesson.dueDates[dueDate]) {
+        deploymentAccountIds.add(deploymentAccount);
+      }
+    }
+
     Promise.all(
-      lesson.deploymentAccountIds.map(id => {
+      Array.from(deploymentAccountIds).map(id => {
         return firebase.getDeploymentAccountInformation(id);
       })
     ).then(value => {
@@ -94,22 +98,13 @@ const CustomLessonsDisplay = props => {
       <div className="DateDisplay">
         {adminLessons &&
           adminLessons.map(lesson => (
-            // The below code previously displayed lesson names.
-            // Currently commented out due to Firebase endpoint changes
-
-            // <div key={lesson.id} onClick={() => handleClick(lesson)}>
-            //   <LessonNameDisplay lessonName={lesson.lessonName} />
-            // </div>
-
-            // TODO: Remove the code below this line once the above is fixed
-            <div key={lesson.id}>
+            <div key={lesson.id} onClick={() => handleClick(lesson)}>
               <LessonNameDisplay lessonName={lesson.lessonName} />
             </div>
           ))}
       </div>
       <div>
-        {/* TODO: LessonInfoDisplay will require overhaul. */}
-        {/* {displayLessonInfo && displayLesson && (
+        {displayLessonInfo && displayLesson && (
           <LessonInfoDisplay
             lesson={displayLesson}
             template={displayLessonTemplate}
@@ -117,7 +112,7 @@ const CustomLessonsDisplay = props => {
             studentNames={displayLessonStudents}
             setDisplay={handleChangeDisplayLessonInfo}
           />
-        )} */}
+        )}
       </div>
     </div>
   );
