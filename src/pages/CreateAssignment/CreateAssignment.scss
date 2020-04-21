@@ -8,6 +8,10 @@
   left: "50%";
   top: "50%";
   transform: "translate(-50%, -50%)";
+  position: relative;
+}
+.container {
+  flex-direction: column-reverse;
 }
 .assign {
   color: $assignments-font-color;
@@ -16,32 +20,29 @@
   font-weight: bold;
   border-radius: 1em;
   margin-left: 10em;
-  position:"absolute";
+  position: "absolute";
 }
 
+.name-assignment {
+  margin: auto;
+  width: 60vw;
+}
 .input {
   color: $assignments-font-color;
-  background-color:$assignments-background-color;
+  background-color: $assignments-background-color;
   border-color: $assignments-font-color;
   border-radius: 1em;
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  width: 30em;
-  position: absolute;
-  left: 50%;
-  margin-left: -50px;
+  width: 20vw;
 }
 .input-header {
   color: $assignments-background-color;
-  background-color:$assignments-font-color;
+  background-color: $assignments-font-color;
   border-color: $assignments-font-color;
   border-radius: 1em;
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  width: 15em;
-  position: absolute;
-  left: 30%;
-  margin-left: -50px;
 }
 
 .spacing {
