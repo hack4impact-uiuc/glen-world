@@ -2,16 +2,9 @@ import React, { useState, useEffect } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CreateAssignment.scss";
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  InputGroup,
-  FormControl
-} from "react-bootstrap";
+import { Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
 import { compose } from "recompose";
-import { Button, Input } from "reactstrap";
+import { Button } from "reactstrap";
 import { ADMIN_ACCOUNT } from "utils/constants.js";
 import { withFirebase } from "utils/Firebase";
 import StudentList from "components/StudentList/StudentList";
@@ -20,6 +13,7 @@ import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelec
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
 import PhonicSelector from "../../components/PhonicSelector/PhonicSelector";
 import InvalidAssignment from "../../components/InvalidAssignment/InvalidAssignment";
+import LessonCardsDisplay from "../../components/LessonCardsDisplay/LessonCardsDisplay";
 
 function CreateAssignment(props) {
   const { firebase } = props;
@@ -37,6 +31,9 @@ function CreateAssignment(props) {
   const [adminDeployments, setAdminDeployments] = useState([]);
   // Message that displays when an assignment hasn't been created properly
   const [invalidMessage, setInvalidMessage] = useState([]);
+  // A lesson "card" contains a group of students that have been assigned a due date for the current lesson.
+  const [lessonCards, setLessonCards] = useState({});
+  const [lessonCreationDate, setLessonCreationDate] = useState();
 
   useEffect(() => {
     firebase
@@ -46,6 +43,10 @@ function CreateAssignment(props) {
       });
 
     if (existingAssignment) prePopulateAssignment(existingAssignment);
+    let originalDate = new Date();
+    // Set time on current date to 0 to allow for edge case where teacher wants to include today in lesson dates.
+    originalDate.setHours(0, 0, 0, 0);
+    setLessonCreationDate(originalDate);
   }, [firebase]);
 
   function prePopulateAssignment(existingAssignment) {
@@ -96,11 +97,63 @@ function CreateAssignment(props) {
     setShowPhonics(false);
     setShowWriting(true);
   }
+  function createLessonCard() {
+    var validCard = true;
+    if (deploymentAccountIds < 1) {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Please assign to at least one student."
+      ]);
+      validCard = false;
+    }
+    if (date == null) {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Please select a date on the calendar."
+      ]);
+      validCard = false;
+    } else if (date in lessonCards) {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Cannot have duplicate dates in the same lesson."
+      ]);
+      validCard = false;
+    } else if (date.getTime() < lessonCreationDate.getTime()) {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Cannot select a date before the current date."
+      ]);
+      validCard = false;
+    }
+    if (validCard) {
+      Promise.all(
+        deploymentAccountIds.map(id => {
+          return firebase.getDeploymentAccountInformation(id);
+        })
+      ).then(value => {
+        let usernames = value.map(studentInfo => {
+          return studentInfo["username"];
+        });
+        setLessonCards({
+          ...lessonCards,
+          [date]: [deploymentAccountIds, usernames]
+        });
+      });
+    }
+  }
+  function deleteLessonCard(cardDate) {
+    const tempCards = { ...lessonCards };
+    delete tempCards[cardDate];
+    setLessonCards(tempCards);
+  }
+
   function verifyNameAndPush() {
     var options = { month: "long" };
-    let month = new Intl.DateTimeFormat("en-US", options).format(date);
-    let day = date.getDate();
-    let year = date.getFullYear();
+    let month = new Intl.DateTimeFormat("en-US", options).format(
+      lessonCreationDate
+    );
+    let day = lessonCreationDate.getDate();
+    let year = lessonCreationDate.getFullYear();
     let defaultName = `${wordGroup}: ${month} ${day} ${year}`;
 
     if (!lessonName) {
@@ -115,25 +168,17 @@ function CreateAssignment(props) {
   }
   function validateAssignment() {
     var validAssignment = true;
-    // TODO: Add validation for Phonics based on pending requirements
-    if (lessonType != "C" && (wordGroup == null || words.length < 4)) {
+    if (wordGroup == null || words.length < 4) {
       setInvalidMessage(invalidMessage => [
         ...invalidMessage,
         "Please include at least 4 words."
       ]);
       validAssignment = false;
     }
-    if (deploymentAccountIds < 1) {
+    if (lessonCards.length < 1) {
       setInvalidMessage(invalidMessage => [
         ...invalidMessage,
-        "Please assign to at least one student."
-      ]);
-      validAssignment = false;
-    }
-    if (date == null) {
-      setInvalidMessage(invalidMessage => [
-        ...invalidMessage,
-        "Please select a date on the calendar."
+        "Please assign students to due dates on the Calendar by clicking the Create Button."
       ]);
       validAssignment = false;
     }
@@ -142,13 +187,19 @@ function CreateAssignment(props) {
     }
   }
   const pushLesson = lessonNameValue => {
+    var dates = {};
+    const lessonKeys = Object.keys(lessonCards);
+    for (const key of lessonKeys) {
+      dates[key] = lessonCards[key][0];
+    }
+
     firebase.setCustomLesson(
       ADMIN_ACCOUNT,
       deploymentAccountIds,
       lessonType,
       wordGroup,
       words,
-      date,
+      dates,
       lessonNameValue,
       existingAssignment?.id
     );
