@@ -20,13 +20,22 @@
 }
   
 .PhonicName {
-padding-top: 28%;
-font-family: 'Roboto', sans-serif;
-font-size: 4em;
-text-transform: uppercase;
-text-align: center;
-font-weight: bold;
-color: $assignments-font-color;
+  padding-top: 28%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 4em;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+  color: $assignments-font-color;
+}
+
+.PhonicGroupTitle {
+  font-family: $assignments-roboto-font;
+  font-weight: bold;
+  font-size: 20pt;
+  color: #b1b0ff;
+  padding-bottom: 0;
+  text-transform: uppercase;
 }
 
 .SelectButton {

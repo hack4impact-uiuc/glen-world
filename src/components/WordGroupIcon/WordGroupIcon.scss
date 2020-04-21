@@ -9,21 +9,16 @@
   border-radius: 2em;
   box-shadow: 0em 0.2em #e6e6e6;
   display: block;
+  overflow-y: hidden;
 }
 .PurpleWordGroupIcon {
   background-color: $assignments-light-purple;
 }
 
-.image {
-  width: 100px; 
-  height: 100px;
-}
 
 .WordGroupName {
   font-family: $assignments-roboto-font;
   text-align: center;
-  // color: $assignments-font-color;
   margin-top: 10%;
-  color: violet;
 }
 

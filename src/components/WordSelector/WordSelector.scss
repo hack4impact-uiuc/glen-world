@@ -10,6 +10,7 @@
   margin-top: 8em;
   border: 5px solid #e6e6e6;
   z-index: 1;
+  overflow: scroll;
 }
 
 .GroupTitle {
@@ -38,11 +39,12 @@
   flex-direction: row;
 }
 
-.Words, .SelectCheckbox {
+.words, .SelectCheckbox {
   font-family: $assignments-roboto-font;
   font-weight: bold;
   font-size: 20px;
   color: $assignments-font-color;
+  text-transform: capitalize;
 }
 
 .SelectCheckbox {

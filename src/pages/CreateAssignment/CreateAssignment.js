@@ -225,7 +225,9 @@ function CreateAssignment(props) {
           handleVocab={handleVocab}
           handleWriting={handleWriting}
         />
-        <InputGroup className="name-assignment">
+        {(showWriting || showVocab || showPhonics) && (
+          <div className="place_middle">
+            <InputGroup className="name-assignment">
               <InputGroup.Prepend>
                 <InputGroup.Text className="input-header">
                   Lesson Name
@@ -238,8 +240,7 @@ function CreateAssignment(props) {
                 onChange={e => handleLessonNameChange(e.target.value)}
               />
             </InputGroup>
-        {(showWriting || showVocab || showPhonics) && (
-          <div className="place_middle">
+            
             <br />
             {showPhonics && (
               <div>

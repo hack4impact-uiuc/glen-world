@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Row, Col } from "reactstrap";
+import { useRef } from "react";
+import useOutsideClick from "./useOutsideClick";
 import "./WordSelector.scss";
 
 function WordSelector(props) {
@@ -8,20 +10,23 @@ function WordSelector(props) {
   const [checkedWords, updateWords] = useState([]);
   const [wordGroup, updateWordGroup] = useState();
   const [chooseAll, setChooseAll] = useState(false);
-  const [cantSelect, setCantSelect] = useState(false);
+  const [disableSelect, setDisableSelect] = useState(false);
+  const ref = useRef();
+
+  useOutsideClick(ref, () => {
+    props.setSelectMode(false)
+  });
 
   useEffect(() => {
     if (props.assignedWords) {
       updateWords(props.assignedWords);
       updateWordCount(props.assignedWords.length);
       updateWordGroup(props.assignedWordGroup);
-      if (props.assignedWordGroup != props.name) {
-        setCantSelect(true);
-      }
+      setDisableSelect(props.assignedWordGroup != props.name);
     }
   }, []);
   function disableNext() {
-    return wordCount < minWords || cantSelect;
+    return wordCount < minWords || disableSelect;
   }
 
   function handleCheck(word) {
@@ -29,7 +34,7 @@ function WordSelector(props) {
       updateWords([word]);
       updateWordCount(1);
       updateWordGroup(props.name);
-      setCantSelect(false);
+      setDisableSelect(false);
     } else {
       if (checkedWords.includes(word)) {
         const index = checkedWords.indexOf(word);
@@ -52,7 +57,7 @@ function WordSelector(props) {
   function handleChooseAll() {
     if (props.name !== wordGroup) {
       updateWordGroup(props.name);
-      setCantSelect(false);
+      setDisableSelect(false);
     }
     if (!chooseAll) {
       updateWords([...props.group]);
@@ -66,11 +71,11 @@ function WordSelector(props) {
   function wordSelection(word, index) {
     return (
       <Col sm="4">
-        <div className="Words" key={index}>
+        <div className="words" key={index}>
           <label class="container">
             <input
               class="check"
-              checked={checkedWords.includes(word) ? true : null}
+              checked={checkedWords.includes(word)}
               type="checkbox"
               name={word}
               onChange={() => handleCheck(word)}
@@ -84,6 +89,7 @@ function WordSelector(props) {
 
   return (
     <div className="WordSelector">
+      <div ref={ref}>
       <Row>
         <Col sm="8">
           <div className="GroupTitle">{props.name}</div>
@@ -94,13 +100,11 @@ function WordSelector(props) {
               <input
                 class="check"
                 checked={
-                  checkedWords.length == props.group.length && !cantSelect
-                    ? true
-                    : null
+                  checkedWords.length == props.group.length && !disableSelect
                 }
                 type="checkbox"
                 name="Select All"
-                onChange={() => handleChooseAll()}
+                onChange={handleChooseAll}
               />
               <div className="word">Choose All</div>
             </label>
@@ -119,6 +123,7 @@ function WordSelector(props) {
         >
           Select
         </Button>
+      </div>
       </div>
     </div>
   );

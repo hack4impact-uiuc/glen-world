@@ -18,6 +18,12 @@ function WordGroupSelector(props) {
     ) {
       collectedWordGroupsService.all().then(function(collectedWordGroups) {
         wordKeys.current = Object.keys(collectedWordGroups);
+        /*
+        key is the word group name
+        0th index is the list of words in this word group
+        1st index is the image corresponding with the word group
+        2nd index is the index of this word group among the list of all word groups (used to keep track of color changes)
+        */
         setWordGroups({
           People: [
             collectedWordGroups[wordKeys.current[0]],
