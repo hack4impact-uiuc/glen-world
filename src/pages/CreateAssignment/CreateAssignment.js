@@ -225,6 +225,19 @@ function CreateAssignment(props) {
           handleVocab={handleVocab}
           handleWriting={handleWriting}
         />
+        <InputGroup className="name-assignment">
+              <InputGroup.Prepend>
+                <InputGroup.Text className="input-header">
+                  Lesson Name
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                className="input"
+                placeholder={"Ex. Vocab"}
+                defaultValue={lessonName || ""}
+                onChange={e => handleLessonNameChange(e.target.value)}
+              />
+            </InputGroup>
         {(showWriting || showVocab || showPhonics) && (
           <div className="place_middle">
             <br />
@@ -250,59 +263,48 @@ function CreateAssignment(props) {
                 />
               </div>
             )}
-            <div className="place_middle">
-              <Container>
-                <Row>
-                  <Col>
-                    <StudentList
-                      deployments={adminDeployments}
-                      handleChange={handleStudentListChange}
-                      assignedStudents={
-                        existingAssignment?.deploymentAccountIds
-                      }
-                    />
-                  </Col>
-                  <Col xs={1}></Col>
-                  <Col>
-                    <DatePicker
-                      handleChange={handleDatePickerChange}
-                      assignedDate={existingAssignment?.dueDate}
-                    />
-                  </Col>
-                </Row>
-              </Container>
-            </div>
-            <Row>
-              <Col>
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text className="input-header">
-                      Lesson Name
-                    </InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <FormControl
-                    className="input"
-                    placeholder={"Ex. Vocab"}
-                    defaultValue={lessonName || ""}
-                    onChange={e => handleLessonNameChange(e.target.value)}
+
+        <div className="place_middle">
+            <Container>
+              <Row>
+                <Col>
+                  <StudentList
+                    deployments={adminDeployments}
+                    handleChange={handleStudentListChange}
+                    assignedStudents={existingAssignment?.deploymentAccountIds}
                   />
-                </InputGroup>
-              </Col>
-              <Col>
-                <Button onClick={validateAssignment} className="assign">
-                  Assign Lesson
-                </Button>
-              </Col>
-            </Row>
-            <div>
-              {invalidMessage.length > 0 && (
-                <InvalidAssignment
-                  message={invalidMessage}
-                  setMessage={setInvalidMessage}
-                />
-              )}
-            </div>
+                </Col>
+                <Col xs={1}></Col>
+                <Col>
+                  <DatePicker
+                    handleChange={handleDatePickerChange}
+                    assignedDate={existingAssignment?.dueDate}
+                  />
+                </Col>
+              </Row>
+            </Container>
           </div>
+          <div>
+            <LessonCardsDisplay
+              cards={lessonCards}
+              addCard={createLessonCard}
+              removeCard={deleteLessonCard}
+            />
+          </div>
+          <div>
+            <Button onClick={validateAssignment} className="assign">
+              Assign Lesson
+            </Button>
+          </div>
+          <div>
+            {invalidMessage.length > 0 && (
+              <InvalidAssignment
+                message={invalidMessage}
+                setMessage={setInvalidMessage}
+              />
+            )}
+          </div>
+        </div>
         )}
       </div>
     </>
