@@ -2,6 +2,7 @@ import React from "react";
 import "./LessonDateDisplay.scss";
 
 function LessonDateDisplay(props) {
+  const { firebase } = props;
   function toDateTime() {
     let dateComponents = props.date
       .toDate()

@@ -1,25 +1,65 @@
 import React, { useState } from "react";
 import {Col, Row} from "reactstrap";
+import { withFirebase } from "utils/Firebase";
 import { compose } from "recompose";
 import { withRouter, Redirect } from "react-router-dom";
 import "./LessonInfoDisplay.scss";
 
-function LessonInfoDisplay(props) {
+const LessonInfoDisplay = props => {
+  const { firebase } = props;
   const [editLessonRedirect, setEditLessonRedirect] = useState(false);
+  const [names, setNames] = useState([])
 
   function handleClose() {
     props.setDisplay(false);
   }
 
+  function toFormatDate(date) {
+    let dateComponents = date
+      .split(" ");
+      return dateComponents[1] + " " + dateComponents[2] + ", " + dateComponents[3];
+  }
+  function getUsernames(students) {
+    Promise.all(
+      students.map(id => {
+        return firebase.getDeploymentAccountInformation(id);
+      })
+    ).then(value => {
+      let usernames = value.map(studentInfo => {
+        return studentInfo["username"];
+      });
+      setNames(usernames)
+    }
+    )
+    return names;
+  }
+
   function LessonCard(date, students) {
     return (
-      <Col sm = "4">
+      <Col>
       <div className = "StudentDateCard">
-      <div>{date}</div>
+      <div className = "PurpleBox">
+        <div className = "DateLabel">{toFormatDate(date)}</div>
+      </div>
+      <div className = "StudentContainer">
+        {
+          getUsernames(students)
+        }
+      </div>
       </div>
       </Col>
     )
   }
+  // Promise.all(
+    //   lesson.deploymentAccountIds.map(id => {
+    //     return firebase.getDeploymentAccountInformation(id);
+    //   })
+    // ).then(value => {
+    //   let usernames = value.map(studentInfo => {
+    //     return studentInfo["username"];
+    //   });
+    //   setDisplayStudents(usernames);
+    // });
 
   if (editLessonRedirect) {
     return (
@@ -57,7 +97,7 @@ function LessonInfoDisplay(props) {
 
         <Col>
         <div className = "CardContainer">
-          <Row>
+        <Row>
           {Object.keys(props.lesson.dueDates).map(key => (
             // <div> {key} </div>
             //map the deployments below
@@ -67,7 +107,7 @@ function LessonInfoDisplay(props) {
             {/* {props.lesson.dueDates[key]} */}
           </div>
           ))}
-          </Row>
+        </Row>
         </div>
         </Col>
         {/* <div className="Column">
@@ -113,4 +153,5 @@ function LessonInfoDisplay(props) {
   );
 }
 
-export default compose(withRouter)(LessonInfoDisplay);
+export default compose(withFirebase, withRouter)(LessonInfoDisplay);
+

@@ -5,7 +5,6 @@
   font-family: $assignments-roboto-font;
   width: 70%;
   height: 25vw;
-  padding: 20px;
   border: 1px solid #4d4d4c;
   border-radius: 2em;
   position: relative;
@@ -16,9 +15,9 @@
 
 .InfoDisplay {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  height: 18vw;
+  // flex-direction: row;
+  // flex-wrap: wrap;
+  overflow: hidden;
 }
 
 .Column {
@@ -26,8 +25,6 @@
   height: 25vw;
   width: 18vw;
   background-color: black;
-  margin-top: -8%;
-  margin-left: -8%;
   border-top-left-radius: 2em;
   border-bottom-left-radius: 2em;
 }
@@ -61,12 +58,16 @@
   margin-top: 1em;
   display: block;
 }
-.GreyBox {
+.GreyBox, .PurpleBox {
   height: 3vw;
   background-color: #C4C4C4;
   border-top-left-radius: 1em;
   border-top-right-radius: 1em;
   display: block;
+  overflow: hidden;
+}
+.PurpleBox {
+  background-color: $assignments-light-purple;
 }
 .WordsList {
   height: 14vw;
@@ -89,23 +90,34 @@
   color: $assignments-font-color;
 }
 .StudentDateCard {
-  height: 18vw;
+  height: 19vw;
   width: 14vw;
-  background-color: $assignments-light-purple;
+  border-radius: 1em;
+  background-color: white;
   display:inline-block;
-  vertical-align: top;
-  white-space: normal;
-  margin: 5px;
+  margin: auto;
+  margin-top: 1em;
 }
 
 .CardContainer {
-  margin:auto;
-  min-width: 47vw;
-  max-height: 20vw;
-  background-color: white;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
+  margin-top: 3%;
+  max-height: 22vw;
+  min-width: 48vw;
+  background-color: wheat;
+  // overflow-x: scroll;
+  // overflow-y: hidden;
+  overflow:scroll;
+  
+}
+
+.StudentContainer {
+  background-color: red;
+  max-height: 14vw;
+}
+.DateLabel {
+  font-size: 2em;
+  color: $assignments-font-color;
+  font-weight: bold;
 }
 
 .LessonDataTitle {

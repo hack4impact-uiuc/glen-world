@@ -47,7 +47,6 @@ const CustomLessonsDisplay = props => {
   function handleClick(lesson) {
     handleChangeDisplayLessonInfo(!displayLessonInfo);
     setDisplayLesson(lesson);
-    console.log(lesson);
     if (lesson.lessonTemplate in TEMPLATE_LESSON_MAP) {
       setDisplayTemplate(TEMPLATE_LESSON_MAP[lesson.lessonTemplate]);
     } else {
