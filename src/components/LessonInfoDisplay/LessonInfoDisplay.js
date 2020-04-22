@@ -1,67 +1,35 @@
 import React, { useState } from "react";
 import {Col, Row} from "reactstrap";
-import { withFirebase } from "utils/Firebase";
 import { compose } from "recompose";
 import { withRouter, Redirect } from "react-router-dom";
 import "./LessonInfoDisplay.scss";
 
 const LessonInfoDisplay = props => {
-  const { firebase } = props;
   const [editLessonRedirect, setEditLessonRedirect] = useState(false);
-  const [names, setNames] = useState([])
-
-  function handleClose() {
-    props.setDisplay(false);
-  }
 
   function toFormatDate(date) {
     let dateComponents = date
       .split(" ");
       return dateComponents[1] + " " + dateComponents[2] + ", " + dateComponents[3];
   }
-  function getUsernames(students) {
-    Promise.all(
-      students.map(id => {
-        return firebase.getDeploymentAccountInformation(id);
-      })
-    ).then(value => {
-      let usernames = value.map(studentInfo => {
-        return studentInfo["username"];
-      });
-      setNames(usernames)
-    }
-    )
-  }
 
   function LessonCard(date, students) {
     return (
-      <Col sm = "2">
-      <div className = "StudentDateCard">
-      <div className = "PurpleBox">
-        <div className = "DateLabel">{toFormatDate(date)}</div>
+      <Col>
+      <div className = "student-date-card">
+      <div className = "purple-box">
+        <div className = "date-label">{toFormatDate(date)}</div>
       </div>
-      <div className = "StudentContainer">
-          {getUsernames(students)}
-          {
-          names.map(name => (
-            <div>{name}</div>
-          ))
-          }
+      {console.log(props.nameMap)}
+      <div className = "student-container">
+          {students.map(id => (
+            <div className = "student-name">{props.nameMap[id]}</div>
+          ))}
       </div>
       </div>
-      </Col>
+     </Col>
     )
   }
-  // Promise.all(
-    //   lesson.deploymentAccountIds.map(id => {
-    //     return firebase.getDeploymentAccountInformation(id);
-    //   })
-    // ).then(value => {
-    //   let usernames = value.map(studentInfo => {
-    //     return studentInfo["username"];
-    //   });
-    //   setDisplayStudents(usernames);
-    // });
 
   if (editLessonRedirect) {
     return (
@@ -75,21 +43,21 @@ const LessonInfoDisplay = props => {
   }
 
   return (
-    <div className="LessonInfo">
+    <div className="lesson-info">
       <Row>
-      <div className="InfoDisplay">
+      <div className="info-display">
         <Col>
-        <div className="Column">
-          <div className="WordGroupDisplay">
-          <div className="LessonGroupName">{props.template}</div>
+        <div className="column">
+          <div className="word-group-display">
+          <div className="lesson-group-name">{props.template}</div>
           </div>
-          <div className = "WordDisplay">
-            <div className = "GreyBox">
-              <div className = "WordGroupName"> {props.lesson.wordGroup} </div>
+          <div className = "word-display">
+            <div className = "grey-box">
+              <div className = "word-group-name"> {props.lesson.wordGroup} </div>
             </div>
-            <div className = "WordsList">
+            <div className = "words-list">
               {props.lesson.words.map((word) => (
-                <div className = "Word">{word}</div>
+                <div className = "words">{word}</div>
 
               ))}
             </div>
@@ -98,62 +66,26 @@ const LessonInfoDisplay = props => {
         </Col>
 
         <Col>
-        <div className = "CardContainer">
+      <div 
+      onClick={() => setEditLessonRedirect(true)}
+      className="button-container">
+        <img src="images/icons/edit-icon.svg" alt="edit" />
+      </div>
+      <div className = "card-container">
         <Row>
           {Object.keys(props.lesson.dueDates).map(key => (
-            // <div> {key} </div>
-            //map the deployments below
-          // <div> {props.lesson.dueDates[key]}</div>
           <div>
             {LessonCard(key, props.lesson.dueDates[key])}
-            {/* {props.lesson.dueDates[key]} */}
           </div>
           ))}
         </Row>
         </div>
         </Col>
-        {/* <div className="Column">
-          <div className="LessonDataTitle">WORDS</div>
-          <div className="LessonData">
-            {props.words.map((word, index) => (
-              <div key={index}>{word}</div>
-            ))}
-          </div>
-        </div> */}
-        {/* <div className="Column">
-          <div className="LessonDataTitle">STUDENTS</div>
-          <div className="LessonData">
-            {props.studentNames.map((name, index) => (
-              <div key={index}>{name}</div>
-            ))}
-          </div>
-        </div> */}
       </div> 
       </Row>
-      {/* <Row>
-        <Col>
-        
-        </Col>
-        <Col>
-        HOEEEEES
-        </Col>
-      <Col>
-      <div className="ButtonContainer">
-        <button onClick={handleClose} className="LessonButton">
-          Close
-        </button>
-        <button
-          onClick={() => setEditLessonRedirect(true)}
-          className="LessonButton"
-        >
-          Edit
-        </button>
-      </div>
-      </Col>
-      </Row> */}
   </div>
   );
 }
 
-export default compose(withFirebase, withRouter)(LessonInfoDisplay);
+export default compose(withRouter)(LessonInfoDisplay);
 

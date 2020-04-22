@@ -17,6 +17,7 @@ const CustomLessonsDisplay = props => {
   const [displayLessonStudents, setDisplayStudents] = useState([]);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
   const [createLessonRedirect, setCreateLessonRedirect] = useState(false);
+  const[nameMap, setNameMap] = useState({});
   const editLessonRedirect = props?.location.state?.redirect;
 
   function orderAdminLessons(reverse) {
@@ -40,6 +41,33 @@ const CustomLessonsDisplay = props => {
     }, 50); // Timeout for firebase to update and display updated lessons properly
   }, [editLessonRedirect]); // Updates lessons when redirected to page from CreateAssignment
 
+  //taken from lam
+  async function deploymentNameMap(lesson) {
+    let deploymentAccountIds = new Set();
+    for (const dueDate in lesson.dueDates) {
+      for (const deploymentAccount of lesson.dueDates[dueDate]) {
+        deploymentAccountIds.add(deploymentAccount);
+      }
+    }
+
+    let deploymentNameMap = {};
+    Array.from(deploymentAccountIds).forEach(id => {
+      firebase
+        .getDeploymentAccountInformation(id)
+        .then(deploymentAccount => {
+          deploymentNameMap[id] = deploymentAccount.username;
+        })
+        .catch(error => console.error("Error getting custom lesson: ", error));
+    });
+
+    // Wait for deploymentNameMap to finish resolving
+    while (Object.keys(deploymentNameMap).length == 0) {
+      await new Promise(r => setTimeout(r, 500));
+    }
+    setNameMap(deploymentNameMap)
+    
+  }
+
   function handleChangeDisplayLessonInfo(display) {
     setDisplayLessonInfo(display);
   }
@@ -47,22 +75,12 @@ const CustomLessonsDisplay = props => {
   function handleClick(lesson) {
     handleChangeDisplayLessonInfo(!displayLessonInfo);
     setDisplayLesson(lesson);
+    deploymentNameMap(lesson);
     if (lesson.lessonTemplate in TEMPLATE_LESSON_MAP) {
       setDisplayTemplate(TEMPLATE_LESSON_MAP[lesson.lessonTemplate]);
     } else {
       setDisplayTemplate(lesson.lessonTemplate);
     }
-
-    // Promise.all(
-    //   lesson.deploymentAccountIds.map(id => {
-    //     return firebase.getDeploymentAccountInformation(id);
-    //   })
-    // ).then(value => {
-    //   let usernames = value.map(studentInfo => {
-    //     return studentInfo["username"];
-    //   });
-    //   setDisplayStudents(usernames);
-    // });
   }
 
   if (createLessonRedirect) {
@@ -116,6 +134,7 @@ const CustomLessonsDisplay = props => {
             words={displayLesson.words}
             studentNames={displayLessonStudents}
             setDisplay={handleChangeDisplayLessonInfo}
+            nameMap = {nameMap}
           />
         )} 
       </div>

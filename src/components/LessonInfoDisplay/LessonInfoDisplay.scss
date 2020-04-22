@@ -1,6 +1,6 @@
 @import "../../pages/Index/index.scss";
 
-.LessonInfo {
+.lesson-info {
   background-color: $assignments-darker-color;
   font-family: $assignments-roboto-font;
   width: 70%;
@@ -14,14 +14,14 @@
   overflow: hidden;
 }
 
-.InfoDisplay {
+.info-display {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   overflow: hidden;
 }
 
-.Column {
+.column {
   float: left;
   height: 25vw;
   width: 18vw;
@@ -30,7 +30,7 @@
   border-bottom-left-radius: 2em;
 }
 
-.WordGroupDisplay {
+.word-group-display {
   height: 5vw;
   width: 16vw;
   background-color: $assignments-light-purple;
@@ -42,7 +42,7 @@
   overflow: hidden;
 }
 
-.LessonGroupName {
+.lesson-group-name {
   margin-top: 5%;
   padding:auto;
   font-size: 2em;
@@ -51,7 +51,7 @@
   color: $assignments-font-color;
 }
 
-.WordDisplay {
+.word-display {
   height: 16vw;
   width: 15vw;
   background-color: white;
@@ -61,7 +61,7 @@
   display: block;
   overflow: hidden;
 }
-.GreyBox, .PurpleBox {
+.grey-box, .purple-box {
   height: 3vw;
   background-color: #C4C4C4;
   border-top-left-radius: 1em;
@@ -69,30 +69,27 @@
   display: block;
   overflow: hidden;
 }
-.PurpleBox {
+.purple-box {
   background-color: $assignments-light-purple;
 }
-.WordsList {
+.words-list {
   height: 14vw;
   overflow: scroll;
 }
-::-webkit-scrollbar {
-  width: 0px;
-}
-.WordGroupName {
+.word-group-name {
   font-size: 1.7em;
   font-weight: bold;
   text-transform: uppercase;
   font-style: $assignments-roboto-font;
   color: black;
 }
-.Word {
+.words {
   font-size: 1.5em;
   font-weight: bold;
-  text-transform: capitalize;
   color: $assignments-font-color;
+  text-transform: capitalize;
 }
-.StudentDateCard {
+.student-date-card {
   height: 19vw;
   width: 14vw;
   border-radius: 1em;
@@ -100,10 +97,10 @@
   display:inline-block;
   margin-left:0em;
   margin-top: 1em;
+  overflow: hidden;
 }
 
-.CardContainer {
-  margin-top: 5%;
+.card-container {
   margin-left: -2%;
   max-height: 22vw;
   min-width: 47vw;
@@ -121,62 +118,24 @@
   -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
-.StudentContainer {
-  background-color: red;
-  max-height: 14vw;
+.student-container {
+  max-height: 16vw;
+  overflow: scroll;
 }
-.DateLabel {
+.student-name {
+  font-style: $assignments-roboto-font;
+  color: $assignments-font-color;
+  font-weight: bold;
+  font-size: 1.5em;
+  border-top: 1px solid $assignments-darker-color;
+}
+.date-label {
   font-size: 2em;
   color: $assignments-font-color;
   font-weight: bold;
 }
 
-.LessonDataTitle {
-  width: 15vw;
-  height: 3vw;
-  border: 1px solid black;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  background-color: lightgray;
-  color: black;
-  font-size: 2em;
-  font-weight: bold;
-}
-
-.LessonData {
-  width: 15vw;
-  height: 12vw;
-  border: 1px solid black;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-  font-size: 1.3em;
-  overflow-y: auto;
-  margin: auto;
-  background-color: white;
-  color: black;
-}
-
-.LessonButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ffc700;
-  margin: auto;
-  border-radius: 8px;
-  width: 6vw;
-  font-weight: bold;
-  font-size: 1.4em;
-  transition-duration: 0.3s;
-}
-
-.LessonButton:hover {
-  background-color: #ffc700;
-  color: white;
-}
-
-.ButtonContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+.button-container {
+  margin-left: 43vw;
+  margin-top: .3vw;
 }

@@ -72,11 +72,11 @@ function WordGroupSelector(props) {
             collectedWordGroups[wordKeys.current[12]],
             "images/word-group/media.svg"
           ],
-          "More Animals": [
+          "Animals 2": [
             collectedWordGroups[wordKeys.current[13]],
             "images/word-group/animals-2.svg"
           ],
-          "Even More Animals!": [
+          "Animals 3": [
             collectedWordGroups[wordKeys.current[14]],
             "images/word-group/animals-3.svg"
           ]

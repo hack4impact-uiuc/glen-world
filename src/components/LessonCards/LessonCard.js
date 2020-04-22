@@ -18,7 +18,7 @@ function LessonCard(props) {
           onClick={() => props.deleteCard(props.lessonDate)}
           className="DeleteLessonCard"
         >
-          <img src="images/icons/remove-card.svg" alt="Close" />
+          <img src="images/icons/editicon.svg" alt="Close" />
         </div>
       </div>
       <div className="LessonCardContent">
