@@ -31,20 +31,22 @@ const LessonInfoDisplay = props => {
       setNames(usernames)
     }
     )
-    return names;
   }
 
   function LessonCard(date, students) {
     return (
-      <Col>
+      <Col sm = "2">
       <div className = "StudentDateCard">
       <div className = "PurpleBox">
         <div className = "DateLabel">{toFormatDate(date)}</div>
       </div>
       <div className = "StudentContainer">
-        {
-          getUsernames(students)
-        }
+          {getUsernames(students)}
+          {
+          names.map(name => (
+            <div>{name}</div>
+          ))
+          }
       </div>
       </div>
       </Col>

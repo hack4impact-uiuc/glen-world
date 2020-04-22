@@ -11,12 +11,13 @@
   margin: auto;
   margin-top: 8em;
   z-index: 1;
+  overflow: hidden;
 }
 
 .InfoDisplay {
   display: flex;
-  // flex-direction: row;
-  // flex-wrap: wrap;
+  flex-direction: row;
+  flex-wrap: wrap;
   overflow: hidden;
 }
 
@@ -38,6 +39,7 @@
   border-radius: 2em;
   margin: auto;
   margin-top: 1em;
+  overflow: hidden;
 }
 
 .LessonGroupName {
@@ -57,6 +59,7 @@
   margin: auto;
   margin-top: 1em;
   display: block;
+  overflow: hidden;
 }
 .GreyBox, .PurpleBox {
   height: 3vw;
@@ -95,19 +98,27 @@
   border-radius: 1em;
   background-color: white;
   display:inline-block;
-  margin: auto;
+  margin-left:0em;
   margin-top: 1em;
 }
 
 .CardContainer {
-  margin-top: 3%;
+  margin-top: 5%;
+  margin-left: -2%;
   max-height: 22vw;
-  min-width: 48vw;
-  background-color: wheat;
-  // overflow-x: scroll;
-  // overflow-y: hidden;
-  overflow:scroll;
+  min-width: 47vw;
+  overflow-y: scroll;
+  overflow-x: hidden;
   
+}
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
 .StudentContainer {
