@@ -1,0 +1,70 @@
+@import "../../pages/Index/index.scss";
+
+.WordDisplayBar {
+  display: flex;
+  background-color: #DADADA;
+  flex-grow: 1;
+}
+
+.FlexContainer {
+  flex-direction: row;
+}
+
+.CardsDisplaySection {
+  display: flex;
+  background-color: #EEEEEE;
+  flex-grow: 4;
+}
+
+.FlexColumn {
+  display: flex;
+  flex-direction: column;
+}
+.LessonCard {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  overflow: scroll;
+  height: 15vw;
+  width: 12vw;
+  border-radius: 20px;
+  margin: 2vw;
+  margin-bottom: 0vw;
+  background-color: $assignments-background-color;
+  color: $assignments-font-color;
+  font-family: $assignments-roboto-font;
+  font-size: 1.2em;
+}
+
+.LessonCardHeading {
+  display: flex;
+  flex-wrap: wrap;
+  height: 4vw;
+  width: 12vw;
+  top: 1vw;
+  background-color: $assignments-light-purple;
+  font-family: $assignments-roboto-font;
+}
+
+.DeleteLessonCard {
+  margin-top: 0.5vw;
+  margin-right: 0.75vw;
+}
+
+.LessonCardDate {
+  margin: auto;
+}
+
+.LessonCardContent {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  height: 11vw;
+  width: 12vw;
+}
+
+.LessonCardStudent {
+  font-family: $assignments-roboto-font;
+  color: $assignments-font-color;
+}
+

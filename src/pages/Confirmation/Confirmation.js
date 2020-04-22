@@ -5,15 +5,8 @@ import { Row, Col, Container } from "react-bootstrap";
 import { withRouter, Redirect } from "react-router-dom";
 import { ADMIN_ACCOUNT } from "utils/constants.js";
 import { Button } from "reactstrap";
-import {
-  Checkbox,
-  ListItemIcon,
-  Collapse,
-  List,
-  ListItem,
-  ListItemText
-} from "@material-ui/core";
-import useStyles from "./ConfirmationStyle.js";
+import "./ConfirmationStyle.scss";
+import CardsDisplay from "../../components/CardsDisplay/CardsDisplay";
 
 function Confirmation(props) {
   const { firebase } = props;
@@ -22,13 +15,13 @@ function Confirmation(props) {
   const deploymentAccountIds = lesson.deploymentIds;
   const lessonType = lesson.lesson;
   const wordGroup = lesson.group;
-  const dates = lesson.dueDate;
+  const dates = lesson.dueDates;
+  const lessonCards = lesson.cards;
   const allDeployments = lesson.deployments;
   const lessonName = lesson.lessonNameValue;
   const existingId = lesson.id;
   const [submitted, setSubmitted] = useState(false);
   const [editRedirect, setEditRedirect] = useState(false);
-  const classes = useStyles();
 
   function pushLesson() {
     firebase.setCustomLesson(
@@ -75,36 +68,18 @@ function Confirmation(props) {
   return (
     <div>
       <div className="Heading">Confirmation</div>
-      <Container>
-        <Row>
-          <Col xl="auto">
-            <Row className={classes.row}>
-              <Row>
-                <img src="images/icon.svg" alt="vocab" />
-              </Row>
-              <Row>VOCAB</Row>
-            </Row>
-            <Row>
-              <List>
-                <ListItem className={classes.listSection}>Words</ListItem>
-                {words.map(word => (
-                  <ListItem className={classes.nested}>
-                    <ListItemText primary={`${word}`} />
-                  </ListItem>
-                ))}
-              </List>
-            </Row>
-          </Col>
-          <Col xl={20}></Col>
-          {lessonName}
-        </Row>
-      </Container>
-      <Button onClick={() => setEditRedirect(true)} className="assign">
-        Edit
-      </Button>
-      <Button onClick={pushLesson} className="assign">
-        Confirm
-      </Button>
+      <div className="FlexContainer">
+        <div className="FlexColumn">
+          <div className="WordDisplayBar">
+            hi
+          </div>
+        </div>
+        <div className="FlexColumn">
+          <div className="CardsDisplaySection">
+            hi
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
