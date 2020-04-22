@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import {Col, Row} from "reactstrap";
 import { compose } from "recompose";
 import { withRouter, Redirect } from "react-router-dom";
+import { useRef } from "react";
+import useOutsideClick from "../WordSelector/useOutsideClick";
 import "./LessonInfoDisplay.scss";
 
 const LessonInfoDisplay = props => {
   const [editLessonRedirect, setEditLessonRedirect] = useState(false);
+  const ref = useRef();
+  useOutsideClick(ref, () => {
+    props.setDisplay(false);
+  });
 
   function toFormatDate(date) {
     let dateComponents = date
@@ -44,6 +50,7 @@ const LessonInfoDisplay = props => {
 
   return (
     <div className="lesson-info">
+      <div ref={ref}>
       <Row>
       <div className="info-display">
         <Col>
@@ -83,6 +90,7 @@ const LessonInfoDisplay = props => {
         </Col>
       </div> 
       </Row>
+    </div>
   </div>
   );
 }
