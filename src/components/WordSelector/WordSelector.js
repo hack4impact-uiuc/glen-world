@@ -14,7 +14,7 @@ function WordSelector(props) {
   const ref = useRef();
 
   useOutsideClick(ref, () => {
-    props.setSelectMode(false)
+    props.setSelectMode(false);
   });
 
   useEffect(() => {
@@ -90,40 +90,40 @@ function WordSelector(props) {
   return (
     <div className="WordSelector">
       <div ref={ref}>
-      <Row>
-        <Col sm="8">
-          <div className="GroupTitle">{props.name}</div>
-        </Col>
-        <Col sm="4">
-          <div className="SelectCheckbox">
-            <label class="container">
-              <input
-                class="check"
-                checked={
-                  checkedWords.length == props.group.length && !disableSelect
-                }
-                type="checkbox"
-                name="Select All"
-                onChange={handleChooseAll}
-              />
-              <div className="word">Choose All</div>
-            </label>
-          </div>
-        </Col>
-      </Row>
-      <hr className="GroupTitleUnderline"></hr>
-      <div className="WordDisplay">
-        {props.group.map((word, index) => wordSelection(word, index))}
-      </div>
-      <div className="Padding">
-        <Button
-          disabled={disableNext()}
-          onClick={() => handleSelect()}
-          className="NextButton"
-        >
-          Select
-        </Button>
-      </div>
+        <Row>
+          <Col sm="8">
+            <div className="GroupTitle">{props.name}</div>
+          </Col>
+          <Col sm="4">
+            <div className="SelectCheckbox">
+              <label class="container">
+                <input
+                  class="check"
+                  checked={
+                    checkedWords.length == props.group.length && !disableSelect
+                  }
+                  type="checkbox"
+                  name="Select All"
+                  onChange={handleChooseAll}
+                />
+                <div className="word">Choose All</div>
+              </label>
+            </div>
+          </Col>
+        </Row>
+        <hr className="GroupTitleUnderline"></hr>
+        <div className="WordDisplay">
+          {props.group.map((word, index) => wordSelection(word, index))}
+        </div>
+        <div className="Padding">
+          <Button
+            disabled={disableNext()}
+            onClick={() => handleSelect()}
+            className="NextButton"
+          >
+            Select
+          </Button>
+        </div>
       </div>
     </div>
   );
