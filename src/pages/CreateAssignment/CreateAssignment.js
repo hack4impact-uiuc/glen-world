@@ -50,40 +50,45 @@ function CreateAssignment(props) {
   }, [firebase]);
 
   async function parseCardsFromLesson(lesson) {
-    let lessonCards = {};
     let deploymentAccountIds = new Set();
     for (const dueDate in lesson.dueDates) {
       for (const deploymentAccount of lesson.dueDates[dueDate]) {
         deploymentAccountIds.add(deploymentAccount);
       }
     }
+    deploymentAccountIds = Array.from(deploymentAccountIds);
 
     let deploymentNameMap = {};
-    Array.from(deploymentAccountIds).forEach(id => {
-      firebase
-        .getDeploymentAccountInformation(id)
-        .then(deploymentAccount => {
-          deploymentNameMap[id] = deploymentAccount.username;
-        })
-        .catch(error => console.error("Error getting custom lesson: ", error));
-    });
+    Promise.all(
+      deploymentAccountIds.map(id => {
+        return firebase.getDeploymentAccountInformation(id);
+      })
+    )
+      .then(deploymentAccounts => {
+        for (let i = 0; i < deploymentAccounts.length; i++) {
+          deploymentNameMap[deploymentAccountIds[i]] =
+            deploymentAccounts[i].username;
+        }
+      })
+      .catch(error => console.error("Error getting custom lesson: ", error));
 
     // Wait for deploymentNameMap to finish resolving
     while (Object.keys(deploymentNameMap).length == 0) {
-      await new Promise(r => setTimeout(r, 500));
+      await new Promise(r => setTimeout(r, 10));
     }
 
-    for (const dueDate in lesson.dueDates) {
+    let lessonCards = {};
+    for (let [dueDate, assignedDeploymentIds] of Object.entries(
+      lesson.dueDates
+    )) {
       let lessonCard = [[], []];
-
-      for (const deploymentAccountId of lesson.dueDates[dueDate]) {
+      assignedDeploymentIds.forEach(deploymentAccountId => {
         lessonCard[0].push(deploymentAccountId); // inputting account id
         lessonCard[1].push(deploymentNameMap[deploymentAccountId]); // input corresponding username
-      }
+      });
 
       lessonCards[dueDate] = lessonCard;
     }
-
     setLessonCards(lessonCards);
   }
 
