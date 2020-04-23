@@ -53,7 +53,6 @@ const LessonInfoDisplay = props => {
       <div ref={ref}>
       <Row>
       <div className="info-display">
-        {/* <Col className = "no-padding"> */}
         <div className="column">
           <div className="word-group-display">
           <div className="lesson-group-name">{props.template}</div>
@@ -70,9 +69,8 @@ const LessonInfoDisplay = props => {
             </div>
           </div>
         </div>
-        {/* </Col> */}
 
-        <Col>
+        <Col className = "fat-column">
       <div 
       onClick={() => setEditLessonRedirect(true)}
       className="button-container">
