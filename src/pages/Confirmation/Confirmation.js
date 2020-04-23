@@ -7,6 +7,7 @@ import { ADMIN_ACCOUNT } from "utils/constants.js";
 import { Button } from "reactstrap";
 import "./ConfirmationStyle.scss";
 import CardsDisplay from "../../components/CardsDisplay/CardsDisplay";
+import ConfirmationCard from "../../components/ConfirmationCard/ConfirmationCard";
 
 function Confirmation(props) {
   const { firebase } = props;
@@ -22,6 +23,15 @@ function Confirmation(props) {
   const existingId = lesson.id;
   const [submitted, setSubmitted] = useState(false);
   const [editRedirect, setEditRedirect] = useState(false);
+  const [handlePhonics, setPhonics] = useState(false);
+  const [handleWords, setWords] = useState(false);
+  const [handleVocab, setVocab] = useState(false);
+
+  useEffect(() => {
+    if (lessonType === "A") setVocab(true);
+    else if (lessonType === "C") setPhonics(true);
+    else if (lessonType === "A3") setWords(true);
+  });
 
   function pushLesson() {
     firebase.setCustomLesson(
@@ -67,16 +77,48 @@ function Confirmation(props) {
 
   return (
     <div>
-      <div className="Heading">Confirmation</div>
       <div className="FlexContainer">
-        <div className="FlexColumn">
-          <div className="WordDisplayBar">
-            hi
+        <div className="WordDisplayBar">
+          {handlePhonics && (
+            <div className="LessonTypeDisplayIcon">
+              <img src="images/lesson-group/phonics.svg" alt="phonics" />
+              PHONICS
+            </div>
+          )}
+          {handleVocab && (
+            <div className="LessonTypeDisplayIcon">
+              <img src="images/lesson-group/words.svg" alt="words" />
+              VOCAB
+            </div>
+          )}
+          {handleWords && (
+            <div className="LessonTypeDisplayIcon">
+              <img src="images/lesson-group/writing.svg" alt="writing" />
+              WRITING
+            </div>
+          )}
+          <div>
+            <ConfirmationCard
+              lessonDate={"WORDS"}
+              lessonStudents={words}
+              confirmation={true}
+            />
           </div>
         </div>
-        <div className="FlexColumn">
-          <div className="CardsDisplaySection">
-            hi
+
+        <div className="CardsDisplaySection">
+          <div className="LessonNameDisplayHeader">{lessonName}</div>
+          <CardsDisplay cards={lessonCards} />
+          <div className="FlexContainer">
+            <Button
+              onClick={() => setEditRedirect(true)}
+              className="EditButtonConfirmPage"
+            >
+              Edit
+            </Button>
+            <Button onClick={pushLesson} className="ConfirmButtonConfirmPage">
+              Confirm
+            </Button>
           </div>
         </div>
       </div>

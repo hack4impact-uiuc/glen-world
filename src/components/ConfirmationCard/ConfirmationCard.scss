@@ -1,0 +1,46 @@
+@import "../../pages/Index/index.scss";
+
+.ConfirmationCard {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  overflow: scroll;
+  height: 22.5vw;
+  width: 18vw;
+  border-radius: 30px;
+  margin: 2vw;
+  margin-bottom: 0vw;
+  background-color: $assignments-background-color;
+  color: $assignments-font-color;
+  font-family: $assignments-roboto-font;
+  font-style: bold;
+}
+
+.ConfirmationCardHeading {
+  display: flex;
+  flex-wrap: wrap;
+  height: 6vw;
+  width: 18vw;
+  top: 1.5vw;
+  font-size: 3em;
+  background-color: $assignments-light-purple;
+  font-family: $assignments-roboto-font;
+}
+
+.ConfirmationCardDate {
+  margin: auto;
+}
+
+.ConfirmationCardContent {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  height: 16.5vw;
+  width: 18vw;
+  font-size: 1.2em;
+}
+
+.ConfirmationCardStudent {
+  font-family: $assignments-roboto-font;
+  color: $assignments-font-color;
+}

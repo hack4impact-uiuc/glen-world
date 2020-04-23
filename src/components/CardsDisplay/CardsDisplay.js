@@ -1,6 +1,6 @@
 import React from "react";
 import "./CardsDisplay.scss";
-import LessonCard from "../LessonCards/LessonCard";
+import ConfirmationCard from "../ConfirmationCard/ConfirmationCard";
 
 function CardsDisplay(props) {
   return (
@@ -11,7 +11,7 @@ function CardsDisplay(props) {
           .map(date => {
             const dateTemp = date;
             return (
-              <LessonCard
+              <ConfirmationCard
                 lessonDate={dateTemp}
                 lessonStudents={props.cards[date][1]}
               />

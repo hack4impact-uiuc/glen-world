@@ -1,25 +1,81 @@
 @import "../../pages/Index/index.scss";
 
-.WordDisplayBar {
+.LessonTypeDisplayIcon {
+  width: 250px;
+  height: 250px;
+  top: 24px;
+  background: #b1b0ff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15%;
+  border-color: #FFFFFF;
+  display: inline-block;
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  font-family: Roboto;
+}
+
+.FlexContainer .EditButtonConfirmPage {
+  display: flex;
+  color: $assignments-font-color;
+  background-color: $assignments-background-color;
+  font-family: $assignments-roboto-font;
+  font-weight: bold;
+  border-radius: 1em;
+  text-align: center;
+  height: 2.5vw;
+  width: 6vw;
+  margin-top:40vh;
+  margin-left:2vw;
+  display: inline-block;
+}
+
+.FlexContainer .ConfirmButtonConfirmPage {
+  display: flex;
+  color: $assignments-font-color;
+  background-color: $assignments-background-color;
+  font-family: $assignments-roboto-font;
+  font-weight: bold;
+  border-radius: 1em;
+  text-align: center;
+  height: 2.5vw;
+  margin-top: 40vh;
+  margin-left: 56vw;
+  width: 6vw;
+  display: inline-block;
+}
+
+.FlexContainer .WordDisplayBar {
   display: flex;
   background-color: #DADADA;
+  display: inline-block;
+  text-align: center;
+  padding-top: 3vw;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  padding-bottom: 3vw;
+  height: 100vh;
   flex-grow: 1;
 }
 
 .FlexContainer {
+  display: flex;
   flex-direction: row;
+  align-content: flex-start;
 }
 
-.CardsDisplaySection {
+.FlexContainer .CardsDisplaySection {
   display: flex;
   background-color: #EEEEEE;
+  flex-wrap: wrap;
   flex-grow: 4;
 }
 
-.FlexColumn {
+.FlexContainer .FlexColumn {
   display: flex;
   flex-direction: column;
 }
+
 .LessonCard {
   display: flex;
   flex-wrap: wrap;
@@ -36,35 +92,17 @@
   font-size: 1.2em;
 }
 
-.LessonCardHeading {
+.FlexContainer .LessonNameDisplayHeader {
   display: flex;
-  flex-wrap: wrap;
-  height: 4vw;
-  width: 12vw;
-  top: 1vw;
-  background-color: $assignments-light-purple;
-  font-family: $assignments-roboto-font;
-}
-
-.DeleteLessonCard {
-  margin-top: 0.5vw;
-  margin-right: 0.75vw;
-}
-
-.LessonCardDate {
-  margin: auto;
-}
-
-.LessonCardContent {
-  display: flex;
-  flex-direction: column;
-  overflow: scroll;
-  height: 11vw;
-  width: 12vw;
-}
-
-.LessonCardStudent {
-  font-family: $assignments-roboto-font;
-  color: $assignments-font-color;
+  background-color: #6A6868;
+  width: 100%;
+  height: 4.5vw;
+  color: white;
+  align-items: center;
+  text-align: center;
+  display: inline-block;
+  font-size: 40px;
+  font-weight: bold;
+  font-family: Roboto;
 }
 
