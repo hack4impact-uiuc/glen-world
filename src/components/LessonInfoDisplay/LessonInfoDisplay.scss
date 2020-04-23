@@ -101,9 +101,9 @@
 }
 
 .card-container {
-  margin-left: -2%;
-  max-height: 22vw;
-  min-width: 47vw;
+  margin-left: 1em;
+  max-height: 21vw;
+  min-width: 25vw;
   overflow-y: scroll;
   overflow-x: hidden;
   
@@ -138,4 +138,12 @@
 .button-container {
   margin-left: 43vw;
   margin-top: .3vw;
+}
+
+.no-padding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.margins {
+  margin:auto;
 }

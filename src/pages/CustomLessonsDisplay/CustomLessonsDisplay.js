@@ -60,7 +60,7 @@ const CustomLessonsDisplay = props => {
         .catch(error => console.error("Error getting custom lesson: ", error));
     });
 
-    // Wait for deploymentNameMap to finish resolving
+    //Wait for deploymentNameMap to finish resolving
     while (Object.keys(deploymentNameMap).length == 0) {
       await new Promise(r => setTimeout(r, 500));
     }
@@ -89,12 +89,12 @@ const CustomLessonsDisplay = props => {
 
   return (
     <div>
-      <div className="Heading">Lesson Plans</div>
+      <div className="heading">Lesson Plans</div>
 
       <div>
         <center>
           <button
-            className="Button"
+            className="button"
             onClick={() => setCreateLessonRedirect(true)}
           >
             Create Lesson
@@ -109,30 +109,19 @@ const CustomLessonsDisplay = props => {
           </button> */}
         </center>
       </div>
-      <div className="NameDisplay">
+      <div className="name-display">
         {adminLessons &&
           adminLessons.map(lesson => (
-            // The below code previously displayed lesson names.
-            // Currently commented out due to Firebase endpoint changes
-
-            // <div key={lesson.id} onClick={() => handleClick(lesson)}>
-            //   <LessonNameDisplay lessonName={lesson.lessonName} />
-            // </div>
-
-            // TODO: Remove the code below this line once the above is fixed
             <div key={lesson.id} onClick={() => handleClick(lesson)}>
               <Col><LessonNameDisplay lessonName={lesson.lessonName} /></Col>
             </div>
           ))}
       </div>
       <div>
-        {/* TODO: LessonInfoDisplay will require overhaul. */}
         {displayLessonInfo && displayLesson && (
           <LessonInfoDisplay
             lesson={displayLesson}
             template={displayLessonTemplate}
-            words={displayLesson.words}
-            studentNames={displayLessonStudents}
             setDisplay={handleChangeDisplayLessonInfo}
             nameMap = {nameMap}
           />

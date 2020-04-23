@@ -1,13 +1,13 @@
 @import "../../pages/Index/index.scss";
 
-.Heading {
+.heading {
   font-family: $assignments-roboto-font;
   font-weight: bold;
   font-size: 4em;
   color: #4d4d4c;
   margin: auto;
 }
-.Button {
+.button {
   font-family: $assignments-roboto-font;
   border-radius: 8px;
   transition-duration: 0.3s;
@@ -16,7 +16,7 @@
     color: white;
   }
 }
-.NameDisplay {
+.name-display {
   font-family: $assignments-roboto-font;
   width: 100vw;
   display: flex;
