@@ -18,7 +18,6 @@ function Confirmation(props) {
   const wordGroup = lesson.group;
   const dates = lesson.dueDates;
   const lessonCards = lesson.cards;
-  const allDeployments = lesson.deployments;
   const lessonName = lesson.lessonNameValue;
   const existingId = lesson.id;
   const [submitted, setSubmitted] = useState(false);
@@ -65,9 +64,6 @@ function Confirmation(props) {
               dueDates: dates,
               lessonName: lessonName,
               id: existingId,
-              confirm: {
-                redirect: true
-              }
             }
           }
         }}

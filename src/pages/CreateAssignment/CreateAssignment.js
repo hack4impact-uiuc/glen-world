@@ -43,8 +43,6 @@ function CreateAssignment(props) {
       });
 
     if (existingAssignment) {
-      //if (!existingAssignment.confirm?.redirect)
-      // existingAssignment.dueDate = existingAssignment.dueDate.toDate();
       console.log(existingAssignment);
       prePopulateAssignment(existingAssignment);
     }
@@ -94,8 +92,6 @@ function CreateAssignment(props) {
   }
 
   function prePopulateAssignment(existingAssignment) {
-    //handleDatePickerChange(existingAssignment.dueDate);
-    //handleStudentListChange(existingAssignment.deploymentAccountIds);
     parseCardsFromLesson(existingAssignment);
     handleWordSelectorChange(existingAssignment.words);
     handleWordGroupChange(existingAssignment.wordGroup);
@@ -254,10 +250,6 @@ function CreateAssignment(props) {
             cards: lessonCards,
             id: existingAssignment?.id
           }
-          /*
-          pathname: "/",
-          state: { redirect: true }
-          */
         }}
       />
     );
