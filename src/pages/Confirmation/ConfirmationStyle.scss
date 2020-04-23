@@ -54,8 +54,8 @@
   padding-left: 3vw;
   padding-right: 3vw;
   padding-bottom: 3vw;
-  height: 100vh;
   flex-grow: 1;
+  height: 100vh;
 }
 
 .FlexContainer {
@@ -69,6 +69,7 @@
   background-color: #EEEEEE;
   flex-wrap: wrap;
   flex-grow: 4;
+  height: 100vh;
 }
 
 .FlexContainer .FlexColumn {
