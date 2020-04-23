@@ -63,7 +63,7 @@ function Confirmation(props) {
               wordGroup: wordGroup,
               dueDates: dates,
               lessonName: lessonName,
-              id: existingId,
+              id: existingId
             }
           }
         }}

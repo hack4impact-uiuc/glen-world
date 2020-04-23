@@ -42,10 +42,7 @@ function CreateAssignment(props) {
         setAdminDeployments(deploymentAccounts);
       });
 
-    if (existingAssignment) {
-      console.log(existingAssignment);
-      prePopulateAssignment(existingAssignment);
-    }
+    if (existingAssignment) prePopulateAssignment(existingAssignment);
 
     let originalDate = new Date();
     // Set time on current date to 0 to allow for edge case where teacher wants to include today in lesson dates.
