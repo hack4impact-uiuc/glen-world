@@ -123,7 +123,10 @@ function Confirmation(props) {
             >
               Edit
             </Button>
-            <Button onClick={pushLesson} className="confirm-button-confirm-page">
+            <Button
+              onClick={pushLesson}
+              className="confirm-button-confirm-page"
+            >
               Confirm
             </Button>
           </div>
