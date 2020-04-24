@@ -72,8 +72,13 @@ const CustomLessonsDisplay = props => {
     setFilterType("C")
   }
 
-  function noFilter() {
+  function noFilter(value) {
     setShowLessons(allLessons)
+    if (value == "type") {
+      setFilterType("")
+    } else if (value == "group") {
+      setFilterGroup("")
+    }
   }
 
   function filterByWordGroup(value) {
@@ -99,11 +104,14 @@ const CustomLessonsDisplay = props => {
     filter()
   }
 
+  //**FIX ? ADD ALL ALL THE FILTERING LOGIC */
   function filter() {
+    if (!filterGroup || !filterType) {
+      if (filter)
+    }
     if (filterType == "C") {
       setShowLessons(phonicsLessons)
-    } else {
-    }
+    } 
   }
 
   useEffect(() => {
@@ -175,17 +183,16 @@ const CustomLessonsDisplay = props => {
           >
             Create Lesson
           </button>
-          {/* The below code was previously used to sort lessons by date. 
-          Currently causes API error, but might not be used as lessons can now be named. */}
+
           <DropdownButton id="lesson-type" title="LESSON TYPE">
-          <Dropdown.Item onClick={noFilter}>-------</Dropdown.Item>
+          <Dropdown.Item onClick={() => noFilter("type")}>-------</Dropdown.Item>
             <Dropdown.Item onClick={() => setFilterType("C")}>Phonics</Dropdown.Item>
             <Dropdown.Item onClick={filterByWriting}>Writing</Dropdown.Item>
             <Dropdown.Item onClick={filterByVocab}>Vocab</Dropdown.Item>
           </DropdownButton>
           {filterType != "C" && 
           <DropdownButton id="lesson-type" title="WORD GROUPS">
-            <Dropdown.Item onClick={noFilter}>-------</Dropdown.Item>
+            <Dropdown.Item onClick={() => noFilter("group")}>-------</Dropdown.Item>
             {Object.keys(TEMPLATE_WORD_GROUPS).map(key => (
               <Dropdown.Item onClick={() =>filterByWordGroup(TEMPLATE_WORD_GROUPS[key])}>{TEMPLATE_WORD_GROUPS[key]}</Dropdown.Item>
             ))}
