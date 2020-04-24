@@ -24,33 +24,11 @@ const CustomLessonsDisplay = props => {
   const editLessonRedirect = props?.location.state?.redirect;
 
 
-  function orderAdminLessons(reverse) {
-    const sortedLessons = [...showLessons].sort((a, b) => {
-      if (reverse) {
-        return b.dueDate["seconds"] - a.dueDate["seconds"];
-      } else {
-        return a.dueDate["seconds"] - b.dueDate["seconds"];
-      }
-    });
-    setShowLessons(sortedLessons);
-  }
-
-
   /**
    * 
    * wait can teachers delete whole lessons that they've already made?????
    */
 
-  function filterByType(value) {
-    setFilterType(value)
-  }
-  function filterByGroup(value) {
-    setFilterGroup(value)
-  }
-
-  console.log(allLessons.filter(lesson => 
-    (!filterType || lesson.lessonTemplate == filterType) && (!filterGroup || lesson.wordGroup == filterGroup)
-    ))
   useEffect(() => {
     setTimeout(() => {
       // TODO: figure out better solution to resolve this
@@ -116,7 +94,7 @@ const CustomLessonsDisplay = props => {
           <div className="heading">Lesson Plans</div>
           </Col>
             <Col>
-          <DropdownButton  id="ddown" title="LESSON TYPE">
+          <DropdownButton  id="ddown" title= {TEMPLATE_LESSON_MAP[filterType] || "LESSON TYPE"}>
             <Dropdown.Item className = "drop-down" onClick={() => setFilterType("")}>-------</Dropdown.Item>
             {Object.keys(TEMPLATE_LESSON_MAP).map(key => (
               <Dropdown.Item className = "drop-down" onClick={() =>setFilterType(key)}>{TEMPLATE_LESSON_MAP[key]}</Dropdown.Item>
@@ -126,10 +104,10 @@ const CustomLessonsDisplay = props => {
           {/* Cant filter by wordgroups if phonics is selected */}
           <Col>
           {filterType != "C" && 
-          <DropdownButton id="ddown" title="WORD GROUPS">
+          <DropdownButton id="ddown" title={TEMPLATE_WORD_GROUPS[filterGroup] || "WORD GROUPS"}>
             <Dropdown.Item className = "drop-down" onClick={() => setFilterGroup("")}>-------</Dropdown.Item>
             {Object.keys(TEMPLATE_WORD_GROUPS).map(key => (
-              <Dropdown.Item className = "drop-down" onClick={() =>setFilterGroup(TEMPLATE_WORD_GROUPS[key])}>{TEMPLATE_WORD_GROUPS[key]}</Dropdown.Item>
+              <Dropdown.Item className = "drop-down" onClick={() =>setFilterGroup(key)}>{TEMPLATE_WORD_GROUPS[key]}</Dropdown.Item>
             ))}
           </DropdownButton>
           }
@@ -148,7 +126,7 @@ const CustomLessonsDisplay = props => {
         {allLessons &&
           <Row className="justify-content-md-center">
           {allLessons.filter(lesson => 
-            (!filterType || lesson.lessonTemplate == filterType) && (!filterGroup || lesson.wordGroup == filterGroup)
+            (!filterType|| lesson.lessonTemplate == filterType) && (!filterGroup || lesson.wordGroup == TEMPLATE_WORD_GROUPS[filterGroup])
             ).map(lesson => (
             <div key={lesson.id} onClick={() => handleClick(lesson)}>
               <Col><LessonNameDisplay lessonName={lesson.lessonName} /></Col>

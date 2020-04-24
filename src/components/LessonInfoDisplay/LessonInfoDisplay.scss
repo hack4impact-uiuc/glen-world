@@ -28,6 +28,7 @@
   background-color: black;
   border-top-left-radius: 2em;
   border-bottom-left-radius: 2em;
+  overflow:auto;
 }
 
 .word-group-display {
@@ -90,6 +91,8 @@
   font-weight: bold;
   color: $assignments-font-color;
   text-transform: capitalize;
+  height: 1.5em;
+  overflow:hidden;
 }
 .student-date-card {
   height: 19vw;
@@ -129,12 +132,14 @@
   color: $assignments-font-color;
   font-weight: bold;
   font-size: 1.5em;
-  border-top: 1px solid $assignments-darker-color;
+  height: 1.5em;
+  overflow: hidden;
 }
 .date-label {
-  font-size: 2em;
+  font-size: 1.5em;
   color: $assignments-font-color;
   font-weight: bold;
+  margin-top: 2%;
 }
 
 .button-container {
