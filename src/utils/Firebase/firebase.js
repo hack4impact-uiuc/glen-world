@@ -204,7 +204,9 @@ class Firebase {
         // Get existing lesson's currently assigned students
         let currentAssignedDeploymentIds = [];
         if (lessonDocId)
-          currentAssignedDeploymentIds = getDeploymentAccountIdsFromLesson(customLessonDoc.data());
+          currentAssignedDeploymentIds = getDeploymentAccountIdsFromLesson(
+            customLessonDoc.data()
+          );
 
         // Create or update lesson
         customLessonRef
