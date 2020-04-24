@@ -14,20 +14,15 @@ const CustomLessonsDisplay = props => {
   const { firebase } = props;
   const [showLessons, setShowLessons] = useState([]);
   const [allLessons, setAllLessons] = useState([]);
-  const [vocabLessons, setVocabLessons] = useState([]);
-  const [writingLessons, setWritingLessons] = useState([]);
-  const [phonicsLessons, setPhonicsLessons] = useState([]);
+  const [filterType, setFilterType] = useState();
+  const [filterGroup, setFilterGroup] = useState();
   const [displayLesson, setDisplayLesson] = useState(null);
   const [displayLessonTemplate, setDisplayTemplate] = useState(null);
-  const [displayLessonStudents, setDisplayStudents] = useState([]);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
   const [createLessonRedirect, setCreateLessonRedirect] = useState(false);
   const[nameMap, setNameMap] = useState({});
   const editLessonRedirect = props?.location.state?.redirect;
 
-  const [filterType, setFilterType] = useState();
-  const [filterGroup, setFilterGroup] = useState();
-  const [forceRender, setForceRender] = useState();
 
   function orderAdminLessons(reverse) {
     const sortedLessons = [...showLessons].sort((a, b) => {
@@ -40,35 +35,7 @@ const CustomLessonsDisplay = props => {
     setShowLessons(sortedLessons);
   }
 
-  function setLessonLists(lessons) {
-    setAllLessons(lessons)
-    let tempVocabList = []
-    let tempWritingList = []
-    let tempPhonicsList = []
-    lessons.forEach( lesson => {
-      let lessonType = lesson.lessonTemplate;
-      if (lessonType == "A") {
-        tempVocabList.push(lesson)
-      } else if (lessonType == "A3") {
-        tempWritingList.push(lesson)
-      } else if (lessonType == "C") {
-        tempPhonicsList.push(lesson)
-      }
-     })
-    setVocabLessons(tempVocabList)
-    setWritingLessons(tempWritingList)
-    setPhonicsLessons(tempPhonicsList)   
-  }
 
-
-  function noFilter(value) {
-    if (value == "type") {
-      setFilterType("")
-    } else if (value == "group") {
-      setFilterGroup("")
-    }
-    filter()
-  }
   /**
    * 
    * wait can teachers delete whole lessons that they've already made?????
@@ -81,23 +48,6 @@ const CustomLessonsDisplay = props => {
     setFilterGroup(value)
   }
 
-  function filter(value) {
-    console.log(filterGroup)
-    console.log(filterType)
-    // if (!filterType && !filterGroup) {
-    //   setShowLessons(allLessons)
-    // }
-    if (!filterType) {
-      setShowLessons(allLessons.filter(lesson => lesson.wordGroup == value))
-    } 
-    
-    // else if (!filterGroup) {
-    //   setShowLessons(allLessons.filter(lesson => lesson.lessonTemplate == filterType))
-    // } else {
-    //   setShowLessons(allLessons.filter(lesson => lesson.wordGroup == filterGroup && lesson.lessonTemplate == filterType))
-    // }
-    setForceRender(!forceRender)
-  }
   console.log(allLessons.filter(lesson => 
     (!filterType || lesson.lessonTemplate == filterType) && (!filterGroup || lesson.wordGroup == filterGroup)
     ))
@@ -106,8 +56,7 @@ const CustomLessonsDisplay = props => {
       // TODO: figure out better solution to resolve this
       // Get custom lessons made by admin
       firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lessons => {
-        setShowLessons(lessons);
-        setLessonLists(lessons);
+        setAllLessons(lessons)
       });
     }, 60); // Timeout for firebase to update and display updated lessons properly
   }, [editLessonRedirect]); // Updates lessons when redirected to page from CreateAssignment
@@ -160,34 +109,43 @@ const CustomLessonsDisplay = props => {
   }
 
   return (
-    <div>
-      <div className="heading">Lesson Plans</div>
-      <div>
-          <Row>
+    <div className = "lesson-page">
+      <div className = "button-bar">
+        <Row>
+          <Col sm = "6">
+          <div className="heading">Lesson Plans</div>
+          </Col>
+            <Col>
+          <DropdownButton  id="ddown" title="LESSON TYPE">
+            <Dropdown.Item className = "drop-down" onClick={() => setFilterType("")}>-------</Dropdown.Item>
+            {Object.keys(TEMPLATE_LESSON_MAP).map(key => (
+              <Dropdown.Item className = "drop-down" onClick={() =>setFilterType(key)}>{TEMPLATE_LESSON_MAP[key]}</Dropdown.Item>
+            ))}
+          </DropdownButton>
+          </Col>
+          {/* Cant filter by wordgroups if phonics is selected */}
+          <Col>
+          {filterType != "C" && 
+          <DropdownButton id="ddown" title="WORD GROUPS">
+            <Dropdown.Item className = "drop-down" onClick={() => setFilterGroup("")}>-------</Dropdown.Item>
+            {Object.keys(TEMPLATE_WORD_GROUPS).map(key => (
+              <Dropdown.Item className = "drop-down" onClick={() =>setFilterGroup(TEMPLATE_WORD_GROUPS[key])}>{TEMPLATE_WORD_GROUPS[key]}</Dropdown.Item>
+            ))}
+          </DropdownButton>
+          }
+          </Col>
+          <Col>
           <button
             className="button"
             onClick={() => setCreateLessonRedirect(true)}
           >
             Create Lesson
           </button>
-
-          <DropdownButton id="lesson-type" title="LESSON TYPE">
-            <Dropdown.Item onClick={() => setFilterType("")}>-------</Dropdown.Item>
-            {Object.keys(TEMPLATE_LESSON_MAP).map(key => (
-              <Dropdown.Item className = "drop-down" onClick={() =>setFilterType(key)}>{TEMPLATE_LESSON_MAP[key]}</Dropdown.Item>
-            ))}
-          </DropdownButton>
-          {/* Cant filter by wordgroups if phonics is selected */}
-          {filterType != "C" && 
-          <DropdownButton id="lesson-word-group" title="WORD GROUPS">
-            <Dropdown.Item onClick={() => noFilter("group")}>-------</Dropdown.Item>
-            {Object.keys(TEMPLATE_WORD_GROUPS).map(key => (
-              <Dropdown.Item onClick={() =>setFilterGroup(TEMPLATE_WORD_GROUPS[key])}>{TEMPLATE_WORD_GROUPS[key]}</Dropdown.Item>
-            ))}
-          </DropdownButton>
-          }
+          </Col>
           </Row>
       </div>
+      <Row>
+        <Col>
       <div className="name-display">
         {allLessons &&
           allLessons.filter(lesson => 
@@ -208,6 +166,10 @@ const CustomLessonsDisplay = props => {
           />
         )} 
       </div>
+      </Col>
+      <Col>
+      WTFFF</Col>
+      </Row>
     </div>
   );
 };

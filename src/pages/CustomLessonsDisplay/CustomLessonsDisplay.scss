@@ -1,31 +1,61 @@
 @import "../../pages/Index/index.scss";
 
+.lesson-page {
+  // overflow-x: hidden;
+  width: 100vw;
+  height: 80vw;
+  overflow: scroll;
+  align-items: 'flex-end'
+
+}
 .heading {
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 4em;
-  color: #4d4d4c;
+  font-size: 3em;
+  color: white;
   margin: auto;
 }
-.button {
+.name-display {
   font-family: $assignments-roboto-font;
-  border-radius: 8px;
+  width: 100vw;
+  height: 50vw;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  position: absolute;
+}
+.button-bar {
+  background-color: $assignments-font-color;
+  width: 100vw;
+}
+#ddown, .button {
+  height: 3em;
+  width: 12em;
+  border-color: $assignments-font-color;
+  background-color: white;
+  color: black;
+  font-family: $assignments-roboto-font;
+  font-weight: bold;
+  border-radius: 2em;
   transition-duration: 0.3s;
   &:hover {
     background-color: $assignments-light-purple;
     color: white;
   }
 }
-.name-display {
-  font-family: $assignments-roboto-font;
-  width: 100vw;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  position: absolute;
+.button {
+  background-color: $assignments-light-green;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
 }
-
 .drop-down {
   text-transform: lowercase;
   font-family: $assignments-roboto-font;
+}
+
+.col-padding {
+  padding: 0px !important;
+  margin: 0px !important;
 }
