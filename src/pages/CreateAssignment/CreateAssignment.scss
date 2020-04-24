@@ -1,5 +1,9 @@
 @import "../../pages/Index/index.scss";
 
+.create_assignment {
+  overflow: auto;
+}
+
 .assignment_creation {
   position: absolute;
 }
@@ -21,6 +25,13 @@
   border-radius: 1em;
   margin-left: 10em;
   position: "absolute";
+}
+
+.header {
+  color: $assignments-font-color;
+  font-family: $assignments-roboto-font;
+  font-weight: bold; 
+  font-size: 400%;
 }
 
 .name-assignment {
