@@ -118,7 +118,7 @@ function WordSelector(props) {
         <div className="Padding">
           <Button
             disabled={disableNext()}
-            onClick={() => handleSelect()}
+            onClick={handleSelect}
             className="NextButton"
           >
             Select
