@@ -1,13 +1,12 @@
 @import "../../pages/Index/index.scss";
 
-.lesson-page {
-  // overflow-x: hidden;
-  width: 100vw;
-  height: 80vw;
-  overflow: scroll;
-  align-items: 'flex-end'
+// .lesson-page {
+//   // overflow-x: hidden;
+//   width: 100vw;
+//   height: 80vw;
+//   overflow: scroll;
 
-}
+// }
 .heading {
   font-family: $assignments-roboto-font;
   font-weight: bold;
@@ -15,10 +14,9 @@
   color: white;
   margin: auto;
 }
-.name-display {
+.cards-display {
   font-family: $assignments-roboto-font;
-  width: 100vw;
-  height: 50vw;
+  max-height: 50vw;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -26,17 +24,18 @@
 }
 .button-bar {
   background-color: $assignments-font-color;
-  width: 100vw;
 }
 #ddown, .button {
-  height: 3em;
-  width: 12em;
+  height: 2em;
+  width: 11em;
   border-color: $assignments-font-color;
+  border-radius: 2em;
+  margin-top: 3%;
   background-color: white;
   color: black;
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  border-radius: 2em;
+  font-size: 1.5em;
   transition-duration: 0.3s;
   &:hover {
     background-color: $assignments-light-purple;

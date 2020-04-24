@@ -112,7 +112,7 @@ const CustomLessonsDisplay = props => {
     <div className = "lesson-page">
       <div className = "button-bar">
         <Row>
-          <Col sm = "6">
+          <Col>
           <div className="heading">Lesson Plans</div>
           </Col>
             <Col>
@@ -144,17 +144,18 @@ const CustomLessonsDisplay = props => {
           </Col>
           </Row>
       </div>
-      <Row>
-        <Col>
-      <div className="name-display">
+      <div className="cards-display">
         {allLessons &&
-          allLessons.filter(lesson => 
+          <Row className="justify-content-md-center">
+          {allLessons.filter(lesson => 
             (!filterType || lesson.lessonTemplate == filterType) && (!filterGroup || lesson.wordGroup == filterGroup)
             ).map(lesson => (
             <div key={lesson.id} onClick={() => handleClick(lesson)}>
               <Col><LessonNameDisplay lessonName={lesson.lessonName} /></Col>
             </div>
           ))}
+          </Row>
+          }
       </div>
       <div>
         {displayLessonInfo && displayLesson && (
@@ -166,10 +167,6 @@ const CustomLessonsDisplay = props => {
           />
         )} 
       </div>
-      </Col>
-      <Col>
-      WTFFF</Col>
-      </Row>
     </div>
   );
 };
