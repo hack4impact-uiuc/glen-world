@@ -69,27 +69,22 @@ function CreateAssignment(props) {
           deploymentNameMap[deploymentAccountIds[i]] =
             deploymentAccounts[i].username;
         }
+
+        let lessonCards = {};
+        for (let [dueDate, assignedDeploymentIds] of Object.entries(
+          lesson.dueDates
+        )) {
+          let lessonCard = [[], []];
+          assignedDeploymentIds.forEach(deploymentAccountId => {
+            lessonCard[0].push(deploymentAccountId); // inputting account id
+            lessonCard[1].push(deploymentNameMap[deploymentAccountId]); // input corresponding username
+          });
+
+          lessonCards[dueDate] = lessonCard;
+        }
+        setLessonCards(lessonCards);
       })
       .catch(error => console.error("Error getting custom lesson: ", error));
-
-    // Wait for deploymentNameMap to finish resolving
-    while (Object.keys(deploymentNameMap).length == 0) {
-      await new Promise(r => setTimeout(r, 10));
-    }
-
-    let lessonCards = {};
-    for (let [dueDate, assignedDeploymentIds] of Object.entries(
-      lesson.dueDates
-    )) {
-      let lessonCard = [[], []];
-      assignedDeploymentIds.forEach(deploymentAccountId => {
-        lessonCard[0].push(deploymentAccountId); // inputting account id
-        lessonCard[1].push(deploymentNameMap[deploymentAccountId]); // input corresponding username
-      });
-
-      lessonCards[dueDate] = lessonCard;
-    }
-    setLessonCards(lessonCards);
   }
 
   function prePopulateAssignment(existingAssignment) {
