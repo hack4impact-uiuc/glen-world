@@ -2,42 +2,67 @@
 
 .WordSelector {
   background-color: white;
-  width: 25vw;
-  height: 25vw;
+  width: 40vw;
   padding: 20px;
-  border-radius: 2em;
+  border-radius: 1em;
   position: relative;
   margin: auto;
   margin-top: 8em;
   border: 5px solid #e6e6e6;
   z-index: 1;
+  overflow: scroll;
 }
 
 .GroupTitle {
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 20pt;
+  font-size: 30pt;
+  text-align: left;
   color: #b1b0ff;
   padding-bottom: 0;
+  padding-top: 0;
+  margin-right: 40%;
+  margin-top: 0%;
+  overflow: visible;
 }
 
 .GroupTitleUnderline {
+  margin-top: 0%;
   border-top: 2px solid $assignments-font-color;
 }
 
 .WordDisplay {
-  display: flex;
-  width: 20vw;
-  height: 12vw;
+  display: inline-flex;
+  width: 35vw;
+  max-height: 35vw;
   flex-wrap: wrap;
-  flex-direction: column;
+  flex-direction: row;
 }
 
-.Words {
+.words, .SelectCheckbox {
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 20px;
   color: $assignments-font-color;
+  text-transform: capitalize;
+}
+
+.SelectCheckbox {
+  margin-top: 10%;
+  margin-left: 0%;
+  align-items: flex-start;
+}
+input[type='checkbox'] {
+  -webkit-appearance:none;
+  width:30px;
+  height:30px;
+  background:white;
+  border-radius:5px;
+  border:2px solid #555;
+  margin-top: 0%;
+}
+input[type='checkbox']:checked {
+  background: $assignments-light-purple;
 }
 
 .CloseSelection {
@@ -50,6 +75,9 @@
   left: 1.5em;
   bottom: 0.5em;
   border-radius: 1em;
+}
+.Padding {
+  padding-top: 2em;
 }
 
 .NextButton {
@@ -69,7 +97,7 @@
   padding-left: 1em;
 }
 
-.check {
+.check, .ChooseAllCheck {
   position: absolute;
   top: 0;
   left: 0;

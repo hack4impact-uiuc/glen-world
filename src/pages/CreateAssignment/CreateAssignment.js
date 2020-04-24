@@ -5,6 +5,7 @@ import "./CreateAssignment.scss";
 import { Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
 import { compose } from "recompose";
 import { Button } from "reactstrap";
+import { getDeploymentAccountIdsFromLesson } from "utils/Lesson";
 import { ADMIN_ACCOUNT } from "utils/constants.js";
 import { withFirebase } from "utils/Firebase";
 import StudentList from "components/StudentList/StudentList";
@@ -51,41 +52,35 @@ function CreateAssignment(props) {
   }, [firebase]);
 
   async function parseCardsFromLesson(lesson) {
-    let lessonCards = {};
-    let deploymentAccountIds = new Set();
-    for (const dueDate in lesson.dueDates) {
-      for (const deploymentAccount of lesson.dueDates[dueDate]) {
-        deploymentAccountIds.add(deploymentAccount);
-      }
-    }
+    let deploymentAccountIds = getDeploymentAccountIdsFromLesson(lesson);
 
     let deploymentNameMap = {};
-    Array.from(deploymentAccountIds).forEach(id => {
-      firebase
-        .getDeploymentAccountInformation(id)
-        .then(deploymentAccount => {
-          deploymentNameMap[id] = deploymentAccount.username;
-        })
-        .catch(error => console.error("Error getting custom lesson: ", error));
-    });
+    Promise.all(
+      deploymentAccountIds.map(id => {
+        return firebase.getDeploymentAccountInformation(id);
+      })
+    )
+      .then(deploymentAccounts => {
+        for (let i = 0; i < deploymentAccounts.length; i++) {
+          deploymentNameMap[deploymentAccountIds[i]] =
+            deploymentAccounts[i].username;
+        }
 
-    // Wait for deploymentNameMap to finish resolving
-    while (Object.keys(deploymentNameMap).length == 0) {
-      await new Promise(r => setTimeout(r, 500));
-    }
+        let lessonCards = {};
+        for (let [dueDate, assignedDeploymentIds] of Object.entries(
+          lesson.dueDates
+        )) {
+          let lessonCard = [[], []];
+          assignedDeploymentIds.forEach(deploymentAccountId => {
+            lessonCard[0].push(deploymentAccountId); // inputting account id
+            lessonCard[1].push(deploymentNameMap[deploymentAccountId]); // input corresponding username
+          });
 
-    for (const dueDate in lesson.dueDates) {
-      let lessonCard = [[], []];
-
-      for (const deploymentAccountId of lesson.dueDates[dueDate]) {
-        lessonCard[0].push(deploymentAccountId); // inputting account id
-        lessonCard[1].push(deploymentNameMap[deploymentAccountId]); // input corresponding username
-      }
-
-      lessonCards[dueDate] = lessonCard;
-    }
-
-    setLessonCards(lessonCards);
+          lessonCards[dueDate] = lessonCard;
+        }
+        setLessonCards(lessonCards);
+      })
+      .catch(error => console.error("Error getting custom lesson: ", error));
   }
 
   function prePopulateAssignment(existingAssignment) {
@@ -206,7 +201,7 @@ function CreateAssignment(props) {
   }
   function validateAssignment() {
     var validAssignment = true;
-    if (wordGroup == null || words.length < 4) {
+    if (wordGroup == null || (words.length < 4 && lessonType != "C")) {
       setInvalidMessage(invalidMessage => [
         ...invalidMessage,
         "Please include at least 4 words."
@@ -252,17 +247,15 @@ function CreateAssignment(props) {
   }
   return (
     <>
-      <SectionSelector
-        default={[!showPhonics, !showVocab, !showWriting]}
-        handlePhonics={handlePhonics}
-        handleVocab={handleVocab}
-        handleWriting={handleWriting}
-      />
-      {(showWriting || showVocab || showPhonics) && (
-        <div>
-          <h1>Create Assignment</h1>
-          <br />
-          <div>
+      <div className="create-assignment">
+        <SectionSelector
+          default={[!showPhonics, !showVocab, !showWriting]}
+          handlePhonics={handlePhonics}
+          handleVocab={handleVocab}
+          handleWriting={handleWriting}
+        />
+        {(showWriting || showVocab || showPhonics) && (
+          <div className="place_middle">
             <InputGroup className="name-assignment">
               <InputGroup.Prepend>
                 <InputGroup.Text className="input-header">
@@ -276,59 +269,76 @@ function CreateAssignment(props) {
                 onChange={e => handleLessonNameChange(e.target.value)}
               />
             </InputGroup>
-          </div>
-          {showPhonics && (
-            <PhonicSelector
-              handlePhonicsChange={handleWordSelectorChange}
-              handleGroupChange={handleWordGroupChange}
-            />
-          )}
-          {(showWriting || showVocab) && (
-            <WordGroupSelector
-              handleChange={handleWordSelectorChange}
-              wordGroupChange={handleWordGroupChange}
-              assignedWords={words || existingAssignment?.words}
-              assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
-            />
-          )}
-          <div className="place_middle">
-            <Container>
-              <Row>
-                <Col>
-                  <StudentList
-                    deployments={adminDeployments}
-                    handleChange={handleStudentListChange}
-                  />
-                </Col>
-                <Col xs={1}></Col>
-                <Col>
-                  <DatePicker handleChange={handleDatePickerChange} />
-                </Col>
-              </Row>
-            </Container>
-          </div>
-          <div>
-            <LessonCardsDisplay
-              cards={lessonCards}
-              addCard={createLessonCard}
-              removeCard={deleteLessonCard}
-            />
-          </div>
-          <div>
-            <Button onClick={validateAssignment} className="assign">
-              Assign Lesson
-            </Button>
-          </div>
-          <div>
-            {invalidMessage.length > 0 && (
-              <InvalidAssignment
-                message={invalidMessage}
-                setMessage={setInvalidMessage}
-              />
+            <br />
+            {showPhonics && (
+              <div>
+                <h1 className="header">Phonics</h1>
+                <PhonicSelector
+                  handlePhonicsChange={handleWordSelectorChange}
+                  handleGroupChange={handleWordGroupChange}
+                  words={words}
+                />
+              </div>
             )}
+            {(showWriting || showVocab) && (
+              <div>
+                {(showWriting && <h1 className="header">Writing</h1>) || (
+                  <h1 className="header">Words</h1>
+                )}
+                <WordGroupSelector
+                  handleChange={handleWordSelectorChange}
+                  wordGroupChange={handleWordGroupChange}
+                  assignedWords={words || existingAssignment?.words}
+                  assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
+                />
+              </div>
+            )}
+
+            <div className="place_middle">
+              <Container>
+                <Row>
+                  <Col>
+                    <StudentList
+                      deployments={adminDeployments}
+                      handleChange={handleStudentListChange}
+                      assignedStudents={
+                        existingAssignment?.deploymentAccountIds
+                      }
+                    />
+                  </Col>
+                  <Col xs={1}></Col>
+                  <Col>
+                    <DatePicker
+                      handleChange={handleDatePickerChange}
+                      assignedDate={existingAssignment?.dueDate}
+                    />
+                  </Col>
+                </Row>
+              </Container>
+            </div>
+            <div>
+              <LessonCardsDisplay
+                cards={lessonCards}
+                addCard={createLessonCard}
+                removeCard={deleteLessonCard}
+              />
+            </div>
+            <div>
+              <Button onClick={validateAssignment} className="assign">
+                Assign Lesson
+              </Button>
+            </div>
+            <div>
+              {invalidMessage.length > 0 && (
+                <InvalidAssignment
+                  message={invalidMessage}
+                  setMessage={setInvalidMessage}
+                />
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 }

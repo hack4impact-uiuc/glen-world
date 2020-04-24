@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { getDeploymentAccountIdsFromLesson } from "utils/Lesson";
 import { withFirebase } from "utils/Firebase";
 import { TEMPLATE_LESSON_MAP, ADMIN_ACCOUNT } from "utils/constants.js";
 import "./CustomLessonsDisplay.scss";
@@ -50,15 +51,9 @@ const CustomLessonsDisplay = props => {
       setDisplayTemplate(lesson.lessonTemplate);
     }
 
-    let deploymentAccountIds = new Set();
-    for (const dueDate in lesson.dueDates) {
-      for (const deploymentAccount of lesson.dueDates[dueDate]) {
-        deploymentAccountIds.add(deploymentAccount);
-      }
-    }
-
+    let deploymentAccountIds = getDeploymentAccountIdsFromLesson(lesson);
     Promise.all(
-      Array.from(deploymentAccountIds).map(id => {
+      deploymentAccountIds.map(id => {
         return firebase.getDeploymentAccountInformation(id);
       })
     ).then(value => {
