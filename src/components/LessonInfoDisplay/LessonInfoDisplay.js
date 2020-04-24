@@ -6,7 +6,7 @@ import { useRef } from "react";
 import useOutsideClick from "../WordSelector/useOutsideClick";
 import "./LessonInfoDisplay.scss";
 
-const LessonInfoDisplay = props => {
+function LessonInfoDisplay(props) {
   const [editLessonRedirect, setEditLessonRedirect] = useState(false);
   const ref = useRef();
   useOutsideClick(ref, () => {
@@ -60,8 +60,7 @@ const LessonInfoDisplay = props => {
               <div className="word-display">
                 <div className="grey-box">
                   <div className="word-group-name">
-                    {" "}
-                    {props.lesson.wordGroup}{" "}
+                    {props.lesson.wordGroup}
                   </div>
                 </div>
                 <div className="words-list">
@@ -72,7 +71,7 @@ const LessonInfoDisplay = props => {
               </div>
             </div>
 
-            <Col className="fat-column">
+            <Col className="wide-column">
               <div
                 onClick={() => setEditLessonRedirect(true)}
                 className="button-container"
@@ -92,6 +91,6 @@ const LessonInfoDisplay = props => {
       </div>
     </div>
   );
-};
+}
 
 export default compose(withRouter)(LessonInfoDisplay);

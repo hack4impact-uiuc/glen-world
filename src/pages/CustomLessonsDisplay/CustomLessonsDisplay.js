@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DropdownButton, Dropdown } from "react-bootstrap";
 import { withFirebase } from "utils/Firebase";
+import { getDeploymentAccountIdsFromLesson } from "utils/Lesson";
 import {
   TEMPLATE_LESSON_MAP,
   TEMPLATE_WORD_GROUPS,
@@ -10,13 +11,11 @@ import "./CustomLessonsDisplay.scss";
 import { compose } from "recompose";
 import { Col, Row } from "reactstrap";
 import { withRouter, Redirect, useHistory } from "react-router-dom";
-import LessonDateDisplay from "../../components/LessonDateDisplay/LessonDateDisplay";
 import LessonInfoDisplay from "../../components/LessonInfoDisplay/LessonInfoDisplay";
 import LessonNameDisplay from "../../components/LessonNameDisplay/LessonNameDisplay";
 
 const CustomLessonsDisplay = props => {
   const { firebase } = props;
-  const [showLessons, setShowLessons] = useState([]);
   const [allLessons, setAllLessons] = useState([]);
   const [filterType, setFilterType] = useState();
   const [filterGroup, setFilterGroup] = useState();
@@ -44,28 +43,21 @@ const CustomLessonsDisplay = props => {
 
   //taken from lam
   async function deploymentNameMap(lesson) {
-    let deploymentAccountIds = new Set();
-    for (const dueDate in lesson.dueDates) {
-      for (const deploymentAccount of lesson.dueDates[dueDate]) {
-        deploymentAccountIds.add(deploymentAccount);
-      }
-    }
-
+    let deploymentAccountIds = getDeploymentAccountIdsFromLesson(lesson);
     let deploymentNameMap = {};
-    Array.from(deploymentAccountIds).forEach(id => {
-      firebase
-        .getDeploymentAccountInformation(id)
-        .then(deploymentAccount => {
-          deploymentNameMap[id] = deploymentAccount.username;
-        })
-        .catch(error => console.error("Error getting custom lesson: ", error));
-    });
-
-    //Wait for deploymentNameMap to finish resolving
-    while (Object.keys(deploymentNameMap).length == 0) {
-      await new Promise(r => setTimeout(r, 500));
-    }
-    setNameMap(deploymentNameMap);
+    Promise.all(
+      deploymentAccountIds.map(id => {
+        return firebase.getDeploymentAccountInformation(id);
+      })
+    )
+      .then(deploymentAccounts => {
+        for (let i = 0; i < deploymentAccounts.length; i++) {
+          deploymentNameMap[deploymentAccountIds[i]] =
+            deploymentAccounts[i].username;
+        }
+        setNameMap(deploymentNameMap);
+      })
+      .catch(error => console.error("Error getting custom lesson: ", error));
   }
 
   function handleChangeDisplayLessonInfo(display) {
@@ -117,7 +109,6 @@ const CustomLessonsDisplay = props => {
               </div>
             </DropdownButton>
           </Col>
-          {/* Cant filter by wordgroups if phonics is selected */}
           <Col>
             {filterType != "C" && (
               <DropdownButton
@@ -164,11 +155,9 @@ const CustomLessonsDisplay = props => {
                     lesson.wordGroup == TEMPLATE_WORD_GROUPS[filterGroup])
               )
               .map(lesson => (
-                // <div key={lesson.id} onClick={() => handleClick(lesson)}>
                 <Col key={lesson.id} onClick={() => handleClick(lesson)}>
                   <LessonNameDisplay lessonName={lesson.lessonName} />
                 </Col>
-                // </div>
               ))}
           </Row>
         )}
