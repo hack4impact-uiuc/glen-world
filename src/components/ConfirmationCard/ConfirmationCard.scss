@@ -4,7 +4,7 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  overflow: scroll;
+  overflow: hidden;
   height: 22.5vw;
   width: 18vw;
   border-radius: 30px;
@@ -35,6 +35,7 @@
   display: flex;
   flex-direction: column;
   overflow: scroll;
+  overflow-x: hidden;
   height: 16.5vw;
   width: 18vw;
   font-size: 1.2em;

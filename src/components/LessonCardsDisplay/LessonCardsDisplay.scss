@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  overflow: scroll;
+  overflow: hidden;
   width: 80vw;
   height: 20vw;
   border-radius: 20px;
@@ -18,7 +18,7 @@
 .DefaultCard {
   display: flex;
   flex-wrap: wrap;
-  overflow: scroll;
+  overflow: hidden;
   height: 15vw;
   width: 10vw;
   border-radius: 20px;
