@@ -2,6 +2,7 @@ import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/functions";
+import { getDeploymentAccountIdsFromLesson } from "utils/Lesson";
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -115,6 +116,7 @@ class Firebase {
                 customLesson.dueDates
               )) {
                 if (assignedDeploymentIds.includes(deploymentAccountId)) {
+                  // Making deep copy of lesson
                   let lessonCopy = JSON.parse(JSON.stringify(customLesson));
                   delete lessonCopy.dueDates;
                   lessonCopy.dueDate = dueDate;
@@ -201,17 +203,8 @@ class Firebase {
       .then(customLessonDoc => {
         // Get existing lesson's currently assigned students
         let currentAssignedDeploymentIds = [];
-        if (lessonDocId) {
-          let currentDueDates = customLessonDoc.get("dueDates");
-
-          let accountIds = new Set();
-          for (const dueDate in currentDueDates) {
-            for (const deploymentAccount of currentDueDates[dueDate]) {
-              accountIds.add(deploymentAccount);
-            }
-          }
-          currentAssignedDeploymentIds = Array.from(accountIds);
-        }
+        if (lessonDocId)
+          currentAssignedDeploymentIds = getDeploymentAccountIdsFromLesson(customLessonDoc.data());
 
         // Create or update lesson
         customLessonRef

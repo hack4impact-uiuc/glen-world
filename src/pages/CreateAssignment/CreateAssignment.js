@@ -5,6 +5,7 @@ import "./CreateAssignment.scss";
 import { Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
 import { compose } from "recompose";
 import { Button } from "reactstrap";
+import { getDeploymentAccountIdsFromLesson } from "utils/Lesson";
 import { ADMIN_ACCOUNT } from "utils/constants.js";
 import { withFirebase } from "utils/Firebase";
 import StudentList from "components/StudentList/StudentList";
@@ -50,13 +51,7 @@ function CreateAssignment(props) {
   }, [firebase]);
 
   async function parseCardsFromLesson(lesson) {
-    let deploymentAccountIds = new Set();
-    for (const dueDate in lesson.dueDates) {
-      for (const deploymentAccount of lesson.dueDates[dueDate]) {
-        deploymentAccountIds.add(deploymentAccount);
-      }
-    }
-    deploymentAccountIds = Array.from(deploymentAccountIds);
+    let deploymentAccountIds = getDeploymentAccountIdsFromLesson(lesson);
 
     let deploymentNameMap = {};
     Promise.all(

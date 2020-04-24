@@ -6,7 +6,6 @@ import ReactCardFlip from "react-card-flip";
 import "../WordGroupSelector/WordGroupSelector.scss";
 import "./PhonicSelector.scss";
 function PhonicSelector(props) {
-  // const [chosenPhonics, setChosenPhonics] = useState([]);
   const [flipCard, setFlipCard] = useState(
     Array(phonicGroups.length).fill(false)
   );
@@ -44,7 +43,6 @@ function PhonicSelector(props) {
     }
     //functions in this order bc react sets state asynchronously
     props.handlePhonicsChange(chosenPhonicsCopy);
-    // setChosenPhonics(chosenPhonicsCopy);
     setCardColored(cardColoredCopy);
   }
 
