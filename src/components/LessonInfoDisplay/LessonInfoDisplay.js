@@ -26,7 +26,6 @@ const LessonInfoDisplay = props => {
       <div className = "purple-box">
         <div className = "date-label">{toFormatDate(date)}</div>
       </div>
-      {console.log(props.nameMap)}
       <div className = "student-container">
           {students.map(id => (
             <div className = "student-name">{props.nameMap[id]}</div>

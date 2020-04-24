@@ -27,6 +27,7 @@ const CustomLessonsDisplay = props => {
 
   const [filterType, setFilterType] = useState();
   const [filterGroup, setFilterGroup] = useState();
+  const [forceRender, setForceRender] = useState();
 
   function orderAdminLessons(reverse) {
     const sortedLessons = [...showLessons].sort((a, b) => {
@@ -59,61 +60,47 @@ const CustomLessonsDisplay = props => {
     setPhonicsLessons(tempPhonicsList)   
   }
 
-  function filterByVocab() {
-    setShowLessons(vocabLessons)
-  }
-
-  function filterByWriting() {
-    setShowLessons(writingLessons)
-  }
-
-  function filterByPhonics() {
-    setShowLessons(phonicsLessons)
-    setFilterType("C")
-  }
 
   function noFilter(value) {
-    setShowLessons(allLessons)
     if (value == "type") {
       setFilterType("")
     } else if (value == "group") {
       setFilterGroup("")
     }
+    filter()
   }
-
-  function filterByWordGroup(value) {
-    setShowLessons(phonicsLessons)
-  }
+  /**
+   * 
+   * wait can teachers delete whole lessons that they've already made?????
+   */
 
   function filterByType(value) {
-    // Promise.all(
-    //   setFilterType(value)
-    // ).then(() => {
-    //   filter()
-    // });
     setFilterType(value)
-    filter()
   }
   function filterByGroup(value) {
-    // Promise.all(
-    //   setFilterGroup(value)
-    // ).then(() => {
-    //   filter()
-    // });
     setFilterGroup(value)
-    filter()
   }
 
-  //**FIX ? ADD ALL ALL THE FILTERING LOGIC */
-  function filter() {
-    if (!filterGroup || !filterType) {
-      if (filter)
-    }
-    if (filterType == "C") {
-      setShowLessons(phonicsLessons)
+  function filter(value) {
+    console.log(filterGroup)
+    console.log(filterType)
+    // if (!filterType && !filterGroup) {
+    //   setShowLessons(allLessons)
+    // }
+    if (!filterType) {
+      setShowLessons(allLessons.filter(lesson => lesson.wordGroup == value))
     } 
+    
+    // else if (!filterGroup) {
+    //   setShowLessons(allLessons.filter(lesson => lesson.lessonTemplate == filterType))
+    // } else {
+    //   setShowLessons(allLessons.filter(lesson => lesson.wordGroup == filterGroup && lesson.lessonTemplate == filterType))
+    // }
+    setForceRender(!forceRender)
   }
-
+  console.log(allLessons.filter(lesson => 
+    (!filterType || lesson.lessonTemplate == filterType) && (!filterGroup || lesson.wordGroup == filterGroup)
+    ))
   useEffect(() => {
     setTimeout(() => {
       // TODO: figure out better solution to resolve this
@@ -185,24 +172,27 @@ const CustomLessonsDisplay = props => {
           </button>
 
           <DropdownButton id="lesson-type" title="LESSON TYPE">
-          <Dropdown.Item onClick={() => noFilter("type")}>-------</Dropdown.Item>
-            <Dropdown.Item onClick={() => setFilterType("C")}>Phonics</Dropdown.Item>
-            <Dropdown.Item onClick={filterByWriting}>Writing</Dropdown.Item>
-            <Dropdown.Item onClick={filterByVocab}>Vocab</Dropdown.Item>
+            <Dropdown.Item onClick={() => setFilterType("")}>-------</Dropdown.Item>
+            {Object.keys(TEMPLATE_LESSON_MAP).map(key => (
+              <Dropdown.Item className = "drop-down" onClick={() =>setFilterType(key)}>{TEMPLATE_LESSON_MAP[key]}</Dropdown.Item>
+            ))}
           </DropdownButton>
+          {/* Cant filter by wordgroups if phonics is selected */}
           {filterType != "C" && 
-          <DropdownButton id="lesson-type" title="WORD GROUPS">
+          <DropdownButton id="lesson-word-group" title="WORD GROUPS">
             <Dropdown.Item onClick={() => noFilter("group")}>-------</Dropdown.Item>
             {Object.keys(TEMPLATE_WORD_GROUPS).map(key => (
-              <Dropdown.Item onClick={() =>filterByWordGroup(TEMPLATE_WORD_GROUPS[key])}>{TEMPLATE_WORD_GROUPS[key]}</Dropdown.Item>
+              <Dropdown.Item onClick={() =>setFilterGroup(TEMPLATE_WORD_GROUPS[key])}>{TEMPLATE_WORD_GROUPS[key]}</Dropdown.Item>
             ))}
           </DropdownButton>
           }
           </Row>
       </div>
       <div className="name-display">
-        {showLessons &&
-          showLessons.map(lesson => (
+        {allLessons &&
+          allLessons.filter(lesson => 
+            (!filterType || lesson.lessonTemplate == filterType) && (!filterGroup || lesson.wordGroup == filterGroup)
+            ).map(lesson => (
             <div key={lesson.id} onClick={() => handleClick(lesson)}>
               <Col><LessonNameDisplay lessonName={lesson.lessonName} /></Col>
             </div>
