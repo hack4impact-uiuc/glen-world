@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import {DropdownButton, Dropdown} from "react-bootstrap";
 import { withFirebase } from "utils/Firebase";
-import { TEMPLATE_LESSON_MAP, ADMIN_ACCOUNT } from "utils/constants.js";
+import { TEMPLATE_LESSON_MAP, TEMPLATE_WORD_GROUPS, ADMIN_ACCOUNT } from "utils/constants.js";
 import "./CustomLessonsDisplay.scss";
 import { compose } from "recompose";
 import {Col, Row} from "reactstrap";
@@ -11,7 +12,11 @@ import LessonNameDisplay from "../../components/LessonNameDisplay/LessonNameDisp
 
 const CustomLessonsDisplay = props => {
   const { firebase } = props;
-  const [adminLessons, setAdminLessons] = useState([]);
+  const [showLessons, setShowLessons] = useState([]);
+  const [allLessons, setAllLessons] = useState([]);
+  const [vocabLessons, setVocabLessons] = useState([]);
+  const [writingLessons, setWritingLessons] = useState([]);
+  const [phonicsLessons, setPhonicsLessons] = useState([]);
   const [displayLesson, setDisplayLesson] = useState(null);
   const [displayLessonTemplate, setDisplayTemplate] = useState(null);
   const [displayLessonStudents, setDisplayStudents] = useState([]);
@@ -20,25 +25,96 @@ const CustomLessonsDisplay = props => {
   const[nameMap, setNameMap] = useState({});
   const editLessonRedirect = props?.location.state?.redirect;
 
+  const [filterType, setFilterType] = useState();
+  const [filterGroup, setFilterGroup] = useState();
+
   function orderAdminLessons(reverse) {
-    const sortedLessons = [...adminLessons].sort((a, b) => {
+    const sortedLessons = [...showLessons].sort((a, b) => {
       if (reverse) {
         return b.dueDate["seconds"] - a.dueDate["seconds"];
       } else {
         return a.dueDate["seconds"] - b.dueDate["seconds"];
       }
     });
-    setAdminLessons(sortedLessons);
+    setShowLessons(sortedLessons);
+  }
+
+  function setLessonLists(lessons) {
+    setAllLessons(lessons)
+    let tempVocabList = []
+    let tempWritingList = []
+    let tempPhonicsList = []
+    lessons.forEach( lesson => {
+      let lessonType = lesson.lessonTemplate;
+      if (lessonType == "A") {
+        tempVocabList.push(lesson)
+      } else if (lessonType == "A3") {
+        tempWritingList.push(lesson)
+      } else if (lessonType == "C") {
+        tempPhonicsList.push(lesson)
+      }
+     })
+    setVocabLessons(tempVocabList)
+    setWritingLessons(tempWritingList)
+    setPhonicsLessons(tempPhonicsList)   
+  }
+
+  function filterByVocab() {
+    setShowLessons(vocabLessons)
+  }
+
+  function filterByWriting() {
+    setShowLessons(writingLessons)
+  }
+
+  function filterByPhonics() {
+    setShowLessons(phonicsLessons)
+    setFilterType("C")
+  }
+
+  function noFilter() {
+    setShowLessons(allLessons)
+  }
+
+  function filterByWordGroup(value) {
+    setShowLessons(phonicsLessons)
+  }
+
+  function filterByType(value) {
+    // Promise.all(
+    //   setFilterType(value)
+    // ).then(() => {
+    //   filter()
+    // });
+    setFilterType(value)
+    filter()
+  }
+  function filterByGroup(value) {
+    // Promise.all(
+    //   setFilterGroup(value)
+    // ).then(() => {
+    //   filter()
+    // });
+    setFilterGroup(value)
+    filter()
+  }
+
+  function filter() {
+    if (filterType == "C") {
+      setShowLessons(phonicsLessons)
+    } else {
+    }
   }
 
   useEffect(() => {
     setTimeout(() => {
       // TODO: figure out better solution to resolve this
       // Get custom lessons made by admin
-      firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
-        setAdminLessons(lesson);
+      firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lessons => {
+        setShowLessons(lessons);
+        setLessonLists(lessons);
       });
-    }, 50); // Timeout for firebase to update and display updated lessons properly
+    }, 60); // Timeout for firebase to update and display updated lessons properly
   }, [editLessonRedirect]); // Updates lessons when redirected to page from CreateAssignment
 
   //taken from lam
@@ -83,6 +159,7 @@ const CustomLessonsDisplay = props => {
     }
   }
 
+
   if (createLessonRedirect) {
     return <Redirect to="/createlesson" />;
   }
@@ -90,9 +167,8 @@ const CustomLessonsDisplay = props => {
   return (
     <div>
       <div className="heading">Lesson Plans</div>
-
       <div>
-        <center>
+          <Row>
           <button
             className="button"
             onClick={() => setCreateLessonRedirect(true)}
@@ -101,17 +177,25 @@ const CustomLessonsDisplay = props => {
           </button>
           {/* The below code was previously used to sort lessons by date. 
           Currently causes API error, but might not be used as lessons can now be named. */}
-          {/* <button className="Button" onClick={() => orderAdminLessons(true)}>
-            Sort by Latest
-          </button>
-          <button className="Button" onClick={() => orderAdminLessons(false)}>
-            Sort by Oldest
-          </button> */}
-        </center>
+          <DropdownButton id="lesson-type" title="LESSON TYPE">
+          <Dropdown.Item onClick={noFilter}>-------</Dropdown.Item>
+            <Dropdown.Item onClick={() => setFilterType("C")}>Phonics</Dropdown.Item>
+            <Dropdown.Item onClick={filterByWriting}>Writing</Dropdown.Item>
+            <Dropdown.Item onClick={filterByVocab}>Vocab</Dropdown.Item>
+          </DropdownButton>
+          {filterType != "C" && 
+          <DropdownButton id="lesson-type" title="WORD GROUPS">
+            <Dropdown.Item onClick={noFilter}>-------</Dropdown.Item>
+            {Object.keys(TEMPLATE_WORD_GROUPS).map(key => (
+              <Dropdown.Item onClick={() =>filterByWordGroup(TEMPLATE_WORD_GROUPS[key])}>{TEMPLATE_WORD_GROUPS[key]}</Dropdown.Item>
+            ))}
+          </DropdownButton>
+          }
+          </Row>
       </div>
       <div className="name-display">
-        {adminLessons &&
-          adminLessons.map(lesson => (
+        {showLessons &&
+          showLessons.map(lesson => (
             <div key={lesson.id} onClick={() => handleClick(lesson)}>
               <Col><LessonNameDisplay lessonName={lesson.lessonName} /></Col>
             </div>

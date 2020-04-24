@@ -38,6 +38,7 @@
   border: 1px solid black;
   border-radius: 2em;
   margin: auto;
+  margin-left: 1.5em;
   margin-top: 1em;
   overflow: hidden;
 }
@@ -60,6 +61,7 @@
   margin-top: 1em;
   display: block;
   overflow: hidden;
+  margin-left: 2em;
 }
 .grey-box, .purple-box {
   height: 3vw;
@@ -138,7 +140,7 @@
 .button-container {
   margin-right: .5vw;
   margin-top: .3vw;
-  margin-left: 45vw
+  margin-left: 46vw
 }
 .fat-column  {
   width: 60vw
