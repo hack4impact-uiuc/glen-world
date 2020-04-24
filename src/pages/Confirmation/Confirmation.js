@@ -73,22 +73,22 @@ function Confirmation(props) {
 
   return (
     <div>
-      <div className="FlexContainer">
-        <div className="WordDisplayBar">
+      <div className="flex-container">
+        <div className="word-display-bar">
           {handlePhonics && (
-            <div className="LessonTypeDisplayIcon">
+            <div className="lesson-type-display-icon">
               <img src="images/lesson-group/phonics.svg" alt="phonics" />
               PHONICS
             </div>
           )}
           {handleVocab && (
-            <div className="LessonTypeDisplayIcon">
+            <div className="lesson-type-display-icon">
               <img src="images/lesson-group/words.svg" alt="words" />
               VOCAB
             </div>
           )}
           {handleWords && (
-            <div className="LessonTypeDisplayIcon">
+            <div className="lesson-type-display-icon">
               <img src="images/lesson-group/writing.svg" alt="writing" />
               WRITING
             </div>
@@ -96,7 +96,7 @@ function Confirmation(props) {
           {(handleVocab || handleWords) && (
             <div>
               <ConfirmationCard
-                lessonDate={"WORDS"}
+                title={"WORDS"}
                 lessonStudents={words}
                 confirmation={true}
               />
@@ -105,7 +105,7 @@ function Confirmation(props) {
           {handlePhonics && (
             <div>
               <ConfirmationCard
-                lessonDate={"WORD GROUPS"}
+                title={"WORD GROUPS"}
                 lessonStudents={words}
                 confirmation={true}
               />
@@ -113,17 +113,17 @@ function Confirmation(props) {
           )}
         </div>
 
-        <div className="CardsDisplaySection">
-          <div className="LessonNameDisplayHeader">{lessonName}</div>
+        <div className="cards-display-section">
+          <div className="lesson-name-display-header">{lessonName}</div>
           <CardsDisplay cards={lessonCards} />
-          <div className="FlexContainer">
+          <div className="flex-container">
             <Button
               onClick={() => setEditRedirect(true)}
-              className="EditButtonConfirmPage"
+              className="edit-button-confirm-page"
             >
               Edit
             </Button>
-            <Button onClick={pushLesson} className="ConfirmButtonConfirmPage">
+            <Button onClick={pushLesson} className="confirm-button-confirm-page">
               Confirm
             </Button>
           </div>

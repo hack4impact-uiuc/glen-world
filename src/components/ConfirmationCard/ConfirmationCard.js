@@ -2,20 +2,20 @@ import React, { useState, useEffect } from "react";
 import "./ConfirmationCard.scss";
 
 function ConfirmationCard(props) {
-  const [cardDate, setCardDate] = useState();
+  const [title, setTitle] = useState();
 
   useEffect(() => {
     if (!props.confirmation) {
-      let dateComponents = props.lessonDate.split(" ");
+      let dateComponents = props.title.split(" ");
       let dateString = dateComponents[1] + "  " + dateComponents[2];
-      setCardDate(dateString);
-    } else setCardDate(props.lessonDate);
+      setTitle(dateString);
+    } else setTitle(props.title);
   });
 
   return (
     <div className="ConfirmationCard">
       <div className="ConfirmationCardHeading">
-        <div className="ConfirmationCardDate">{cardDate}</div>
+        <div className="ConfirmationCardDate">{title}</div>
       </div>
       <div className="ConfirmationCardContent">
         {props.lessonStudents.map((student, index) => (

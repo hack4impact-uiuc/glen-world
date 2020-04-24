@@ -12,7 +12,7 @@ function CardsDisplay(props) {
             const dateTemp = date;
             return (
               <ConfirmationCard
-                lessonDate={dateTemp}
+                title={dateTemp}
                 lessonStudents={props.cards[date][1]}
               />
             );

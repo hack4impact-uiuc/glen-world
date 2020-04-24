@@ -199,7 +199,6 @@ function CreateAssignment(props) {
       setLessonName(defaultName);
       setSubmitted(true);
       // react sets state asynchronously so lessonName doesn't actually update until rerender
-      //pushLesson(defaultName);
     } else {
       setLessonName(lessonName);
       setSubmitted(true);
