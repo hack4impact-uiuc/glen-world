@@ -1,12 +1,4 @@
 @import "../../pages/Index/index.scss";
-
-// .lesson-page {
-//   // overflow-x: hidden;
-//   width: 100vw;
-//   height: 80vw;
-//   overflow: scroll;
-
-// }
 .heading {
   font-family: $assignments-roboto-font;
   font-weight: bold;
@@ -16,11 +8,12 @@
 }
 .cards-display {
   font-family: $assignments-roboto-font;
-  max-height: 50vw;
+  min-height: 30vw;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   position: absolute;
+  background-color: $assignments-background-color;
 }
 .button-bar {
   background-color: $assignments-font-color;

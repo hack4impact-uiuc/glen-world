@@ -5,7 +5,7 @@ export const TEMPLATE_LESSON_MAP = {
 };
 
 export const TEMPLATE_WORD_GROUPS = {
-  persons_pd: "People", 
+  persons_pd: "People",
   actions_pd: "Action",
   toys_and_play_pd: "Toys",
   colors_pd: "Colors",
@@ -20,7 +20,7 @@ export const TEMPLATE_WORD_GROUPS = {
   media_pd: "Media",
   animals2_pd: "Animals 2",
   animals3_insects_pd: "Animals 3"
-}
+};
 
 // the hardcoded account that we're using instead of auth
 export const ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";

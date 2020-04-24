@@ -9,14 +9,13 @@ function PhonicWordSelector(props) {
     props.handleSelectPhonics(!selected, props.name, props.index);
     setSelected(!selected);
   }
-
   return (
     <div className="PhonicIcon">
       <div className="PhonicIconBorder">
-        <div className="GroupTitle">{props.name}</div>
+        <div className="PhonicGroupTitle">{props.name}</div>
         <div>
           {props.data.map(word =>
-            word.words.map(word => <div className="Words">{word}</div>)
+            word.words.map(word => <div className="words">{word}</div>)
           )}
         </div>
         <div>

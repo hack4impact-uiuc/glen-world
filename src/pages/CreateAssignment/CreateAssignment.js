@@ -218,17 +218,15 @@ function CreateAssignment(props) {
   }
   return (
     <>
-      <SectionSelector
-        default={[!showPhonics, !showVocab, !showWriting]}
-        handlePhonics={handlePhonics}
-        handleVocab={handleVocab}
-        handleWriting={handleWriting}
-      />
-      {(showWriting || showVocab || showPhonics) && (
-        <div>
-          <h1>Create Assignment</h1>
-          <br />
-          <div>
+      <div className="create-assignment">
+        <SectionSelector
+          default={[!showPhonics, !showVocab, !showWriting]}
+          handlePhonics={handlePhonics}
+          handleVocab={handleVocab}
+          handleWriting={handleWriting}
+        />
+        {(showWriting || showVocab || showPhonics) && (
+          <div className="place_middle">
             <InputGroup className="name-assignment">
               <InputGroup.Prepend>
                 <InputGroup.Text className="input-header">
@@ -242,63 +240,76 @@ function CreateAssignment(props) {
                 onChange={e => handleLessonNameChange(e.target.value)}
               />
             </InputGroup>
-          </div>
-          {showPhonics && (
-            <PhonicSelector
-              handlePhonicsChange={handleWordSelectorChange}
-              handleGroupChange={handleWordGroupChange}
-            />
-          )}
-          {(showWriting || showVocab) && (
-            <WordGroupSelector
-              handleChange={handleWordSelectorChange}
-              wordGroupChange={handleWordGroupChange}
-              assignedWords={words || existingAssignment?.words}
-              assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
-            />
-          )}
-          <div className="place_middle">
-            <Container>
-              <Row>
-                <Col>
-                  <StudentList
-                    deployments={adminDeployments}
-                    handleChange={handleStudentListChange}
-                    assignedStudents={existingAssignment?.deploymentAccountIds}
-                  />
-                </Col>
-                <Col xs={1}></Col>
-                <Col>
-                  <DatePicker
-                    handleChange={handleDatePickerChange}
-                    assignedDate={existingAssignment?.dueDate}
-                  />
-                </Col>
-              </Row>
-            </Container>
-          </div>
-          <div>
-            <LessonCardsDisplay
-              cards={lessonCards}
-              addCard={createLessonCard}
-              removeCard={deleteLessonCard}
-            />
-          </div>
-          <div>
-            <Button onClick={validateAssignment} className="assign">
-              Assign Lesson
-            </Button>
-          </div>
-          <div>
-            {invalidMessage.length > 0 && (
-              <InvalidAssignment
-                message={invalidMessage}
-                setMessage={setInvalidMessage}
-              />
+
+            <br />
+            {showPhonics && (
+              <div>
+                <h1 className="header">Phonics</h1>
+                <PhonicSelector
+                  handlePhonicsChange={handleWordSelectorChange}
+                  handleGroupChange={handleWordGroupChange}
+                />
+              </div>
             )}
+            {(showWriting || showVocab) && (
+              <div>
+                {(showWriting && <h1 className="header">Writing</h1>) || (
+                  <h1 className="header">Words</h1>
+                )}
+                <WordGroupSelector
+                  handleChange={handleWordSelectorChange}
+                  wordGroupChange={handleWordGroupChange}
+                  assignedWords={words || existingAssignment?.words}
+                  assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
+                />
+              </div>
+            )}
+
+            <div className="place_middle">
+              <Container>
+                <Row>
+                  <Col>
+                    <StudentList
+                      deployments={adminDeployments}
+                      handleChange={handleStudentListChange}
+                      assignedStudents={
+                        existingAssignment?.deploymentAccountIds
+                      }
+                    />
+                  </Col>
+                  <Col xs={1}></Col>
+                  <Col>
+                    <DatePicker
+                      handleChange={handleDatePickerChange}
+                      assignedDate={existingAssignment?.dueDate}
+                    />
+                  </Col>
+                </Row>
+              </Container>
+            </div>
+            <div>
+              <LessonCardsDisplay
+                cards={lessonCards}
+                addCard={createLessonCard}
+                removeCard={deleteLessonCard}
+              />
+            </div>
+            <div>
+              <Button onClick={validateAssignment} className="assign">
+                Assign Lesson
+              </Button>
+            </div>
+            <div>
+              {invalidMessage.length > 0 && (
+                <InvalidAssignment
+                  message={invalidMessage}
+                  setMessage={setInvalidMessage}
+                />
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 }

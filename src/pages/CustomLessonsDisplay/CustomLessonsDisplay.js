@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import {DropdownButton, Dropdown} from "react-bootstrap";
+import { DropdownButton, Dropdown } from "react-bootstrap";
 import { withFirebase } from "utils/Firebase";
-import { TEMPLATE_LESSON_MAP, TEMPLATE_WORD_GROUPS, ADMIN_ACCOUNT } from "utils/constants.js";
+import {
+  TEMPLATE_LESSON_MAP,
+  TEMPLATE_WORD_GROUPS,
+  ADMIN_ACCOUNT
+} from "utils/constants.js";
 import "./CustomLessonsDisplay.scss";
 import { compose } from "recompose";
-import {Col, Row} from "reactstrap";
+import { Col, Row } from "reactstrap";
 import { withRouter, Redirect, useHistory } from "react-router-dom";
 import LessonDateDisplay from "../../components/LessonDateDisplay/LessonDateDisplay";
 import LessonInfoDisplay from "../../components/LessonInfoDisplay/LessonInfoDisplay";
@@ -20,12 +24,11 @@ const CustomLessonsDisplay = props => {
   const [displayLessonTemplate, setDisplayTemplate] = useState(null);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
   const [createLessonRedirect, setCreateLessonRedirect] = useState(false);
-  const[nameMap, setNameMap] = useState({});
+  const [nameMap, setNameMap] = useState({});
   const editLessonRedirect = props?.location.state?.redirect;
 
-
   /**
-   * 
+   *
    * wait can teachers delete whole lessons that they've already made?????
    */
 
@@ -34,7 +37,7 @@ const CustomLessonsDisplay = props => {
       // TODO: figure out better solution to resolve this
       // Get custom lessons made by admin
       firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lessons => {
-        setAllLessons(lessons)
+        setAllLessons(lessons);
       });
     }, 60); // Timeout for firebase to update and display updated lessons properly
   }, [editLessonRedirect]); // Updates lessons when redirected to page from CreateAssignment
@@ -62,8 +65,7 @@ const CustomLessonsDisplay = props => {
     while (Object.keys(deploymentNameMap).length == 0) {
       await new Promise(r => setTimeout(r, 500));
     }
-    setNameMap(deploymentNameMap)
-    
+    setNameMap(deploymentNameMap);
   }
 
   function handleChangeDisplayLessonInfo(display) {
@@ -81,59 +83,91 @@ const CustomLessonsDisplay = props => {
     }
   }
 
-
   if (createLessonRedirect) {
     return <Redirect to="/createlesson" />;
   }
 
   return (
-    <div className = "lesson-page">
-      <div className = "button-bar">
+    <div>
+      <div className="button-bar">
         <Row>
           <Col>
-          <div className="heading">Lesson Plans</div>
+            <div className="heading">Lesson Plans</div>
           </Col>
-            <Col>
-          <DropdownButton  id="ddown" title= {TEMPLATE_LESSON_MAP[filterType] || "LESSON TYPE"}>
-            <Dropdown.Item className = "drop-down" onClick={() => setFilterType("")}>-------</Dropdown.Item>
-            {Object.keys(TEMPLATE_LESSON_MAP).map(key => (
-              <Dropdown.Item className = "drop-down" onClick={() =>setFilterType(key)}>{TEMPLATE_LESSON_MAP[key]}</Dropdown.Item>
-            ))}
-          </DropdownButton>
+          <Col>
+            <DropdownButton
+              id="ddown"
+              title={TEMPLATE_LESSON_MAP[filterType] || "LESSON TYPE"}
+            >
+              <Dropdown.Item
+                className="drop-down"
+                onClick={() => setFilterType("")}
+              >
+                -------
+              </Dropdown.Item>
+              {Object.keys(TEMPLATE_LESSON_MAP).map(key => (
+                <Dropdown.Item
+                  className="drop-down"
+                  onClick={() => setFilterType(key)}
+                >
+                  {TEMPLATE_LESSON_MAP[key]}
+                </Dropdown.Item>
+              ))}
+            </DropdownButton>
           </Col>
           {/* Cant filter by wordgroups if phonics is selected */}
           <Col>
-          {filterType != "C" && 
-          <DropdownButton id="ddown" title={TEMPLATE_WORD_GROUPS[filterGroup] || "WORD GROUPS"}>
-            <Dropdown.Item className = "drop-down" onClick={() => setFilterGroup("")}>-------</Dropdown.Item>
-            {Object.keys(TEMPLATE_WORD_GROUPS).map(key => (
-              <Dropdown.Item className = "drop-down" onClick={() =>setFilterGroup(key)}>{TEMPLATE_WORD_GROUPS[key]}</Dropdown.Item>
-            ))}
-          </DropdownButton>
-          }
+            {filterType != "C" && (
+              <DropdownButton
+                id="ddown"
+                title={TEMPLATE_WORD_GROUPS[filterGroup] || "WORD GROUPS"}
+              >
+                <Dropdown.Item
+                  className="drop-down"
+                  onClick={() => setFilterGroup("")}
+                >
+                  -------
+                </Dropdown.Item>
+                {Object.keys(TEMPLATE_WORD_GROUPS).map(key => (
+                  <Dropdown.Item
+                    className="drop-down"
+                    onClick={() => setFilterGroup(key)}
+                  >
+                    {TEMPLATE_WORD_GROUPS[key]}
+                  </Dropdown.Item>
+                ))}
+              </DropdownButton>
+            )}
           </Col>
           <Col>
-          <button
-            className="button"
-            onClick={() => setCreateLessonRedirect(true)}
-          >
-            Create Lesson
-          </button>
+            <button
+              className="button"
+              onClick={() => setCreateLessonRedirect(true)}
+            >
+              Create Lesson
+            </button>
           </Col>
-          </Row>
+        </Row>
       </div>
       <div className="cards-display">
-        {allLessons &&
+        {allLessons && (
           <Row className="justify-content-md-center">
-          {allLessons.filter(lesson => 
-            (!filterType|| lesson.lessonTemplate == filterType) && (!filterGroup || lesson.wordGroup == TEMPLATE_WORD_GROUPS[filterGroup])
-            ).map(lesson => (
-            <div key={lesson.id} onClick={() => handleClick(lesson)}>
-              <Col><LessonNameDisplay lessonName={lesson.lessonName} /></Col>
-            </div>
-          ))}
+            {allLessons
+              .filter(
+                lesson =>
+                  (!filterType || lesson.lessonTemplate == filterType) &&
+                  (!filterGroup ||
+                    lesson.wordGroup == TEMPLATE_WORD_GROUPS[filterGroup])
+              )
+              .map(lesson => (
+                <div key={lesson.id} onClick={() => handleClick(lesson)}>
+                  <Col>
+                    <LessonNameDisplay lessonName={lesson.lessonName} />
+                  </Col>
+                </div>
+              ))}
           </Row>
-          }
+        )}
       </div>
       <div>
         {displayLessonInfo && displayLesson && (
@@ -141,9 +175,9 @@ const CustomLessonsDisplay = props => {
             lesson={displayLesson}
             template={displayLessonTemplate}
             setDisplay={handleChangeDisplayLessonInfo}
-            nameMap = {nameMap}
+            nameMap={nameMap}
           />
-        )} 
+        )}
       </div>
     </div>
   );
