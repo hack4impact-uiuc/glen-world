@@ -1,6 +1,6 @@
 @import "../../pages/Index/index.scss";
 
-.ConfirmationCard {
+.confirmation-card {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -16,7 +16,7 @@
   font-style: bold;
 }
 
-.ConfirmationCardHeading {
+.confirmation-card-heading {
   display: flex;
   flex-wrap: wrap;
   height: 6vw;
@@ -27,11 +27,11 @@
   font-family: $assignments-roboto-font;
 }
 
-.ConfirmationCardDate {
+.confirmation-card-date {
   margin: auto;
 }
 
-.ConfirmationCardContent {
+.confirmation-card-content {
   display: flex;
   flex-direction: column;
   overflow: scroll;
@@ -40,7 +40,7 @@
   font-size: 1.2em;
 }
 
-.ConfirmationCardStudent {
+.confirmation-card-student {
   font-family: $assignments-roboto-font;
   color: $assignments-font-color;
 }

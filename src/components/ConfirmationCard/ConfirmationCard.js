@@ -13,13 +13,13 @@ function ConfirmationCard(props) {
   });
 
   return (
-    <div className="ConfirmationCard">
-      <div className="ConfirmationCardHeading">
-        <div className="ConfirmationCardDate">{title}</div>
+    <div className="confirmation-card">
+      <div className="confirmation-card-heading">
+        <div className="confirmation-card-date">{title}</div>
       </div>
-      <div className="ConfirmationCardContent">
+      <div className="confirmation-card-content">
         {props.lessonStudents.map((student, index) => (
-          <div key={index} className="ConfirmationCardStudent">
+          <div key={index} className="confirmation-card-student">
             {student}
           </div>
         ))}

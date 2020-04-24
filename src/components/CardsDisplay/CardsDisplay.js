@@ -4,7 +4,7 @@ import ConfirmationCard from "../ConfirmationCard/ConfirmationCard";
 
 function CardsDisplay(props) {
   return (
-    <div className="CardsDisplay">
+    <div className="cards-display">
       {Object.keys(props.cards).length > 0 &&
         Object.keys(props.cards)
           .reverse()
