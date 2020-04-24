@@ -93,13 +93,24 @@ function Confirmation(props) {
               WRITING
             </div>
           )}
-          <div>
-            <ConfirmationCard
-              lessonDate={"WORDS"}
-              lessonStudents={words}
-              confirmation={true}
-            />
-          </div>
+          {(handleVocab || handleWords) && (
+            <div>
+              <ConfirmationCard
+                lessonDate={"WORDS"}
+                lessonStudents={words}
+                confirmation={true}
+              />
+            </div>
+          )}
+          {handlePhonics && (
+            <div>
+              <ConfirmationCard
+                lessonDate={"WORD GROUPS"}
+                lessonStudents={words}
+                confirmation={true}
+              />
+            </div>
+          )}
         </div>
 
         <div className="CardsDisplaySection">
