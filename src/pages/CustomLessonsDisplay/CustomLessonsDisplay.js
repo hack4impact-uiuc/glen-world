@@ -99,20 +99,22 @@ const CustomLessonsDisplay = props => {
               id="ddown"
               title={TEMPLATE_LESSON_MAP[filterType] || "LESSON TYPE"}
             >
-              <Dropdown.Item
-                className="drop-down"
-                onClick={() => setFilterType("")}
-              >
-                -------
-              </Dropdown.Item>
-              {Object.keys(TEMPLATE_LESSON_MAP).map(key => (
+              <div className="drop-down-bar">
                 <Dropdown.Item
                   className="drop-down"
-                  onClick={() => setFilterType(key)}
+                  onClick={() => setFilterType("")}
                 >
-                  {TEMPLATE_LESSON_MAP[key]}
+                  -------
                 </Dropdown.Item>
-              ))}
+                {Object.keys(TEMPLATE_LESSON_MAP).map(key => (
+                  <Dropdown.Item
+                    className="drop-down"
+                    onClick={() => setFilterType(key)}
+                  >
+                    {TEMPLATE_LESSON_MAP[key]}
+                  </Dropdown.Item>
+                ))}
+              </div>
             </DropdownButton>
           </Col>
           {/* Cant filter by wordgroups if phonics is selected */}
@@ -122,20 +124,22 @@ const CustomLessonsDisplay = props => {
                 id="ddown"
                 title={TEMPLATE_WORD_GROUPS[filterGroup] || "WORD GROUPS"}
               >
-                <Dropdown.Item
-                  className="drop-down"
-                  onClick={() => setFilterGroup("")}
-                >
-                  -------
-                </Dropdown.Item>
-                {Object.keys(TEMPLATE_WORD_GROUPS).map(key => (
+                <div className="drop-down-bar">
                   <Dropdown.Item
                     className="drop-down"
-                    onClick={() => setFilterGroup(key)}
+                    onClick={() => setFilterGroup("")}
                   >
-                    {TEMPLATE_WORD_GROUPS[key]}
+                    -------
                   </Dropdown.Item>
-                ))}
+                  {Object.keys(TEMPLATE_WORD_GROUPS).map(key => (
+                    <Dropdown.Item
+                      className="drop-down"
+                      onClick={() => setFilterGroup(key)}
+                    >
+                      {TEMPLATE_WORD_GROUPS[key]}
+                    </Dropdown.Item>
+                  ))}
+                </div>
               </DropdownButton>
             )}
           </Col>
@@ -160,11 +164,11 @@ const CustomLessonsDisplay = props => {
                     lesson.wordGroup == TEMPLATE_WORD_GROUPS[filterGroup])
               )
               .map(lesson => (
-                <div key={lesson.id} onClick={() => handleClick(lesson)}>
-                  <Col>
-                    <LessonNameDisplay lessonName={lesson.lessonName} />
-                  </Col>
-                </div>
+                // <div key={lesson.id} onClick={() => handleClick(lesson)}>
+                <Col key={lesson.id} onClick={() => handleClick(lesson)}>
+                  <LessonNameDisplay lessonName={lesson.lessonName} />
+                </Col>
+                // </div>
               ))}
           </Row>
         )}
