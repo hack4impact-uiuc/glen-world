@@ -14,7 +14,7 @@ import { withRouter, Redirect, useHistory } from "react-router-dom";
 import LessonInfoDisplay from "../../components/LessonInfoDisplay/LessonInfoDisplay";
 import LessonNameDisplay from "../../components/LessonNameDisplay/LessonNameDisplay";
 
-const CustomLessonsDisplay = props => {
+function CustomLessonsDisplay(props) {
   const { firebase } = props;
   const [allLessons, setAllLessons] = useState([]);
   const [filterType, setFilterType] = useState();
@@ -26,11 +26,6 @@ const CustomLessonsDisplay = props => {
   const [nameMap, setNameMap] = useState({});
   const editLessonRedirect = props?.location.state?.redirect;
 
-  /**
-   *
-   * wait can teachers delete whole lessons that they've already made?????
-   */
-
   useEffect(() => {
     setTimeout(() => {
       // TODO: figure out better solution to resolve this
@@ -40,7 +35,6 @@ const CustomLessonsDisplay = props => {
       });
     }, 60); // Timeout for firebase to update and display updated lessons properly
   }, [editLessonRedirect]); // Updates lessons when redirected to page from CreateAssignment
-
   //taken from lam
   async function deploymentNameMap(lesson) {
     let deploymentAccountIds = getDeploymentAccountIdsFromLesson(lesson);
@@ -174,7 +168,7 @@ const CustomLessonsDisplay = props => {
       </div>
     </div>
   );
-};
+}
 
 export default compose(
   withFirebase,
