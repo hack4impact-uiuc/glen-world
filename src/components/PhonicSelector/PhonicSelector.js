@@ -1,58 +1,53 @@
 import React, { useState, useEffect, useRef } from "react";
-import phonics from "utils/phonics.json";
+import phonicGroups from "utils/phonics.json";
 import PhonicIcon from "../PhonicIcon/PhonicIcon";
 import PhonicWordSelector from "../PhonicWordSelector/PhonicWordSelector";
 import ReactCardFlip from "react-card-flip";
 import "../WordGroupSelector/WordGroupSelector.scss";
 import "./PhonicSelector.scss";
 function PhonicSelector(props) {
-  const phonicKeys = useRef(null);
-  const [phonicGroups, setPhonicGroups] = useState({});
-  useEffect(() => {
-    phonicKeys.current = Object.keys(phonics);
-    var tempPhonicGroups = {};
-    phonicKeys.current.forEach((element, index) => {
-      tempPhonicGroups[element] = [phonics[element]];
-    });
-    setPhonicGroups(tempPhonicGroups);
-  }, []);
-  const [chosenPhonics, setChosenPhonics] = useState([]);
+  // const [chosenPhonics, setChosenPhonics] = useState([]);
   const [flipCard, setFlipCard] = useState(
-    Array(phonicGroups.length)
-      .fill()
-      .map((_, i) => false)
+    Array(phonicGroups.length).fill(false)
   );
   const [cardColored, setCardColored] = useState(
-    Array(phonicGroups.length)
-      .fill()
-      .map((_, i) => false)
+    Array(phonicGroups.length).fill(false)
   );
+
+  useEffect(() => {
+    props.handleGroupChange("phonics");
+
+    // prepopulate phonic groups if editing existing lesson
+    let cardColoredCopy = [...cardColored];
+    Object.keys(phonicGroups).forEach((key, index) => {
+      if (props.words.includes(key)) cardColoredCopy[index] = true;
+    });
+    setCardColored(cardColoredCopy);
+  }, []);
+
   function handleChangeFlipMode(flipMode, index) {
     let flipModeCopy = [...flipCard];
     flipModeCopy[index] = flipMode;
     setFlipCard(flipModeCopy);
   }
+
   function handleSelectPhonicGroup(shouldSelect, phonicName, index) {
     //all phonics lessons will be in the "phonics" word group
-    props.handleGroupChange("phonics");
-    let chosenPhonicsCopy = [...chosenPhonics];
+    let chosenPhonicsCopy = [...props.words];
     let cardColoredCopy = [...cardColored];
     if (shouldSelect) {
       chosenPhonicsCopy.push(phonicName);
       cardColoredCopy[index] = true;
     } else {
-      chosenPhonicsCopy.forEach((element, index) => {
-        if (element == phonicName) {
-          chosenPhonicsCopy.splice(index, 1);
-        }
-      });
+      chosenPhonicsCopy.splice(chosenPhonicsCopy.indexOf(phonicName), 1);
       cardColoredCopy[index] = false;
     }
     //functions in this order bc react sets state asynchronously
     props.handlePhonicsChange(chosenPhonicsCopy);
-    setChosenPhonics(chosenPhonicsCopy);
+    // setChosenPhonics(chosenPhonicsCopy);
     setCardColored(cardColoredCopy);
   }
+
   return (
     <div className="PhonicBackground">
       <div className="WordGroups">
@@ -67,7 +62,7 @@ function PhonicSelector(props) {
                   index={index}
                   data={phonicGroups[key]}
                   name={key}
-                  setFlipMode={handleChangeFlipMode}
+                  selected={cardColored[index]}
                   handleSelectPhonics={handleSelectPhonicGroup}
                 />
               </div>

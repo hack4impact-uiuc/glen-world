@@ -205,7 +205,7 @@ function CreateAssignment(props) {
   }
   function validateAssignment() {
     var validAssignment = true;
-    if (wordGroup == null || words.length < 4) {
+    if (wordGroup == null || (words.length < 4 && lessonType != "C")) {
       setInvalidMessage(invalidMessage => [
         ...invalidMessage,
         "Please include at least 4 words."
@@ -284,14 +284,15 @@ function CreateAssignment(props) {
             <PhonicSelector
               handlePhonicsChange={handleWordSelectorChange}
               handleGroupChange={handleWordGroupChange}
+              words={words}
             />
           )}
           {(showWriting || showVocab) && (
             <WordGroupSelector
               handleChange={handleWordSelectorChange}
               wordGroupChange={handleWordGroupChange}
-              assignedWords={words || existingAssignment?.words}
-              assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
+              assignedWords={words}
+              assignedWordGroup={wordGroup}
             />
           )}
           <div className="place_middle">
