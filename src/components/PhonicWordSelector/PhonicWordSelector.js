@@ -7,11 +7,10 @@ function PhonicWordSelector(props) {
     //if previously selected, unselect it
     props.handleSelectPhonics(!props.selected, props.name, props.index);
   }
-
   return (
     <div className="PhonicIcon">
       <div className="PhonicIconBorder">
-        <div className="GroupTitle">{props.name}</div>
+        <div className="PhonicGroupTitle">{props.name}</div>
         <div>
           {props.data.words.map(word => (
             <div className="Words">{word}</div>
