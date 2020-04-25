@@ -27,13 +27,10 @@ function CustomLessonsDisplay(props) {
   const editLessonRedirect = props?.location.state?.redirect;
 
   useEffect(() => {
-    setTimeout(() => {
-      // TODO: figure out better solution to resolve this
-      // Get custom lessons made by admin
-      firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lessons => {
-        setAllLessons(lessons);
-      });
-    }, 60); // Timeout for firebase to update and display updated lessons properly
+    // Get custom lessons made by admin
+    firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
+      setAllLessons(lesson);
+    });
   }, [editLessonRedirect]); // Updates lessons when redirected to page from CreateAssignment
   //taken from lam
   async function deploymentNameMap(lesson) {

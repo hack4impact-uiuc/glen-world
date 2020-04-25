@@ -5,6 +5,7 @@ import "./CreateAssignment.scss";
 import { Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
 import { compose } from "recompose";
 import { Button } from "reactstrap";
+import { getDeploymentAccountIdsFromLesson } from "utils/Lesson";
 import { ADMIN_ACCOUNT } from "utils/constants.js";
 import { withFirebase } from "utils/Firebase";
 import StudentList from "components/StudentList/StudentList";
@@ -49,9 +50,40 @@ function CreateAssignment(props) {
     setLessonCreationDate(originalDate);
   }, [firebase]);
 
+  async function parseCardsFromLesson(lesson) {
+    let deploymentAccountIds = getDeploymentAccountIdsFromLesson(lesson);
+
+    let deploymentNameMap = {};
+    Promise.all(
+      deploymentAccountIds.map(id => {
+        return firebase.getDeploymentAccountInformation(id);
+      })
+    )
+      .then(deploymentAccounts => {
+        for (let i = 0; i < deploymentAccounts.length; i++) {
+          deploymentNameMap[deploymentAccountIds[i]] =
+            deploymentAccounts[i].username;
+        }
+
+        let lessonCards = {};
+        for (let [dueDate, assignedDeploymentIds] of Object.entries(
+          lesson.dueDates
+        )) {
+          let lessonCard = [[], []];
+          assignedDeploymentIds.forEach(deploymentAccountId => {
+            lessonCard[0].push(deploymentAccountId); // inputting account id
+            lessonCard[1].push(deploymentNameMap[deploymentAccountId]); // input corresponding username
+          });
+
+          lessonCards[dueDate] = lessonCard;
+        }
+        setLessonCards(lessonCards);
+      })
+      .catch(error => console.error("Error getting custom lesson: ", error));
+  }
+
   function prePopulateAssignment(existingAssignment) {
-    handleDatePickerChange(existingAssignment.dueDate.toDate());
-    handleStudentListChange(existingAssignment.deploymentAccountIds);
+    parseCardsFromLesson(existingAssignment);
     handleWordSelectorChange(existingAssignment.words);
     handleWordGroupChange(existingAssignment.wordGroup);
     handleLessonNameChange(existingAssignment.lessonName);
@@ -240,7 +272,6 @@ function CreateAssignment(props) {
                 onChange={e => handleLessonNameChange(e.target.value)}
               />
             </InputGroup>
-
             <br />
             {showPhonics && (
               <div>
@@ -248,6 +279,7 @@ function CreateAssignment(props) {
                 <PhonicSelector
                   handlePhonicsChange={handleWordSelectorChange}
                   handleGroupChange={handleWordGroupChange}
+                  words={words}
                 />
               </div>
             )}

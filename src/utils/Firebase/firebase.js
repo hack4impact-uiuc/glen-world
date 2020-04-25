@@ -2,6 +2,7 @@ import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/functions";
+import { getDeploymentAccountIdsFromLesson } from "utils/Lesson";
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -110,15 +111,20 @@ class Firebase {
             let assignments = [];
 
             // Get due dates for assignments
-            for (let customLesson in customLessons) {
-              for (let dueDate in customLesson.dueDates[deploymentAccountId]) {
-                // Creates deep copy of lesson
-                let lessonCopy = JSON.parse(JSON.stringify(customLesson));
-                delete lessonCopy.dueDates;
-                lessonCopy.dueDate = dueDate;
-                assignments.push(lessonCopy);
+            customLessons.forEach(customLesson => {
+              for (let [dueDate, assignedDeploymentIds] of Object.entries(
+                customLesson.dueDates
+              )) {
+                if (assignedDeploymentIds.includes(deploymentAccountId)) {
+                  // Making deep copy of lesson
+                  let lessonCopy = JSON.parse(JSON.stringify(customLesson));
+                  delete lessonCopy.dueDates;
+                  lessonCopy.dueDate = dueDate;
+                  assignments.push(lessonCopy);
+                }
               }
-            }
+            });
+
             return assignments;
           })
           .catch(error =>
@@ -186,6 +192,8 @@ class Firebase {
   ) => {
     // Push specific custom lesson to admin account
     let customLessonRef = this.db.collection("custom_lesson");
+
+    // Get existing lesson to edit or create new lesson
     if (lessonDocId) customLessonRef = customLessonRef.doc(lessonDocId);
     else customLessonRef = customLessonRef.doc();
 
@@ -193,12 +201,12 @@ class Firebase {
     customLessonRef
       .get()
       .then(customLessonDoc => {
-        let currentAssignedDeploymentIds;
-        if (lessonDocId) {
-          currentAssignedDeploymentIds = customLessonDoc.get(
-            "deploymentAccountIds"
+        // Get existing lesson's currently assigned students
+        let currentAssignedDeploymentIds = [];
+        if (lessonDocId)
+          currentAssignedDeploymentIds = getDeploymentAccountIdsFromLesson(
+            customLessonDoc.data()
           );
-        }
 
         // Create or update lesson
         customLessonRef
@@ -214,46 +222,44 @@ class Firebase {
             console.error("Error creating custom lesson: ", error)
           );
 
-        if (lessonDocId) {
-          // Push custom lessons to deployments
-          let batch = this.db.batch();
-          let deploymentAccountId;
+        // Push custom lesson to deployment accounts
+        let batch = this.db.batch();
 
-          // Add/update deploymentAccount docs
-          for (deploymentAccountId of deploymentAccountIds) {
+        // Add/update deploymentAccount references to this custom lesson
+        for (const deploymentAccountId of deploymentAccountIds) {
+          let deploymentRef = this.db.doc(
+            `deployment_account/${deploymentAccountId}/`
+          );
+          batch.update(deploymentRef, {
+            customLessons: app.firestore.FieldValue.arrayUnion(
+              customLessonRef.id
+            )
+          });
+        }
+
+        // Remove custom lesson for non-assigned students
+        for (let deploymentAccountId of currentAssignedDeploymentIds) {
+          if (!deploymentAccountIds.includes(deploymentAccountId)) {
             let deploymentRef = this.db.doc(
               `deployment_account/${deploymentAccountId}/`
             );
             batch.update(deploymentRef, {
-              customLessons: app.firestore.FieldValue.arrayUnion(
+              customLessons: app.firestore.FieldValue.arrayRemove(
                 customLessonRef.id
               )
             });
           }
-
-          for (let deploymentAccountId of currentAssignedDeploymentIds) {
-            if (!deploymentAccountIds.includes(deploymentAccountId)) {
-              let deploymentRef = this.db.doc(
-                `deployment_account/${deploymentAccountId}/`
-              );
-              batch.update(deploymentRef, {
-                customLessons: app.firestore.FieldValue.arrayRemove(
-                  customLessonRef.id
-                )
-              });
-            }
-          }
-
-          return batch
-            .commit()
-            .catch(error =>
-              console.error(
-                "Pushing custom lessons to deployments failed: ",
-                error
-              )
-            );
-          // needs better promise rejection
         }
+
+        return batch
+          .commit()
+          .catch(error =>
+            console.error(
+              "Pushing custom lessons to deployments failed: ",
+              error
+            )
+          );
+        // needs better promise rejection
       })
       .catch(error => console.error("Error getting custom lesson: ", error));
   };
