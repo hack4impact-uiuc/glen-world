@@ -1,26 +1,64 @@
 @import "../../pages/Index/index.scss";
 
-.Heading {
+.heading {
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 4em;
-  color: #4d4d4c;
+  font-size: 3em;
+  color: white;
   margin: auto;
 }
-.Button {
+.cards-display {
   font-family: $assignments-roboto-font;
-  border-radius: 8px;
+  min-height: 30vw;
+  flex-wrap: wrap;
+  flex-direction: row;
+  position: absolute;
+  background-color: $assignments-app-background-color;
+}
+.button-bar {
+  background-color: $assignments-font-color;
+}
+#ddown, .button {
+  height: 2em;
+  width: 11em;
+  border-color: $assignments-font-color;
+  border-radius: 2em;
+  margin-top: 3%;
+  background-color: white;
+  color: black;
+  font-family: $assignments-roboto-font;
+  font-weight: bold;
+  font-size: 1.5em;
   transition-duration: 0.3s;
   &:hover {
     background-color: $assignments-light-purple;
     color: white;
   }
 }
-.DateDisplay {
+.button {
+  background-color: $assignments-light-green;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+}
+.drop-down-bar {
+  width: 16.5em;
+  border-radius: 2em;
+}
+.drop-down {
+  text-transform: lowercase;
   font-family: $assignments-roboto-font;
-  width: 100vw;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  position: absolute;
+  font-size: 1em;
+  &hover {
+    background-color: #f5f5f5;
+  }
+  &:focus {
+    background-color: $assignments-light-purple;
+  }
+}
+
+.col-padding {
+  padding: 0px !important;
+  margin: 0px !important;
 }

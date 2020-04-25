@@ -3,9 +3,11 @@ import "./LessonNameDisplay.scss";
 
 function LessonNameDisplay(props) {
   return (
-    <div className="DateIcon">
-      <br />
-      <p className="Name">{props.lessonName}</p>
+    <div className="NameIcon">
+      <label className="InnerBorder">
+        <br />
+        <p className="Name">{props.lessonName}</p>
+      </label>
     </div>
   );
 }

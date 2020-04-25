@@ -4,12 +4,7 @@ import "DatePicker/DatePicker.scss";
 import { withFirebase } from "utils/Firebase";
 
 function DatePicker(props) {
-  const [date, setDate] = useState(null);
-
-  useEffect(() => {
-    if (props.assignedDate) setDate(props.assignedDate.toDate());
-    else setDate(new Date());
-  }, []);
+  const [date, setDate] = useState(new Date());
 
   function onChange(date) {
     props.handleChange(date);

@@ -1,95 +1,152 @@
 @import "../../pages/Index/index.scss";
 
-.LessonInfo {
+.lesson-info {
   background-color: $assignments-darker-color;
   font-family: $assignments-roboto-font;
   width: 70%;
-  height: 23vw;
-  padding: 20px;
+  height: 25vw;
   border: 1px solid #4d4d4c;
   border-radius: 2em;
   position: relative;
   margin: auto;
   margin-top: 8em;
   z-index: 1;
+  overflow: hidden;
 }
 
-.InfoDisplay {
+.info-display {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  height: 18vw;
+  overflow: hidden;
 }
 
-.Column {
-  height: 17vw;
-  margin: auto;
+.column {
+  float: left;
+  height: 25vw;
+  width: 18vw;
+  background-color: black;
+  border-top-left-radius: 2em;
+  border-bottom-left-radius: 2em;
+  overflow:auto;
 }
 
-.WordGroupImage {
-  height: 13vw;
-  width: 13vw;
+.word-group-display {
+  height: 5vw;
+  width: 16vw;
   background-color: $assignments-light-purple;
-  color: black;
+  color: #4D4C4C;
   border: 1px solid black;
-  border-radius: 100%;
+  border-radius: 2em;
   margin: auto;
-  margin-bottom: 10px;
+  margin-left: 1.3em;
+  margin-top: 1em;
+  overflow: hidden;
 }
 
-.WordGroupName {
-  font-size: 1.3em;
-  font-weight: normal;
-  text-transform: uppercase;
-  color: black;
-}
-
-.LessonDataTitle {
-  width: 15vw;
-  height: 3vw;
-  border: 1px solid black;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  background-color: lightgray;
-  color: black;
+.lesson-group-name {
+  margin-top: 5%;
+  padding:auto;
   font-size: 2em;
   font-weight: bold;
+  text-transform: uppercase;
+  color: $assignments-font-color;
 }
 
-.LessonData {
+.word-display {
+  height: 16vw;
   width: 15vw;
-  height: 12vw;
-  border: 1px solid black;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-  font-size: 1.3em;
-  overflow-y: auto;
-  margin: auto;
   background-color: white;
+  border-radius: 1em;
+  margin: auto;
+  margin-top: 1em;
+  display: block;
+  overflow: hidden;
+  margin-left: 1.8em;
+}
+.grey-box, .purple-box {
+  height: 3vw;
+  background-color: #C4C4C4;
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+  display: block;
+  overflow: hidden;
+}
+.purple-box {
+  background-color: $assignments-light-purple;
+}
+.words-list {
+  height: 14vw;
+  overflow: scroll;
+}
+.word-group-name {
+  font-size: 1.7em;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-style: $assignments-roboto-font;
   color: black;
 }
-
-.LessonButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ffc700;
-  margin: auto;
-  border-radius: 8px;
-  width: 6vw;
+.words {
+  font-size: 1.5em;
   font-weight: bold;
-  font-size: 1.4em;
-  transition-duration: 0.3s;
+  color: $assignments-font-color;
+  text-transform: capitalize;
+  height: 1.5em;
+  overflow:hidden;
+}
+.student-date-card {
+  height: 19vw;
+  width: 14vw;
+  border-radius: 1em;
+  background-color: white;
+  display:inline-block;
+  margin-left:0em;
+  margin-top: 1em;
+  overflow: hidden;
 }
 
-.LessonButton:hover {
-  background-color: #ffc700;
-  color: white;
+.card-container {
+  margin-left: 1em;
+  max-height: 21vw;
+  min-width: 25vw;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  
+}
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
-.ButtonContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+.student-container {
+  max-height: 16vw;
+  overflow: scroll;
+}
+.student-name {
+  font-style: $assignments-roboto-font;
+  color: $assignments-font-color;
+  font-weight: bold;
+  font-size: 1.5em;
+  height: 1.5em;
+  overflow: hidden;
+}
+.date-label {
+  font-size: 1.5em;
+  color: $assignments-font-color;
+  font-weight: bold;
+  margin-top: 2%;
+}
+
+.button-container {
+  margin-right: .5vw;
+  margin-top: .3vw;
+  margin-left: 46vw
+}
+.wide-column  {
+  width: 60vw
 }
