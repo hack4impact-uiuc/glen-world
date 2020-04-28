@@ -11,18 +11,18 @@ function StudentSelector(props) {
 
 function nameSelector(deploymentAccountId) {
     return (
-        <div> 
+        <div className = "select-all-margins"> 
             {/* {currentDeployment.deploymentAccounts[deploymentAccountId].username} */}
             <Row>
-            <div className = "select-all-margins">
-            <label className = "select-all-label">{currentDeployment.deploymentAccounts[deploymentAccountId].username}</label>  
-            </div>
             <div>
             <input
                 class = "move-down"
                 id = "cbox"
                 type = "checkbox"
             />
+            </div>
+            <div>
+            <label className = "student-name-label">{currentDeployment.deploymentAccounts[deploymentAccountId].username}</label>  
             </div>
             </Row>    
         </div>
