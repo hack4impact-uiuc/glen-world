@@ -29,7 +29,7 @@
     font-family: $assignments-roboto-font;
     font-size: 1.5em;
     &:hover {
-    background-color: #f5f5f5;
+        background-color: #f5f5f5;
     }
 }
 .select-all-checkbox {
@@ -42,7 +42,12 @@
     margin-top: 0%;
 }
 .select-all-margins {
-    margin:auto;
+    margin: auto;
     margin-left: 10%;
     margin-right: 10px;
+}
+.accounts-list {
+    min-height: 24vm;
+    background-color: wheat;
+    margin: auto;
 }

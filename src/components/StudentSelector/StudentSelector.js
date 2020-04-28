@@ -8,6 +8,26 @@ function StudentSelector(props) {
     const [currentDeployment, setCurrentDeployment] = useState()
     const [studentsChecked, setStudentsChecked] = useState([]);
     let deployments = props.deployments;
+
+function nameSelector(deploymentAccountId) {
+    return (
+        <div> 
+            {/* {currentDeployment.deploymentAccounts[deploymentAccountId].username} */}
+            <Row>
+            <div className = "select-all-margins">
+            <label className = "select-all-label">{currentDeployment.deploymentAccounts[deploymentAccountId].username}</label>  
+            </div>
+            <div>
+            <input
+                class = "move-down"
+                id = "cbox"
+                type = "checkbox"
+            />
+            </div>
+            </Row>    
+        </div>
+    )
+}
 return (
     <div className = "student-selector">
         {console.log(currentDeployment)}
@@ -34,6 +54,9 @@ return (
             </div>
             </Row>    
         </div>
+        {currentDeployment && <div className = "accounts-list">
+        {Object.keys(currentDeployment.deploymentAccounts).map(deploymentAccountId => (nameSelector(deploymentAccountId)))}
+        </div>}
         
     </div>
 )
