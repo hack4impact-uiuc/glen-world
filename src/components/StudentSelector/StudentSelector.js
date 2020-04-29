@@ -7,6 +7,11 @@ import "./StudentSelector.scss"
 function StudentSelector(props) {
     const [currentDeployment, setCurrentDeployment] = useState()
     const [studentsChecked, setStudentsChecked] = useState([]);
+    const [chooseAll, setChooseAll] = useState(
+        Array(props.deployments.length)
+          .fill()
+          .map((_, i) => false)
+      );
     let deployments = props.deployments;
 
 function nameSelector(deploymentAccountId) {
@@ -45,32 +50,31 @@ function handleClickStudent(deploymentAccountId) {
 }
 
 function handleClickSelectAll(deployment) {
+    let index = deployments.indexOf(currentDeployment);
     let deploymentAccounts = [];
     let selectAll = false;
-    const newChecked = [...studentsChecked];
-    const indexes = [];
+    let newChecked = [...studentsChecked];
+    let indexes = [];
     Object.keys(deployment.deploymentAccounts).map(deploymentAccountId => {
-        deploymentAccounts.push(deploymentAccountId)
-        if (studentsChecked.indexOf(deploymentAccountId) === -1) {
-            selectAll = true;
+        if (!chooseAll[index]) {
+            newChecked.push(deploymentAccountId)
         } else {
-            indexes.push(studentsChecked.indexOf(deploymentAccountId))
+            let removeIndex = newChecked.indexOf(deploymentAccountId);
+            newChecked.splice(removeIndex, 1)
         }
         })
-    //Right now its not removing the students from the list correctly
-    //also need to reset the Select Checkbox for when its colored??
-    if (selectAll) {
-        newChecked.push.apply(newChecked, deploymentAccounts)
-        console.log(newChecked);
-    } else {
-        indexes.forEach(value =>{
-            newChecked.splice(value, 1)
-        } )
-    }
+    //So for optimization, the select button works differently here than it does for the word group select all
+    //if we want to make it be the same, for each render, it will need to check if all the students in that deployment has been selected
+
     const setChecked = Array.from(new Set(newChecked));
     setStudentsChecked(setChecked);
     props.handleChange(setChecked);
     console.log(setChecked)
+
+    let newChooseAll = [...chooseAll];
+    newChooseAll[index] = !newChooseAll[index] 
+    setChooseAll(newChooseAll)
+
 }
 
 return (
@@ -96,6 +100,7 @@ return (
                 class = "move-down"
                 id = "cbox"
                 type = "checkbox"
+                checked = {chooseAll[deployments.indexOf(currentDeployment)]}
                 onClick={() => handleClickSelectAll(currentDeployment)}
             />
             </div>
