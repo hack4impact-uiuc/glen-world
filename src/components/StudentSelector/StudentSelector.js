@@ -12,13 +12,14 @@ function StudentSelector(props) {
 function nameSelector(deploymentAccountId) {
     return (
         <div className = "select-all-margins"> 
-            {/* {currentDeployment.deploymentAccounts[deploymentAccountId].username} */}
             <Row>
             <div>
             <input
                 class = "move-down"
                 id = "cbox"
                 type = "checkbox"
+                checked={studentsChecked.indexOf(deploymentAccountId) !== -1}
+                onClick = {() => handleClickStudent(deploymentAccountId)}
             />
             </div>
             <div>
@@ -28,9 +29,52 @@ function nameSelector(deploymentAccountId) {
         </div>
     )
 }
+function handleClickStudent(deploymentAccountId) {
+    const currentIndex = studentsChecked.indexOf(deploymentAccountId);
+    const newChecked = [...studentsChecked];
+
+    if (currentIndex === -1) {
+      newChecked.push(deploymentAccountId);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+    const setChecked = Array.from(new Set(newChecked));
+    setStudentsChecked(setChecked);
+    props.handleChange(setChecked);
+    console.log(setChecked)
+}
+
+function handleClickSelectAll(deployment) {
+    let deploymentAccounts = [];
+    let selectAll = false;
+    const newChecked = [...studentsChecked];
+    const indexes = [];
+    Object.keys(deployment.deploymentAccounts).map(deploymentAccountId => {
+        deploymentAccounts.push(deploymentAccountId)
+        if (studentsChecked.indexOf(deploymentAccountId) === -1) {
+            selectAll = true;
+        } else {
+            indexes.push(studentsChecked.indexOf(deploymentAccountId))
+        }
+        })
+    //Right now its not removing the students from the list correctly
+    //also need to reset the Select Checkbox for when its colored??
+    if (selectAll) {
+        newChecked.push.apply(newChecked, deploymentAccounts)
+        console.log(newChecked);
+    } else {
+        indexes.forEach(value =>{
+            newChecked.splice(value, 1)
+        } )
+    }
+    const setChecked = Array.from(new Set(newChecked));
+    setStudentsChecked(setChecked);
+    props.handleChange(setChecked);
+    console.log(setChecked)
+}
+
 return (
     <div className = "student-selector">
-        {console.log(currentDeployment)}
         <DropdownButton id = "depoyment-ddown" title = {"Class:"}>
             {deployments.map((deployment) => (
                 <Dropdown className = "option-ddown"
@@ -40,6 +84,8 @@ return (
                 </Dropdown>
             ))}
         </DropdownButton>
+        {currentDeployment &&
+        <div> 
         <div className = "select-all-checkbox">
             <Row>
             <div className = "select-all-margins">
@@ -50,13 +96,16 @@ return (
                 class = "move-down"
                 id = "cbox"
                 type = "checkbox"
+                onClick={() => handleClickSelectAll(currentDeployment)}
             />
             </div>
             </Row>    
         </div>
-        {currentDeployment && <div className = "accounts-list">
+        <div className = "accounts-list">
         {Object.keys(currentDeployment.deploymentAccounts).map(deploymentAccountId => (nameSelector(deploymentAccountId)))}
-        </div>}
+        </div>
+        </div>
+        }
         
     </div>
 )
