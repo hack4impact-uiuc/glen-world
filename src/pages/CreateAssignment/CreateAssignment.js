@@ -310,11 +310,11 @@ function CreateAssignment(props) {
                       }
                     /> */}
                     <StudentSelector
-                    deployments={adminDeployments}
-                    handleChange={handleStudentListChange}
-                    assignedStudents={
-                      existingAssignment?.deploymentAccountIds
-                    }
+                      deployments={adminDeployments}
+                      handleChange={handleStudentListChange}
+                      assignedStudents={
+                        existingAssignment?.deploymentAccountIds
+                      }
                     ></StudentSelector>
                   </Col>
                   <Col xs={1}></Col>
