@@ -8,7 +8,6 @@ import { Button } from "reactstrap";
 import { getDeploymentAccountIdsFromLesson } from "utils/Lesson";
 import { ADMIN_ACCOUNT } from "utils/constants.js";
 import { withFirebase } from "utils/Firebase";
-import StudentList from "components/StudentList/StudentList";
 import StudentSelector from "components/StudentSelector/StudentSelector";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
@@ -302,13 +301,6 @@ function CreateAssignment(props) {
               <Container>
                 <Row>
                   <Col>
-                    {/* <StudentList
-                      deployments={adminDeployments}
-                      handleChange={handleStudentListChange}
-                      assignedStudents={
-                        existingAssignment?.deploymentAccountIds
-                      }
-                    /> */}
                     <StudentSelector
                       deployments={adminDeployments}
                       handleChange={handleStudentListChange}
