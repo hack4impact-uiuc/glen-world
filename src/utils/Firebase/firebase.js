@@ -2,7 +2,6 @@ import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/functions";
-import { getDeploymentAccountIdsFromLesson } from "utils/Lesson";
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -101,13 +100,18 @@ class Firebase {
       .get()
       .then(deploymentAccountDoc => {
         const customLessonIds = deploymentAccountDoc.get("customLessons");
-        const customLessonRefs = customLessonIds.map(id =>
+        const customLessonRefs = Object.keys(customLessonIds).map(id =>
           this.db.doc(`custom_lesson/${id}`).get()
         );
 
         return Promise.all(customLessonRefs)
           .then(customLessonDocs => {
-            let customLessons = customLessonDocs.map(doc => doc.data());
+            let customLessons = customLessonDocs.map(doc => {
+              return {
+                id: doc.id,
+                ...doc.data()
+              };
+            });
             let assignments = [];
 
             // Get due dates for assignments
@@ -116,10 +120,12 @@ class Firebase {
                 customLesson.dueDates
               )) {
                 if (assignedDeploymentIds.includes(deploymentAccountId)) {
-                  // Making deep copy of lesson
                   let lessonCopy = JSON.parse(JSON.stringify(customLesson));
                   delete lessonCopy.dueDates;
                   lessonCopy.dueDate = dueDate;
+                  lessonCopy.isCompleted = deploymentAccountDoc.get(
+                    "customLessons"
+                  )[lessonCopy.id][dueDate];
                   assignments.push(lessonCopy);
                 }
               }
@@ -203,10 +209,17 @@ class Firebase {
       .then(customLessonDoc => {
         // Get existing lesson's currently assigned students
         let currentAssignedDeploymentIds = [];
-        if (lessonDocId)
-          currentAssignedDeploymentIds = getDeploymentAccountIdsFromLesson(
-            customLessonDoc.data()
-          );
+        if (lessonDocId) {
+          let currentDueDates = customLessonDoc.get("dueDates");
+
+          let accountIds = new Set();
+          for (const dueDate in currentDueDates) {
+            for (const deploymentAccount of currentDueDates[dueDate]) {
+              accountIds.add(deploymentAccount);
+            }
+          }
+          currentAssignedDeploymentIds = Array.from(accountIds);
+        }
 
         // Create or update lesson
         customLessonRef
@@ -230,10 +243,23 @@ class Firebase {
           let deploymentRef = this.db.doc(
             `deployment_account/${deploymentAccountId}/`
           );
-          batch.update(deploymentRef, {
-            customLessons: app.firestore.FieldValue.arrayUnion(
+
+          deploymentRef.get().then(deploymentDoc => {
+            // Gets existing completed assignments
+            let completedDueDates = deploymentDoc.data().customLessons[
               customLessonRef.id
-            )
+            ];
+
+            // Initializes assignments to not completed if new student
+            if (!completedDueDates) {
+              dueDates.forEach(dueDate => {
+                completedDueDates[dueDate] = false;
+              });
+            }
+
+            batch.update(deploymentRef, {
+              [`customLessons.${customLessonRef.id}`]: completedDueDates
+            });
           });
         }
 
@@ -244,9 +270,7 @@ class Firebase {
               `deployment_account/${deploymentAccountId}/`
             );
             batch.update(deploymentRef, {
-              customLessons: app.firestore.FieldValue.arrayRemove(
-                customLessonRef.id
-              )
+              [`customLessons.${customLessonRef.id}`]: firebase.firestore.FieldValue.delete()
             });
           }
         }
