@@ -57,7 +57,7 @@
   display: inline-block;
   text-align: center;
   padding: 3vw;
-  flex-grow: 1;
+  flex-grow: .1;
   height: 100vh;
 }
 
@@ -73,10 +73,11 @@
   display: flex;
   background-color: $confirmation-light-light-grey-background-color;
   flex-wrap: wrap;
-  flex-grow: 4;
+  flex-grow: 12;
   height: 100vh;
   justify-content: flex-start;
   align-items: flex-start;
+  overflow:scroll;
 }
 
 .flex-container .flex-column {
