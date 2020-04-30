@@ -25,9 +25,11 @@
   text-align: center;
   height: 2.5vw;
   width: 6vw;
-  margin-top:35vh;
   margin-left:2vw;
   display: inline-block;
+  align-self: flex-end;
+  position:absolute;
+  bottom: 1em;
 }
 
 .flex-container .confirm-button-confirm-page {
@@ -39,10 +41,14 @@
   border-radius: 1em;
   text-align: center;
   height: 2.5vw;
-  margin-top: 35vh;
-  margin-left: 56vw;
+  //margin-top: 35vh;
+  //margin-left: 56vw;
   width: 6vw;
+  position: absolute;
+  right: 2vw;
   display: inline-block;
+  align-self: flex-end;
+  bottom: 1em;
 }
 
 .flex-container .word-display-bar {
@@ -59,7 +65,9 @@
   display: flex;
   flex-direction: row;
   align-content: flex-start;
+  align-items: center;
 }
+
 
 .flex-container .cards-display-section {
   display: flex;
@@ -67,6 +75,8 @@
   flex-wrap: wrap;
   flex-grow: 4;
   height: 100vh;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .flex-container .flex-column {

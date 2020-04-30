@@ -115,8 +115,7 @@ function Confirmation(props) {
 
         <div className="cards-display-section">
           <div className="lesson-name-display-header">{lessonName}</div>
-          <CardsDisplay cards={lessonCards} />
-          <div className="flex-container">
+          <CardsDisplay cards={lessonCards}/>
             <Button
               onClick={() => setEditRedirect(true)}
               className="edit-button-confirm-page"
@@ -129,7 +128,6 @@ function Confirmation(props) {
             >
               Confirm
             </Button>
-          </div>
         </div>
       </div>
     </div>
