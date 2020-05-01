@@ -74,7 +74,7 @@ function StudentSelector(props) {
     newChooseAll[index] = !newChooseAll[index];
     setChooseAll(newChooseAll);
   }
-  //the key in the DropdownButton is hacky fix to the issue that the dropdown menu doesnt close upon selection
+
   return (
     <div className="student-selector">
       <DropdownButton
