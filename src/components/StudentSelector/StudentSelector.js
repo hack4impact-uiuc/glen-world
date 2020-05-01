@@ -14,13 +14,12 @@ function StudentSelector(props) {
   );
   let deployments = props.deployments;
 
-  function nameSelector(deploymentAccountId) {
+  function NameSelector(deploymentAccountId) {
     return (
       <div className="select-all-margins">
         <Row>
           <div>
             <input
-              class="move-down"
               id="cbox"
               type="checkbox"
               checked={studentsChecked.indexOf(deploymentAccountId) !== -1}
@@ -51,15 +50,11 @@ function StudentSelector(props) {
     const setChecked = Array.from(new Set(newChecked));
     setStudentsChecked(setChecked);
     props.handleChange(setChecked);
-    console.log(setChecked);
   }
 
   function handleClickSelectAll(deployment) {
     let index = deployments.indexOf(currentDeployment);
-    let deploymentAccounts = [];
-    let selectAll = false;
     let newChecked = [...studentsChecked];
-    let indexes = [];
     Object.keys(deployment.deploymentAccounts).map(deploymentAccountId => {
       if (!chooseAll[index]) {
         newChecked.push(deploymentAccountId);
@@ -74,7 +69,6 @@ function StudentSelector(props) {
     const setChecked = Array.from(new Set(newChecked));
     setStudentsChecked(setChecked);
     props.handleChange(setChecked);
-    console.log(setChecked);
 
     let newChooseAll = [...chooseAll];
     newChooseAll[index] = !newChooseAll[index];
@@ -89,7 +83,7 @@ function StudentSelector(props) {
         title={
           (currentDeployment &&
             "Class " + (deployments.indexOf(currentDeployment) + 1)) ||
-          "Class:"
+          "Select a Class"
         }
       >
         {deployments.map((deployment, index) => (
@@ -110,7 +104,6 @@ function StudentSelector(props) {
               </div>
               <div>
                 <input
-                  class="move-down"
                   id="cbox"
                   type="checkbox"
                   checked={chooseAll[deployments.indexOf(currentDeployment)]}
@@ -121,7 +114,7 @@ function StudentSelector(props) {
           </div>
           <div className="accounts-list">
             {Object.keys(currentDeployment.deploymentAccounts).map(
-              deploymentAccountId => nameSelector(deploymentAccountId)
+              deploymentAccountId => NameSelector(deploymentAccountId)
             )}
           </div>
         </div>
