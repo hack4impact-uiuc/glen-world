@@ -23,6 +23,7 @@ function CustomLessonsDisplay(props) {
   const [displayLessonTemplate, setDisplayTemplate] = useState(null);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
   const [createLessonRedirect, setCreateLessonRedirect] = useState(false);
+  const [confirmationRedirect, setConfirmationRedirect] = useState(false);
   const [nameMap, setNameMap] = useState({});
   const editLessonRedirect = props?.location.state?.redirect;
 
