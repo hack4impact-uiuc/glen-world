@@ -297,7 +297,7 @@ function CreateAssignment(props) {
               </div>
             )}
 
-            <div className="place_middle">
+            <div className="student-date-container">
               <Container>
                 <Row>
                   <Col>
@@ -309,7 +309,6 @@ function CreateAssignment(props) {
                       }
                     ></StudentSelector>
                   </Col>
-                  <Col xs={1}></Col>
                   <Col>
                     <DatePicker
                       handleChange={handleDatePickerChange}

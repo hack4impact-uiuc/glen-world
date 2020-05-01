@@ -7,12 +7,17 @@
 .assignment_creation {
   position: absolute;
 }
-.place_middle {
+.place_middle, .student-date-container {
   position: "absolute";
   left: "50%";
   top: "50%";
   transform: "translate(-50%, -50%)";
   position: relative;
+}
+.student-date-container {
+  height: 35vw;
+  // width: 70vw;
+  background-color: $assignments-lighter-gray;
 }
 .container {
   flex-direction: column-reverse;
