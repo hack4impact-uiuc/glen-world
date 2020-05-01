@@ -109,7 +109,9 @@ function Confirmation(props) {
         </div>
 
         <div className="cards-display-section">
-          <div className="lesson-name-display-header">{lesson.lessonNameValue}</div>
+          <div className="lesson-name-display-header">
+            {lesson.lessonNameValue}
+          </div>
           <CardsDisplay cards={lesson.cards} />
           {needRowSpace && <div className="cards-rowspace-placeholder"></div>}
           <Button
