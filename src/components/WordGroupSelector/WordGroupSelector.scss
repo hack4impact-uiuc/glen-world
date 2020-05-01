@@ -1,7 +1,7 @@
 @import "../../pages/Index/index.scss";
 
 .Background {
-  height: 120vh;
+  height: 75vh;
   max-width: 150vh;
   background-image: url("wordgroupbg.svg");
   background-position: 10%;
@@ -9,6 +9,7 @@
   background-color: #f5f5f5;
   overflow: auto;
   margin: auto;
+  margin-bottom: 10%;
 }
 
 .WordGroups {

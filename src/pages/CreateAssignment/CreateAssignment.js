@@ -258,21 +258,9 @@ function CreateAssignment(props) {
           handleWriting={handleWriting}
         />
         {(showWriting || showVocab || showPhonics) && (
-          <div className="place_middle">
-            <InputGroup className="name-assignment">
-              <InputGroup.Prepend>
-                <InputGroup.Text className="input-header">
-                  Lesson Name
-                </InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl
-                className="input"
-                placeholder={"Ex. Vocab"}
-                defaultValue={lessonName || ""}
-                onChange={e => handleLessonNameChange(e.target.value)}
-              />
-            </InputGroup>
+          <div>
             <br />
+            <div>
             {showPhonics && (
               <div>
                 <h1 className="header">Phonics</h1>
@@ -296,7 +284,22 @@ function CreateAssignment(props) {
                 />
               </div>
             )}
-
+            </div>
+            <div className = "lesson-name">
+            <InputGroup className="name-assignment">
+              <InputGroup.Prepend>
+                <InputGroup.Text className="input-header">
+                  Lesson Name
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                className="input"
+                placeholder={"Ex. Vocab"}
+                defaultValue={lessonName || ""}
+                onChange={e => handleLessonNameChange(e.target.value)}
+              />
+            </InputGroup>
+            </div>
             <div className="student-date-container">
               <Container>
                 <Row>
