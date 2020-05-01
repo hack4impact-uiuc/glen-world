@@ -231,7 +231,7 @@ function CreateAssignment(props) {
         to={{
           pathname: "/confirmation",
           state: {
-            deploymentIds: deploymentAccountIds,
+            deploymentAccountIds: deploymentAccountIds,
             selectedWords: words,
             lesson: lessonType,
             group: wordGroup,

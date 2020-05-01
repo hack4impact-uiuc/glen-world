@@ -12,14 +12,6 @@ import ConfirmationCard from "../../components/ConfirmationCard/ConfirmationCard
 function Confirmation(props) {
   const { firebase } = props;
   const lesson = props?.location.state;
-  const words = lesson.selectedWords;
-  const deploymentAccountIds = lesson.deploymentIds;
-  const lessonType = lesson.lesson;
-  const wordGroup = lesson.group;
-  const dates = lesson.dueDates;
-  const lessonCards = lesson.cards;
-  const lessonName = lesson.lessonNameValue;
-  const existingId = lesson.id;
   const [submitted, setSubmitted] = useState(false);
   const [editRedirect, setEditRedirect] = useState(false);
   const [handlePhonics, setPhonics] = useState(false);
@@ -28,23 +20,23 @@ function Confirmation(props) {
   const [needRowSpace, setNeedRowSpace] = useState(false);
 
   useEffect(() => {
-    if (lessonType === "A") setVocab(true);
-    else if (lessonType === "C") setPhonics(true);
-    else if (lessonType === "A3") setWords(true);
+    if (lesson.lesson === "A") setVocab(true);
+    else if (lesson.lesson === "C") setPhonics(true);
+    else if (lesson.lesson === "A3") setWords(true);
 
-    if (Object.keys(lessonCards).length <= 3) setNeedRowSpace(true);
+    if (Object.keys(lesson.cards).length <= 3) setNeedRowSpace(true);
   });
 
   function pushLesson() {
     firebase.setCustomLesson(
       ADMIN_ACCOUNT,
-      deploymentAccountIds,
-      lessonType,
-      wordGroup,
-      words,
-      dates,
-      lessonName,
-      existingId
+      lesson.deploymentAccountIds,
+      lesson.lesson,
+      lesson.group,
+      lesson.selectedWords,
+      lesson.dueDates,
+      lesson.lessonNameValue,
+      lesson.id
     );
     setSubmitted(true);
   }
@@ -60,13 +52,13 @@ function Confirmation(props) {
           pathname: "/createlesson",
           state: {
             existingAssignment: {
-              deploymentAccountIds: deploymentAccountIds,
-              words: words,
-              lessonTemplate: lessonType,
-              wordGroup: wordGroup,
-              dueDates: dates,
-              lessonName: lessonName,
-              id: existingId
+              deploymentAccountIds: lesson.deploymentAccountIds,
+              words: lesson.selectedWords,
+              lessonTemplate: lesson.lesson,
+              wordGroup: lesson.group,
+              dueDates: lesson.dueDates,
+              lessonName: lesson.lessonNameValue,
+              id: lesson.id
             }
           }
         }}
@@ -100,7 +92,7 @@ function Confirmation(props) {
             <div>
               <ConfirmationCard
                 title={"WORDS"}
-                lessonStudents={words}
+                lessonStudents={lesson.selectedWords}
                 confirmation={true}
               />
             </div>
@@ -109,7 +101,7 @@ function Confirmation(props) {
             <div>
               <ConfirmationCard
                 title={"WORD GROUPS"}
-                lessonStudents={words}
+                lessonStudents={lesson.selectedWords}
                 confirmation={true}
               />
             </div>
@@ -117,8 +109,8 @@ function Confirmation(props) {
         </div>
 
         <div className="cards-display-section">
-          <div className="lesson-name-display-header">{lessonName}</div>
-          <CardsDisplay cards={lessonCards} />
+          <div className="lesson-name-display-header">{lesson.lessonNameValue}</div>
+          <CardsDisplay cards={lesson.cards} />
           {needRowSpace && <div className="cards-rowspace-placeholder"></div>}
           <Button
             onClick={() => setEditRedirect(true)}
