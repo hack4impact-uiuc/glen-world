@@ -4,12 +4,8 @@
   color: white;
 }
 .react-calendar {
-  // width: 110%;
-  // max-width: 150%;
-  // height: 150%;
-  // max-height: 150%;
-  height: 28vw;
-  width: 32vw;
+  width: 110%;
+  height: 110%;
   background: $assignments-light-purple;
   border: 1px solid #e6e6e6;
   border-radius: 10px;
@@ -34,8 +30,7 @@
 .react-calendar__navigation {
   height: 2em;
   font-size: 200%;
-  color: #00d8a4;
-  background-color: $assignments-darker-color;
+  background-color:#e6e6e6;
   border-radius: 10px 10px 0px 0px;
 
   button {

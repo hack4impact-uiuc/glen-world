@@ -16,7 +16,6 @@ function DatePicker(props) {
         onClickDay={event => {
           onChange(event);
         }}
-        value={date}
         className="calendar"
         calendarType="US"
         minDetail="month"
