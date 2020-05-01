@@ -31,6 +31,7 @@ function CustomLessonsDisplay(props) {
     firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
       setAllLessons(lesson);
     });
+    // firebase.updateDeploymentAccountReferences();
   }, [editLessonRedirect]); // Updates lessons when redirected to page from CreateAssignment
 
   async function deploymentNameMap(lesson) {

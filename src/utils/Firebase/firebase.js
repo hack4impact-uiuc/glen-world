@@ -190,7 +190,6 @@ class Firebase {
 
   setCustomLesson = (
     adminAccountId,
-    deploymentAccountIds,
     lessonTemplate,
     wordGroup,
     words,
@@ -216,6 +215,14 @@ class Firebase {
             customLessonDoc.data()
           );
         }
+        // Get new lesson's assigned students
+        let deploymentAccountIds = new Set();
+        for (let assignedDeploymentIds of Object.values(dueDates)) {
+          assignedDeploymentIds.forEach(deploymentId =>
+            deploymentAccountIds.add(deploymentId)
+          );
+        }
+        deploymentAccountIds = Array.from(deploymentAccountIds);
 
         // Create or update lesson
         customLessonRef
@@ -235,51 +242,73 @@ class Firebase {
         let batch = this.db.batch();
 
         // Add/update deploymentAccount references to this custom lesson
-        for (const deploymentAccountId of deploymentAccountIds) {
-          let deploymentRef = this.db.doc(
-            `deployment_account/${deploymentAccountId}/`
-          );
+        let deploymentRefs = deploymentAccountIds.map(id =>
+          this.db.doc(`deployment_account/${id}/`)
+        );
 
-          deploymentRef.get().then(deploymentDoc => {
-            // Gets existing completed assignments
-            let completedDueDates = deploymentDoc.data().customLessons[
-              customLessonRef.id
-            ];
+        return Promise.all(deploymentRefs.map(ref => ref.get()))
+          .then(deploymentAccountDocs => {
+            for (let i = 0; i < deploymentRefs.length; i++) {
+              let deploymentRef = deploymentRefs[i];
+              let deploymentAccountDoc = deploymentAccountDocs[i];
 
-            // Initializes assignments to not completed if new student
-            if (!completedDueDates) {
-              dueDates.forEach(dueDate => {
-                completedDueDates[dueDate] = false;
-              });
+              // Gets existing completed assignments
+              let completedDueDates = deploymentAccountDoc.data().customLessons[
+                customLessonRef.id
+              ];
+
+              // Initializes assignments to not completed if new student
+              if (!completedDueDates) {
+                completedDueDates = {};
+                Object.keys(dueDates).forEach(dueDate => {
+                  if (dueDates[dueDate].includes(deploymentRef.id)) {
+                    completedDueDates[dueDate] = false;
+                  }
+                });
+
+                console.log(
+                  "new student: ",
+                  deploymentAccountDoc.data().username
+                );
+                console.log("due dates: ", completedDueDates);
+                batch.update(deploymentRef, {
+                  [`customLessons.${customLessonRef.id}`]: completedDueDates
+                });
+              }
             }
 
-            batch.update(deploymentRef, {
-              [`customLessons.${customLessonRef.id}`]: completedDueDates
-            });
-          });
-        }
-
-        // Remove custom lesson for non-assigned students
-        for (let deploymentAccountId of currentAssignedDeploymentIds) {
-          if (!deploymentAccountIds.includes(deploymentAccountId)) {
-            let deploymentRef = this.db.doc(
-              `deployment_account/${deploymentAccountId}/`
+            // Remove custom lesson for non-assigned students
+            console.log(
+              "currently assigned students: ",
+              currentAssignedDeploymentIds
             );
-            batch.update(deploymentRef, {
-              [`customLessons.${customLessonRef.id}`]: firebase.firestore.FieldValue.delete()
-            });
-          }
-        }
+            console.log("now assigned students: ", deploymentAccountIds);
+            for (let deploymentAccountId of currentAssignedDeploymentIds) {
+              if (!deploymentAccountIds.includes(deploymentAccountId)) {
+                let deploymentRef = this.db.doc(
+                  `deployment_account/${deploymentAccountId}/`
+                );
 
-        return batch
-          .commit()
-          .catch(error =>
-            console.error(
-              "Pushing custom lessons to deployments failed: ",
-              error
-            )
+                console.log(
+                  "non-assigned student removed: ",
+                  deploymentAccountId
+                );
+                batch.update(deploymentRef, {
+                  [`customLessons.${customLessonRef.id}`]: app.firestore.FieldValue.delete()
+                });
+              }
+            }
+          })
+          .then(() =>
+            batch
+              .commit()
+              .catch(error =>
+                console.error(
+                  "Pushing custom lessons to deployments failed: ",
+                  error
+                )
+              )
           );
-        // needs better promise rejection
       })
       .catch(error => console.error("Error getting custom lesson: ", error));
   };

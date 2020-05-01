@@ -227,7 +227,6 @@ function CreateAssignment(props) {
 
     firebase.setCustomLesson(
       ADMIN_ACCOUNT,
-      deploymentAccountIds,
       lessonType,
       wordGroup,
       words,
@@ -304,17 +303,11 @@ function CreateAssignment(props) {
                     <StudentList
                       deployments={adminDeployments}
                       handleChange={handleStudentListChange}
-                      assignedStudents={
-                        existingAssignment?.deploymentAccountIds
-                      }
                     />
                   </Col>
                   <Col xs={1}></Col>
                   <Col>
-                    <DatePicker
-                      handleChange={handleDatePickerChange}
-                      assignedDate={existingAssignment?.dueDate}
-                    />
+                    <DatePicker handleChange={handleDatePickerChange} />
                   </Col>
                 </Row>
               </Container>
