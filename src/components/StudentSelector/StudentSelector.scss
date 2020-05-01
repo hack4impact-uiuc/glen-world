@@ -1,0 +1,64 @@
+@import "../../pages/Index/index.scss";
+
+.student-selector {
+    height: 28vw;
+    width: 32vw;
+    background-color: white;
+    border-radius: 1em;
+}
+
+#deployment-ddown {
+    height: 2em;
+    width:32vw;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    background-color: $assignments-font-color;
+    color: white;
+    font-family: $assignments-roboto-font;
+    font-weight: bold;
+    font-size: 1.5em;
+    transition-duration: 0.3s;
+    &:hover {
+    background-color: white;
+    color: $assignments-font-color;
+    }
+}
+.option-ddown {
+    height: 1.7em;
+    width:32vw;
+    padding-left: 1em;
+    font-family: $assignments-roboto-font;
+    font-weight: bold;
+    font-size: 1.3em;
+    &:hover {
+        background-color: #f5f5f5;
+    }
+}
+.select-all-checkbox {
+    margin-top: 3%;
+    margin-left: 65%;
+}
+.select-all-label {
+    color: $assignments-font-color;
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 3%;
+}
+
+.select-all-margins {
+    margin: auto;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.accounts-list {
+    max-height: 20vw;
+    margin: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.student-name-label {
+    margin-left: 1em;
+    margin-top: 2%;
+    font-weight: bold;
+    color: $assignments-font-color;
+}
