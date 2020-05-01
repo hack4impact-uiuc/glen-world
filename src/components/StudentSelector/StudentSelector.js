@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { DropdownButton, Dropdown } from "react-bootstrap";
-import { Button, Row, Col } from "react-bootstrap";
+import React, { useState } from "react";
+import { DropdownButton, DropdownItem } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import { withFirebase } from "utils/Firebase";
 import "./StudentSelector.scss";
 
@@ -14,13 +14,12 @@ function StudentSelector(props) {
   );
   let deployments = props.deployments;
 
-  function nameSelector(deploymentAccountId) {
+  function NameSelector(deploymentAccountId) {
     return (
       <div className="select-all-margins">
         <Row>
           <div>
             <input
-              class="move-down"
               id="cbox"
               type="checkbox"
               checked={studentsChecked.indexOf(deploymentAccountId) !== -1}
@@ -51,15 +50,11 @@ function StudentSelector(props) {
     const setChecked = Array.from(new Set(newChecked));
     setStudentsChecked(setChecked);
     props.handleChange(setChecked);
-    console.log(setChecked);
   }
 
   function handleClickSelectAll(deployment) {
     let index = deployments.indexOf(currentDeployment);
-    let deploymentAccounts = [];
-    let selectAll = false;
     let newChecked = [...studentsChecked];
-    let indexes = [];
     Object.keys(deployment.deploymentAccounts).map(deploymentAccountId => {
       if (!chooseAll[index]) {
         newChecked.push(deploymentAccountId);
@@ -74,31 +69,29 @@ function StudentSelector(props) {
     const setChecked = Array.from(new Set(newChecked));
     setStudentsChecked(setChecked);
     props.handleChange(setChecked);
-    console.log(setChecked);
 
     let newChooseAll = [...chooseAll];
     newChooseAll[index] = !newChooseAll[index];
     setChooseAll(newChooseAll);
   }
-  //the key in the DropdownButton is hacky fix to the issue that the dropdown menu doesnt close upon selection
+
   return (
     <div className="student-selector">
       <DropdownButton
-        key={new Date().getTime()}
-        id="depoyment-ddown"
+        id="deployment-ddown"
         title={
           (currentDeployment &&
             "Class " + (deployments.indexOf(currentDeployment) + 1)) ||
-          "Class:"
+          "Select a Class"
         }
       >
         {deployments.map((deployment, index) => (
-          <Dropdown
+          <DropdownItem
             className="option-ddown"
             onClick={() => setCurrentDeployment(deployment)}
           >
             {"Class " + (index + 1)}
-          </Dropdown>
+          </DropdownItem>
         ))}
       </DropdownButton>
       {currentDeployment && (
@@ -110,7 +103,6 @@ function StudentSelector(props) {
               </div>
               <div>
                 <input
-                  class="move-down"
                   id="cbox"
                   type="checkbox"
                   checked={chooseAll[deployments.indexOf(currentDeployment)]}
@@ -121,7 +113,7 @@ function StudentSelector(props) {
           </div>
           <div className="accounts-list">
             {Object.keys(currentDeployment.deploymentAccounts).map(
-              deploymentAccountId => nameSelector(deploymentAccountId)
+              deploymentAccountId => NameSelector(deploymentAccountId)
             )}
           </div>
         </div>

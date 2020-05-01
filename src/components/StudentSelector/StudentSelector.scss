@@ -7,7 +7,7 @@
     border-radius: 1em;
 }
 
-#depoyment-ddown {
+#deployment-ddown {
     height: 2em;
     width:32vw;
     border-top-left-radius: 1em;
@@ -24,11 +24,12 @@
     }
 }
 .option-ddown {
-    height: 1.5em;
+    height: 1.7em;
     width:32vw;
+    padding-left: 1em;
     font-family: $assignments-roboto-font;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 1.3em;
     &:hover {
         background-color: #f5f5f5;
     }
