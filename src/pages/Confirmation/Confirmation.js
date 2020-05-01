@@ -25,16 +25,14 @@ function Confirmation(props) {
   const [handlePhonics, setPhonics] = useState(false);
   const [handleWords, setWords] = useState(false);
   const [handleVocab, setVocab] = useState(false);
-  const [dontLookHere, setDontLookHere] = useState(false);
+  const [needRowSpace, setNeedRowSpace] = useState(false);
 
   useEffect(() => {
     if (lessonType === "A") setVocab(true);
     else if (lessonType === "C") setPhonics(true);
     else if (lessonType === "A3") setWords(true);
 
-    //shhhh you dont see this @daddy
-    if(Object.keys(lessonCards).length <= 3)
-      setDontLookHere(true);
+    if (Object.keys(lessonCards).length <= 3) setNeedRowSpace(true);
   });
 
   function pushLesson() {
@@ -120,22 +118,17 @@ function Confirmation(props) {
 
         <div className="cards-display-section">
           <div className="lesson-name-display-header">{lessonName}</div>
-          <CardsDisplay cards={lessonCards}/>
-          {(dontLookHere) && (
-          <div className="super-secret-padding"></div>
-          )}
-            <Button
-              onClick={() => setEditRedirect(true)}
-              className="edit-button-confirm-page"
-            >
-              Edit
-            </Button>
-            <Button
-              onClick={pushLesson}
-              className="confirm-button-confirm-page"
-            >
-              Confirm
-            </Button>
+          <CardsDisplay cards={lessonCards} />
+          {needRowSpace && <div className="cards-rowspace-placeholder"></div>}
+          <Button
+            onClick={() => setEditRedirect(true)}
+            className="edit-button-confirm-page"
+          >
+            Edit
+          </Button>
+          <Button onClick={pushLesson} className="confirm-button-confirm-page">
+            Confirm
+          </Button>
         </div>
       </div>
     </div>
