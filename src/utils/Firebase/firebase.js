@@ -257,24 +257,31 @@ class Firebase {
                 customLessonRef.id
               ];
 
-              // Initializes assignments to not completed if new student
-              if (!completedDueDates) {
+              if (completedDueDates) {
+                // Updates existing assignments if assignments are deleted or added
+                let currentCompletedDueDates = completedDueDates;
+                completedDueDates = {};
+                Object.keys(dueDates).forEach(dueDate => {
+                  if (dueDates[dueDate].includes(deploymentRef.id)) {
+                    let completionStatus = currentCompletedDueDates[dueDate]
+                      ? currentCompletedDueDates[dueDate]
+                      : false;
+                    completedDueDates[dueDate] = completionStatus;
+                  }
+                });
+              } else {
+                // Initializes assignments to not completed if new student
                 completedDueDates = {};
                 Object.keys(dueDates).forEach(dueDate => {
                   if (dueDates[dueDate].includes(deploymentRef.id)) {
                     completedDueDates[dueDate] = false;
                   }
                 });
-
-                console.log(
-                  "new student: ",
-                  deploymentAccountDoc.data().username
-                );
-                console.log("due dates: ", completedDueDates);
-                batch.update(deploymentRef, {
-                  [`customLessons.${customLessonRef.id}`]: completedDueDates
-                });
               }
+
+              batch.update(deploymentRef, {
+                [`customLessons.${customLessonRef.id}`]: completedDueDates
+              });
             }
 
             // Remove custom lesson for non-assigned students
