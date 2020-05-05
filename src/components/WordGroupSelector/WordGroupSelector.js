@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { collectedWordGroupsService } from "util/GWUtil/resource";
 import "./WordGroupSelector.scss";
+import { Button, Row, Col } from "react-bootstrap";
 import WordGroupIcon from "../WordGroupIcon/WordGroupIcon";
 import WordSelector from "../WordSelector/WordSelector";
 
@@ -133,9 +134,10 @@ function WordGroupSelector(props) {
   }
 
   return (
-    <div className="Background">
-      <div className="WordGroups">
+    <div className="background">
+      <div className="word-groups-display">
         {Object.keys(wordGroups).map((key, index) => (
+          <Col>
           <div onClick={() => handleClick(wordGroups[key][0], key, index)}>
             <WordGroupIcon
               name={key}
@@ -143,9 +145,10 @@ function WordGroupSelector(props) {
               colored={cardColored[index]}
             />
           </div>
+          </Col>
         ))}
       </div>
-      <div className="SelectWords">
+      <div>
         {selectMode && (
           <WordSelector
             group={clickedGroup}

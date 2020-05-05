@@ -14,11 +14,6 @@
   transform: "translate(-50%, -50%)";
   position: relative;
 }
-.student-date-container {
-  min-height: 35vw;
-  // width: 70vw;
-  background-color: $assignments-lighter-gray;
-}
 .container {
   flex-direction: column-reverse;
 }
@@ -60,11 +55,9 @@
   font-family: $assignments-roboto-font;
   font-weight: bold;
 }
-
 .spacing {
   padding: 3em;
 }
-
 .lesson-name {
   margin-bottom:5%;
 }

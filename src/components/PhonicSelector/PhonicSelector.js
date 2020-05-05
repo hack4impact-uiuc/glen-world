@@ -48,7 +48,7 @@ function PhonicSelector(props) {
 
   return (
     <div className="PhonicBackground">
-      <div className="WordGroups">
+      <div className="word-groups-display">
         {Object.keys(phonicGroups).map((key, index) => (
           <div>
             <ReactCardFlip isFlipped={flipCard[index]} flipDirection="vertical">
