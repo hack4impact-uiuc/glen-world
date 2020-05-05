@@ -285,21 +285,12 @@ class Firebase {
             }
 
             // Remove custom lesson for non-assigned students
-            console.log(
-              "currently assigned students: ",
-              currentAssignedDeploymentIds
-            );
-            console.log("now assigned students: ", deploymentAccountIds);
             for (let deploymentAccountId of currentAssignedDeploymentIds) {
               if (!deploymentAccountIds.includes(deploymentAccountId)) {
                 let deploymentRef = this.db.doc(
                   `deployment_account/${deploymentAccountId}/`
                 );
 
-                console.log(
-                  "non-assigned student removed: ",
-                  deploymentAccountId
-                );
                 batch.update(deploymentRef, {
                   [`customLessons.${customLessonRef.id}`]: app.firestore.FieldValue.delete()
                 });
