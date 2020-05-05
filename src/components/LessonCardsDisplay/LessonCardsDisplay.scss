@@ -4,28 +4,39 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  overflow: scroll;
-  width: 80vw;
-  height: 20vw;
+  width: 90vw;
+  height: 22vw;
   border-radius: 20px;
   margin: auto;
   margin-top: 2vw;
   margin-bottom: 2vw;
   padding-bottom: 1vw;
   background-color: $assignments-darker-color;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .DefaultCard {
-  display: flex;
-  flex-wrap: wrap;
-  overflow: scroll;
-  height: 15vw;
-  width: 10vw;
-  border-radius: 20px;
-  margin: 2vw;
+//   display: flex;
+//   flex-wrap: wrap;
+//   overflow: scroll;
+//   height: 15vw;
+//   width: 10vw;
+//   border-radius: 20px;
+//   margin: 2vw;
+//   margin-right: auto;
+//   background-color: $assignments-background-color;
+//   color: $assignments-font-color;
+//   font-family: $assignments-roboto-font;
+//   font-size: 1.2em;
+  height: 19vw;
+  width: 14vw;
+  border-radius: 1em;
+  background-color: $assignments-light-purple;
+  display:inline-block;
+  margin-left:0em;
+  margin-top: 1em;
+  overflow: hidden;
+
   margin-right: auto;
-  background-color: $assignments-background-color;
-  color: $assignments-font-color;
-  font-family: $assignments-roboto-font;
-  font-size: 1.2em;
 }
