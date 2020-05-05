@@ -100,8 +100,8 @@ class Firebase {
       .doc(`deployment_account/${deploymentAccountId}/`)
       .get()
       .then(deploymentAccountDoc => {
-        const customLessonIds = deploymentAccountDoc.get("customLessons");
-        const customLessonRefs = Object.keys(customLessonIds).map(id =>
+        const customLessonsField = deploymentAccountDoc.get("customLessons");
+        const customLessonRefs = Object.keys(customLessonsField).map(id =>
           this.db.doc(`custom_lesson/${id}`).get()
         );
 
