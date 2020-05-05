@@ -1,49 +1,70 @@
 @import "../../pages/Index/index.scss";
+@import "../LessonInfoDisplay/LessonInfoDisplay.scss";
 
-.LessonCard {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  overflow: scroll;
-  height: 15vw;
-  width: 12vw;
-  border-radius: 20px;
-  margin: 2vw;
-  margin-bottom: 0vw;
-  background-color: $assignments-background-color;
-  color: $assignments-font-color;
-  font-family: $assignments-roboto-font;
-  font-size: 1.2em;
-}
+// .LessonCard {
+//   display: flex;
+//   flex-wrap: wrap;
+//   flex-direction: row;
+//   overflow: scroll;
+//   height: 15vw;
+//   width: 12vw;
+//   border-radius: 20px;
+//   margin: 2vw;
+//   margin-bottom: 0vw;
+//   background-color: $assignments-background-color;
+//   color: $assignments-font-color;
+//   font-family: $assignments-roboto-font;
+//   font-size: 1.2em;
+// }
 
-.LessonCardHeading {
-  display: flex;
-  flex-wrap: wrap;
-  height: 4vw;
-  width: 12vw;
-  top: 1vw;
-  background-color: $assignments-light-purple;
-  font-family: $assignments-roboto-font;
-}
+// .LessonCardHeading {
+//   display: flex;
+//   flex-wrap: wrap;
+//   height: 4vw;
+//   width: 12vw;
+//   top: 1vw;
+//   background-color: $assignments-light-purple;
+//   font-family: $assignments-roboto-font;
+// }
 
 .DeleteLessonCard {
-  margin-top: 0.5vw;
-  margin-right: 0.75vw;
+  margin-top: .5vw;
+  margin-right: 0vw;
+  margin-left: 2em;
 }
 
-.LessonCardDate {
-  margin: auto;
-}
+// .LessonCardDate {
+//   margin: auto;
+// }
 
-.LessonCardContent {
-  display: flex;
-  flex-direction: column;
-  overflow: scroll;
-  height: 11vw;
-  width: 12vw;
-}
+// .LessonCardContent {
+//   display: flex;
+//   flex-direction: column;
+//   overflow: scroll;
+//   height: 11vw;
+//   width: 12vw;
+// }
 
-.LessonCardStudent {
+// .LessonCardStudent {
+//   font-family: $assignments-roboto-font;
+//   color: $assignments-font-color;
+// }
+
+.date-delete-header {
+  justify-content: center;
+}
+.date{
   font-family: $assignments-roboto-font;
+  font-weight: bold;
+  font-size: 1.5em;
   color: $assignments-font-color;
+  margin-top: 2%;
+}
+.name {
+  font-family: $assignments-roboto-font;
+  font-weight: bold;
+  font-size: 1.5em;
+  color: $assignments-font-color;
+  height: 1.5em;
+  overflow: hidden;
 }

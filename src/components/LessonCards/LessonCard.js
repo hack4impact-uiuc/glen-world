@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Col, Row, Container } from "reactstrap";
 import "./LessonCard.scss";
 
 function LessonCard(props) {
@@ -9,21 +10,27 @@ function LessonCard(props) {
     let dateString = dateComponents[1] + "  " + dateComponents[2];
     setCardDate(dateString);
   });
-
+  /**
+   * Still can't see the delete button for some reason
+   * Also why are the words not bolded??
+   */
   return (
-    <div className="LessonCard">
-      <div className="LessonCardHeading">
-        <div className="LessonCardDate">{cardDate}</div>
+    <div className="student-date-card">
+      <div className="purple-box">
+        <Row className = "date-delete-header">
+        <div className="date">{cardDate}       
+        </div>
         <div
           onClick={() => props.deleteCard(props.lessonDate)}
           className="DeleteLessonCard"
         >
           <img src="images/icons/remove-card.svg" alt="Close" />
         </div>
+        </Row>
       </div>
-      <div className="LessonCardContent">
+      <div className="student-container">
         {props.lessonStudents.map((student, index) => (
-          <div key={index} className="LessonCardStudent">
+          <div key={index} className="name">
             {student}
           </div>
         ))}
