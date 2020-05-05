@@ -5,31 +5,30 @@ import LessonCard from "../LessonCards/LessonCard";
 
 function LessonCardsDisplay(props) {
   return (
-    <div className="LessonCardsDisplay">
-      <Row>
-      <Col>
+    <div className="lesson-cards-display">
+      {/* <Col> */}
       <div onClick={props.addCard}>
-        <div className="DefaultCard">
-          Click to assign students to a selected date!
+        <div className="default-card">
+          {/* Click to assign students to a selected date! */}
+          <img className = "plus-icon" src="images/icons/plus-icon.svg" alt="Close" />
         </div>
       </div>
-      </Col>
+      {/* </Col > */}
       {Object.keys(props.cards).length > 0 &&
         Object.keys(props.cards)
           .reverse()
           .map(date => {
             const dateTemp = date;
             return (
-              <Col>
+              <div className = "card-margins"> 
               <LessonCard
                 lessonDate={dateTemp}
                 lessonStudents={props.cards[date][1]}
                 deleteCard={props.removeCard}
               />
-              </Col>
+              </div>
             );
           })}
-      </Row>
     </div>
   );
 }

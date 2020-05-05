@@ -1,6 +1,6 @@
 @import "../../pages/Index/index.scss";
 
-.LessonCardsDisplay {
+.lesson-cards-display {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -14,21 +14,10 @@
   background-color: $assignments-darker-color;
   overflow-y: scroll;
   overflow-x: hidden;
+  justify-content: flex-start;
 }
 
-.DefaultCard {
-//   display: flex;
-//   flex-wrap: wrap;
-//   overflow: scroll;
-//   height: 15vw;
-//   width: 10vw;
-//   border-radius: 20px;
-//   margin: 2vw;
-//   margin-right: auto;
-//   background-color: $assignments-background-color;
-//   color: $assignments-font-color;
-//   font-family: $assignments-roboto-font;
-//   font-size: 1.2em;
+.default-card {
   height: 19vw;
   width: 14vw;
   border-radius: 1em;
@@ -37,6 +26,23 @@
   margin-left:0em;
   margin-top: 1em;
   overflow: hidden;
-
   margin-right: auto;
+  position: relative;
+}
+
+.plus-icon {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.card-margins, .default-card{
+  margin-left: 3em;
 }
