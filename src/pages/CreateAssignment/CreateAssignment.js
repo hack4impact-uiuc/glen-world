@@ -8,7 +8,7 @@ import { Button } from "reactstrap";
 import { getDeploymentAccountIdsFromLesson } from "utils/Lesson";
 import { ADMIN_ACCOUNT } from "utils/constants.js";
 import { withFirebase } from "utils/Firebase";
-import StudentList from "components/StudentList/StudentList";
+import StudentSelector from "components/StudentSelector/StudentSelector";
 import DatePicker from "components/DatePicker/DatePicker.js";
 import WordGroupSelector from "../../components/WordGroupSelector/WordGroupSelector";
 import SectionSelector from "../../components/SectionSelector/SectionSelector";
@@ -44,6 +44,7 @@ function CreateAssignment(props) {
       });
 
     if (existingAssignment) prePopulateAssignment(existingAssignment);
+
     let originalDate = new Date();
     // Set time on current date to 0 to allow for edge case where teacher wants to include today in lesson dates.
     originalDate.setHours(0, 0, 0, 0);
@@ -191,11 +192,11 @@ function CreateAssignment(props) {
     if (!lessonName) {
       // set default name if no lesson name
       setLessonName(defaultName);
-
+      setSubmitted(true);
       // react sets state asynchronously so lessonName doesn't actually update until rerender
-      pushLesson(defaultName);
     } else {
-      pushLesson(lessonName);
+      setLessonName(lessonName);
+      setSubmitted(true);
     }
   }
   function validateAssignment() {
@@ -218,7 +219,8 @@ function CreateAssignment(props) {
       verifyNameAndPush();
     }
   }
-  const pushLesson = lessonNameValue => {
+
+  if (submitted) {
     var dates = {};
     const lessonKeys = Object.keys(lessonCards);
     for (const key of lessonKeys) {
@@ -234,15 +236,22 @@ function CreateAssignment(props) {
       lessonNameValue,
       existingAssignment?.id
     );
-    setSubmitted(true);
-  };
 
-  if (submitted) {
     return (
       <Redirect
         to={{
-          pathname: "/",
-          state: { redirect: true }
+          pathname: "/confirmation",
+          state: {
+            deploymentAccountIds: deploymentAccountIds,
+            selectedWords: words,
+            lesson: lessonType,
+            group: wordGroup,
+            dueDates: dates,
+            deployments: adminDeployments,
+            lessonNameValue: lessonName,
+            cards: lessonCards,
+            id: existingAssignment?.id
+          }
         }}
       />
     );
@@ -300,7 +309,7 @@ function CreateAssignment(props) {
               <Container>
                 <Row>
                   <Col>
-                    <StudentList
+                    <StudentSelector
                       deployments={adminDeployments}
                       handleChange={handleStudentListChange}
                     />

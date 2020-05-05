@@ -14,12 +14,14 @@ function LessonCard(props) {
     <div className="LessonCard">
       <div className="LessonCardHeading">
         <div className="LessonCardDate">{cardDate}</div>
-        <div
-          onClick={() => props.deleteCard(props.lessonDate)}
-          className="DeleteLessonCard"
-        >
-          <img src="images/icons/remove-card.svg" alt="Close" />
-        </div>
+        {props.deleteCard && (
+          <div
+            onClick={() => props.deleteCard(props.lessonDate)}
+            className="DeleteLessonCard"
+          >
+            <img src="images/icons/remove-card.svg" alt="Close" />
+          </div>
+        )}
       </div>
       <div className="LessonCardContent">
         {props.lessonStudents.map((student, index) => (

@@ -7,7 +7,7 @@ function LessonCardsDisplay(props) {
     <div className="LessonCardsDisplay">
       <div onClick={props.addCard}>
         <div className="DefaultCard">
-          Click to assign students to a selected date!
+          Click to assign students to a selected start date!
         </div>
       </div>
       {Object.keys(props.cards).length > 0 &&

@@ -1,50 +1,48 @@
 @import "../../pages/Index/index.scss";
 
-.LessonCard {
+.confirmation-card {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   overflow: hidden;
-  height: 15vw;
-  width: 12vw;
-  border-radius: 20px;
+  height: 22.5vw;
+  width: 18vw;
+  border-radius: 30px;
   margin: 2vw;
   margin-bottom: 0vw;
   background-color: $assignments-background-color;
   color: $assignments-font-color;
   font-family: $assignments-roboto-font;
-  font-size: 1.2em;
+  font-style: bold;
 }
 
-.LessonCardHeading {
+.confirmation-card-heading {
   display: flex;
   flex-wrap: wrap;
-  height: 4vw;
-  width: 12vw;
-  top: 1vw;
+  height: 6vw;
+  width: 18vw;
+  top: 1.5vw;
+  font-size: 3em;
   background-color: $assignments-light-purple;
   font-family: $assignments-roboto-font;
 }
 
-.DeleteLessonCard {
-  margin-top: 0.5vw;
-  margin-right: 0.75vw;
-}
-
-.LessonCardDate {
+.confirmation-card-date {
   margin: auto;
 }
 
-.LessonCardContent {
+.confirmation-card-content {
   display: flex;
   flex-direction: column;
   overflow: scroll;
-  overflow-x:hidden;
-  height: 11vw;
-  width: 12vw;
+  overflow-x: hidden;
+  height: 16.5vw;
+  width: 18vw;
+  font-size: 1.2em;
+  text-align:center;
 }
 
-.LessonCardStudent {
+.confirmation-card-student {
   font-family: $assignments-roboto-font;
   color: $assignments-font-color;
 }

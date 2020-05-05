@@ -7,7 +7,7 @@
   color: white;
   margin: auto;
 }
-.cards-display {
+.card-display {
   font-family: $assignments-roboto-font;
   min-height: 30vw;
   flex-wrap: wrap;
@@ -50,7 +50,7 @@
   text-transform: lowercase;
   font-family: $assignments-roboto-font;
   font-size: 1em;
-  &hover {
+  &:hover {
     background-color: #f5f5f5;
   }
   &:focus {

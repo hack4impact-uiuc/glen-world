@@ -5,7 +5,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   overflow: scroll;
-  width: 80vw;
+  width: 85vw;
   height: 20vw;
   border-radius: 20px;
   margin: auto;
@@ -18,12 +18,13 @@
 .DefaultCard {
   display: flex;
   flex-wrap: wrap;
-  overflow: scroll;
+  flex-direction: row;
+  overflow: hidden;
   height: 15vw;
-  width: 10vw;
+  width: 12vw;
   border-radius: 20px;
   margin: 2vw;
-  margin-right: auto;
+  margin-bottom: 0vw;
   background-color: $assignments-background-color;
   color: $assignments-font-color;
   font-family: $assignments-roboto-font;
