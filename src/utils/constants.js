@@ -22,5 +22,13 @@ export const TEMPLATE_WORD_GROUPS = {
   animals3_insects_pd: "Animals 3"
 };
 
+// Firebase constants
+export const DB = {
+  CUSTOM_LESSONS_COL: "custom_lesson",
+  CUSTOM_LESSONS_FIELD: "customLessons",
+  DEPLOYMENT_ACCOUNTS_COL: "deployment_account",
+  ADMIN_ACCOUNT_COL: "admin_account"
+};
+
 // the hardcoded account that we're using instead of auth
 export const ADMIN_ACCOUNT = "AxtySwFjYwR0uEsyP3Ds9nO22CY2";

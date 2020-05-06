@@ -227,16 +227,6 @@ function CreateAssignment(props) {
       dates[key] = lessonCards[key][0];
     }
 
-    firebase.setCustomLesson(
-      ADMIN_ACCOUNT,
-      lessonType,
-      wordGroup,
-      words,
-      dates,
-      lessonNameValue,
-      existingAssignment?.id
-    );
-
     return (
       <Redirect
         to={{
