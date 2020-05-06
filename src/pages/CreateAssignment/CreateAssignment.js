@@ -232,7 +232,6 @@ function CreateAssignment(props) {
         to={{
           pathname: "/confirmation",
           state: {
-            deploymentAccountIds: deploymentAccountIds,
             selectedWords: words,
             lesson: lessonType,
             group: wordGroup,
@@ -246,6 +245,7 @@ function CreateAssignment(props) {
       />
     );
   }
+
   return (
     <>
       <div className="create-assignment">

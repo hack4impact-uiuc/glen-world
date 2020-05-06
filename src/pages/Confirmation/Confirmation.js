@@ -30,7 +30,6 @@ function Confirmation(props) {
   function pushLesson() {
     firebase.setCustomLesson(
       ADMIN_ACCOUNT,
-      lesson.deploymentAccountIds,
       lesson.lesson,
       lesson.group,
       lesson.selectedWords,

@@ -257,14 +257,14 @@ class Firebase {
 
               // Gets existing completed assignments
               let currentCompletedDueDates = deploymentAccountDoc.data()
-                .customLessons[customLessonRef.id];
+                .customLessons?.[customLessonRef.id];
 
               // Initializes/updates assignments
               let completedDueDates = {};
               Object.keys(dueDates).forEach(dueDate => {
                 if (dueDates[dueDate].includes(deploymentRef.id)) {
                   completedDueDates[dueDate] = Boolean(
-                    currentCompletedDueDates[dueDate]
+                    currentCompletedDueDates?.[dueDate]
                   );
                 }
               });
