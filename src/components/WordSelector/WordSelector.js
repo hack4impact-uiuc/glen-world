@@ -70,7 +70,6 @@ function WordSelector(props) {
   }
   function wordSelection(word, index) {
     return (
-      <Col sm="4">
         <div className="words" key={index}>
           <label class="container">
             <input
@@ -83,7 +82,6 @@ function WordSelector(props) {
             <div className="word">{word}</div>
           </label>
         </div>
-      </Col>
     );
   }
 
@@ -94,7 +92,7 @@ function WordSelector(props) {
           <Col sm="8">
             <div className="GroupTitle">{props.name}</div>
           </Col>
-          <Col sm="4">
+          <Col sm="3">
             <div className="SelectCheckbox">
               <label class="container">
                 <input
@@ -115,7 +113,7 @@ function WordSelector(props) {
         <div className="WordDisplay">
           {props.group.map((word, index) => wordSelection(word, index))}
         </div>
-        <div className="Padding">
+        <div className="padding">
           <Button
             disabled={disableNext()}
             onClick={handleSelect}

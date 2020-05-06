@@ -263,7 +263,7 @@ function CreateAssignment(props) {
             <div>
             {showPhonics && (
               <div>
-                <h1 className="header">Phonics</h1>
+                <h1 className="header">PHONICS</h1>
                 <PhonicSelector
                   handlePhonicsChange={handleWordSelectorChange}
                   handleGroupChange={handleWordGroupChange}
@@ -273,8 +273,8 @@ function CreateAssignment(props) {
             )}
             {(showWriting || showVocab) && (
               <div>
-                {(showWriting && <h1 className="header">Writing</h1>) || (
-                  <h1 className="header">Words</h1>
+                {(showWriting && <h1 className="header">WRITING</h1>) || (
+                  <h1 className="header">WORDS</h1>
                 )}
                 <WordGroupSelector
                   handleChange={handleWordSelectorChange}

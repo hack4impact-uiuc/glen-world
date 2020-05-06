@@ -16,12 +16,12 @@ const useStyles = makeStyles(theme => ({
     width: "300px",
     height: "300px",
     top: "28px",
-    background: "#b1b0ff",
+    backgroundColor: "#FFFFFF",
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
     borderRadius: "15%",
     borderColor: "#FFFFFF",
     "&:hover": {
-      backgroundColor: "#b1b0ff",
+      backgroundColor: "#FFFFFF",
       borderColor: "#FFFFFF"
     },
     "&:focus": {
@@ -38,12 +38,12 @@ const useStyles = makeStyles(theme => ({
     width: "300px",
     height: "300px",
     top: "28px",
-    background: "#f5f5f5",
+    background: "#b1b0ff",
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
     borderRadius: "15%",
     borderColor: "#000000",
     "&:hover": {
-      backgroundColor: "#f5f5f5",
+      backgroundColor: "#b1b0ff",
       borderColor: "#FFFFFF"
     },
     "&:focus": {

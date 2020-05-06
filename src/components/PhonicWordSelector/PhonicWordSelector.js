@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "reactstrap";
-import "../WordSelector/WordSelector.scss";
+import "../PhonicWordSelector/PhonicWordSelector.scss"
 import "../PhonicIcon/PhonicIcon.scss";
 function PhonicWordSelector(props) {
   function handleSelect() {
@@ -11,9 +11,9 @@ function PhonicWordSelector(props) {
     <div className="PhonicIcon">
       <div className="PhonicIconBorder">
         <div className="PhonicGroupTitle">{props.name}</div>
-        <div>
+        <div className = "words-list">
           {props.data.words.map(word => (
-            <div className="words">{word}</div>
+            <div className="phonics-words">{word}</div>
           ))}
         </div>
         <div>

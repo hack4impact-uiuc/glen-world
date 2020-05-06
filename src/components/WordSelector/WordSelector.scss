@@ -2,17 +2,17 @@
 
 .WordSelector {
   background-color: white;
-  width: 40vw;
+  width: 35vw;
   padding: 20px;
   border-radius: 1em;
   position: fixed;
-  left: 30%;
+  left: 32%;
   top: 20%;
   margin: auto;
   margin-top: 8em;
   border: 5px solid #e6e6e6;
   z-index: 1;
-  overflow: scroll;
+  overflow-x: hidden;
 }
 
 .GroupTitle {
@@ -21,10 +21,6 @@
   font-size: 30pt;
   text-align: left;
   color: #b1b0ff;
-  padding-bottom: 0;
-  padding-top: 0;
-  margin-right: 40%;
-  margin-top: 0%;
   overflow: visible;
 }
 
@@ -39,6 +35,7 @@
   max-height: 35vw;
   flex-wrap: wrap;
   flex-direction: row;
+  justify-content: flex-start;
 }
 
 .words, .SelectCheckbox {
@@ -47,6 +44,9 @@
   font-size: 20px;
   color: $assignments-font-color;
   text-transform: capitalize;
+  min-width: 11vw;
+  margin-right: 2em;
+  overflow: visible;
 }
 
 .SelectCheckbox {
@@ -74,11 +74,10 @@ input[type='checkbox']:checked {
   width: 7vw;
   font-weight: bold;
   position: absolute;
-  left: 1.5em;
   bottom: 0.5em;
   border-radius: 1em;
 }
-.Padding {
+.padding {
   padding-top: 2em;
 }
 
