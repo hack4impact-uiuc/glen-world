@@ -3,7 +3,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/functions";
 import { getDeploymentAccountIdsFromLesson } from "utils/Lesson";
-import { DB } from "../constants";
+import { FIREBASE_DB } from "../constants";
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -36,7 +36,7 @@ class Firebase {
   // Gets the most recent lesson that a student has completed
   getLastMasteredLesson = deploymentAccountId =>
     this.db
-      .doc(`${DB.DEPLOYMENT_ACCOUNTS_COL}/${deploymentAccountId}/`)
+      .doc(`${FIREBASE_DB.DEPLOYMENT_ACCOUNTS_COL}/${deploymentAccountId}/`)
       .get()
       .then(deploymentAccountDoc => {
         const lastMasteredLesson = deploymentAccountDoc.get(
@@ -55,7 +55,7 @@ class Firebase {
   // Gets custom lessons made by admin
   getAdminCustomLessons = adminAccountId =>
     this.db
-      .collection(DB.CUSTOM_LESSONS_COL)
+      .collection(FIREBASE_DB.CUSTOM_LESSONS_COL)
       .where("adminAccountId", "==", adminAccountId)
       .get()
       .then(lessonQuerySnapshot => {
@@ -80,7 +80,7 @@ class Firebase {
 
   getDeploymentAccountInformation = deploymentAccountId =>
     this.db
-      .doc(`${DB.DEPLOYMENT_ACCOUNTS_COL}/${deploymentAccountId}/`)
+      .doc(`${FIREBASE_DB.DEPLOYMENT_ACCOUNTS_COL}/${deploymentAccountId}/`)
       .get()
       .then(deploymentAccountDoc => {
         const deploymentAccountData = deploymentAccountDoc.data();
@@ -98,14 +98,14 @@ class Firebase {
   // Get student's assigned custom lessons
   getDeploymentAccountCustomLessons = deploymentAccountId =>
     this.db
-      .doc(`${DB.DEPLOYMENT_ACCOUNTS_COL}/${deploymentAccountId}/`)
+      .doc(`${FIREBASE_DB.DEPLOYMENT_ACCOUNTS_COL}/${deploymentAccountId}/`)
       .get()
       .then(deploymentAccountDoc => {
         const customLessonsField = deploymentAccountDoc.get(
-          DB.CUSTOM_LESSONS_FIELD
+          FIREBASE_DB.CUSTOM_LESSONS_FIELD
         );
         const customLessonRefs = Object.keys(customLessonsField).map(id =>
-          this.db.doc(`${DB.CUSTOM_LESSONS_COL}/${id}`).get()
+          this.db.doc(`${FIREBASE_DB.CUSTOM_LESSONS_COL}/${id}`).get()
         );
 
         return Promise.all(customLessonRefs)
@@ -129,7 +129,7 @@ class Firebase {
                   delete lessonCopy.dueDates;
                   lessonCopy.dueDate = dueDate;
                   lessonCopy.isCompleted = deploymentAccountDoc.get(
-                    DB.CUSTOM_LESSONS_FIELD
+                    FIREBASE_DB.CUSTOM_LESSONS_FIELD
                   )[lessonCopy.id][dueDate];
                   assignments.push(lessonCopy);
                 }
@@ -147,13 +147,13 @@ class Firebase {
   // Get students of admin
   getDeploymentAccountsFromAdmin = adminAccountId =>
     this.db
-      .doc(`${DB.ADMIN_ACCOUNT_COL}/${adminAccountId}/`)
+      .doc(`${FIREBASE_DB.ADMIN_ACCOUNT_COL}/${adminAccountId}/`)
       .get()
       .then(adminDoc => {
         const deploymentIds = Object.keys(adminDoc.get("deployments"));
         const deploymentRefs = deploymentIds.map(id =>
           this.db
-            .collection(DB.DEPLOYMENT_ACCOUNTS_COL)
+            .collection(FIREBASE_DB.DEPLOYMENT_ACCOUNTS_COL)
             .where("deploymentId", "==", id)
         );
 
@@ -201,7 +201,7 @@ class Firebase {
     lessonDocId = null
   ) => {
     // Push specific custom lesson to admin account
-    let customLessonRef = this.db.collection(DB.CUSTOM_LESSONS_COL);
+    let customLessonRef = this.db.collection(FIREBASE_DB.CUSTOM_LESSONS_COL);
 
     // Get existing lesson to edit or create new lesson
     if (lessonDocId) customLessonRef = customLessonRef.doc(lessonDocId);
@@ -246,7 +246,7 @@ class Firebase {
 
         // Add/update deploymentAccount references to this custom lesson
         let deploymentRefs = deploymentAccountIds.map(id =>
-          this.db.doc(`${DB.DEPLOYMENT_ACCOUNTS_COL}/${id}/`)
+          this.db.doc(`${FIREBASE_DB.DEPLOYMENT_ACCOUNTS_COL}/${id}/`)
         );
 
         return Promise.all(deploymentRefs.map(ref => ref.get()))
@@ -270,7 +270,7 @@ class Firebase {
               });
 
               batch.update(deploymentRef, {
-                [`${DB.CUSTOM_LESSONS_FIELD}.${customLessonRef.id}`]: completedDueDates
+                [`${FIREBASE_DB.CUSTOM_LESSONS_FIELD}.${customLessonRef.id}`]: completedDueDates
               });
             }
 
@@ -278,11 +278,11 @@ class Firebase {
             for (let deploymentAccountId of currentAssignedDeploymentIds) {
               if (!deploymentAccountIds.includes(deploymentAccountId)) {
                 let deploymentRef = this.db.doc(
-                  `${DB.DEPLOYMENT_ACCOUNTS_COL}/${deploymentAccountId}/`
+                  `${FIREBASE_DB.DEPLOYMENT_ACCOUNTS_COL}/${deploymentAccountId}/`
                 );
 
                 batch.update(deploymentRef, {
-                  [`${DB.CUSTOM_LESSONS_FIELD}.${customLessonRef.id}`]: app.firestore.FieldValue.delete()
+                  [`${FIREBASE_DB.CUSTOM_LESSONS_FIELD}.${customLessonRef.id}`]: app.firestore.FieldValue.delete()
                 });
               }
             }

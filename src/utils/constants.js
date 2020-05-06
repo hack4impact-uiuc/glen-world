@@ -22,8 +22,7 @@ export const TEMPLATE_WORD_GROUPS = {
   animals3_insects_pd: "Animals 3"
 };
 
-// Firebase constants
-export const DB = {
+export const FIREBASE_DB = {
   CUSTOM_LESSONS_COL: "custom_lesson",
   CUSTOM_LESSONS_FIELD: "customLessons",
   DEPLOYMENT_ACCOUNTS_COL: "deployment_account",
