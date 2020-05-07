@@ -23,10 +23,8 @@ function SectionSelector(props) {
     propFunctions[index]();
   };
   return (
-    <div>
-      <Container className={classes.container}>
+      <Container>
         <Box alignItems="flex-end">
-          <h1 className={classes.header}>LESSON TYPE</h1>
           <Row className={classes.row}>
             <Col>
               <Button
@@ -79,7 +77,6 @@ function SectionSelector(props) {
           </Row>
         </Box>
       </Container>
-    </div>
   );
 }
 export default withFirebase(SectionSelector);

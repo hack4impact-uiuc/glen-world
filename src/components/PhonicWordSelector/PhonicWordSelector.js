@@ -16,11 +16,9 @@ function PhonicWordSelector(props) {
             <div className="phonics-words">{word}</div>
           ))}
         </div>
-        <div>
           <Button onClick={handleSelect} className="SelectButton">
             {props.selected ? "UNDO" : "SELECT"}
           </Button>
-        </div>
       </div>
     </div>
   );
