@@ -1,15 +1,15 @@
 @import "../../pages/Index/index.scss";
 
 .student-selector {
-    height: 28vw;
-    width: 32vw;
+    height: 33vw;
+    width: 33vw;
     background-color: white;
     border-radius: 1em;
 }
 
 #depoyment-ddown {
     height: 2em;
-    width:32vw;
+    width:33vw;
     border-top-left-radius: 1em;
     border-top-right-radius: 1em;
     background-color: $assignments-font-color;
@@ -25,7 +25,7 @@
 }
 .option-ddown {
     height: 1.5em;
-    width:32vw;
+    width:33vw;
     font-family: $assignments-roboto-font;
     font-weight: bold;
     font-size: 1em;
@@ -50,7 +50,7 @@
     margin-right: 10%;
 }
 .accounts-list {
-    max-height: 20vw;
+    max-height: 25vw;
     margin: auto;
     overflow-y: auto;
     overflow-x: hidden;

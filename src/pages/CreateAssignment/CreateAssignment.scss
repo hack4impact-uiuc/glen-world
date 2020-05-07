@@ -7,7 +7,7 @@
 .assignment_creation {
   position: absolute;
 }
-.place_middle, .student-date-container {
+.place_middle{
   position: "absolute";
   left: "50%";
   top: "50%";
@@ -45,6 +45,7 @@
   border-radius: 1em;
   font-family: $assignments-roboto-font;
   font-weight: bold;
+  font-size: 1.5em;
   width: 20vw;
 }
 .input-header {
@@ -54,10 +55,26 @@
   border-radius: 1em;
   font-family: $assignments-roboto-font;
   font-weight: bold;
+  font-size: 1.5em;
 }
 .spacing {
   padding: 3em;
 }
 .lesson-name {
   margin-bottom:5%;
+}
+.student-date-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 90vw;
+  height: 35vw;
+  border-radius: 20px;
+  margin: auto;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  padding-bottom: 1vw;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  justify-content: center;
 }

@@ -294,6 +294,7 @@ function CreateAssignment(props) {
               </InputGroup.Prepend>
               <FormControl
                 className="input"
+                maxLength = "30"
                 placeholder={"Ex. Vocab"}
                 defaultValue={lessonName || ""}
                 onChange={e => handleLessonNameChange(e.target.value)}
@@ -301,9 +302,6 @@ function CreateAssignment(props) {
             </InputGroup>
             </div>
             <div className="student-date-container">
-              <Container>
-                <Row>
-                  <Col>
                     <StudentSelector
                       deployments={adminDeployments}
                       handleChange={handleStudentListChange}
@@ -311,15 +309,10 @@ function CreateAssignment(props) {
                         existingAssignment?.deploymentAccountIds
                       }
                     ></StudentSelector>
-                  </Col>
-                  <Col>
                     <DatePicker
                       handleChange={handleDatePickerChange}
                       assignedDate={existingAssignment?.dueDate}
                     />
-                  </Col>
-                </Row>
-              </Container>
             </div>
             <div>
               <LessonCardsDisplay
