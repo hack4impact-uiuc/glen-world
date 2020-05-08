@@ -6,24 +6,28 @@
   font-size: 3em;
   color: white;
   margin: auto;
+  margin-left: 2%;
 }
 .cards-display {
   font-family: $assignments-roboto-font;
   min-height: 30vw;
   flex-wrap: wrap;
   flex-direction: row;
-  position: absolute;
+  justify-content: start;
   background-color: $assignments-app-background-color;
 }
 .button-bar {
   background-color: $assignments-font-color;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
 }
 #ddown, .button {
   height: 2em;
   width: 11em;
   border-color: $assignments-font-color;
   border-radius: 2em;
-  margin-top: 3%;
   background-color: white;
   color: black;
   font-family: $assignments-roboto-font;
@@ -35,12 +39,20 @@
     color: white;
   }
 }
+
+.dropdown {
+  margin-left: 5%;
+  margin-top: .3em;
+}
 .button {
   background-color: $assignments-light-green;
   &:hover {
     background-color: white;
     color: black;
   }
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: .4em;
 }
 .drop-down-bar {
   width: 16.5em;
@@ -58,7 +70,14 @@
   }
 }
 
-.col-padding {
-  padding: 0px !important;
-  margin: 0px !important;
+.icon-margins {
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+.icon-display {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
 }

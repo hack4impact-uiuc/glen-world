@@ -296,7 +296,7 @@ function CreateAssignment(props) {
               </InputGroup.Prepend>
               <FormControl
                 className="input"
-                maxLength = "30"
+                maxLength = "40"
                 placeholder={"Ex. Vocab"}
                 defaultValue={lessonName || ""}
                 onChange={e => handleLessonNameChange(e.target.value)}

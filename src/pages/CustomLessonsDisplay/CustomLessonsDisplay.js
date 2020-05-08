@@ -73,11 +73,8 @@ function CustomLessonsDisplay(props) {
   return (
     <div>
       <div className="button-bar">
-        <Row>
-          <Col>
             <div className="heading">Lesson Plans</div>
-          </Col>
-          <Col>
+          <div className = "dropdown">
             <DropdownButton
               id="ddown"
               title={TEMPLATE_LESSON_MAP[filterType] || "LESSON TYPE"}
@@ -99,8 +96,8 @@ function CustomLessonsDisplay(props) {
                 ))}
               </div>
             </DropdownButton>
-          </Col>
-          <Col>
+          </div>
+          <div className = "dropdown">
             {filterType != "C" && (
               <DropdownButton
                 id="ddown"
@@ -124,20 +121,17 @@ function CustomLessonsDisplay(props) {
                 </div>
               </DropdownButton>
             )}
-          </Col>
-          <Col>
+          </div>
             <button
               className="button"
               onClick={() => setCreateLessonRedirect(true)}
             >
               Create Lesson
             </button>
-          </Col>
-        </Row>
       </div>
       <div className="cards-display">
         {allLessons && (
-          <Row className="justify-content-md-center">
+          <div className = "icon-display">
             {allLessons
               .filter(
                 lesson =>
@@ -146,11 +140,13 @@ function CustomLessonsDisplay(props) {
                     lesson.wordGroup == TEMPLATE_WORD_GROUPS[filterGroup])
               )
               .map(lesson => (
-                <Col key={lesson.id} onClick={() => handleClick(lesson)}>
-                  <LessonNameDisplay lessonName={lesson.lessonName} />
-                </Col>
+                <div className = "icon-margins">
+                <div onClick={() => handleClick(lesson)}>
+                <LessonNameDisplay lessonName={lesson.lessonName} />
+                </div>
+                </div>
               ))}
-          </Row>
+          </div>
         )}
       </div>
       <div>
