@@ -70,7 +70,7 @@ function WordSelector(props) {
   }
   function wordSelection(word, index) {
     return (
-        <div className="words" key={index}>
+        <div className="word-checkbox" key={index}>
           <label class="container">
             <input
               class="check"

@@ -2,12 +2,12 @@
 
 .WordSelector {
   background-color: white;
-  width: 35vw;
+  // width: 35vw;
   padding: 20px;
   border-radius: 1em;
   position: fixed;
   left: 32%;
-  top: 20%;
+  top: 10%;
   margin: auto;
   margin-top: 8em;
   border: 5px solid #e6e6e6;
@@ -38,7 +38,7 @@
   justify-content: flex-start;
 }
 
-.words, .SelectCheckbox {
+.word-checkbox, .SelectCheckbox {
   font-family: $assignments-roboto-font;
   font-weight: bold;
   font-size: 20px;
