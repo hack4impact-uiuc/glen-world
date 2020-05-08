@@ -226,12 +226,12 @@ function CreateAssignment(props) {
     for (const key of lessonKeys) {
       dates[key] = lessonCards[key][0];
     }
+
     return (
       <Redirect
         to={{
           pathname: "/confirmation",
           state: {
-            deploymentAccountIds: deploymentAccountIds,
             selectedWords: words,
             lesson: lessonType,
             group: wordGroup,
@@ -245,6 +245,7 @@ function CreateAssignment(props) {
       />
     );
   }
+
   return (
     <>
       <div className="create-assignment">
@@ -301,17 +302,11 @@ function CreateAssignment(props) {
                     <StudentSelector
                       deployments={adminDeployments}
                       handleChange={handleStudentListChange}
-                      assignedStudents={
-                        existingAssignment?.deploymentAccountIds
-                      }
-                    ></StudentSelector>
+                    />
                   </Col>
                   <Col xs={1}></Col>
                   <Col>
-                    <DatePicker
-                      handleChange={handleDatePickerChange}
-                      assignedDate={existingAssignment?.dueDate}
-                    />
+                    <DatePicker handleChange={handleDatePickerChange} />
                   </Col>
                 </Row>
               </Container>
