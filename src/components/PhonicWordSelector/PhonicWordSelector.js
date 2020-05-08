@@ -11,7 +11,7 @@ function PhonicWordSelector(props) {
     <div className="PhonicIcon">
       <div className="PhonicIconBorder">
         <div className="PhonicGroupTitle">{props.name}</div>
-        <div className = "words-list">
+        <div className = "phonics-words-list">
           {props.data.words.map(word => (
             <div className="phonics-words">{word}</div>
           ))}
