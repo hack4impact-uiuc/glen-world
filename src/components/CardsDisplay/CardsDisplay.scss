@@ -1,0 +1,11 @@
+@import "../../pages/Index/index.scss";
+
+.cards-display {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow-wrap: wrap;
+  overflow: hidden;
+  text-align:center;
+  justify-content: center;
+}

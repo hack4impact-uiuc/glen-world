@@ -13,13 +13,13 @@ const useStyles = makeStyles(theme => ({
     "&:hover": { textDecoration: "none" }
   },
   button_root: {
-    width: "300px",
-    height: "300px",
-    top: "28px",
+    width: "22vw",
+    height: "22vw",
     backgroundColor: "#FFFFFF",
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
     borderRadius: "15%",
     borderColor: "#FFFFFF",
+    overflow: "hidden",
     "&:hover": {
       backgroundColor: "#FFFFFF",
       borderColor: "#FFFFFF"
@@ -30,18 +30,18 @@ const useStyles = makeStyles(theme => ({
   },
   button_label: {
     flexDirection: "column",
-    fontSize: "60px",
+    fontSize: "3.5vw",
     fontWeight: "bold",
     fontFamily: "Roboto"
   },
   button_selected: {
-    width: "300px",
-    height: "300px",
-    top: "28px",
+    width: "22vw",
+    height: "22vw",
     background: "#b1b0ff",
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
     borderRadius: "15%",
     borderColor: "#000000",
+    overflow: "hidden",
     "&:hover": {
       backgroundColor: "#b1b0ff",
       borderColor: "#FFFFFF"
@@ -50,12 +50,5 @@ const useStyles = makeStyles(theme => ({
       outline: "none"
     }
   },
-  header: {
-    fontSize: "65px",
-    fontFamily: "Roboto"
-  },
-  container: {
-    paddingBottom: "100px"
-  }
 }));
 export default useStyles;

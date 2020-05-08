@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { DropdownButton, Dropdown } from "react-bootstrap";
-import { Button, Row, Col } from "react-bootstrap";
+import React, { useState } from "react";
+import { DropdownButton, DropdownItem } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import { withFirebase } from "utils/Firebase";
 import "./StudentSelector.scss";
 
@@ -78,7 +78,6 @@ function StudentSelector(props) {
   return (
     <div className="student-selector">
       <DropdownButton
-        key={new Date().getTime()}
         id="depoyment-ddown"
         title={
           (currentDeployment &&
@@ -87,12 +86,12 @@ function StudentSelector(props) {
         }
       >
         {deployments.map((deployment, index) => (
-          <Dropdown
+          <DropdownItem
             className="option-ddown"
             onClick={() => setCurrentDeployment(deployment)}
           >
             {"Class " + (index + 1)}
-          </Dropdown>
+          </DropdownItem>
         ))}
       </DropdownButton>
       {currentDeployment && (

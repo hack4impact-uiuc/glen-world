@@ -8,7 +8,7 @@
   margin: auto;
   margin-left: 2%;
 }
-.cards-display {
+.card-display {
   font-family: $assignments-roboto-font;
   min-height: 30vw;
   flex-wrap: wrap;
@@ -68,7 +68,7 @@
 }
 
 .icon-margins {
-  margin: 1%;
+  margin: .6vw;
 }
 
 .icon-display {
@@ -76,4 +76,5 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: start;
+  width: 100vw;
 }

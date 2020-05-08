@@ -10,7 +10,7 @@ import {
 import "./CustomLessonsDisplay.scss";
 import { compose } from "recompose";
 import { Col, Row } from "reactstrap";
-import { withRouter, Redirect, useHistory } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import LessonInfoDisplay from "../../components/LessonInfoDisplay/LessonInfoDisplay";
 import LessonNameDisplay from "../../components/LessonNameDisplay/LessonNameDisplay";
 
@@ -23,6 +23,7 @@ function CustomLessonsDisplay(props) {
   const [displayLessonTemplate, setDisplayTemplate] = useState(null);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
   const [createLessonRedirect, setCreateLessonRedirect] = useState(false);
+  const [confirmationRedirect, setConfirmationRedirect] = useState(false);
   const [nameMap, setNameMap] = useState({});
   const editLessonRedirect = props?.location.state?.redirect;
 
@@ -32,7 +33,7 @@ function CustomLessonsDisplay(props) {
       setAllLessons(lesson);
     });
   }, [editLessonRedirect]); // Updates lessons when redirected to page from CreateAssignment
-  //taken from lam
+
   async function deploymentNameMap(lesson) {
     let deploymentAccountIds = getDeploymentAccountIdsFromLesson(lesson);
     let deploymentNameMap = {};
@@ -133,7 +134,7 @@ function CustomLessonsDisplay(props) {
                 lesson =>
                   (!filterType || lesson.lessonTemplate == filterType) &&
                   (!filterGroup ||
-                    lesson.wordGroup == TEMPLATE_WORD_GROUPS[filterGroup])
+                    lesson.wordGroup === TEMPLATE_WORD_GROUPS[filterGroup])
               )
               .map(lesson => (
                 <div className = "icon-margins">

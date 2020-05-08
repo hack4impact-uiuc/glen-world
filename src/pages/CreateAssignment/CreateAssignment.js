@@ -44,6 +44,7 @@ function CreateAssignment(props) {
       });
 
     if (existingAssignment) prePopulateAssignment(existingAssignment);
+
     let originalDate = new Date();
     // Set time on current date to 0 to allow for edge case where teacher wants to include today in lesson dates.
     originalDate.setHours(0, 0, 0, 0);
@@ -191,11 +192,11 @@ function CreateAssignment(props) {
     if (!lessonName) {
       // set default name if no lesson name
       setLessonName(defaultName);
-
+      setSubmitted(true);
       // react sets state asynchronously so lessonName doesn't actually update until rerender
-      pushLesson(defaultName);
     } else {
-      pushLesson(lessonName);
+      setLessonName(lessonName);
+      setSubmitted(true);
     }
   }
   function validateAssignment() {
@@ -218,36 +219,33 @@ function CreateAssignment(props) {
       verifyNameAndPush();
     }
   }
-  const pushLesson = lessonNameValue => {
+
+  if (submitted) {
     var dates = {};
     const lessonKeys = Object.keys(lessonCards);
     for (const key of lessonKeys) {
       dates[key] = lessonCards[key][0];
     }
 
-    firebase.setCustomLesson(
-      ADMIN_ACCOUNT,
-      deploymentAccountIds,
-      lessonType,
-      wordGroup,
-      words,
-      dates,
-      lessonNameValue,
-      existingAssignment?.id
-    );
-    setSubmitted(true);
-  };
-
-  if (submitted) {
     return (
       <Redirect
         to={{
-          pathname: "/",
-          state: { redirect: true }
+          pathname: "/confirmation",
+          state: {
+            selectedWords: words,
+            lesson: lessonType,
+            group: wordGroup,
+            dueDates: dates,
+            deployments: adminDeployments,
+            lessonNameValue: lessonName,
+            cards: lessonCards,
+            id: existingAssignment?.id
+          }
         }}
       />
     );
   }
+
   return (
     <>
       <div className="create-assignment">

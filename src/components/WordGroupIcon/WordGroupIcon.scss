@@ -14,11 +14,16 @@
 .PurpleWordGroupIcon {
   background-color: $assignments-light-purple;
 }
+img {
+  max-width:100%;
+  height:auto;
+}
 
 
 .WordGroupName {
   font-family: $assignments-roboto-font;
   text-align: center;
-  margin-top: 10%;
+  margin-top: .5vw;
+  font-size: 1.1vw;
 }
 

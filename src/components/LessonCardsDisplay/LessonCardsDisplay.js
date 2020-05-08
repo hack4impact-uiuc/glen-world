@@ -6,14 +6,11 @@ import LessonCard from "../LessonCards/LessonCard";
 function LessonCardsDisplay(props) {
   return (
     <div className="lesson-cards-display">
-      {/* <Col> */}
       <div onClick={props.addCard}>
         <div className="default-card">
-          {/* Click to assign students to a selected date! */}
           <img className = "plus-icon" src="images/icons/plus-icon.svg" alt="Close" />
         </div>
       </div>
-      {/* </Col > */}
       {Object.keys(props.cards).length > 0 &&
         Object.keys(props.cards)
           .reverse()
