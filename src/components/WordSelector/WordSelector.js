@@ -104,7 +104,7 @@ function WordSelector(props) {
                   name="Select All"
                   onChange={handleChooseAll}
                 />
-                <div className="word">Choose All</div>
+                <div className="word">Select All</div>
               </label>
             </div>
           </Col>

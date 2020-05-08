@@ -34,6 +34,7 @@
 .name-assignment {
   margin: auto;
   width: 60vw;
+  margin-top: 1vw;
 }
 .input {
   color: $assignments-font-color;
@@ -42,7 +43,7 @@
   border-radius: 1vw;
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 1.5vw;
+  font-size: 1.2rem;
   width: 20vw;
 }
 .input-header {
@@ -52,7 +53,7 @@
   border-radius: 1vw;
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 1.5vw;
+  font-size: 1.2rem;
 }
 .spacing {
   padding: 3em;

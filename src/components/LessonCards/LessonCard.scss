@@ -3,6 +3,7 @@
 
 .DeleteLessonCard {
   margin-top: .5vw;
+  margin-bottom: .5vw;
   margin-right: 0vw;
   margin-left: 3vw;
 }
@@ -13,14 +14,14 @@
 .date{
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 2vw;
   color: $assignments-font-color;
   margin-top: 2%;
 }
 .name {
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.2em;
   color: $assignments-font-color;
   height: 1.5em;
   overflow: hidden;

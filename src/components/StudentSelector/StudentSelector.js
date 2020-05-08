@@ -97,7 +97,6 @@ function StudentSelector(props) {
       {currentDeployment && (
         <div>
           <div className="select-all-checkbox">
-            <Row>
               <div className="select-all-margins">
                 <label className="select-all-label">Select All</label>
               </div>
@@ -109,7 +108,6 @@ function StudentSelector(props) {
                   onClick={() => handleClickSelectAll(currentDeployment)}
                 />
               </div>
-            </Row>
           </div>
           <div className="accounts-list">
             {Object.keys(currentDeployment.deploymentAccounts).map(

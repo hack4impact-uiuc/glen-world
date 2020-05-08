@@ -1,7 +1,7 @@
 @import "../../pages/Index/index.scss";
 
 .WordSelector {
-  width: 35vw;
+  min-width: 35vw;
   background-color: white;
   padding: 2vw;
   border-radius: 1em;
@@ -41,7 +41,7 @@
 .word-checkbox, .SelectCheckbox {
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 1.5vw;
+  font-size: 1.3rem;
   color: $assignments-font-color;
   text-transform: capitalize;
   min-width: 11vw;
@@ -50,14 +50,12 @@
 }
 
 .SelectCheckbox {
-  margin-top: 10%;
-  margin-left: 0%;
   align-items: flex-start;
 }
 input[type='checkbox'] {
   -webkit-appearance:none;
-  width:2vw;
-  height:2vw;
+  width:2rem;
+  height:2rem;
   background:white;
   border-radius:5px;
   border:2px solid #555;
@@ -86,7 +84,7 @@ input[type='checkbox']:checked {
   background-color: $assignments-background-color;
   font-family: $assignments-roboto-font;
   width: 8vw;
-  font-size: 1.5vw;
+  font-size: 1.2em;
   font-weight: bold;
   position: absolute;
   right: 1.5vw;
@@ -94,17 +92,16 @@ input[type='checkbox']:checked {
   border-radius: 1em;
 }
 .word {
-  position: relative;
   text-align: left;
-  padding-left: 1em;
+  margin-left: 2vw;
 }
 
 .check, .ChooseAllCheck {
   position: absolute;
   top: 0;
   left: 0;
-  height: 25px;
-  width: 25px;
+  height: 10%;
+  width: 10%;
 }
 
 .container {
@@ -112,7 +109,6 @@ input[type='checkbox']:checked {
   position: relative;
   margin-bottom: 1em;
   cursor: pointer;
-  font-size: 1em;
 }
 
 :disabled {
