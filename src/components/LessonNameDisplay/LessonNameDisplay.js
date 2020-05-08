@@ -4,10 +4,9 @@ import "./LessonNameDisplay.scss";
 function LessonNameDisplay(props) {
   return (
     <div className="NameIcon">
-      <label className="InnerBorder">
-        <br />
+      {/* <div className="InnerBorder"> */}
         <p className="Name">{props.lessonName}</p>
-      </label>
+      {/* </div> */}
     </div>
   );
 }
