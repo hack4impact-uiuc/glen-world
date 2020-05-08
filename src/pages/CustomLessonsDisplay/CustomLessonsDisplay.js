@@ -74,7 +74,6 @@ function CustomLessonsDisplay(props) {
     <div>
       <div className="button-bar">
             <div className="heading">Lesson Plans</div>
-          <div className = "dropdown">
             <DropdownButton
               id="ddown"
               title={TEMPLATE_LESSON_MAP[filterType] || "LESSON TYPE"}
@@ -96,8 +95,6 @@ function CustomLessonsDisplay(props) {
                 ))}
               </div>
             </DropdownButton>
-          </div>
-          <div className = "dropdown">
             {filterType != "C" && (
               <DropdownButton
                 id="ddown"
@@ -121,7 +118,6 @@ function CustomLessonsDisplay(props) {
                 </div>
               </DropdownButton>
             )}
-          </div>
             <button
               className="button"
               onClick={() => setCreateLessonRedirect(true)}
