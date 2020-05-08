@@ -55,7 +55,7 @@ function StudentSelector(props) {
   function handleClickSelectAll(deployment) {
     let index = deployments.indexOf(currentDeployment);
     let newChecked = [...studentsChecked];
-    Object.keys(deployment.deploymentAccounts).map(deploymentAccountId => {
+    Object.keys(deployment.deploymentAccounts).foreach(deploymentAccountId => {
       if (!chooseAll[index]) {
         newChecked.push(deploymentAccountId);
       } else {

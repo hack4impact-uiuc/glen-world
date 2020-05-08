@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { withFirebase } from "utils/Firebase";
 import { compose } from "recompose";
-import { Row, Col, Container } from "react-bootstrap";
 import { withRouter, Redirect } from "react-router-dom";
 import { ADMIN_ACCOUNT } from "utils/constants.js";
 import { Button } from "reactstrap";
@@ -25,19 +24,23 @@ function Confirmation(props) {
     else if (lesson.lesson === "A3") setWords(true);
 
     if (Object.keys(lesson.cards).length <= 3) setNeedRowSpace(true);
-  });
+  }, [lesson.lesson, lesson.cards]);
 
   function pushLesson() {
-    firebase.setCustomLesson(
-      ADMIN_ACCOUNT,
-      lesson.lesson,
-      lesson.group,
-      lesson.selectedWords,
-      lesson.dueDates,
-      lesson.lessonNameValue,
-      lesson.id
-    );
-    setSubmitted(true);
+    firebase
+      .setCustomLesson(
+        ADMIN_ACCOUNT,
+        lesson.lesson,
+        lesson.group,
+        lesson.selectedWords,
+        lesson.dueDates,
+        lesson.lessonNameValue,
+        lesson.id
+      )
+      .then(() => {
+        setSubmitted(true);
+      })
+      .catch(error => console.error("Error getting custom lesson: ", error));
   }
 
   if (submitted) {

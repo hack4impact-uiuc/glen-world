@@ -10,7 +10,7 @@ function ConfirmationCard(props) {
       let dateString = dateComponents[1] + "  " + dateComponents[2];
       setTitle(dateString);
     } else setTitle(props.title);
-  });
+  }, [props.confirmation, props.title]);
 
   return (
     <div className="confirmation-card">

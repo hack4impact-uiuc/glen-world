@@ -23,7 +23,6 @@ function CustomLessonsDisplay(props) {
   const [displayLessonTemplate, setDisplayTemplate] = useState(null);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
   const [createLessonRedirect, setCreateLessonRedirect] = useState(false);
-  const [confirmationRedirect, setConfirmationRedirect] = useState(false);
   const [nameMap, setNameMap] = useState({});
   const editLessonRedirect = props?.location.state?.redirect;
 
@@ -32,7 +31,7 @@ function CustomLessonsDisplay(props) {
     firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
       setAllLessons(lesson);
     });
-  }, [editLessonRedirect]); // Updates lessons when redirected to page from CreateAssignment
+  }, [editLessonRedirect, firebase]); // Updates lessons when redirected to page from CreateAssignment
 
   async function deploymentNameMap(lesson) {
     let deploymentAccountIds = getDeploymentAccountIdsFromLesson(lesson);
@@ -102,7 +101,7 @@ function CustomLessonsDisplay(props) {
             </DropdownButton>
           </Col>
           <Col>
-            {filterType != "C" && (
+            {filterType !== "C" && (
               <DropdownButton
                 id="ddown"
                 title={TEMPLATE_WORD_GROUPS[filterGroup] || "WORD GROUPS"}
@@ -142,7 +141,7 @@ function CustomLessonsDisplay(props) {
             {allLessons
               .filter(
                 lesson =>
-                  (!filterType || lesson.lessonTemplate == filterType) &&
+                  (!filterType || lesson.lessonTemplate === filterType) &&
                   (!filterGroup ||
                     lesson.wordGroup === TEMPLATE_WORD_GROUPS[filterGroup])
               )
