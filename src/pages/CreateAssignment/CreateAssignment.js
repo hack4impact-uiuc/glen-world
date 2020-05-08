@@ -250,6 +250,7 @@ function CreateAssignment(props) {
     <>
       <div className="create-assignment">
         <h1 className="header">LESSON TYPE</h1>
+        <br/>
         <SectionSelector
           default={[!showPhonics, !showVocab, !showWriting]}
           handlePhonics={handlePhonics}

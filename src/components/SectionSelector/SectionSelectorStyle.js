@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   },
   button_root: {
     width: "22vw",
-    height: "22vw",
+    minHeight: "22vw",
     backgroundColor: "#FFFFFF",
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
     borderRadius: "15%",
@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
   },
   button_selected: {
     width: "22vw",
-    height: "22vw",
+    minHeight: "22vw",
     background: "#b1b0ff",
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
     borderRadius: "15%",
