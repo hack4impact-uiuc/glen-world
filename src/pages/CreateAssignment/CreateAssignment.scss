@@ -39,39 +39,36 @@
   color: $assignments-font-color;
   background-color: $assignments-background-color;
   border-color: $assignments-font-color;
-  border-radius: 1em;
+  border-radius: 1vw;
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.5vw;
   width: 20vw;
 }
 .input-header {
   color: $assignments-background-color;
   background-color: $assignments-font-color;
   border-color: $assignments-font-color;
-  border-radius: 1em;
+  border-radius: 1vw;
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.5vw;
 }
 .spacing {
   padding: 3em;
 }
 .lesson-name {
-  margin-bottom:5%;
+  margin-bottom: 5%;
 }
 .student-date-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 90vw;
-  height: 35vw;
+  min-height: 35vw;
   border-radius: 20px;
   margin: auto;
   margin-top: 2vw;
   margin-bottom: 2vw;
-  padding-bottom: 1vw;
-  overflow-y: scroll;
-  overflow-x: hidden;
   justify-content: center;
 }

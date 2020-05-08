@@ -1,9 +1,9 @@
 @import "../../pages/Index/index.scss";
 
 .WordSelector {
+  width: 35vw;
   background-color: white;
-  // width: 35vw;
-  padding: 20px;
+  padding: 2vw;
   border-radius: 1em;
   position: fixed;
   left: 32%;
@@ -18,7 +18,7 @@
 .GroupTitle {
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 30pt;
+  font-size: 3vw;
   text-align: left;
   color: #b1b0ff;
   overflow: visible;
@@ -41,11 +41,11 @@
 .word-checkbox, .SelectCheckbox {
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1.5vw;
   color: $assignments-font-color;
   text-transform: capitalize;
   min-width: 11vw;
-  margin-right: 2em;
+  margin-right: .5vw;
   overflow: visible;
 }
 
@@ -56,8 +56,8 @@
 }
 input[type='checkbox'] {
   -webkit-appearance:none;
-  width:30px;
-  height:30px;
+  width:2vw;
+  height:2vw;
   background:white;
   border-radius:5px;
   border:2px solid #555;
@@ -85,11 +85,12 @@ input[type='checkbox']:checked {
   color: $assignments-font-color;
   background-color: $assignments-background-color;
   font-family: $assignments-roboto-font;
-  width: 7vw;
+  width: 8vw;
+  font-size: 1.5vw;
   font-weight: bold;
   position: absolute;
-  right: 1.5em;
-  bottom: 0.5em;
+  right: 1.5vw;
+  bottom: 0.5vw;
   border-radius: 1em;
 }
 .word {
