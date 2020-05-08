@@ -27,20 +27,16 @@ function Confirmation(props) {
   }, [lesson.lesson, lesson.cards]);
 
   function pushLesson() {
-    firebase
-      .setCustomLesson(
-        ADMIN_ACCOUNT,
-        lesson.lesson,
-        lesson.group,
-        lesson.selectedWords,
-        lesson.dueDates,
-        lesson.lessonNameValue,
-        lesson.id
-      )
-      .then(() => {
-        setSubmitted(true);
-      })
-      .catch(error => console.error("Error getting custom lesson: ", error));
+    firebase.setCustomLesson(
+      ADMIN_ACCOUNT,
+      lesson.lesson,
+      lesson.group,
+      lesson.selectedWords,
+      lesson.dueDates,
+      lesson.lessonNameValue,
+      lesson.id
+    );
+    setSubmitted(true);
   }
 
   if (submitted) {
