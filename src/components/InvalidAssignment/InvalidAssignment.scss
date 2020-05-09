@@ -8,7 +8,7 @@
   top: 2vw;
   z-index: 1;
   left: 50%;
-  border-radius: 20px;
+  border-radius: 2vw;
   transform: translateX(-50%);
 }
 
@@ -25,14 +25,15 @@
   text-align: center;
   margin: auto;
   display: inline-block;
+  font-weight: bold;
 }
 
 .CloseMessage {
   color: $close-button-color;
   background-color: $assignments-background-color;
   font-family: $assignments-roboto-font;
-  font-size: 1.5em;
-  width: 5vw;
+  font-size: 2vw;
+  width: 6vw;
   border-radius: 8px;
   transition-duration: 0.3s;
   font-weight: bold;
