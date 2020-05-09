@@ -3,7 +3,7 @@
 .heading {
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 3em;
+  font-size: 4vw;
   color: white;
   margin: auto;
   margin-left: 2%;
@@ -24,7 +24,7 @@
   justify-content: start;
 }
 #ddown, .button {
-  height: 2em;
+  height: 4.5vw;
   width: 11em;
   border-color: $assignments-font-color;
   border-radius: 2em;
@@ -32,10 +32,10 @@
   color: black;
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.3em;
   transition-duration: 0.3s;
-  margin-top: .4em;
-  margin-left: 1em;
+  margin-top: .4vw;
+  margin-left: 1vw;
   &:hover {
     background-color: $assignments-light-purple;
     color: white;
@@ -47,9 +47,9 @@
     background-color: white;
     color: black;
   }
-  margin-left: 1em;
-  margin-right: 1em;
-  margin-top: .4em;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  margin-top: .4vw;
 }
 .drop-down-bar {
   width: 16.5em;
