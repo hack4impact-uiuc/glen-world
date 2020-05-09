@@ -1,6 +1,6 @@
 @import "../../pages/Index/index.scss";
 
-.WordSelector {
+.word-selector {
   min-width: 35vw;
   background-color: white;
   padding: 2vw;
@@ -15,7 +15,7 @@
   overflow-x: hidden;
 }
 
-.GroupTitle {
+.group-title {
   font-family: $assignments-roboto-font;
   font-weight: bold;
   font-size: 3vw;
@@ -24,12 +24,12 @@
   overflow: visible;
 }
 
-.GroupTitleUnderline {
+.group-title-under-line {
   margin-top: 0%;
   border-top: 2px solid $assignments-font-color;
 }
 
-.WordDisplay {
+.select-word-display {
   display: inline-flex;
   width: 35vw;
   max-height: 35vw;
@@ -38,7 +38,7 @@
   justify-content: flex-start;
 }
 
-.word-checkbox, .SelectCheckbox {
+.word-checkbox, .select-checkbox {
   font-family: $assignments-roboto-font;
   font-weight: bold;
   font-size: 1.3rem;
@@ -49,7 +49,7 @@
   overflow: visible;
 }
 
-.SelectCheckbox {
+.select-checkbox {
   align-items: flex-start;
 }
 input[type='checkbox'] {
@@ -65,7 +65,7 @@ input[type='checkbox']:checked {
   background: $assignments-light-purple;
 }
 
-.CloseSelection {
+.close-selection {
   color: $assignments-font-color;
   background-color: $assignments-background-color;
   font-family: $assignments-roboto-font;
@@ -79,7 +79,7 @@ input[type='checkbox']:checked {
   padding-top: 2em;
 }
 
-.NextButton {
+.next-button {
   color: $assignments-font-color;
   background-color: $assignments-background-color;
   font-family: $assignments-roboto-font;
@@ -96,7 +96,7 @@ input[type='checkbox']:checked {
   margin-left: 2vw;
 }
 
-.check, .ChooseAllCheck {
+.check, .choose-all-check {
   position: absolute;
   top: 0;
   left: 0;

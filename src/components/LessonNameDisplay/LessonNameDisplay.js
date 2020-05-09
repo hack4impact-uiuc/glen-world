@@ -3,8 +3,8 @@ import "./LessonNameDisplay.scss";
 
 function LessonNameDisplay(props) {
   return (
-    <div className="NameIcon">
-        <p className="Name">{props.lessonName}</p>
+    <div className="name-icon">
+        <p className="name-lesson-display">{props.lessonName}</p>
     </div>
   );
 }

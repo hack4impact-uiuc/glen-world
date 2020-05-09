@@ -1,6 +1,6 @@
 @import "../../pages/Index/index.scss";
 
-.InvalidAssignment {
+.invalid-assignment {
   background-color: $assignments-light-purple;
   width: 80vw;
   padding-bottom: 1vw;
@@ -12,12 +12,12 @@
   transform: translateX(-50%);
 }
 
-.MessageArea {
+.message-area {
   padding-top: 1vw;
   margin: auto;
 }
 
-.Message {
+.message {
   width: 50vw;
   height: 4vw;
   font-family: $assignments-roboto-font;
@@ -28,7 +28,7 @@
   font-weight: bold;
 }
 
-.CloseMessage {
+.close-message {
   color: $close-button-color;
   background-color: $assignments-background-color;
   font-family: $assignments-roboto-font;
@@ -40,7 +40,7 @@
   margin: auto;
 }
 
-.CloseMessage:hover {
+.close-message:hover {
   background-color: $close-button-color;
   color: white;
 }

@@ -1,16 +1,16 @@
 @import "../../pages/Index/index.scss";
 
-.WordGroupIcon, .PurpleWordGroupIcon {
-  width: 14vw;
-  min-height: 14vw;
-  padding: 2vw;
+.word-group-icon, .purple-word-group-icon {
+  width: 15vw;
+  min-height: 15vw;
+  padding: 1vw;
   background-color: white;
   border-radius: 2em;
   box-shadow: 0em 0.2em #e6e6e6;
   display: block;
   overflow: hidden;
 }
-.PurpleWordGroupIcon {
+.purple-word-group-icon {
   background-color: $assignments-light-purple;
 }
 img {
@@ -18,11 +18,10 @@ img {
   height:auto;
 }
 
-
-.WordGroupName {
+.word-icon-name {
   font-family: $assignments-roboto-font;
   text-align: center;
-  margin-top: 1vw;
+  margin-top: 2vw;
   font-size: 2vw;
   font-weight: bold;
 }

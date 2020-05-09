@@ -1,6 +1,6 @@
 @import "../../pages/Index/index.scss";
 
-.PhonicIcon , .PurplePhonicIcon{
+.phonic-icon , .purple-phonic-icon{
     width: 20vw;
     height: 20vw;
     background-color: white;
@@ -10,17 +10,11 @@
     text-align: center;
     vertical-align: middle;
   }
-.PurplePhonicIcon {
+.purple-phonic-icon {
   background-color: $assignments-light-purple;
 }
-// .PhonicIconBorder {
-//   border: 3px solid $assignments-light-purple;
-//   width: 17.5vw;
-//   height: 17.5vw;
-//   border-radius: 2vw;
-// }
   
-.PhonicName {
+.phonic-name {
   font-family: 'Roboto', sans-serif;
   font-size: 4em;
   text-transform: uppercase;

@@ -8,18 +8,16 @@ function PhonicWordSelector(props) {
     props.handleSelectPhonics(!props.selected, props.name, props.index);
   }
   return (
-    <div className="PhonicIcon">
-      <div className="PhonicIconBorder">
-        <div className="PhonicGroupTitle">{props.name}</div>
+    <div className="phonic-icon">
+        <div className="phonic-group-title">{props.name}</div>
         <div className = "phonics-words-list">
           {props.data.words.map(word => (
             <div className="phonics-words">{word}</div>
           ))}
         </div>
-          <Button onClick={handleSelect} className="SelectButton">
+          <Button onClick={handleSelect} className="select-button">
             {props.selected ? "UNDO" : "SELECT"}
           </Button>
-      </div>
     </div>
   );
 }
