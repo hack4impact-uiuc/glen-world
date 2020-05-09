@@ -49,6 +49,6 @@ const useStyles = makeStyles(theme => ({
     "&:focus": {
       outline: "none"
     }
-  },
+  }
 }));
 export default useStyles;

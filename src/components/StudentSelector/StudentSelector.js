@@ -97,17 +97,17 @@ function StudentSelector(props) {
       {currentDeployment && (
         <div>
           <div className="select-all-checkbox">
-              <div className="select-all-margins">
-                <label className="select-all-label">Select All</label>
-              </div>
-              <div>
-                <input
-                  id="cbox"
-                  type="checkbox"
-                  checked={chooseAll[deployments.indexOf(currentDeployment)]}
-                  onClick={() => handleClickSelectAll(currentDeployment)}
-                />
-              </div>
+            <div className="select-all-margins">
+              <label className="select-all-label">Select All</label>
+            </div>
+            <div>
+              <input
+                id="cbox"
+                type="checkbox"
+                checked={chooseAll[deployments.indexOf(currentDeployment)]}
+                onClick={() => handleClickSelectAll(currentDeployment)}
+              />
+            </div>
           </div>
           <div className="accounts-list">
             {Object.keys(currentDeployment.deploymentAccounts).map(

@@ -11,7 +11,7 @@ function DatePicker(props) {
   }
 
   return (
-    <div className = "date-picker">
+    <div className="date-picker">
       <Calendar
         onClickDay={event => {
           onChange(event);

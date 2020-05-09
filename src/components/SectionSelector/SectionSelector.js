@@ -23,60 +23,54 @@ function SectionSelector(props) {
     propFunctions[index]();
   };
   return (
-      <Container>
-        <Box alignItems="flex-end">
-          <Row className={classes.row}>
-            <Col>
-              <Button
-                onClick={() => handleClick(0)}
-                classes={{
-                  root: button[0]
-                    ? classes.button_root
-                    : classes.button_selected,
-                  label: classes.button_label
-                }}
-              >
-                <Row>
-                  <img src="images/lesson-group/phonics.svg" alt="phonics" />
-                </Row>
-                <Row>PHONICS</Row>
-              </Button>
-            </Col>
-            <Col>
-              <Button
-                onClick={() => handleClick(1)}
-                classes={{
-                  root: button[1]
-                    ? classes.button_root
-                    : classes.button_selected,
-                  label: classes.button_label
-                }}
-              >
-                <Row>
-                  <img src="images/lesson-group/words.svg" alt="words" />
-                </Row>
-                <Row>WORDS</Row>
-              </Button>
-            </Col>
-            <Col>
-              <Button
-                onClick={() => handleClick(2)}
-                classes={{
-                  root: button[2]
-                    ? classes.button_root
-                    : classes.button_selected,
-                  label: classes.button_label
-                }}
-              >
-                <Row>
-                  <img src="images/lesson-group/writing.svg" alt="writing" />
-                </Row>
-                <Row>WRITING</Row>
-              </Button>
-            </Col>
-          </Row>
-        </Box>
-      </Container>
+    <Container>
+      <Box alignItems="flex-end">
+        <Row className={classes.row}>
+          <Col>
+            <Button
+              onClick={() => handleClick(0)}
+              classes={{
+                root: button[0] ? classes.button_root : classes.button_selected,
+                label: classes.button_label
+              }}
+            >
+              <Row>
+                <img src="images/lesson-group/phonics.svg" alt="phonics" />
+              </Row>
+              <Row>PHONICS</Row>
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              onClick={() => handleClick(1)}
+              classes={{
+                root: button[1] ? classes.button_root : classes.button_selected,
+                label: classes.button_label
+              }}
+            >
+              <Row>
+                <img src="images/lesson-group/words.svg" alt="words" />
+              </Row>
+              <Row>WORDS</Row>
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              onClick={() => handleClick(2)}
+              classes={{
+                root: button[2] ? classes.button_root : classes.button_selected,
+                label: classes.button_label
+              }}
+            >
+              <Row>
+                <img src="images/lesson-group/writing.svg" alt="writing" />
+              </Row>
+              <Row>WRITING</Row>
+            </Button>
+          </Col>
+        </Row>
+      </Box>
+    </Container>
   );
 }
 export default withFirebase(SectionSelector);

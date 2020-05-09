@@ -256,70 +256,70 @@ function CreateAssignment(props) {
     <>
       <div className="create-assignment">
         <h1 className="header">LESSON TYPE</h1>
-        <br/>
+        <br />
         <SectionSelector
           default={[!showPhonics, !showVocab, !showWriting]}
           handlePhonics={handlePhonics}
           handleVocab={handleVocab}
           handleWriting={handleWriting}
         />
-        <br/>
+        <br />
         {(showWriting || showVocab || showPhonics) && (
           <div>
             <br />
             <div>
-            {showPhonics && (
-              <div>
-                <h1 className="header">PHONICS</h1>
-                <PhonicSelector
-                  handlePhonicsChange={handleWordSelectorChange}
-                  handleGroupChange={handleWordGroupChange}
-                  words={words}
-                />
-              </div>
-            )}
-            {(showWriting || showVocab) && (
-              <div>
-                {(showWriting && <h1 className="header">WRITING</h1>) || (
-                  <h1 className="header">WORDS</h1>
-                )}
-                <WordGroupSelector
-                  handleChange={handleWordSelectorChange}
-                  wordGroupChange={handleWordGroupChange}
-                  assignedWords={words || existingAssignment?.words}
-                  assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
-                />
-              </div>
-            )}
+              {showPhonics && (
+                <div>
+                  <h1 className="header">PHONICS</h1>
+                  <PhonicSelector
+                    handlePhonicsChange={handleWordSelectorChange}
+                    handleGroupChange={handleWordGroupChange}
+                    words={words}
+                  />
+                </div>
+              )}
+              {(showWriting || showVocab) && (
+                <div>
+                  {(showWriting && <h1 className="header">WRITING</h1>) || (
+                    <h1 className="header">WORDS</h1>
+                  )}
+                  <WordGroupSelector
+                    handleChange={handleWordSelectorChange}
+                    wordGroupChange={handleWordGroupChange}
+                    assignedWords={words || existingAssignment?.words}
+                    assignedWordGroup={
+                      wordGroup || existingAssignment?.wordGroup
+                    }
+                  />
+                </div>
+              )}
             </div>
-            <div className = "lesson-name">
-            <InputGroup className="name-assignment">
-              <InputGroup.Prepend>
-                <InputGroup.Text className="input-header">
-                  Lesson Name
-                </InputGroup.Text>
-              </InputGroup.Prepend>
-              <FormControl
-                className="input"
-                maxLength = "40"
-                placeholder={"Ex. Vocab"}
-                defaultValue={lessonName || ""}
-                onChange={e => handleLessonNameChange(e.target.value)}
-              />
-            </InputGroup>
+            <div className="lesson-name">
+              <InputGroup className="name-assignment">
+                <InputGroup.Prepend>
+                  <InputGroup.Text className="input-header">
+                    Lesson Name
+                  </InputGroup.Text>
+                </InputGroup.Prepend>
+                <FormControl
+                  className="input"
+                  maxLength="40"
+                  placeholder={"Ex. Vocab"}
+                  defaultValue={lessonName || ""}
+                  onChange={e => handleLessonNameChange(e.target.value)}
+                />
+              </InputGroup>
             </div>
             <div className="student-date-container">
-                    <StudentSelector
-                      deployments={adminDeployments}
-                      handleChange={handleStudentListChange}
-                      assignedStudents={
-                        existingAssignment?.deploymentAccountIds
-                      }
-                    ></StudentSelector>
-                    <DatePicker
-                      handleChange={handleDatePickerChange}
-                      assignedDate={existingAssignment?.dueDate}
-                    />
+              <StudentSelector
+                deployments={adminDeployments}
+                handleChange={handleStudentListChange}
+                assignedStudents={existingAssignment?.deploymentAccountIds}
+              ></StudentSelector>
+              <DatePicker
+                handleChange={handleDatePickerChange}
+                assignedDate={existingAssignment?.dueDate}
+              />
             </div>
             <div>
               <LessonCardsDisplay

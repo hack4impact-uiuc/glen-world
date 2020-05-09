@@ -8,7 +8,11 @@ function LessonCardsDisplay(props) {
     <div className="lesson-cards-display">
       <div onClick={props.addCard}>
         <div className="default-card">
-          <img className = "plus-icon" src="images/icons/plus-icon.svg" alt="Close" />
+          <img
+            className="plus-icon"
+            src="images/icons/plus-icon.svg"
+            alt="Close"
+          />
         </div>
       </div>
       {Object.keys(props.cards).length > 0 &&
@@ -17,12 +21,12 @@ function LessonCardsDisplay(props) {
           .map(date => {
             const dateTemp = date;
             return (
-              <div className = "card-margins"> 
-              <LessonCard
-                lessonDate={dateTemp}
-                lessonStudents={props.cards[date][1]}
-                deleteCard={props.removeCard}
-              />
+              <div className="card-margins">
+                <LessonCard
+                  lessonDate={dateTemp}
+                  lessonStudents={props.cards[date][1]}
+                  deleteCard={props.removeCard}
+                />
               </div>
             );
           })}

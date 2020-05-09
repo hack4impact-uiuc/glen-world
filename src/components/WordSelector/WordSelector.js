@@ -70,18 +70,18 @@ function WordSelector(props) {
   }
   function wordSelection(word, index) {
     return (
-        <div className="word-checkbox" key={index}>
-          <label class="container">
-            <input
-              class="check"
-              checked={checkedWords.includes(word)}
-              type="checkbox"
-              name={word}
-              onChange={() => handleCheck(word)}
-            />
-            <div className="word">{word}</div>
-          </label>
-        </div>
+      <div className="word-checkbox" key={index}>
+        <label class="container">
+          <input
+            class="check"
+            checked={checkedWords.includes(word)}
+            type="checkbox"
+            name={word}
+            onChange={() => handleCheck(word)}
+          />
+          <div className="word">{word}</div>
+        </label>
+      </div>
     );
   }
 

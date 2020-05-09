@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Row} from "reactstrap";
+import { Row } from "reactstrap";
 import "./LessonCard.scss";
 
 function LessonCard(props) {
@@ -13,15 +13,14 @@ function LessonCard(props) {
   return (
     <div className="student-date-card">
       <div className="purple-box">
-        <Row className = "date-delete-header">
-        <div className="date">{cardDate}       
-        </div>
-        <div
-          onClick={() => props.deleteCard(props.lessonDate)}
-          className="delete-lesson-card"
-        >
-          <img src="images/icons/remove-card.svg" alt="Close" />
-        </div>
+        <Row className="date-delete-header">
+          <div className="date">{cardDate}</div>
+          <div
+            onClick={() => props.deleteCard(props.lessonDate)}
+            className="delete-lesson-card"
+          >
+            <img src="images/icons/remove-card.svg" alt="Close" />
+          </div>
         </Row>
       </div>
       <div className="student-container">

@@ -74,61 +74,61 @@ function CustomLessonsDisplay(props) {
   return (
     <div>
       <div className="button-bar">
-            <div className="heading">Lesson Plans</div>
-            <DropdownButton
-              id="ddown"
-              title={TEMPLATE_LESSON_MAP[filterType] || "LESSON TYPE"}
+        <div className="heading">Lesson Plans</div>
+        <DropdownButton
+          id="ddown"
+          title={TEMPLATE_LESSON_MAP[filterType] || "LESSON TYPE"}
+        >
+          <div className="drop-down-bar">
+            <Dropdown.Item
+              className="drop-down"
+              onClick={() => setFilterType("")}
             >
-              <div className="drop-down-bar">
+              -------
+            </Dropdown.Item>
+            {Object.keys(TEMPLATE_LESSON_MAP).map(key => (
+              <Dropdown.Item
+                className="drop-down"
+                onClick={() => setFilterType(key)}
+              >
+                {TEMPLATE_LESSON_MAP[key]}
+              </Dropdown.Item>
+            ))}
+          </div>
+        </DropdownButton>
+        {filterType != "C" && (
+          <DropdownButton
+            id="ddown"
+            title={TEMPLATE_WORD_GROUPS[filterGroup] || "WORD GROUPS"}
+          >
+            <div className="drop-down-bar">
+              <Dropdown.Item
+                className="drop-down"
+                onClick={() => setFilterGroup("")}
+              >
+                -------
+              </Dropdown.Item>
+              {Object.keys(TEMPLATE_WORD_GROUPS).map(key => (
                 <Dropdown.Item
                   className="drop-down"
-                  onClick={() => setFilterType("")}
+                  onClick={() => setFilterGroup(key)}
                 >
-                  -------
+                  {TEMPLATE_WORD_GROUPS[key]}
                 </Dropdown.Item>
-                {Object.keys(TEMPLATE_LESSON_MAP).map(key => (
-                  <Dropdown.Item
-                    className="drop-down"
-                    onClick={() => setFilterType(key)}
-                  >
-                    {TEMPLATE_LESSON_MAP[key]}
-                  </Dropdown.Item>
-                ))}
-              </div>
-            </DropdownButton>
-            {filterType != "C" && (
-              <DropdownButton
-                id="ddown"
-                title={TEMPLATE_WORD_GROUPS[filterGroup] || "WORD GROUPS"}
-              >
-                <div className="drop-down-bar">
-                  <Dropdown.Item
-                    className="drop-down"
-                    onClick={() => setFilterGroup("")}
-                  >
-                    -------
-                  </Dropdown.Item>
-                  {Object.keys(TEMPLATE_WORD_GROUPS).map(key => (
-                    <Dropdown.Item
-                      className="drop-down"
-                      onClick={() => setFilterGroup(key)}
-                    >
-                      {TEMPLATE_WORD_GROUPS[key]}
-                    </Dropdown.Item>
-                  ))}
-                </div>
-              </DropdownButton>
-            )}
-            <button
-              className="button"
-              onClick={() => setCreateLessonRedirect(true)}
-            >
-              Create Lesson
-            </button>
+              ))}
+            </div>
+          </DropdownButton>
+        )}
+        <button
+          className="button"
+          onClick={() => setCreateLessonRedirect(true)}
+        >
+          Create Lesson
+        </button>
       </div>
       <div className="cards-display">
         {allLessons && (
-          <div className = "icon-display">
+          <div className="icon-display">
             {allLessons
               .filter(
                 lesson =>
@@ -137,10 +137,10 @@ function CustomLessonsDisplay(props) {
                     lesson.wordGroup === TEMPLATE_WORD_GROUPS[filterGroup])
               )
               .map(lesson => (
-                <div className = "icon-margins">
-                <div onClick={() => handleClick(lesson)}>
-                <LessonNameDisplay lessonName={lesson.lessonName} />
-                </div>
+                <div className="icon-margins">
+                  <div onClick={() => handleClick(lesson)}>
+                    <LessonNameDisplay lessonName={lesson.lessonName} />
+                  </div>
                 </div>
               ))}
           </div>

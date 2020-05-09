@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "reactstrap";
-import "../PhonicWordSelector/PhonicWordSelector.scss"
+import "../PhonicWordSelector/PhonicWordSelector.scss";
 import "../PhonicIcon/PhonicIcon.scss";
 function PhonicWordSelector(props) {
   function handleSelect() {
@@ -9,15 +9,15 @@ function PhonicWordSelector(props) {
   }
   return (
     <div className="phonic-icon">
-        <div className="phonic-group-title">{props.name}</div>
-        <div className = "phonics-words-list">
-          {props.data.words.map(word => (
-            <div className="phonics-words">{word}</div>
-          ))}
-        </div>
-          <Button onClick={handleSelect} className="select-button">
-            {props.selected ? "UNDO" : "SELECT"}
-          </Button>
+      <div className="phonic-group-title">{props.name}</div>
+      <div className="phonics-words-list">
+        {props.data.words.map(word => (
+          <div className="phonics-words">{word}</div>
+        ))}
+      </div>
+      <Button onClick={handleSelect} className="select-button">
+        {props.selected ? "UNDO" : "SELECT"}
+      </Button>
     </div>
   );
 }
