@@ -51,9 +51,12 @@ function PhonicSelector(props) {
         {Object.keys(phonicGroups).map((key, index) => (
           <div>
             <ReactCardFlip isFlipped={flipCard[index]} flipDirection="vertical">
+              <div className = "phonic-icon-margin">
               <div onClick={() => handleChangeFlipMode(true, index)}>
               <PhonicIcon name={key} colored={cardColored[index]} />
               </div>
+              </div>
+              <div className = "phonic-icon-margin">
               <div onClick={() => handleChangeFlipMode(false, index)}>
                 <PhonicWordSelector
                   index={index}
@@ -62,6 +65,7 @@ function PhonicSelector(props) {
                   selected={cardColored[index]}
                   handleSelectPhonics={handleSelectPhonicGroup}
                 />
+              </div>
               </div>
             </ReactCardFlip>
           </div>

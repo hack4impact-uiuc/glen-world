@@ -2,12 +2,13 @@
 
 .PhonicIcon , .PurplePhonicIcon{
     width: 20vw;
-    min-height: 20vw;
-    margin: 1vw;
+    height: 20vw;
     background-color: white;
-    border-radius: 2vw;
-    display: box;
     border: 3px solid $assignments-light-purple;
+    border-radius: 2vw;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
   }
 .PurplePhonicIcon {
   background-color: $assignments-light-purple;
@@ -20,7 +21,6 @@
 // }
   
 .PhonicName {
-  padding-top: 20%;
   font-family: 'Roboto', sans-serif;
   font-size: 4em;
   text-transform: uppercase;

@@ -1,7 +1,6 @@
 @import "../../pages/Index/index.scss";
 
 .phonics-words-list {
-    // justify-content: center;
     text-align: center;
     min-height: 10vw;
 }
@@ -20,15 +19,11 @@
 }
 
 .SelectButton {
-color: $assignments-font-color;
-background-color: $assignments-background-color;
-font-family: $assignments-roboto-font;
-width: 7vw;
-font-weight: bold;
-// position: absolute;
-// left: 50%;
-// margin-right: -50%;
-// transform: translate(-50%, -50%);
-// bottom: 0.5em;
-border-radius: 1em;
+    color: $assignments-font-color;
+    background-color: $assignments-background-color;
+    font-family: $assignments-roboto-font;
+    width: 7vw;
+    font-weight: bold;
+    font-size: 1.5vw;
+    border-radius: 1em;
 }
