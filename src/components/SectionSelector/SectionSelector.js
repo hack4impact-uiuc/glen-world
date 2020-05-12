@@ -26,7 +26,7 @@ function SectionSelector(props) {
     <Container>
       <Box>
         <Row className={classes.row}>
-          <Col>
+          <Col className={classes.col}>
             <Button
               onClick={() => handleClick(0)}
               classes={{

@@ -6,6 +6,7 @@
   margin-bottom: .5vw;
   margin-right: 0vw;
   margin-left: 3vw;
+  cursor: pointer;
 }
 
 .date-delete-header {
@@ -16,7 +17,6 @@
   font-weight: bold;
   font-size: 2vw;
   color: $assignments-font-color;
-  margin-top: 2%;
 }
 .name {
   font-family: $assignments-roboto-font;

@@ -19,9 +19,11 @@
   background-color: $assignments-background-color;
   font-family: $assignments-roboto-font;
   font-weight: bold;
+  font-size: 1.5vw;
   border-radius: 1em;
-  margin-left: 10em;
   position: "absolute";
+  width: 15vw;
+  height: 5vw;
 }
 
 .header {

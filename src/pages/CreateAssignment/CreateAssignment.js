@@ -333,6 +333,7 @@ function CreateAssignment(props) {
                 Assign Lesson
               </Button>
             </div>
+            <br />
             <div>
               {invalidMessage.length > 0 && (
                 <InvalidAssignment

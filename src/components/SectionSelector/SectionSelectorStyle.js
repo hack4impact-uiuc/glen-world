@@ -7,6 +7,9 @@ const useStyles = makeStyles(theme => ({
   row: {
     flexWrap: "nowrap"
   },
+  col: {
+    margin: "0px"
+  },
   link: {
     textDecoration: "none",
     "&:hover": { textDecoration: "none" }
@@ -19,6 +22,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "15%",
     borderColor: "#FFFFFF",
     overflow: "hidden",
+    cursor: "pointer",
     "&:hover": {
       backgroundColor: "#FFFFFF",
       borderColor: "#FFFFFF"
