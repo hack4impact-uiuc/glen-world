@@ -4,6 +4,9 @@ import "typeface-roboto";
  * Use JS instead of CSS because material-ui overrides the CSS
  */
 const useStyles = makeStyles(theme => ({
+  row: {
+    flexWrap: "nowrap"
+  },
   link: {
     textDecoration: "none",
     "&:hover": { textDecoration: "none" }
