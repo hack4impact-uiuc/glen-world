@@ -24,7 +24,7 @@ function SectionSelector(props) {
   };
   return (
     <Container>
-      <Box alignItems="flex-end">
+      <Box>
         <Row>
           <Col>
             <Button
