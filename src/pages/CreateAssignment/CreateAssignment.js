@@ -16,12 +16,6 @@ import PhonicSelector from "../../components/PhonicSelector/PhonicSelector";
 import InvalidAssignment from "../../components/InvalidAssignment/InvalidAssignment";
 import LessonCardsDisplay from "../../components/LessonCardsDisplay/LessonCardsDisplay";
 
-/**
- * CSS stuff i gotta do
- *  resize lesson cards
- * see if theres a way to keep font size and change the component size
- * phonics cards be a little janky
- */
 function CreateAssignment(props) {
   const { firebase } = props;
   const { existingAssignment } = props?.location.state || {};

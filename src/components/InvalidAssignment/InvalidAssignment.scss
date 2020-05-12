@@ -39,9 +39,9 @@
   font-weight: bold;
   margin: auto;
   cursor: pointer;
-}
-
-.close-message:hover {
-  background-color: $close-button-color;
-  color: white;
+  &:hover {
+    background-color: $close-button-color;
+    color: white;
+  }
+  
 }
