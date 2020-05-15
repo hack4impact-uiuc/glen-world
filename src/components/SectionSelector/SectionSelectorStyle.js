@@ -4,6 +4,10 @@ import "typeface-roboto";
  * Use JS instead of CSS because material-ui overrides the CSS
  */
 const useStyles = makeStyles(theme => ({
+  container: {
+    width: "80vw",
+    margin: "auto",
+  },
   row: {
     flexWrap: "nowrap"
   },
