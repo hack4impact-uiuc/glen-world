@@ -1,19 +1,20 @@
 @import "../../pages/Index/index.scss";
 
+.date-picker {
+  min-height: 33vw;
+  max-width: 33vw;
+  margin-left: 10%;
+}
 .calendar {
   color: white;
 }
 .react-calendar {
-  width: 110%;
-  max-width: 150%;
-  height: 150%;
-  max-height: 150%;
   background: $assignments-light-purple;
   border: 1px solid #e6e6e6;
   border-radius: 10px;
   font-family: $assignments-roboto-font;
   line-height: 1.125em;
-  color: black;
+  color: $assignments-font-color;
 }
 .react-calendar,
 .react-calendar *,
@@ -30,24 +31,26 @@
 }
 
 .react-calendar__navigation {
-  height: 2em;
-  font-size: 200%;
-  color: #00d8a4;
-  background-color: $assignments-darker-color;
+  height: 4vw;
+  font-size: 2vw;
+  font-family: $assignments-roboto-font;
+  background-color:$assignments-font-color;
   border-radius: 10px 10px 0px 0px;
 
   button {
     min-width: 20px;
     background: none;
-    color: black;
+    color: white;
+    font-weight: bold;
   }
 }
 .react-calendar__navigation .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
-  background-color: #e6e6e6;
+  background-color:$assignments-font-color;
 }
 .react-calendar__navigation button[disabled] {
-  background-color: #e6e6e6;
+  color: white;
+  background-color:$assignments-font-color;
 }
 .react-calendar__month-view__weekdays {
   text-align: center;
@@ -55,11 +58,14 @@
   color: #00d8a4;
   background-color: $assignments-darker-color;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 1vw;
   color: black;
 }
 .react-calendar__month-view__weekdays__weekday {
   padding: 0.5em;
+  background-color:$assignments-font-color;
+  color: white;
+  font-size: 1rem;
 }
 .react-calendar__month-view__weekNumbers {
   font-weight: bold;
@@ -74,7 +80,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75em;
+  font-size: 2rem;
   padding-right: 0.1em;
   padding-left: 0.1em;
   color: black;
@@ -90,6 +96,7 @@
   background: #c0bfff;
   color: #ffffff;
   padding: 2em 0.5em;
+  cursor: pointer;
 }
 .react-calendar__tile {
   width: 150%;
@@ -101,7 +108,7 @@
   padding-left: 0.4em;
   background: none;
   color: white;
-  font-size: 200%;
+  font-size: 2.2vw;
 }
 .react-calendar__tile:disabled {
   background-color: #f0f0f0;

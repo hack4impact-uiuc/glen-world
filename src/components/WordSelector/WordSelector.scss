@@ -1,61 +1,61 @@
 @import "../../pages/Index/index.scss";
 
-.WordSelector {
+.word-selector {
+  min-width: 35vw;
   background-color: white;
-  width: 40vw;
-  padding: 20px;
+  padding: 2vw;
   border-radius: 1em;
-  position: relative;
+  position: fixed;
+  left: 32%;
+  top: 10%;
   margin: auto;
   margin-top: 8em;
   border: 5px solid #e6e6e6;
   z-index: 1;
-  overflow: scroll;
+  overflow-x: hidden;
 }
 
-.GroupTitle {
+.group-title {
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 30pt;
+  font-size: 3vw;
   text-align: left;
   color: #b1b0ff;
-  padding-bottom: 0;
-  padding-top: 0;
-  margin-right: 40%;
-  margin-top: 0%;
   overflow: visible;
 }
 
-.GroupTitleUnderline {
+.group-title-under-line {
   margin-top: 0%;
   border-top: 2px solid $assignments-font-color;
 }
 
-.WordDisplay {
+.select-word-display {
   display: inline-flex;
   width: 35vw;
   max-height: 35vw;
   flex-wrap: wrap;
   flex-direction: row;
+  justify-content: flex-start;
 }
 
-.words, .SelectCheckbox {
+.word-checkbox, .select-checkbox {
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1.3rem;
   color: $assignments-font-color;
   text-transform: capitalize;
+  min-width: 11vw;
+  margin-right: .5vw;
+  overflow: visible;
 }
 
-.SelectCheckbox {
-  margin-top: 10%;
-  margin-left: 0%;
+.select-checkbox {
   align-items: flex-start;
 }
 input[type='checkbox'] {
   -webkit-appearance:none;
-  width:30px;
-  height:30px;
+  width:2rem;
+  height:2rem;
   background:white;
   border-radius:5px;
   border:2px solid #555;
@@ -65,44 +65,43 @@ input[type='checkbox']:checked {
   background: $assignments-light-purple;
 }
 
-.CloseSelection {
+.close-selection {
   color: $assignments-font-color;
   background-color: $assignments-background-color;
   font-family: $assignments-roboto-font;
   width: 7vw;
   font-weight: bold;
   position: absolute;
-  left: 1.5em;
   bottom: 0.5em;
   border-radius: 1em;
 }
-.Padding {
+.padding {
   padding-top: 2em;
 }
 
-.NextButton {
+.next-button {
   color: $assignments-font-color;
   background-color: $assignments-background-color;
   font-family: $assignments-roboto-font;
-  width: 7vw;
+  width: 8vw;
+  font-size: 1.2em;
   font-weight: bold;
   position: absolute;
-  right: 1.5em;
-  bottom: 0.5em;
+  right: 1.5vw;
+  bottom: 0.5vw;
   border-radius: 1em;
 }
 .word {
-  position: relative;
   text-align: left;
-  padding-left: 1em;
+  margin-left: 2vw;
 }
 
-.check, .ChooseAllCheck {
+.check, .choose-all-check {
   position: absolute;
   top: 0;
   left: 0;
-  height: 25px;
-  width: 25px;
+  height: 10%;
+  width: 10%;
 }
 
 .container {
@@ -110,7 +109,6 @@ input[type='checkbox']:checked {
   position: relative;
   margin-bottom: 1em;
   cursor: pointer;
-  font-size: 1em;
 }
 
 :disabled {

@@ -70,32 +70,30 @@ function WordSelector(props) {
   }
   function wordSelection(word, index) {
     return (
-      <Col sm="4">
-        <div className="words" key={index}>
-          <label class="container">
-            <input
-              class="check"
-              checked={checkedWords.includes(word)}
-              type="checkbox"
-              name={word}
-              onChange={() => handleCheck(word)}
-            />
-            <div className="word">{word}</div>
-          </label>
-        </div>
-      </Col>
+      <div className="word-checkbox" key={index}>
+        <label class="container">
+          <input
+            class="check"
+            checked={checkedWords.includes(word)}
+            type="checkbox"
+            name={word}
+            onChange={() => handleCheck(word)}
+          />
+          <div className="word">{word}</div>
+        </label>
+      </div>
     );
   }
 
   return (
-    <div className="WordSelector">
+    <div className="word-selector">
       <div ref={ref}>
         <Row>
           <Col sm="8">
-            <div className="GroupTitle">{props.name}</div>
+            <div className="group-title">{props.name}</div>
           </Col>
-          <Col sm="4">
-            <div className="SelectCheckbox">
+          <Col sm="3">
+            <div className="select-checkbox">
               <label class="container">
                 <input
                   class="check"
@@ -106,20 +104,20 @@ function WordSelector(props) {
                   name="Select All"
                   onChange={handleChooseAll}
                 />
-                <div className="word">Choose All</div>
+                <div className="word">Select All</div>
               </label>
             </div>
           </Col>
         </Row>
-        <hr className="GroupTitleUnderline"></hr>
-        <div className="WordDisplay">
+        <hr className="group-title-under-line"></hr>
+        <div className="select-word-display">
           {props.group.map((word, index) => wordSelection(word, index))}
         </div>
-        <div className="Padding">
+        <div className="padding">
           <Button
             disabled={disableNext()}
             onClick={handleSelect}
-            className="NextButton"
+            className="next-button"
           >
             Select
           </Button>

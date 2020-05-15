@@ -1,0 +1,29 @@
+@import "../../pages/Index/index.scss";
+
+.phonics-words-list {
+    text-align: center;
+    min-height: 10vw;
+}
+.phonics-words {
+    font-size: 1.2em;
+    font-weight: bold;
+    font-family: $assignments-roboto-font;
+    text-transform: uppercase;
+}
+.phonic-group-title {
+    font-family: $assignments-roboto-font;
+    font-weight: bold;
+    font-size: 2.5vw;
+    color: #b1b0ff;
+    text-transform: uppercase;
+}
+
+.select-button {
+    color: $assignments-font-color;
+    background-color: $assignments-background-color;
+    font-family: $assignments-roboto-font;
+    width: 7vw;
+    font-weight: bold;
+    font-size: 1.5vw;
+    border-radius: 1em;
+}

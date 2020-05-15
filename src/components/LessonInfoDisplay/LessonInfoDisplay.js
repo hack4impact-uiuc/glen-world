@@ -57,7 +57,7 @@ function LessonInfoDisplay(props) {
               <div className="word-group-display">
                 <div className="lesson-group-name">{props.template}</div>
               </div>
-              <div className="word-display">
+              <div className="lesson-info-word-display">
                 <div className="grey-box">
                   <div className="word-group-name">
                     {props.lesson.wordGroup}

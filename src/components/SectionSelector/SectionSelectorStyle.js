@@ -4,24 +4,31 @@ import "typeface-roboto";
  * Use JS instead of CSS because material-ui overrides the CSS
  */
 const useStyles = makeStyles(theme => ({
+  container: {
+    width: "80vw",
+    margin: "auto"
+  },
   row: {
-    maxWidth: "1200px",
-    borderRadius: "30px"
+    flexWrap: "nowrap"
+  },
+  col: {
+    margin: "0px"
   },
   link: {
     textDecoration: "none",
     "&:hover": { textDecoration: "none" }
   },
   button_root: {
-    width: "300px",
-    height: "300px",
-    top: "28px",
-    background: "#b1b0ff",
+    width: "22vw",
+    minHeight: "22vw",
+    backgroundColor: "#FFFFFF",
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
     borderRadius: "15%",
     borderColor: "#FFFFFF",
+    overflow: "hidden",
+    cursor: "pointer",
     "&:hover": {
-      backgroundColor: "#b1b0ff",
+      backgroundColor: "#FFFFFF",
       borderColor: "#FFFFFF"
     },
     "&:focus": {
@@ -30,32 +37,25 @@ const useStyles = makeStyles(theme => ({
   },
   button_label: {
     flexDirection: "column",
-    fontSize: "60px",
+    fontSize: "3.5vw",
     fontWeight: "bold",
     fontFamily: "Roboto"
   },
   button_selected: {
-    width: "300px",
-    height: "300px",
-    top: "28px",
-    background: "#f5f5f5",
+    width: "22vw",
+    minHeight: "22vw",
+    background: "#b1b0ff",
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
     borderRadius: "15%",
     borderColor: "#000000",
+    overflow: "hidden",
     "&:hover": {
-      backgroundColor: "#f5f5f5",
+      backgroundColor: "#b1b0ff",
       borderColor: "#FFFFFF"
     },
     "&:focus": {
       outline: "none"
     }
-  },
-  header: {
-    fontSize: "65px",
-    fontFamily: "Roboto"
-  },
-  container: {
-    paddingBottom: "100px"
   }
 }));
 export default useStyles;

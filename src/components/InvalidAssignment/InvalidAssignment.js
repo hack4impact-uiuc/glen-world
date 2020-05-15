@@ -7,13 +7,13 @@ function InvalidAssignment(props) {
   }
 
   function displayMessage(message) {
-    return <div className="Message">{message}</div>;
+    return <div className="message">{message}</div>;
   }
 
   return (
-    <div className="InvalidAssignment">
-      <div className="MessageArea">{props.message.map(displayMessage)}</div>
-      <div className="CloseMessage" onClick={handleClose}>
+    <div className="invalid-assignment">
+      <div className="message-area">{props.message.map(displayMessage)}</div>
+      <div className="close-message" onClick={handleClose}>
         Close
       </div>
     </div>

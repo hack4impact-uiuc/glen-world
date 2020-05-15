@@ -9,9 +9,8 @@
   border-radius: 2em;
   position: fixed;
   left: 15%;
-  top: 10%;
+  top: 25%;
   margin: auto;
-  margin-top: 8em;
   z-index: 1;
   overflow: hidden;
 }
@@ -41,30 +40,30 @@
   border: 1px solid black;
   border-radius: 2em;
   margin: auto;
-  margin-left: 1.3em;
+  margin-left: 1.5vw;
   margin-top: 1em;
   overflow: hidden;
 }
 
 .lesson-group-name {
-  margin-top: 5%;
+  margin-top: .6vw;
   padding:auto;
-  font-size: 2em;
+  font-size: 2.5vw;
   font-weight: bold;
   text-transform: uppercase;
   color: $assignments-font-color;
 }
 
-.word-display {
+.lesson-info-word-display {
   height: 16vw;
-  width: 15vw;
+  width: 16vw;
   background-color: white;
   border-radius: 1em;
   margin: auto;
-  margin-top: 1em;
+  margin-top: 1vw;
   display: block;
   overflow: hidden;
-  margin-left: 1.8em;
+  margin-left: 1.5vw;
 }
 .grey-box, .purple-box {
   height: 3vw;
@@ -80,21 +79,23 @@
 .words-list {
   height: 14vw;
   overflow: scroll;
+  text-align: center;
 }
 .word-group-name {
-  font-size: 1.7em;
+  font-size: 2vw;
   font-weight: bold;
   text-transform: uppercase;
   font-style: $assignments-roboto-font;
   color: black;
 }
-.words {
+.words{
   font-size: 1.5em;
   font-weight: bold;
   color: $assignments-font-color;
   text-transform: capitalize;
   height: 1.5em;
   overflow:hidden;
+  text-align: center;
 }
 .student-date-card {
   height: 19vw;
@@ -138,7 +139,7 @@
   overflow: hidden;
 }
 .date-label {
-  font-size: 1.5em;
+  font-size: 2vw;
   color: $assignments-font-color;
   font-weight: bold;
   margin-top: 2%;
@@ -147,7 +148,8 @@
 .button-container {
   margin-right: .5vw;
   margin-top: .3vw;
-  margin-left: 46vw
+  margin-left: 46vw;
+  cursor: pointer;
 }
 .wide-column  {
   width: 60vw

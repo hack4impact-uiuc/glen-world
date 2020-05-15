@@ -3,7 +3,6 @@ import phonicGroups from "utils/phonics.json";
 import PhonicIcon from "../PhonicIcon/PhonicIcon";
 import PhonicWordSelector from "../PhonicWordSelector/PhonicWordSelector";
 import ReactCardFlip from "react-card-flip";
-import "../WordGroupSelector/WordGroupSelector.scss";
 import "./PhonicSelector.scss";
 function PhonicSelector(props) {
   const [flipCard, setFlipCard] = useState(
@@ -47,22 +46,26 @@ function PhonicSelector(props) {
   }
 
   return (
-    <div className="PhonicBackground">
-      <div className="WordGroups">
+    <div className="phonic-background">
+      <div className="phonic-groups-display">
         {Object.keys(phonicGroups).map((key, index) => (
           <div>
             <ReactCardFlip isFlipped={flipCard[index]} flipDirection="vertical">
-              <div onClick={() => handleChangeFlipMode(true, index)}>
-                <PhonicIcon name={key} colored={cardColored[index]} />
+              <div className="phonic-icon-margin">
+                <div onClick={() => handleChangeFlipMode(true, index)}>
+                  <PhonicIcon name={key} colored={cardColored[index]} />
+                </div>
               </div>
-              <div onClick={() => handleChangeFlipMode(false, index)}>
-                <PhonicWordSelector
-                  index={index}
-                  data={phonicGroups[key]}
-                  name={key}
-                  selected={cardColored[index]}
-                  handleSelectPhonics={handleSelectPhonicGroup}
-                />
+              <div className="phonic-icon-margin">
+                <div onClick={() => handleChangeFlipMode(false, index)}>
+                  <PhonicWordSelector
+                    index={index}
+                    data={phonicGroups[key]}
+                    name={key}
+                    selected={cardColored[index]}
+                    handleSelectPhonics={handleSelectPhonicGroup}
+                  />
+                </div>
               </div>
             </ReactCardFlip>
           </div>
