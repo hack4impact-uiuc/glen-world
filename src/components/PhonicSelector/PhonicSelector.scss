@@ -1,6 +1,15 @@
-.PhonicBackground {
-    height: 55vh;
-    width: 100vw;
+
+.phonic-background {
+    min-height: 50vh;
     background-color: #f5f5f5;
     overflow: auto;
   }
+.phonic-groups-display {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.phonic-icon-margin {
+  margin: 2vw;
+}

@@ -1,54 +1,28 @@
 @import "../../pages/Index/index.scss";
 
-.PhonicIcon , .PurplePhonicIcon{
+.phonic-icon , .purple-phonic-icon{
     width: 20vw;
     height: 20vw;
-    margin: 2em;
-    padding: 20px;
     background-color: white;
-    border-radius: 2em;
-    display: flex;
+    border: 3px solid $assignments-light-purple;
+    border-radius: 2vw;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
   }
-.PurplePhonicIcon {
+.purple-phonic-icon {
   background-color: $assignments-light-purple;
 }
-.PhonicIconBorder {
-  border: 3px solid $assignments-light-purple;
-  width: 17.5vw;
-  height: 17.5vw;
-  border-radius: 2em;
-}
   
-.PhonicName {
-  padding-top: 28%;
+.phonic-name {
   font-family: 'Roboto', sans-serif;
   font-size: 4em;
   text-transform: uppercase;
   text-align: center;
   font-weight: bold;
   color: $assignments-font-color;
+  cursor: pointer;
 }
 
-.PhonicGroupTitle {
-  font-family: $assignments-roboto-font;
-  font-weight: bold;
-  font-size: 20pt;
-  color: #b1b0ff;
-  padding-bottom: 0;
-  text-transform: uppercase;
-}
-
-.SelectButton {
-  color: $assignments-font-color;
-  background-color: $assignments-background-color;
-  font-family: $assignments-roboto-font;
-  width: 7vw;
-  font-weight: bold;
-  position: absolute;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-  bottom: 0.5em;
-  border-radius: 1em;
-}
   

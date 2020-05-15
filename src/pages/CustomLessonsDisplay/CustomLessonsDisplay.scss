@@ -3,33 +3,39 @@
 .heading {
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 3em;
+  font-size: 4vw;
   color: white;
   margin: auto;
+  margin-left: 2%;
 }
 .card-display {
   font-family: $assignments-roboto-font;
   min-height: 30vw;
   flex-wrap: wrap;
   flex-direction: row;
-  position: absolute;
+  justify-content: start;
   background-color: $assignments-app-background-color;
 }
 .button-bar {
   background-color: $assignments-font-color;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
 }
 #ddown, .button {
-  height: 2em;
+  height: 4.5vw;
   width: 11em;
   border-color: $assignments-font-color;
   border-radius: 2em;
-  margin-top: 3%;
   background-color: white;
   color: black;
   font-family: $assignments-roboto-font;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.3em;
   transition-duration: 0.3s;
+  margin-top: .4vw;
+  margin-left: 1vw;
   &:hover {
     background-color: $assignments-light-purple;
     color: white;
@@ -41,6 +47,9 @@
     background-color: white;
     color: black;
   }
+  margin-left: 1vw;
+  margin-right: 1vw;
+  margin-top: .4vw;
 }
 .drop-down-bar {
   width: 16.5em;
@@ -58,7 +67,14 @@
   }
 }
 
-.col-padding {
-  padding: 0px !important;
-  margin: 0px !important;
+.icon-margins {
+  margin: .6vw;
+}
+
+.icon-display {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
+  width: 100vw;
 }

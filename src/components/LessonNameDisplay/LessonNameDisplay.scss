@@ -1,32 +1,27 @@
 @import "../../pages/Index/index.scss";
 
-.NameIcon {
-  width: 18vw;
-  height: 9vw;
-  background-color: white;
-  border-radius: 1em;
-  box-shadow: "5px 10px #888888";
-  display: block;
-  margin: auto;
-  margin-top: 1vw;
-}
-.InnerBorder {
+.name-icon {
   width: 17vw;
   height: 8vw;
+  background-color: white;
   border: 4px solid $assignments-light-purple;
-  padding-top: 5px;
   border-radius: 1em;
-  margin-top: 8px;
+  box-shadow: "5px 10px #888888";
+  margin: auto;
+  margin-top: 1vw;
   overflow: hidden;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
 }
 
-.Name {
+.name-lesson-display {
   font-family: $assignments-roboto-font;
   font-weight: bold;
   font-size: 1.2em;
   color: #4d4d4c;
-  margin:1%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin:1vw;
+  width: 16vw;
+  overflow: hidden;
 }

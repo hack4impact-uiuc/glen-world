@@ -1,26 +1,21 @@
 @import "../../pages/Index/index.scss";
 
-.Background {
-  height: 120vh;
-  max-width: 150vh;
-  background-image: url("wordgroupbg.svg");
-  background-position: 10%;
-  background-size: 130vh, 100vh;
+.background {
+  min-height: 52vw;
   background-color: #f5f5f5;
-  overflow: auto;
   margin: auto;
 }
 
-.WordGroups {
+.word-groups-display {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: auto;
-  margin-left: auto;
-  margin-right: auto;
-  position: absolute;
+  justify-content: center;
 }
 
-.SelectWords {
-  margin-top: 15%;
+.word-groups-margins {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
 }
+

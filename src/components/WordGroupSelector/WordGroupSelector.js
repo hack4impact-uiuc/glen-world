@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { collectedWordGroupsService } from "util/GWUtil/resource";
 import "./WordGroupSelector.scss";
 import { TEMPLATE_WORD_GROUPS } from "../../utils/constants";
+import { Button, Row, Col } from "react-bootstrap";
 import WordGroupIcon from "../WordGroupIcon/WordGroupIcon";
 import WordSelector from "../WordSelector/WordSelector";
 
@@ -60,23 +61,22 @@ function WordGroupSelector(props) {
   }, [props.assignedWordGroup]);
 
   return (
-    <div className="Background">
-      <div className="WordGroups">
+    <div className="background">
+      <div className="word-groups-display">
         {Object.keys(wordGroups).map((wordGroupName, index) => (
-          <div
-            onClick={() =>
-              handleClick(wordGroups[wordGroupName].words, wordGroupName, index)
-            }
-          >
-            <WordGroupIcon
-              name={wordGroupName}
-              image={wordGroups[wordGroupName].image}
-              colored={cardColored[index]}
-            />
+          <div className="word-groups-margins">
+            <div onClick={() => handleClick(wordGroups[wordGroupName].words, wordGroupName, index)}>
+              <WordGroupIcon
+                name={wordGroupName}
+                image={wordGroups[wordGroupName].image}
+                colored={cardColored[index]}
+                onClick={() => handleClick(wordGroups[wordGroupName].words, wordGroupName, index)}
+              />
+            </div>
           </div>
         ))}
       </div>
-      <div className="SelectWords">
+      <div>
         {wordSelectorToggle && (
           <WordSelector
             group={clickedGroup}

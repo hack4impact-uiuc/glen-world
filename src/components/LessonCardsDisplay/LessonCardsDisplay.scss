@@ -1,32 +1,49 @@
 @import "../../pages/Index/index.scss";
 
-.LessonCardsDisplay {
+.lesson-cards-display {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  overflow: scroll;
-  width: 85vw;
-  height: 20vw;
+  width: 90vw;
+  height: 22vw;
   border-radius: 20px;
   margin: auto;
   margin-top: 2vw;
   margin-bottom: 2vw;
   padding-bottom: 1vw;
   background-color: $assignments-darker-color;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  justify-content: flex-start;
 }
 
-.DefaultCard {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+.default-card {
+  height: 19vw;
+  width: 14vw;
+  border-radius: 1em;
+  background-color: $assignments-light-purple;
+  display:inline-block;
+  margin-left:0em;
+  margin-top: 1em;
   overflow: hidden;
-  height: 15vw;
-  width: 12vw;
-  border-radius: 20px;
-  margin: 2vw;
-  margin-bottom: 0vw;
-  background-color: $assignments-background-color;
-  color: $assignments-font-color;
-  font-family: $assignments-roboto-font;
-  font-size: 1.2em;
+  margin-right: auto;
+  position: relative;
+  cursor: pointer;
+}
+
+.plus-icon {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.card-margins, .default-card{
+  margin-left: 3em;
 }
