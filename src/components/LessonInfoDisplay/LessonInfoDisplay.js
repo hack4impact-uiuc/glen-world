@@ -92,7 +92,7 @@ function LessonInfoDisplay(props) {
                   onClick={handleDeleteLessonConfirmation}
                   className="button-container"
                 >
-                  <img src="images/icons/remove-card.svg" alt="edit" />
+                  <img src="images/icons/delete-icon.svg" alt="delete" />
                 </div>
               </div>
               <div className="card-container">

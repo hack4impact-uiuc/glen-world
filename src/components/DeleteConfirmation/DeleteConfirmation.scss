@@ -5,7 +5,7 @@
     border: 4px solid $assignments-font-color;
     box-shadow: "5px 10px #888888";
     border-radius: 1vw;
-    width: 20vw;
+    width: 30vw;
     min-height: 10vw;
     margin: auto;
     padding: 1vw;
@@ -16,7 +16,7 @@
 }
 
 .delete-note{
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: black;
     font-weight: bold;
 }
@@ -31,8 +31,8 @@
     color: black;
   background-color: $assignments-light-purple;
   font-family: $assignments-roboto-font;
-  font-size: 1.2rem;
-  width: 4vw;
+  font-size: 1.5rem;
+  width: 6vw;
   border-radius: 8px;
   transition-duration: 0.3s;
   font-weight: bold;
