@@ -6,7 +6,7 @@ import "typeface-roboto";
 const useStyles = makeStyles(theme => ({
   container: {
     width: "80vw",
-    margin: "auto",
+    margin: "auto"
   },
   row: {
     flexWrap: "nowrap"
