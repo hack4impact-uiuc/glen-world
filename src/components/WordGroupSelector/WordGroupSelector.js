@@ -65,12 +65,26 @@ function WordGroupSelector(props) {
       <div className="word-groups-display">
         {Object.keys(wordGroups).map((wordGroupName, index) => (
           <div className="word-groups-margins">
-            <div onClick={() => handleClick(wordGroups[wordGroupName].words, wordGroupName, index)}>
+            <div
+              onClick={() =>
+                handleClick(
+                  wordGroups[wordGroupName].words,
+                  wordGroupName,
+                  index
+                )
+              }
+            >
               <WordGroupIcon
                 name={wordGroupName}
                 image={wordGroups[wordGroupName].image}
                 colored={cardColored[index]}
-                onClick={() => handleClick(wordGroups[wordGroupName].words, wordGroupName, index)}
+                onClick={() =>
+                  handleClick(
+                    wordGroups[wordGroupName].words,
+                    wordGroupName,
+                    index
+                  )
+                }
               />
             </div>
           </div>

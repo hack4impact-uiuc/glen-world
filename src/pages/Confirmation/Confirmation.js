@@ -40,7 +40,7 @@ function Confirmation(props) {
       .then(() => {
         setSubmitted(true);
       })
-      .catch(error => console.error("Couldn't create custom lesson", error));
+      .catch(error => console.error("Couldn't create custom lesson: ", error));
   }
 
   if (submitted) {
