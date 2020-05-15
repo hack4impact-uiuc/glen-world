@@ -6,7 +6,7 @@ function DeleteConfirmation(props) {
     <div className="confirmation-background">
       <div className="delete-note">Delete Lesson: {props.lessonName}?</div>
       <div className="delete-lesson-button-container">
-        <div className="yes-no-buttons" onClick={props.handleDelete}>
+        <div className="yes-no-buttons" onClick={() => props.handleDelete()}>
           YES
         </div>
         <div

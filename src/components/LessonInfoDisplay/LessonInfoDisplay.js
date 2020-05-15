@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
 import { compose } from "recompose";
 import { withRouter, Redirect } from "react-router-dom";
+import { withFirebase } from "utils/Firebase";
 import { useRef } from "react";
 import useOutsideClick from "../WordSelector/useOutsideClick";
 import "./LessonInfoDisplay.scss";
 import DeleteConfirmation from "../../components/DeleteConfirmation/DeleteConfirmation";
 
 function LessonInfoDisplay(props) {
+  const { firebase } = props;
   const [editLessonRedirect, setEditLessonRedirect] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const ref = useRef();
@@ -42,8 +44,12 @@ function LessonInfoDisplay(props) {
   }
 
   function handleDeleteLessonConfirmation() {
-    console.log("wtf");
     setShowDelete(true);
+  }
+
+  function handleDeleteLesson() {
+    console.log(props.lesson);
+    firebase.deleteCustomLesson(props.lesson.id, props.lesson.dueDates);
   }
 
   if (editLessonRedirect) {
@@ -109,6 +115,7 @@ function LessonInfoDisplay(props) {
       {showDelete && (
         <DeleteConfirmation
           lessonName={props.lesson.lessonName}
+          handleDelete={handleDeleteLesson}
           handleClose={setShowDelete}
         />
       )}
@@ -116,4 +123,5 @@ function LessonInfoDisplay(props) {
   );
 }
 
-export default compose(withRouter)(LessonInfoDisplay);
+export default compose(withFirebase,
+  withRouter)(LessonInfoDisplay);
