@@ -4,10 +4,11 @@ import { useRef } from "react";
 import useOutsideClick from "./useOutsideClick";
 import "./WordSelector.scss";
 
+const MIN_WORD_COUNT = 4;
+
 function WordSelector(props) {
   const [wordCount, updateWordCount] = useState(0);
-  const [minWords] = useState(4);
-  const [checkedWords, updateWords] = useState([]);
+  const [checkedWords, setCheckedWords] = useState([]);
   const [wordGroup, updateWordGroup] = useState();
   const [chooseAll, setChooseAll] = useState(false);
   const [disableSelect, setDisableSelect] = useState(false);
@@ -19,19 +20,19 @@ function WordSelector(props) {
 
   useEffect(() => {
     if (props.assignedWords) {
-      updateWords(props.assignedWords);
+      setCheckedWords(props.assignedWords);
       updateWordCount(props.assignedWords.length);
       updateWordGroup(props.assignedWordGroup);
       setDisableSelect(props.assignedWordGroup !== props.name);
     }
   }, [props.assignedWords, props.assignedWordGroup, props.name]);
   function disableNext() {
-    return wordCount < minWords || disableSelect;
+    return wordCount < MIN_WORD_COUNT || disableSelect;
   }
 
   function handleCheck(word) {
     if (props.name !== wordGroup) {
-      updateWords([word]);
+      setCheckedWords([word]);
       updateWordCount(1);
       updateWordGroup(props.name);
       setDisableSelect(false);
@@ -41,7 +42,7 @@ function WordSelector(props) {
         checkedWords.splice(index, 1);
         updateWordCount(wordCount - 1);
       } else {
-        updateWords([...checkedWords, word]);
+        setCheckedWords([...checkedWords, word]);
         updateWordCount(wordCount + 1);
       }
     }
@@ -60,10 +61,10 @@ function WordSelector(props) {
       setDisableSelect(false);
     }
     if (!chooseAll) {
-      updateWords([...props.group]);
+      setCheckedWords([...props.group]);
       updateWordCount(props.group.length);
     } else {
-      updateWords([]);
+      setCheckedWords([]);
       updateWordCount(0);
     }
     setChooseAll(!chooseAll);
