@@ -5,12 +5,16 @@ import { withRouter, Redirect } from "react-router-dom";
 import { useRef } from "react";
 import useOutsideClick from "../WordSelector/useOutsideClick";
 import "./LessonInfoDisplay.scss";
+import DeleteConfirmation from "../../components/DeleteConfirmation/DeleteConfirmation";
 
 function LessonInfoDisplay(props) {
   const [editLessonRedirect, setEditLessonRedirect] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const ref = useRef();
   useOutsideClick(ref, () => {
-    props.setDisplay(false);
+    if (!showDelete) {
+      props.setDisplay(false);
+    }
   });
 
   function toFormatDate(date) {
@@ -35,6 +39,11 @@ function LessonInfoDisplay(props) {
         </div>
       </Col>
     );
+  }
+
+  function handleDeleteLessonConfirmation() {
+    console.log("wtf");
+    setShowDelete(true);
   }
 
   if (editLessonRedirect) {
@@ -72,11 +81,19 @@ function LessonInfoDisplay(props) {
             </div>
 
             <Col className="wide-column">
-              <div
-                onClick={() => setEditLessonRedirect(true)}
-                className="button-container"
-              >
-                <img src="images/icons/edit-icon.svg" alt="edit" />
+              <div className="lesson-info-button-bar">
+                <div
+                  onClick={() => setEditLessonRedirect(true)}
+                  className="button-container"
+                >
+                  <img src="images/icons/edit-icon.svg" alt="edit" />
+                </div>
+                <div
+                  onClick={handleDeleteLessonConfirmation}
+                  className="button-container"
+                >
+                  <img src="images/icons/remove-card.svg" alt="edit" />
+                </div>
               </div>
               <div className="card-container">
                 <Row>
@@ -89,6 +106,12 @@ function LessonInfoDisplay(props) {
           </div>
         </Row>
       </div>
+      {showDelete && (
+        <DeleteConfirmation
+          lessonName={props.lesson.lessonName}
+          handleClose={setShowDelete}
+        />
+      )}
     </div>
   );
 }
