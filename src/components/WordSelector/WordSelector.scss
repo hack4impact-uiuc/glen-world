@@ -15,7 +15,7 @@
   overflow-x: hidden;
 }
 
-.group-title {
+.wordselector-group-title {
   font-family: $assignments-roboto-font;
   font-weight: bold;
   font-size: 3vw;
@@ -24,12 +24,12 @@
   overflow: visible;
 }
 
-.group-title-under-line {
+.wordselector-group-title-under-line {
   margin-top: 0%;
   border-top: 2px solid $assignments-font-color;
 }
 
-.select-word-display {
+.wordselector-select-word-display {
   display: inline-flex;
   width: 35vw;
   max-height: 35vw;
@@ -38,7 +38,7 @@
   justify-content: flex-start;
 }
 
-.word-checkbox, .select-checkbox {
+.wordselector-word-checkbox, .wordselector-select-checkbox {
   font-family: $assignments-roboto-font;
   font-weight: bold;
   font-size: 1.3rem;
@@ -49,7 +49,7 @@
   overflow: visible;
 }
 
-.select-checkbox {
+.wordselector-select-checkbox {
   align-items: flex-start;
 }
 input[type='checkbox'] {
@@ -65,7 +65,7 @@ input[type='checkbox']:checked {
   background: $assignments-light-purple;
 }
 
-.close-selection {
+.wordselector-close-selection {
   color: $assignments-font-color;
   background-color: $assignments-background-color;
   font-family: $assignments-roboto-font;
@@ -75,11 +75,11 @@ input[type='checkbox']:checked {
   bottom: 0.5em;
   border-radius: 1em;
 }
-.padding {
+.wordselector-padding {
   padding-top: 2em;
 }
 
-.next-button {
+.wordselector-next-button {
   color: $assignments-font-color;
   background-color: $assignments-background-color;
   font-family: $assignments-roboto-font;
@@ -91,12 +91,12 @@ input[type='checkbox']:checked {
   bottom: 0.5vw;
   border-radius: 1em;
 }
-.word {
+.wordselector-word {
   text-align: left;
   margin-left: 2vw;
 }
 
-.check, .choose-all-check {
+.wordselector-check, .wordselector-choose-all-check {
   position: absolute;
   top: 0;
   left: 0;
@@ -104,7 +104,7 @@ input[type='checkbox']:checked {
   width: 10%;
 }
 
-.container {
+.wordselector-container {
   display: block;
   position: relative;
   margin-bottom: 1em;

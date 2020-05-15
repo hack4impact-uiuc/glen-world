@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import { collectedWordGroupsService } from "util/GWUtil/resource";
 import "./WordGroupSelector.scss";
 import { TEMPLATE_WORD_GROUPS } from "../../utils/constants";
-import { Button, Row, Col } from "react-bootstrap";
 import WordGroupIcon from "../WordGroupIcon/WordGroupIcon";
 import WordSelector from "../WordSelector/WordSelector";
 

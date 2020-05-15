@@ -13,7 +13,7 @@
   min-height: 30vw;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: start;
+  flex-start:start;
   background-color: $assignments-app-background-color;
 }
 .button-bar {
@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: start;
+  flex-start:start;
 }
 #ddown, .button {
   height: 4.5vw;
@@ -74,7 +74,7 @@
 .icon-display {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: start;
+  flex-wrap: wrap;  
+  flex-start:start;
   width: 100vw;
 }

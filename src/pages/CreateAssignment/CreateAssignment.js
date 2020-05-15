@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CreateAssignment.scss";
-import { Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
+import { InputGroup, FormControl } from "react-bootstrap";
 import { compose } from "recompose";
 import { Button } from "reactstrap";
 import { getDeploymentAccountIdsFromLesson } from "utils/Lesson";

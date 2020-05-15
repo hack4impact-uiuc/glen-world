@@ -9,7 +9,6 @@ import {
 } from "utils/constants.js";
 import "./CustomLessonsDisplay.scss";
 import { compose } from "recompose";
-import { Col, Row } from "reactstrap";
 import { withRouter, Redirect } from "react-router-dom";
 import LessonInfoDisplay from "../../components/LessonInfoDisplay/LessonInfoDisplay";
 import LessonNameDisplay from "../../components/LessonNameDisplay/LessonNameDisplay";
@@ -95,7 +94,7 @@ function CustomLessonsDisplay(props) {
             ))}
           </div>
         </DropdownButton>
-        {filterType != "C" && (
+        {filterType !== "C" && (
           <DropdownButton
             id="ddown"
             title={TEMPLATE_WORD_GROUPS[filterGroup] || "WORD GROUPS"}
