@@ -40,7 +40,7 @@ function WordGroupSelector(props) {
       setClickedGroup(wordGroups[props.assignedWordGroup].words);
       setWordSelectorToggle(true);
     }
-  }, [props.assignedWordGroup]);
+  }, [wordGroups]);
 
   return (
     <div className="word-group-selector">

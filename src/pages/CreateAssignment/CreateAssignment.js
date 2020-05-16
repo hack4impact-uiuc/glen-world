@@ -115,7 +115,7 @@ function CreateAssignment(props) {
     setShowWriting(true);
   }
   function createLessonCard() {
-    var validCard = true;
+    let validCard = true;
     if (deploymentAccountIds < 1) {
       setInvalidMessage(invalidMessage => [
         ...invalidMessage,
@@ -165,7 +165,7 @@ function CreateAssignment(props) {
   }
 
   function verifyNameAndPush() {
-    var options = { month: "long" };
+    let options = { month: "long" };
     let month = new Intl.DateTimeFormat("en-US", options).format(
       lessonCreationDate
     );
@@ -184,7 +184,7 @@ function CreateAssignment(props) {
     }
   }
   function validateAssignment() {
-    var validAssignment = true;
+    let validAssignment = true;
     if (wordGroup == null || (words.length < 4 && lessonType !== "C")) {
       setInvalidMessage(invalidMessage => [
         ...invalidMessage,
@@ -205,7 +205,7 @@ function CreateAssignment(props) {
   }
 
   if (submitted) {
-    var dates = {};
+    let dates = {};
     const lessonKeys = Object.keys(lessonCards);
     for (const key of lessonKeys) {
       dates[key] = lessonCards[key][0];
