@@ -26,6 +26,7 @@ function WordSelector(props) {
       setDisableSelect(props.assignedWordGroup !== props.name);
     }
   }, [props.assignedWords, props.assignedWordGroup, props.name]);
+
   function disableNext() {
     return wordCount < MIN_WORD_COUNT || disableSelect;
   }
@@ -46,14 +47,12 @@ function WordSelector(props) {
         updateWordCount(wordCount + 1);
       }
     }
-    console.log(checkedWords);
   }
 
   function handleSelect() {
     props.selectWords(checkedWords);
     props.setWordSelectorToggle(false);
-    props.selectGroup(props.name);
-    props.changeColor(props.index);
+    props.selectWordGroup(props.name);
   }
 
   function handleChooseAll() {
@@ -70,6 +69,7 @@ function WordSelector(props) {
     }
     setChooseAll(!chooseAll);
   }
+
   function wordSelection(word, index) {
     return (
       <div className="wordselector-word-checkbox" key={index}>
@@ -81,7 +81,7 @@ function WordSelector(props) {
             name={word}
             onChange={() => handleCheck(word)}
           />
-          <div className="word">{word}</div>
+          <div className="wordselector-word">{word}</div>
         </label>
       </div>
     );
@@ -98,7 +98,7 @@ function WordSelector(props) {
             <div className="wordselector-select-checkbox">
               <label className="wordselector-container">
                 <input
-                  class="wordselector-check"
+                  className="wordselector-check"
                   checked={
                     checkedWords.length === props.group.length && !disableSelect
                   }
@@ -111,7 +111,7 @@ function WordSelector(props) {
             </div>
           </Col>
         </Row>
-        <hr className="wordselector-group-title-under-line"></hr>
+        <hr className="wordselector-group-title-underline"></hr>
         <div className="wordselector-select-word-display">
           {props.group.map((word, index) => wordSelection(word, index))}
         </div>

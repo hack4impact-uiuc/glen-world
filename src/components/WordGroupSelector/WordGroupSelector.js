@@ -5,34 +5,21 @@ import { TEMPLATE_WORD_GROUPS } from "../../utils/constants";
 import WordGroupIcon from "../WordGroupIcon/WordGroupIcon";
 import WordSelector from "../WordSelector/WordSelector";
 
+// fixing the coloring
 function WordGroupSelector(props) {
   const [wordGroups, setWordGroups] = useState({});
   const [clickedName, setClickedName] = useState("");
   const [clickedGroup, setClickedGroup] = useState([]);
   const [wordSelectorToggle, setWordSelectorToggle] = useState(false);
-  const [cardColored, setCardColored] = useState(
-    Array(wordGroups.length)
-      .fill()
-      .map((_, i) => false)
-  );
 
-  const handleChangeColor = useCallback(
-    index => {
-      //only one colored at a time bc you can only choose one word group
-      let cardColoredCopy = Array(wordGroups.length)
-        .fill()
-        .map((_, i) => false);
-      cardColoredCopy[index] = true;
-      setCardColored(cardColoredCopy);
+  const handleClick = useCallback(
+    (group, groupName) => {
+      setClickedGroup(group);
+      setClickedName(groupName);
+      setWordSelectorToggle(!wordSelectorToggle);
     },
-    [wordGroups.length]
+    [wordSelectorToggle]
   );
-
-  const handleClick = useCallback((group, groupName) => {
-    setClickedGroup(group);
-    setClickedName(groupName);
-    setWordSelectorToggle(true);
-  }, []);
 
   useEffect(() => {
     if (
@@ -41,21 +28,18 @@ function WordGroupSelector(props) {
     ) {
       collectedWordGroupsService.all().then(function(collectedWordGroups) {
         var tempWordGroups = {};
-        var index = 0;
         Object.keys(collectedWordGroups).forEach(wordGroupName => {
           tempWordGroups[TEMPLATE_WORD_GROUPS[wordGroupName]] = {
             words: collectedWordGroups[wordGroupName],
-            image: "images/word-group/" + wordGroupName + ".svg",
-            index: index
+            image: "images/word-group/" + wordGroupName + ".svg"
           };
         });
         setWordGroups(tempWordGroups);
       });
     } else if (props.assignedWordGroup) {
       setClickedName(props.assignedWordGroup);
-      setClickedGroup(wordGroups[props.assignedWordGroup][0]);
-      setWordSelectorToggle(!wordSelectorToggle);
-      handleChangeColor(wordGroups[props.assignedWordGroup][2]);
+      setClickedGroup(wordGroups[props.assignedWordGroup].words);
+      setWordSelectorToggle(true);
     }
   }, [props.assignedWordGroup]);
 
@@ -63,26 +47,18 @@ function WordGroupSelector(props) {
     <div className="background">
       <div className="word-groups-display">
         {Object.keys(wordGroups).map((wordGroupName, index) => (
-          <div className="word-groups-margins">
+          <div key={index} className="word-groups-margins">
             <div
               onClick={() =>
-                handleClick(
-                  wordGroups[wordGroupName].words,
-                  wordGroupName,
-                  index
-                )
+                handleClick(wordGroups[wordGroupName].words, wordGroupName)
               }
             >
               <WordGroupIcon
                 name={wordGroupName}
                 image={wordGroups[wordGroupName].image}
-                colored={cardColored[index]}
+                colored={wordGroupName === props.selectedWordGroup}
                 onClick={() =>
-                  handleClick(
-                    wordGroups[wordGroupName].words,
-                    wordGroupName,
-                    index
-                  )
+                  handleClick(wordGroups[wordGroupName].words, wordGroupName)
                 }
               />
             </div>
@@ -94,13 +70,11 @@ function WordGroupSelector(props) {
           <WordSelector
             group={clickedGroup}
             name={clickedName}
-            index={wordGroups[clickedName].index}
             setWordSelectorToggle={setWordSelectorToggle}
-            selectWords={props.handleChange}
-            selectGroup={props.wordGroupChange}
+            selectWords={props.selectWords}
+            selectWordGroup={props.selectWordGroup}
             assignedWordGroup={props.assignedWordGroup}
             assignedWords={props.assignedWords}
-            changeColor={handleChangeColor}
           />
         )}
       </div>

@@ -1,77 +1,73 @@
 @import "../../pages/Index/index.scss";
 
-.create_assignment {
+.create-assignment {
   overflow: auto;
+
+  .assignment-creation {
+    position: absolute;
+  }
+
+  .assign {
+    color: $assignments-font-color;
+    background-color: $assignments-background-color;
+    font-family: $assignments-roboto-font;
+    font-weight: bold;
+    font-size: 1.5vw;
+    border-radius: 1em;
+    position: absolute;
+    width: 15vw;
+    height: 5vw;
+  }
+  
+  .header {
+    color: $assignments-font-color;
+    font-family: $assignments-roboto-font;
+    font-weight: bold; 
+    font-size: 5vw;
+  }
+
+  .lesson-name {
+    margin-bottom: 5%;
+  }
+  
+  .name-assignment {
+    margin: auto;
+    width: 60vw;
+    margin-top: 1vw;
+  }
+  
+  .student-date-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 90vw;
+    min-height: 35vw;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    justify-content: center;
+  }
+  
+  .input {
+    color: $assignments-font-color;
+    background-color: $assignments-background-color;
+    border-color: $assignments-font-color;
+    border-radius: 1vw;
+    font-family: $assignments-roboto-font;
+    font-weight: bold;
+    font-size: 1.2rem;
+    width: 20vw;
+  }
+  
+  .input-header {
+    color: $assignments-background-color;
+    background-color: $assignments-font-color;
+    border-color: $assignments-font-color;
+    border-radius: 1vw;
+    font-family: $assignments-roboto-font;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
 }
 
-.assignment_creation {
-  position: absolute;
-}
-.place_middle{
-  position: "absolute";
-  left: "50%";
-  top: "50%";
-  transform: "translate(-50%, -50%)";
-  position: relative;
-}
-.assign {
-  color: $assignments-font-color;
-  background-color: $assignments-background-color;
-  font-family: $assignments-roboto-font;
-  font-weight: bold;
-  font-size: 1.5vw;
-  border-radius: 1em;
-  position: "absolute";
-  width: 15vw;
-  height: 5vw;
-}
-
-.header {
-  color: $assignments-font-color;
-  font-family: $assignments-roboto-font;
-  font-weight: bold; 
-  font-size: 5vw;
-}
-
-.name-assignment {
-  margin: auto;
-  width: 60vw;
-  margin-top: 1vw;
-}
-.input {
-  color: $assignments-font-color;
-  background-color: $assignments-background-color;
-  border-color: $assignments-font-color;
-  border-radius: 1vw;
-  font-family: $assignments-roboto-font;
-  font-weight: bold;
-  font-size: 1.2rem;
-  width: 20vw;
-}
-.input-header {
-  color: $assignments-background-color;
-  background-color: $assignments-font-color;
-  border-color: $assignments-font-color;
-  border-radius: 1vw;
-  font-family: $assignments-roboto-font;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-.spacing {
-  padding: 3em;
-}
-.lesson-name {
-  margin-bottom: 5%;
-}
-.student-date-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 90vw;
-  min-height: 35vw;
-  border-radius: 20px;
-  margin: auto;
-  margin-top: 2vw;
-  margin-bottom: 2vw;
-  justify-content: center;
-}
