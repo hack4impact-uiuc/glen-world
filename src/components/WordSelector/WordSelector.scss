@@ -13,104 +13,107 @@
   border: 5px solid #e6e6e6;
   z-index: 1;
   overflow-x: hidden;
+
+  .group-title {
+    font-family: $assignments-roboto-font;
+    font-weight: bold;
+    font-size: 3vw;
+    text-align: left;
+    color: #b1b0ff;
+    overflow: visible;
+  }
+  
+  .group-title-underline {
+    margin-top: 0%;
+    border-top: 2px solid $assignments-font-color;
+  }
+  
+  .select-word-display {
+    display: inline-flex;
+    width: 35vw;
+    max-height: 35vw;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  
+  .word-checkbox, .select-checkbox {
+    font-family: $assignments-roboto-font;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: $assignments-font-color;
+    text-transform: capitalize;
+    min-width: 11vw;
+    margin-right: .5vw;
+    overflow: visible;
+  }
+  
+  .select-checkbox {
+    align-items: flex-start;
+  }
+  
+  input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:2rem;
+    height:2rem;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+    margin-top: 0%;
+  }
+  input[type='checkbox']:checked {
+    background: $assignments-light-purple;
+  }
+  
+  .close-selection {
+    color: $assignments-font-color;
+    background-color: $assignments-background-color;
+    font-family: $assignments-roboto-font;
+    width: 7vw;
+    font-weight: bold;
+    position: absolute;
+    bottom: 0.5em;
+    border-radius: 1em;
+  }
+  .padding {
+    padding-top: 2em;
+  }
+  
+  .next-button {
+    color: $assignments-font-color;
+    background-color: $assignments-background-color;
+    font-family: $assignments-roboto-font;
+    width: 8vw;
+    font-size: 1.2em;
+    font-weight: bold;
+    position: absolute;
+    right: 1.5vw;
+    bottom: 0.5vw;
+    border-radius: 1em;
+  }
+  .word {
+    text-align: left;
+    margin-left: 2vw;
+  }
+  
+  .check, .choose-all-check {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 10%;
+    width: 10%;
+  }
+  
+  .container {
+    display: block;
+    position: relative;
+    margin-bottom: 1em;
+    cursor: pointer;
+  }
+  
+  :disabled {
+    background-color: #c9c7c7;
+  }
+  
 }
 
-.wordselector-group-title {
-  font-family: $assignments-roboto-font;
-  font-weight: bold;
-  font-size: 3vw;
-  text-align: left;
-  color: #b1b0ff;
-  overflow: visible;
-}
-
-.wordselector-group-title-underline {
-  margin-top: 0%;
-  border-top: 2px solid $assignments-font-color;
-}
-
-.wordselector-select-word-display {
-  display: inline-flex;
-  width: 35vw;
-  max-height: 35vw;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
-.wordselector-word-checkbox, .wordselector-select-checkbox {
-  font-family: $assignments-roboto-font;
-  font-weight: bold;
-  font-size: 1.3rem;
-  color: $assignments-font-color;
-  text-transform: capitalize;
-  min-width: 11vw;
-  margin-right: .5vw;
-  overflow: visible;
-}
-
-.wordselector-select-checkbox {
-  align-items: flex-start;
-}
-input[type='checkbox'] {
-  -webkit-appearance:none;
-  width:2rem;
-  height:2rem;
-  background:white;
-  border-radius:5px;
-  border:2px solid #555;
-  margin-top: 0%;
-}
-input[type='checkbox']:checked {
-  background: $assignments-light-purple;
-}
-
-.wordselector-close-selection {
-  color: $assignments-font-color;
-  background-color: $assignments-background-color;
-  font-family: $assignments-roboto-font;
-  width: 7vw;
-  font-weight: bold;
-  position: absolute;
-  bottom: 0.5em;
-  border-radius: 1em;
-}
-.wordselector-padding {
-  padding-top: 2em;
-}
-
-.wordselector-next-button {
-  color: $assignments-font-color;
-  background-color: $assignments-background-color;
-  font-family: $assignments-roboto-font;
-  width: 8vw;
-  font-size: 1.2em;
-  font-weight: bold;
-  position: absolute;
-  right: 1.5vw;
-  bottom: 0.5vw;
-  border-radius: 1em;
-}
-.wordselector-word {
-  text-align: left;
-  margin-left: 2vw;
-}
-
-.wordselector-check, .wordselector-choose-all-check {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 10%;
-  width: 10%;
-}
-
-.wordselector-container {
-  display: block;
-  position: relative;
-  margin-bottom: 1em;
-  cursor: pointer;
-}
-
-:disabled {
-  background-color: #c9c7c7;
-}

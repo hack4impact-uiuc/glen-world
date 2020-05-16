@@ -72,16 +72,16 @@ function WordSelector(props) {
 
   function wordSelection(word, index) {
     return (
-      <div className="wordselector-word-checkbox" key={index}>
-        <label className="wordselector-container">
+      <div className="word-checkbox" key={index}>
+        <label className="container">
           <input
-            className="wordselector-check"
+            className="check"
             checked={checkedWords.includes(word)}
             type="checkbox"
             name={word}
             onChange={() => handleCheck(word)}
           />
-          <div className="wordselector-word">{word}</div>
+          <div className="word">{word}</div>
         </label>
       </div>
     );
@@ -92,13 +92,13 @@ function WordSelector(props) {
       <div ref={ref}>
         <Row>
           <Col sm="8">
-            <div className="wordselector-group-title">{props.name}</div>
+            <div className="group-title">{props.name}</div>
           </Col>
           <Col sm="3">
-            <div className="wordselector-select-checkbox">
-              <label className="wordselector-container">
+            <div className="select-checkbox">
+              <label className="container">
                 <input
-                  className="wordselector-check"
+                  className="check"
                   checked={
                     checkedWords.length === props.group.length && !disableSelect
                   }
@@ -106,20 +106,20 @@ function WordSelector(props) {
                   name="Select All"
                   onChange={handleChooseAll}
                 />
-                <div className="wordselector-word">Select All</div>
+                <div className="word">Select All</div>
               </label>
             </div>
           </Col>
         </Row>
-        <hr className="wordselector-group-title-underline"></hr>
-        <div className="wordselector-select-word-display">
+        <hr className="group-title-underline"></hr>
+        <div className="select-word-display">
           {props.group.map((word, index) => wordSelection(word, index))}
         </div>
-        <div className="wordselector-padding">
+        <div className="padding">
           <Button
             disabled={disableNext()}
             onClick={handleSelect}
-            className="wordselector-next-button"
+            className="next-button"
           >
             Select
           </Button>

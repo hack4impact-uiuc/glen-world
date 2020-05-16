@@ -302,11 +302,9 @@ function CreateAssignment(props) {
               removeCard={deleteLessonCard}
             />
           </div>
-          <div>
-            <Button onClick={validateAssignment} className="assign">
-              Assign Lesson
-            </Button>
-          </div>
+          <Button onClick={validateAssignment} className="assign">
+            Assign Lesson
+          </Button>
           <br />
           <div>
             {invalidMessage.length && (
