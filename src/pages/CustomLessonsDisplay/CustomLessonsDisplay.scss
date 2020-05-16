@@ -60,7 +60,7 @@
   font-family: $assignments-roboto-font;
   font-size: 1em;
   &:hover {
-    background-color: #f5f5f5;
+    background-color: $assignments-app-background-color;
   }
   &:focus {
     background-color: $assignments-light-purple;

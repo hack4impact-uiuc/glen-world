@@ -1,21 +1,20 @@
 @import "../../pages/Index/index.scss";
 
-.background {
+.word-group-selector {
   min-height: 52vw;
-  background-color: #f5f5f5;
+  background-color: $assignments-app-background-color;
   margin: auto;
+  
+  .word-groups-display {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .word-groups-margins {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-bottom: 1rem;
+  }
 }
-
-.word-groups-display {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.word-groups-margins {
-  margin-left: 2rem;
-  margin-right: 2rem;
-  margin-bottom: 1rem;
-}
-

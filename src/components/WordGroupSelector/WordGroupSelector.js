@@ -5,7 +5,6 @@ import { TEMPLATE_WORD_GROUPS } from "../../utils/constants";
 import WordGroupIcon from "../WordGroupIcon/WordGroupIcon";
 import WordSelector from "../WordSelector/WordSelector";
 
-// fixing the coloring
 function WordGroupSelector(props) {
   const [wordGroups, setWordGroups] = useState({});
   const [clickedName, setClickedName] = useState("");
@@ -44,7 +43,7 @@ function WordGroupSelector(props) {
   }, [props.assignedWordGroup]);
 
   return (
-    <div className="background">
+    <div className="word-group-selector">
       <div className="word-groups-display">
         {Object.keys(wordGroups).map((wordGroupName, index) => (
           <div key={index} className="word-groups-margins">

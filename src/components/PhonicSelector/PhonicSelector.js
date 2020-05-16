@@ -46,7 +46,7 @@ function PhonicSelector(props) {
   }
 
   return (
-    <div className="phonic-background">
+    <div className="phonic-selector">
       <div className="phonic-groups-display">
         {Object.keys(phonicGroups).map((key, index) => (
           <div>

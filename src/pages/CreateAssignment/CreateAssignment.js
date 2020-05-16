@@ -307,7 +307,7 @@ function CreateAssignment(props) {
           </Button>
           <br />
           <div>
-            {invalidMessage.length && (
+            {invalidMessage.length > 0 && (
               <InvalidAssignment
                 message={invalidMessage}
                 setMessage={setInvalidMessage}
