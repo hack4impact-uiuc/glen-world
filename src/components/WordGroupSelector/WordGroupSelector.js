@@ -26,7 +26,7 @@ function WordGroupSelector(props) {
       props.assignedWordGroup === "phonics"
     ) {
       collectedWordGroupsService.all().then(function(collectedWordGroups) {
-        var tempWordGroups = {};
+        let tempWordGroups = {};
         Object.keys(collectedWordGroups).forEach(wordGroupName => {
           tempWordGroups[TEMPLATE_WORD_GROUPS[wordGroupName]] = {
             words: collectedWordGroups[wordGroupName],

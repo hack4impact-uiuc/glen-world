@@ -75,6 +75,9 @@
     bottom: 0.5em;
     border-radius: 1em;
   }
+  .next-button-padding {
+    padding-top: 2em;
+  }
   
   .next-button {
     color: $assignments-font-color;
@@ -87,7 +90,6 @@
     right: 1.5vw;
     bottom: 0.5vw;
     border-radius: 1em;
-    margin-top: 2em;
   }
   .word {
     text-align: left;
