@@ -305,7 +305,6 @@ function CreateAssignment(props) {
           <Button onClick={validateAssignment} className="assign">
             Assign Lesson
           </Button>
-          <br />
           <div>
             {invalidMessage.length > 0 && (
               <InvalidAssignment

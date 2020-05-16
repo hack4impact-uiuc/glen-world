@@ -115,7 +115,6 @@ function WordSelector(props) {
         <div className="select-word-display">
           {props.group.map((word, index) => wordSelection(word, index))}
         </div>
-        <div className="padding">
           <Button
             disabled={disableNext()}
             onClick={handleSelect}
@@ -123,7 +122,6 @@ function WordSelector(props) {
           >
             Select
           </Button>
-        </div>
       </div>
     </div>
   );
