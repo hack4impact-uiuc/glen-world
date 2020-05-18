@@ -192,15 +192,24 @@ class Firebase {
       .catch(error => console.error("Error getting admin account: ", error));
 
   deleteCustomLesson = (lessonId, dueDates) => {
-    this.db.collection(FIREBASE_DB.CUSTOM_LESSONS_COL).doc(lessonId).delete().catch(error => console.error("Error deleting doc: ", error));
+    this.db
+      .collection(FIREBASE_DB.CUSTOM_LESSONS_COL)
+      .doc(lessonId)
+      .delete()
+      .catch(error => console.error("Error deleting doc: ", error));
 
-    let deploymentAccountIds = getDeploymentAccountIdsFromLesson({ dueDates: dueDates });
+    let deploymentAccountIds = getDeploymentAccountIdsFromLesson({
+      dueDates: dueDates
+    });
     deploymentAccountIds.forEach(deploymentAccountId => {
-      this.db.collection(FIREBASE_DB.DEPLOYMENT_ACCOUNTS_COL).doc(deploymentAccountId).update({
-        [`${FIREBASE_DB.CUSTOM_LESSONS_FIELD}.${lessonId}`]: app.firestore.FieldValue.delete()
-      })
-    })
-  }
+      this.db
+        .collection(FIREBASE_DB.DEPLOYMENT_ACCOUNTS_COL)
+        .doc(deploymentAccountId)
+        .update({
+          [`${FIREBASE_DB.CUSTOM_LESSONS_FIELD}.${lessonId}`]: app.firestore.FieldValue.delete()
+        });
+    });
+  };
 
   setCustomLesson = (
     adminAccountId,

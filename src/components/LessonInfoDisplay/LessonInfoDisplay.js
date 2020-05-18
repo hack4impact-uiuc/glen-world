@@ -43,13 +43,15 @@ function LessonInfoDisplay(props) {
     );
   }
 
-  function handleDeleteLessonConfirmation() {
-    setShowDelete(true);
+  function handleDeleteLessonConfirmation(isVisible) {
+    setShowDelete(isVisible);
   }
 
   function handleDeleteLesson() {
-    console.log(props.lesson);
     firebase.deleteCustomLesson(props.lesson.id, props.lesson.dueDates);
+    props.handleDeletedLesson();
+    setShowDelete(false);
+    props.setDisplay(false);
   }
 
   if (editLessonRedirect) {
@@ -95,7 +97,7 @@ function LessonInfoDisplay(props) {
                   <img src="images/icons/edit-icon.svg" alt="edit" />
                 </div>
                 <div
-                  onClick={handleDeleteLessonConfirmation}
+                  onClick={() => handleDeleteLessonConfirmation(true)}
                   className="button-container"
                 >
                   <img src="images/icons/delete-icon.svg" alt="delete" />
@@ -123,5 +125,7 @@ function LessonInfoDisplay(props) {
   );
 }
 
-export default compose(withFirebase,
-  withRouter)(LessonInfoDisplay);
+export default compose(
+  withFirebase,
+  withRouter
+)(LessonInfoDisplay);
