@@ -43,10 +43,6 @@ function LessonInfoDisplay(props) {
     );
   }
 
-  function handleDeleteLessonConfirmation(isVisible) {
-    setShowDelete(isVisible);
-  }
-
   function handleDeleteLesson() {
     firebase.deleteCustomLesson(props.lesson.id, props.lesson.dueDates);
     props.handleDeletedLesson();
@@ -97,7 +93,7 @@ function LessonInfoDisplay(props) {
                   <img src="images/icons/edit-icon.svg" alt="edit" />
                 </div>
                 <div
-                  onClick={() => handleDeleteLessonConfirmation(true)}
+                  onClick={() => setShowDelete(true)}
                   className="button-container"
                 >
                   <img src="images/icons/delete-icon.svg" alt="delete" />
