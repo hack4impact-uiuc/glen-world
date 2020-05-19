@@ -76,3 +76,12 @@
   margin-bottom: 2vw;
   justify-content: center;
 }
+
+.header-route-back {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+  padding-left: 5vw;
+  cursor: pointer;
+}
