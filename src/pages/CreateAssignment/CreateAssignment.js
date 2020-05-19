@@ -224,12 +224,11 @@ function CreateAssignment(props) {
   if (returnHome) {
     return (
       <Redirect
-      to={{
-        pathname: "/",
-      }}
+        to={{
+          pathname: "/"
+        }}
       />
-    )
-
+    );
   }
 
   if (submitted) {
@@ -261,10 +260,15 @@ function CreateAssignment(props) {
   return (
     <>
       <div className="create-assignment">
-        <div className = "header-route-back">
-        <img src = "images/icons/back-icon.svg" onClick = {() => setReturnHome(true)}/>
-        &ensp;&ensp;&ensp;
-        <h1 className="header" onClick = {() => setReturnHome(true)}>LESSON TYPE</h1>
+        <div className="header-route-back">
+          <img
+            src="images/icons/back-icon.svg"
+            onClick={() => setReturnHome(true)}
+          />
+          &ensp;&ensp;&ensp;
+          <h1 className="header" onClick={() => setReturnHome(true)}>
+            LESSON TYPE
+          </h1>
         </div>
         <br />
         <SectionSelector
