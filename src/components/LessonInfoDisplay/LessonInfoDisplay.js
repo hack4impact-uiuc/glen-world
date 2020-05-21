@@ -9,13 +9,20 @@ import "./LessonInfoDisplay.scss";
 import DeleteConfirmation from "../../components/DeleteConfirmation/DeleteConfirmation";
 
 function LessonInfoDisplay(props) {
-  const { firebase } = props;
+  const {
+    firebase,
+    lesson,
+    template,
+    setDisplay,
+    handleDeletedLesson,
+    nameMap
+  } = props;
   const [editLessonRedirect, setEditLessonRedirect] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const ref = useRef();
   useOutsideClick(ref, () => {
     if (!showDelete) {
-      props.setDisplay(false);
+      setDisplay(false);
     }
   });
 
@@ -35,7 +42,7 @@ function LessonInfoDisplay(props) {
           </div>
           <div className="student-container">
             {students.map(id => (
-              <div className="student-name">{props.nameMap[id]}</div>
+              <div className="student-name">{nameMap[id]}</div>
             ))}
           </div>
         </div>
@@ -44,10 +51,10 @@ function LessonInfoDisplay(props) {
   }
 
   function handleDeleteLesson() {
-    firebase.deleteCustomLesson(props.lesson.id, props.lesson.dueDates);
-    props.handleDeletedLesson();
+    firebase.deleteCustomLesson(lesson.id, lesson.dueDates);
+    handleDeletedLesson();
     setShowDelete(false);
-    props.setDisplay(false);
+    setDisplay(false);
   }
 
   if (editLessonRedirect) {
@@ -55,7 +62,7 @@ function LessonInfoDisplay(props) {
       <Redirect
         to={{
           pathname: "/createlesson",
-          state: { existingAssignment: props.lesson }
+          state: { existingAssignment: lesson }
         }}
       />
     );
@@ -68,16 +75,14 @@ function LessonInfoDisplay(props) {
           <div className="info-display">
             <div className="column">
               <div className="word-group-display">
-                <div className="lesson-group-name">{props.template}</div>
+                <div className="lesson-group-name">{template}</div>
               </div>
               <div className="lesson-info-word-display">
                 <div className="grey-box">
-                  <div className="word-group-name">
-                    {props.lesson.wordGroup}
-                  </div>
+                  <div className="word-group-name">{lesson.wordGroup}</div>
                 </div>
                 <div className="words-list">
-                  {props.lesson.words.map(word => (
+                  {lesson.words.map(word => (
                     <div className="words">{word}</div>
                   ))}
                 </div>
@@ -101,8 +106,8 @@ function LessonInfoDisplay(props) {
               </div>
               <div className="card-container">
                 <Row>
-                  {Object.keys(props.lesson.dueDates).map(key => (
-                    <div>{LessonCard(key, props.lesson.dueDates[key])}</div>
+                  {Object.keys(lesson.dueDates).map(key => (
+                    <div>{LessonCard(key, lesson.dueDates[key])}</div>
                   ))}
                 </Row>
               </div>
@@ -112,7 +117,7 @@ function LessonInfoDisplay(props) {
       </div>
       {showDelete && (
         <DeleteConfirmation
-          lessonName={props.lesson.lessonName}
+          lessonName={lesson.lessonName}
           handleDelete={handleDeleteLesson}
           handleClose={setShowDelete}
         />
