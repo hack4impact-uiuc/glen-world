@@ -5,7 +5,7 @@ import { getDeploymentAccountIdsFromLesson } from "utils/Lesson";
 import {
   TEMPLATE_LESSON_MAP,
   TEMPLATE_WORD_GROUPS,
-  ADMIN_ACCOUNT
+  ADMIN_ACCOUNT,
 } from "utils/constants.js";
 import "./CustomLessonsDisplay.scss";
 import { compose } from "recompose";
@@ -23,13 +23,12 @@ function CustomLessonsDisplay(props) {
   const [displayLessonTemplate, setDisplayTemplate] = useState(null);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
   const [createLessonRedirect, setCreateLessonRedirect] = useState(false);
-  const [confirmationRedirect, setConfirmationRedirect] = useState(false);
   const [nameMap, setNameMap] = useState({});
   const editLessonRedirect = props?.location.state?.redirect;
 
   useEffect(() => {
     // Get custom lessons made by admin
-    firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
+    firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then((lesson) => {
       setAllLessons(lesson);
     });
   }, [editLessonRedirect]); // Updates lessons when redirected to page from CreateAssignment
@@ -38,18 +37,18 @@ function CustomLessonsDisplay(props) {
     let deploymentAccountIds = getDeploymentAccountIdsFromLesson(lesson);
     let deploymentNameMap = {};
     Promise.all(
-      deploymentAccountIds.map(id => {
+      deploymentAccountIds.map((id) => {
         return firebase.getDeploymentAccountInformation(id);
       })
     )
-      .then(deploymentAccounts => {
+      .then((deploymentAccounts) => {
         for (let i = 0; i < deploymentAccounts.length; i++) {
           deploymentNameMap[deploymentAccountIds[i]] =
             deploymentAccounts[i].username;
         }
         setNameMap(deploymentNameMap);
       })
-      .catch(error => console.error("Error getting custom lesson: ", error));
+      .catch((error) => console.error("Error getting custom lesson: ", error));
   }
 
   function handleChangeDisplayLessonInfo(display) {
@@ -86,7 +85,7 @@ function CustomLessonsDisplay(props) {
             >
               -------
             </Dropdown.Item>
-            {Object.keys(TEMPLATE_LESSON_MAP).map(key => (
+            {Object.keys(TEMPLATE_LESSON_MAP).map((key) => (
               <Dropdown.Item
                 className="drop-down"
                 onClick={() => setFilterType(key)}
@@ -96,7 +95,7 @@ function CustomLessonsDisplay(props) {
             ))}
           </div>
         </DropdownButton>
-        {filterType != "C" && (
+        {filterType != "C3" && (
           <DropdownButton
             id="ddown"
             title={TEMPLATE_WORD_GROUPS[filterGroup] || "WORD GROUPS"}
@@ -108,7 +107,7 @@ function CustomLessonsDisplay(props) {
               >
                 -------
               </Dropdown.Item>
-              {Object.keys(TEMPLATE_WORD_GROUPS).map(key => (
+              {Object.keys(TEMPLATE_WORD_GROUPS).map((key) => (
                 <Dropdown.Item
                   className="drop-down"
                   onClick={() => setFilterGroup(key)}
@@ -131,12 +130,12 @@ function CustomLessonsDisplay(props) {
           <div className="icon-display">
             {allLessons
               .filter(
-                lesson =>
+                (lesson) =>
                   (!filterType || lesson.lessonTemplate == filterType) &&
                   (!filterGroup ||
                     lesson.wordGroup === TEMPLATE_WORD_GROUPS[filterGroup])
               )
-              .map(lesson => (
+              .map((lesson) => (
                 <div className="icon-margins">
                   <div onClick={() => handleClick(lesson)}>
                     <LessonNameDisplay lessonName={lesson.lessonName} />
