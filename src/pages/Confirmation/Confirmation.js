@@ -18,12 +18,10 @@ function Confirmation(props) {
   const [handleWords, setWords] = useState(false);
   const [handleVocab, setVocab] = useState(false);
   const [needRowSpace, setNeedRowSpace] = useState(false);
-  // Phonics Lessons
-  const [typeCLessons] = useState(["C", "C1", "C2", "C3"]);
 
   useEffect(() => {
     if (lesson.lesson === "A") setVocab(true);
-    else if (typeCLessons.includes(lesson.lesson)) setPhonics(true);
+    else if (lesson.lesson === "C3") setPhonics(true);
     else if (lesson.lesson === "A3") setWords(true);
 
     if (Object.keys(lesson.cards).length <= 3) setNeedRowSpace(true);
@@ -59,9 +57,9 @@ function Confirmation(props) {
               wordGroup: lesson.group,
               dueDates: lesson.dueDates,
               lessonName: lesson.lessonNameValue,
-              id: lesson.id,
-            },
-          },
+              id: lesson.id
+            }
+          }
         }}
       />
     );

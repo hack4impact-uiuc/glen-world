@@ -35,13 +35,11 @@ function CreateAssignment(props) {
   // A lesson "card" contains a group of students that have been assigned a due date for the current lesson.
   const [lessonCards, setLessonCards] = useState({});
   const [lessonCreationDate, setLessonCreationDate] = useState();
-  // Phonics Lessons
-  const [typeCLessons] = useState(["C", "C1", "C2", "C3"]);
 
   useEffect(() => {
     firebase
       .getDeploymentAccountsFromAdmin(ADMIN_ACCOUNT)
-      .then((deploymentAccounts) => {
+      .then(deploymentAccounts => {
         setAdminDeployments(deploymentAccounts);
       });
 
@@ -58,11 +56,11 @@ function CreateAssignment(props) {
 
     let deploymentNameMap = {};
     Promise.all(
-      deploymentAccountIds.map((id) => {
+      deploymentAccountIds.map(id => {
         return firebase.getDeploymentAccountInformation(id);
       })
     )
-      .then((deploymentAccounts) => {
+      .then(deploymentAccounts => {
         for (let i = 0; i < deploymentAccounts.length; i++) {
           deploymentNameMap[deploymentAccountIds[i]] =
             deploymentAccounts[i].username;
@@ -73,7 +71,7 @@ function CreateAssignment(props) {
           lesson.dueDates
         )) {
           let lessonCard = [[], []];
-          assignedDeploymentIds.forEach((deploymentAccountId) => {
+          assignedDeploymentIds.forEach(deploymentAccountId => {
             lessonCard[0].push(deploymentAccountId); // inputting account id
             lessonCard[1].push(deploymentNameMap[deploymentAccountId]); // input corresponding username
           });
@@ -82,7 +80,7 @@ function CreateAssignment(props) {
         }
         setLessonCards(lessonCards);
       })
-      .catch((error) => console.error("Error getting custom lesson: ", error));
+      .catch(error => console.error("Error getting custom lesson: ", error));
   }
 
   function prePopulateAssignment(existingAssignment) {
@@ -134,51 +132,51 @@ function CreateAssignment(props) {
   }
   function createLessonCard() {
     var validCard = true;
-    if (typeCLessons.includes(lessonType) && words.length < 2) {
-      setInvalidMessage((invalidMessage) => [
+    if (lessonType == "C3" && words.length < 2) {
+      setInvalidMessage(invalidMessage => [
         ...invalidMessage,
-        "Please select more than one Phonics sound.",
+        "Please select more than one Phonics sound."
       ]);
       validCard = false;
     }
     if (deploymentAccountIds < 1) {
-      setInvalidMessage((invalidMessage) => [
+      setInvalidMessage(invalidMessage => [
         ...invalidMessage,
-        "Please assign to at least one student.",
+        "Please assign to at least one student."
       ]);
       validCard = false;
     }
     if (date == null) {
-      setInvalidMessage((invalidMessage) => [
+      setInvalidMessage(invalidMessage => [
         ...invalidMessage,
-        "Please select a date on the calendar.",
+        "Please select a date on the calendar."
       ]);
       validCard = false;
     } else if (date in lessonCards) {
-      setInvalidMessage((invalidMessage) => [
+      setInvalidMessage(invalidMessage => [
         ...invalidMessage,
-        "Cannot have duplicate dates in the same lesson.",
+        "Cannot have duplicate dates in the same lesson."
       ]);
       validCard = false;
     } else if (date.getTime() < lessonCreationDate.getTime()) {
-      setInvalidMessage((invalidMessage) => [
+      setInvalidMessage(invalidMessage => [
         ...invalidMessage,
-        "Cannot select a date before the current date.",
+        "Cannot select a date before the current date."
       ]);
       validCard = false;
     }
     if (validCard) {
       Promise.all(
-        deploymentAccountIds.map((id) => {
+        deploymentAccountIds.map(id => {
           return firebase.getDeploymentAccountInformation(id);
         })
-      ).then((value) => {
-        let usernames = value.map((studentInfo) => {
+      ).then(value => {
+        let usernames = value.map(studentInfo => {
           return studentInfo["username"];
         });
         setLessonCards({
           ...lessonCards,
-          [date]: [deploymentAccountIds, usernames],
+          [date]: [deploymentAccountIds, usernames]
         });
       });
     }
@@ -211,16 +209,16 @@ function CreateAssignment(props) {
   function validateAssignment() {
     var validAssignment = true;
     if (wordGroup == null || (words.length < 4 && lessonType != "C3")) {
-      setInvalidMessage((invalidMessage) => [
+      setInvalidMessage(invalidMessage => [
         ...invalidMessage,
-        "Please include at least 4 words.",
+        "Please include at least 4 words."
       ]);
       validAssignment = false;
     }
     if (lessonCards.length < 1) {
-      setInvalidMessage((invalidMessage) => [
+      setInvalidMessage(invalidMessage => [
         ...invalidMessage,
-        "Please assign students to due dates on the Calendar by clicking the Create Button.",
+        "Please assign students to due dates on the Calendar by clicking the Create Button."
       ]);
       validAssignment = false;
     }
@@ -248,8 +246,8 @@ function CreateAssignment(props) {
             deployments: adminDeployments,
             lessonNameValue: lessonName,
             cards: lessonCards,
-            id: existingAssignment?.id,
-          },
+            id: existingAssignment?.id
+          }
         }}
       />
     );
@@ -309,7 +307,7 @@ function CreateAssignment(props) {
                   maxLength="40"
                   placeholder={"Ex. Vocab"}
                   defaultValue={lessonName || ""}
-                  onChange={(e) => handleLessonNameChange(e.target.value)}
+                  onChange={e => handleLessonNameChange(e.target.value)}
                 />
               </InputGroup>
             </div>
