@@ -31,7 +31,7 @@ A tool for English teachers to customize lessons for their students.
     <td align="center">
       <a href="https://www.linkedin.com/in/anisharao14/">
         <img
-          src="https://media-exp1.licdn.com/dms/image/C4D03AQFVv0E1KmLy-g/profile-displayphoto-shrink_800_800/0?e=1588204800&v=beta&t=DYqx6X1t64p6-K5l83658eYD9DbwlGGi_ejkTnBIKH0"
+          src="https://uiuc.hack4impact.org/static/images/people/anisha_rao.jpg"
           width="500px"
         />
         <br />
@@ -47,7 +47,7 @@ A tool for English teachers to customize lessons for their students.
           width="500px"
         />
         <br />
-        <b>Anglea Luo</b>
+        <b>Angela Luo</b>
         <br />
         <sub>Software Developer</sub>
       </a>

@@ -2,15 +2,28 @@ import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
 import { compose } from "recompose";
 import { withRouter, Redirect } from "react-router-dom";
+import { withFirebase } from "utils/Firebase";
 import { useRef } from "react";
 import useOutsideClick from "../WordSelector/useOutsideClick";
 import "./LessonInfoDisplay.scss";
+import DeleteConfirmation from "../../components/DeleteConfirmation/DeleteConfirmation";
 
 function LessonInfoDisplay(props) {
+  const {
+    firebase,
+    lesson,
+    template,
+    setDisplay,
+    handleDeletedLesson,
+    nameMap
+  } = props;
   const [editLessonRedirect, setEditLessonRedirect] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const ref = useRef();
   useOutsideClick(ref, () => {
-    props.setDisplay(false);
+    if (!showDelete) {
+      setDisplay(false);
+    }
   });
 
   function toFormatDate(date) {
@@ -29,7 +42,7 @@ function LessonInfoDisplay(props) {
           </div>
           <div className="student-container">
             {students.map(id => (
-              <div className="student-name">{props.nameMap[id]}</div>
+              <div className="student-name">{nameMap[id]}</div>
             ))}
           </div>
         </div>
@@ -37,12 +50,19 @@ function LessonInfoDisplay(props) {
     );
   }
 
+  function handleDeleteLesson() {
+    firebase.deleteCustomLesson(lesson.id, lesson.dueDates);
+    handleDeletedLesson();
+    setShowDelete(false);
+    setDisplay(false);
+  }
+
   if (editLessonRedirect) {
     return (
       <Redirect
         to={{
           pathname: "/createlesson",
-          state: { existingAssignment: props.lesson }
+          state: { existingAssignment: lesson }
         }}
       />
     );
@@ -55,16 +75,14 @@ function LessonInfoDisplay(props) {
           <div className="info-display">
             <div className="column">
               <div className="word-group-display">
-                <div className="lesson-group-name">{props.template}</div>
+                <div className="lesson-group-name">{template}</div>
               </div>
               <div className="lesson-info-word-display">
                 <div className="grey-box">
-                  <div className="word-group-name">
-                    {props.lesson.wordGroup}
-                  </div>
+                  <div className="word-group-name">{lesson.wordGroup}</div>
                 </div>
                 <div className="words-list">
-                  {props.lesson.words.map(word => (
+                  {lesson.words.map(word => (
                     <div className="words">{word}</div>
                   ))}
                 </div>
@@ -72,16 +90,24 @@ function LessonInfoDisplay(props) {
             </div>
 
             <Col className="wide-column">
-              <div
-                onClick={() => setEditLessonRedirect(true)}
-                className="button-container"
-              >
-                <img src="images/icons/edit-icon.svg" alt="edit" />
+              <div className="lesson-info-button-bar">
+                <div
+                  onClick={() => setEditLessonRedirect(true)}
+                  className="button-container"
+                >
+                  <img src="images/icons/edit-icon.svg" alt="edit" />
+                </div>
+                <div
+                  onClick={() => setShowDelete(true)}
+                  className="button-container"
+                >
+                  <img src="images/icons/delete-icon.svg" alt="delete" />
+                </div>
               </div>
               <div className="card-container">
                 <Row>
-                  {Object.keys(props.lesson.dueDates).map(key => (
-                    <div>{LessonCard(key, props.lesson.dueDates[key])}</div>
+                  {Object.keys(lesson.dueDates).map(key => (
+                    <div>{LessonCard(key, lesson.dueDates[key])}</div>
                   ))}
                 </Row>
               </div>
@@ -89,8 +115,18 @@ function LessonInfoDisplay(props) {
           </div>
         </Row>
       </div>
+      {showDelete && (
+        <DeleteConfirmation
+          lessonName={lesson.lessonName}
+          handleDelete={handleDeleteLesson}
+          handleClose={setShowDelete}
+        />
+      )}
     </div>
   );
 }
 
-export default compose(withRouter)(LessonInfoDisplay);
+export default compose(
+  withFirebase,
+  withRouter
+)(LessonInfoDisplay);
