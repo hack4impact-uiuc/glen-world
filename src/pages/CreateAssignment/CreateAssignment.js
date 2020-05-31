@@ -242,86 +242,84 @@ function CreateAssignment(props) {
   }
 
   return (
-      <div className="create-assignment">
-        <div className="header-route-back">
-          <img
-            src="images/icons/back-icon.svg"
-            onClick={() => setReturnHome(true)}
-            alt="back-icon"
-          />
-          &ensp;&ensp;&ensp;
-          <h1 className="header" onClick={() => setReturnHome(true)}>
-            LESSON TYPE
-          </h1>
-        </div>
-        <br />
-        <SectionSelector
-          default={[!showPhonics, !showVocab, !showWriting]}
-          handlePhonics={handlePhonics}
-          handleVocab={handleVocab}
-          handleWriting={handleWriting}
+    <div className="create-assignment">
+      <div className="header-route-back">
+        <img
+          src="images/icons/back-icon.svg"
+          onClick={() => setReturnHome(true)}
+          alt="back-icon"
         />
-        <br />
-        {(showWriting || showVocab || showPhonics) && (
+        &ensp;&ensp;&ensp;
+        <h1 className="header" onClick={() => setReturnHome(true)}>
+          LESSON TYPE
+        </h1>
+      </div>
+      <br />
+      <SectionSelector
+        default={[!showPhonics, !showVocab, !showWriting]}
+        handlePhonics={handlePhonics}
+        handleVocab={handleVocab}
+        handleWriting={handleWriting}
+      />
+      <br />
+      {(showWriting || showVocab || showPhonics) && (
+        <div>
+          <br />
           <div>
-            <br />
-            <div>
-              {showPhonics && (
-                <div>
-                  <h1 className="header">PHONICS</h1>
-                  <PhonicSelector
-                    handlePhonicsChange={setWords}
-                    handleGroupChange={setWordGroup}
-                    words={words}
-                  />
-                </div>
-              )}
-              {(showWriting || showVocab) && (
-                <div>
-                  {(showWriting && <h1 className="header">WRITING</h1>) || (
-                    <h1 className="header">WORDS</h1>
-                  )}
-                  <WordGroupSelector
-                    handleChange={setWords}
-                    wordGroupChange={setWordGroup}
-                    assignedWords={words || existingAssignment?.words}
-                    assignedWordGroup={
-                      wordGroup || existingAssignment?.wordGroup
-                    }
-                  />
-                </div>
-              )}
-            </div>
+            {showPhonics && (
+              <div>
+                <h1 className="header">PHONICS</h1>
+                <PhonicSelector
+                  handlePhonicsChange={setWords}
+                  handleGroupChange={setWordGroup}
+                  words={words}
+                />
+              </div>
+            )}
             {(showWriting || showVocab) && (
               <div>
                 {(showWriting && <h1 className="header">WRITING</h1>) || (
                   <h1 className="header">WORDS</h1>
                 )}
                 <WordGroupSelector
-                  selectedWordGroup={wordGroup}
-                  selectWords={setWords}
-                  selectWordGroup={setWordGroup}
+                  handleChange={setWords}
+                  wordGroupChange={setWordGroup}
                   assignedWords={words || existingAssignment?.words}
                   assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
                 />
               </div>
             )}
-            <div className="lesson-name">
-              <InputGroup className="name-assignment">
-                <InputGroup.Prepend>
-                  <InputGroup.Text className="input-header">
-                    Lesson Name
-                  </InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                  className="input"
-                  maxLength="40"
-                  placeholder={"Ex. Vocab"}
-                  defaultValue={lessonName || ""}
-                  onChange={e => setLessonName(e.target.value)}
-                />
-              </InputGroup>
-              </div>
+          </div>
+          {(showWriting || showVocab) && (
+            <div>
+              {(showWriting && <h1 className="header">WRITING</h1>) || (
+                <h1 className="header">WORDS</h1>
+              )}
+              <WordGroupSelector
+                selectedWordGroup={wordGroup}
+                selectWords={setWords}
+                selectWordGroup={setWordGroup}
+                assignedWords={words || existingAssignment?.words}
+                assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
+              />
+            </div>
+          )}
+          <div className="lesson-name">
+            <InputGroup className="name-assignment">
+              <InputGroup.Prepend>
+                <InputGroup.Text className="input-header">
+                  Lesson Name
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                className="input"
+                maxLength="40"
+                placeholder={"Ex. Vocab"}
+                defaultValue={lessonName || ""}
+                onChange={e => setLessonName(e.target.value)}
+              />
+            </InputGroup>
+          </div>
           <div className="student-date-container">
             <StudentSelector
               deployments={adminDeployments}
