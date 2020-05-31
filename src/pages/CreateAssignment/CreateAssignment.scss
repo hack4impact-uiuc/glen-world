@@ -31,6 +31,7 @@
   font-family: $assignments-roboto-font;
   font-weight: bold; 
   font-size: 5vw;
+  cursor: pointer;
 }
 
 .name-assignment {
@@ -74,4 +75,13 @@
   margin-top: 2vw;
   margin-bottom: 2vw;
   justify-content: center;
+}
+
+.header-route-back {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+  padding-left: 5vw;
+  cursor: pointer;
 }
