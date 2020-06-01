@@ -70,8 +70,8 @@ function WordGroupSelector(props) {
             group={clickedGroup}
             name={clickedName}
             setWordSelectorToggle={setWordSelectorToggle}
-            selectWords={props.selectWords}
-            selectWordGroup={props.selectWordGroup}
+            selectWords={props.setWords}
+            selectWordGroup={props.setWordGroup}
             assignedWordGroup={props.assignedWordGroup}
             assignedWords={props.assignedWords}
           />

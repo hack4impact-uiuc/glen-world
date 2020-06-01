@@ -5,69 +5,69 @@
     width: 33vw;
     background-color: white;
     border-radius: 1vw;
-}
 
-#deployment-ddown {
-    height: 3.5vw;
-    width:33vw;
-    border-top-left-radius: 1vw;
-    border-top-right-radius: 1vw;
-    background-color: $assignments-font-color;
-    color: white;
-    font-family: $assignments-roboto-font;
-    font-weight: bold;
-    font-size: 1.2rem;
-    transition-duration: 0.3s;
-    &:hover {
-    background-color: white;
-    color: $assignments-font-color;
+    #deployment-ddown {
+        height: 3.5vw;
+        width:33vw;
+        border-top-left-radius: 1vw;
+        border-top-right-radius: 1vw;
+        background-color: $assignments-font-color;
+        color: white;
+        font-family: $assignments-roboto-font;
+        font-weight: bold;
+        font-size: 1.2rem;
+        transition-duration: 0.3s;
+        &:hover {
+        background-color: white;
+        color: $assignments-font-color;
+        }
     }
-}
-.option-ddown {
-    height: 2.5vw;
-    width:33vw;
-    font-family: $assignments-roboto-font;
-    font-weight: bold;
-    font-size: 1.2rem;
-    &:hover {
-        background-color: $assignments-app-background-color;
+    .option-ddown {
+        height: 2.5vw;
+        width:33vw;
+        font-family: $assignments-roboto-font;
+        font-weight: bold;
+        font-size: 1.2rem;
+        &:hover {
+            background-color: $assignments-app-background-color;
+        }
     }
-}
-.select-all-checkbox {
-    padding-right: 1vw;
-    padding-top: 1vw;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-}
-.select-all-label {
-    color: $assignments-font-color;
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-top: 3%;
-}
-#cbox {
-    margin-top: 10%;
-}
-.select-all-margins {
-    margin: auto;
-    margin-left: 5%;
-    margin-right: 5%;
-}
-.accounts-list {
-    height: 24vw;
-    padding-left: 1vw;
-    margin: auto;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-.student-name-label {
-    width: 20vw;
-    margin-left: 1em;
-    margin-top: 2%;
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: $assignments-font-color;
-    text-align: start;
+    .select-all-checkbox {
+        padding-right: 1vw;
+        padding-top: 1vw;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+    .select-all-label {
+        color: $assignments-font-color;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-top: 3%;
+    }
+    #cbox {
+        margin-top: 10%;
+    }
+    .select-all-margins {
+        margin: auto;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    .accounts-list {
+        height: 24vw;
+        padding-left: 1vw;
+        margin: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .student-name-label {
+        width: 20vw;
+        margin-left: 1em;
+        margin-top: 2%;
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: $assignments-font-color;
+        text-align: start;
+    }
 }

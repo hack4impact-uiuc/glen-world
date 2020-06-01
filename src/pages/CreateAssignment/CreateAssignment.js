@@ -276,34 +276,22 @@ function CreateAssignment(props) {
                 />
               </div>
             )}
+
             {(showWriting || showVocab) && (
               <div>
                 {(showWriting && <h1 className="header">WRITING</h1>) || (
                   <h1 className="header">WORDS</h1>
                 )}
                 <WordGroupSelector
-                  handleChange={setWords}
-                  wordGroupChange={setWordGroup}
+                  selectedWordGroup={wordGroup}
+                  setWords={setWords}
+                  setWordGroup={setWordGroup}
                   assignedWords={words || existingAssignment?.words}
                   assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
                 />
               </div>
             )}
           </div>
-          {(showWriting || showVocab) && (
-            <div>
-              {(showWriting && <h1 className="header">WRITING</h1>) || (
-                <h1 className="header">WORDS</h1>
-              )}
-              <WordGroupSelector
-                selectedWordGroup={wordGroup}
-                selectWords={setWords}
-                selectWordGroup={setWordGroup}
-                assignedWords={words || existingAssignment?.words}
-                assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
-              />
-            </div>
-          )}
           <div className="lesson-name">
             <InputGroup className="name-assignment">
               <InputGroup.Prepend>
