@@ -55,7 +55,8 @@ function StudentSelector(props) {
   function handleClickSelectAll(deployment) {
     let index = deployments.indexOf(currentDeployment);
     let newChecked = [...studentsChecked];
-    Object.keys(deployment.deploymentAccounts).foreach(deploymentAccountId => {
+    // eslint-disable-next-line array-callback-return
+    Object.keys(deployment.deploymentAccounts).map(deploymentAccountId => {
       if (!chooseAll[index]) {
         newChecked.push(deploymentAccountId);
       } else {

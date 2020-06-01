@@ -70,4 +70,17 @@
         color: $assignments-font-color;
         text-align: start;
     }
+
+    input[type='checkbox'] {
+        -webkit-appearance:none;
+        width:2rem;
+        height:2rem;
+        background:white;
+        border-radius:5px;
+        border:2px solid #555;
+        margin-top: 0%;
+      }
+      input[type='checkbox']:checked {
+        background: $assignments-light-purple;
+      }
 }
