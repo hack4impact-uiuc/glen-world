@@ -101,7 +101,7 @@ function CustomLessonsDisplay(props) {
             ))}
           </div>
         </DropdownButton>
-        {filterType != "C" && (
+        {filterType != "C3" && (
           <DropdownButton
             id="ddown"
             title={TEMPLATE_WORD_GROUPS[filterGroup] || "WORD GROUPS"}

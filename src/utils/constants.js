@@ -1,7 +1,7 @@
 export const TEMPLATE_LESSON_MAP = {
   A: "VOCAB",
   A3: "WRITING",
-  C: "PHONICS"
+  C3: "PHONICS"
 };
 
 export const TEMPLATE_WORD_GROUPS = {

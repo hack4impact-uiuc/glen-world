@@ -106,7 +106,7 @@ function CreateAssignment(props) {
   }
   function handleSectionSelection(value) {
     if (value === "A") handleVocab();
-    else if (value === "C") handlePhonics();
+    else if (value === "C3") handlePhonics();
     else if (value === "A3") handleWriting();
   }
 
@@ -120,7 +120,7 @@ function CreateAssignment(props) {
     setShowWriting(false);
   }
   function handlePhonics() {
-    setLessonType("C");
+    setLessonType("C3");
     setShowVocab(false);
     setShowPhonics(true);
     setShowWriting(false);
@@ -133,6 +133,13 @@ function CreateAssignment(props) {
   }
   function createLessonCard() {
     var validCard = true;
+    if (lessonType == "C3" && words.length < 2) {
+      setInvalidMessage(invalidMessage => [
+        ...invalidMessage,
+        "Please select more than one Phonics sound."
+      ]);
+      validCard = false;
+    }
     if (deploymentAccountIds < 1) {
       setInvalidMessage(invalidMessage => [
         ...invalidMessage,
@@ -202,7 +209,7 @@ function CreateAssignment(props) {
   }
   function validateAssignment() {
     var validAssignment = true;
-    if (wordGroup == null || (words.length < 4 && lessonType != "C")) {
+    if (wordGroup == null || (words.length < 4 && lessonType != "C3")) {
       setInvalidMessage(invalidMessage => [
         ...invalidMessage,
         "Please include at least 4 words."
