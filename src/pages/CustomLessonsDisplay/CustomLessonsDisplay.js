@@ -23,6 +23,8 @@ function CustomLessonsDisplay(props) {
   const [displayLessonTemplate, setDisplayTemplate] = useState(null);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
   const [createLessonRedirect, setCreateLessonRedirect] = useState(false);
+  const [confirmationRedirect, setConfirmationRedirect] = useState(false);
+  const [deletedLesson, setDeletedLesson] = useState(false);
   const [nameMap, setNameMap] = useState({});
   const editLessonRedirect = props?.location.state?.redirect;
 
@@ -31,7 +33,7 @@ function CustomLessonsDisplay(props) {
     firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
       setAllLessons(lesson);
     });
-  }, [editLessonRedirect]); // Updates lessons when redirected to page from CreateAssignment
+  }, [editLessonRedirect, deletedLesson]); // Updates lessons when redirected to page from CreateAssignment or lesson deleted
 
   async function deploymentNameMap(lesson) {
     let deploymentAccountIds = getDeploymentAccountIdsFromLesson(lesson);
@@ -53,6 +55,10 @@ function CustomLessonsDisplay(props) {
 
   function handleChangeDisplayLessonInfo(display) {
     setDisplayLessonInfo(display);
+  }
+
+  function handleDeletedLesson() {
+    setDeletedLesson(!deletedLesson);
   }
 
   function handleClick(lesson) {
@@ -151,6 +157,7 @@ function CustomLessonsDisplay(props) {
             lesson={displayLesson}
             template={displayLessonTemplate}
             setDisplay={handleChangeDisplayLessonInfo}
+            handleDeletedLesson={handleDeletedLesson}
             nameMap={nameMap}
           />
         )}

@@ -35,6 +35,7 @@ function CreateAssignment(props) {
   // A lesson "card" contains a group of students that have been assigned a due date for the current lesson.
   const [lessonCards, setLessonCards] = useState({});
   const [lessonCreationDate, setLessonCreationDate] = useState();
+  const [returnHome, setReturnHome] = useState(false);
 
   useEffect(() => {
     firebase
@@ -227,6 +228,16 @@ function CreateAssignment(props) {
     }
   }
 
+  if (returnHome) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/"
+        }}
+      />
+    );
+  }
+
   if (submitted) {
     var dates = {};
     const lessonKeys = Object.keys(lessonCards);
@@ -256,7 +267,16 @@ function CreateAssignment(props) {
   return (
     <>
       <div className="create-assignment">
-        <h1 className="header">LESSON TYPE</h1>
+        <div className="header-route-back">
+          <img
+            src="images/icons/back-icon.svg"
+            onClick={() => setReturnHome(true)}
+          />
+          &ensp;&ensp;&ensp;
+          <h1 className="header" onClick={() => setReturnHome(true)}>
+            LESSON TYPE
+          </h1>
+        </div>
         <br />
         <SectionSelector
           default={[!showPhonics, !showVocab, !showWriting]}
