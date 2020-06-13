@@ -4,34 +4,36 @@ import { useRef } from "react";
 import useOutsideClick from "./useOutsideClick";
 import "./WordSelector.scss";
 
+const MIN_WORD_COUNT = 4;
+
 function WordSelector(props) {
   const [wordCount, updateWordCount] = useState(0);
-  const [minWords] = useState(4);
-  const [checkedWords, updateWords] = useState([]);
+  const [checkedWords, setCheckedWords] = useState([]);
   const [wordGroup, updateWordGroup] = useState();
   const [chooseAll, setChooseAll] = useState(false);
   const [disableSelect, setDisableSelect] = useState(false);
   const ref = useRef();
 
   useOutsideClick(ref, () => {
-    props.setSelectMode(false);
+    props.setWordSelectorToggle(false);
   });
 
   useEffect(() => {
     if (props.assignedWords) {
-      updateWords(props.assignedWords);
+      setCheckedWords(props.assignedWords);
       updateWordCount(props.assignedWords.length);
       updateWordGroup(props.assignedWordGroup);
-      setDisableSelect(props.assignedWordGroup != props.name);
+      setDisableSelect(props.assignedWordGroup !== props.name);
     }
-  }, []);
+  }, [props.assignedWords, props.assignedWordGroup, props.name]);
+
   function disableNext() {
-    return wordCount < minWords || disableSelect;
+    return wordCount < MIN_WORD_COUNT || disableSelect;
   }
 
   function handleCheck(word) {
     if (props.name !== wordGroup) {
-      updateWords([word]);
+      setCheckedWords([word]);
       updateWordCount(1);
       updateWordGroup(props.name);
       setDisableSelect(false);
@@ -41,7 +43,7 @@ function WordSelector(props) {
         checkedWords.splice(index, 1);
         updateWordCount(wordCount - 1);
       } else {
-        updateWords([...checkedWords, word]);
+        setCheckedWords([...checkedWords, word]);
         updateWordCount(wordCount + 1);
       }
     }
@@ -49,9 +51,8 @@ function WordSelector(props) {
 
   function handleSelect() {
     props.selectWords(checkedWords);
-    props.setSelectMode(false);
-    props.selectGroup(props.name);
-    props.changeColor(props.index);
+    props.setWordSelectorToggle(false);
+    props.selectWordGroup(props.name);
   }
 
   function handleChooseAll() {
@@ -60,20 +61,21 @@ function WordSelector(props) {
       setDisableSelect(false);
     }
     if (!chooseAll) {
-      updateWords([...props.group]);
+      setCheckedWords([...props.group]);
       updateWordCount(props.group.length);
     } else {
-      updateWords([]);
+      setCheckedWords([]);
       updateWordCount(0);
     }
     setChooseAll(!chooseAll);
   }
+
   function wordSelection(word, index) {
     return (
       <div className="word-checkbox" key={index}>
-        <label class="container">
+        <label className="container">
           <input
-            class="check"
+            className="check"
             checked={checkedWords.includes(word)}
             type="checkbox"
             name={word}
@@ -94,11 +96,11 @@ function WordSelector(props) {
           </Col>
           <Col sm="3">
             <div className="select-checkbox">
-              <label class="container">
+              <label className="container">
                 <input
-                  class="check"
+                  className="check"
                   checked={
-                    checkedWords.length == props.group.length && !disableSelect
+                    checkedWords.length === props.group.length && !disableSelect
                   }
                   type="checkbox"
                   name="Select All"
@@ -109,11 +111,11 @@ function WordSelector(props) {
             </div>
           </Col>
         </Row>
-        <hr className="group-title-under-line"></hr>
+        <hr className="group-title-underline"></hr>
         <div className="select-word-display">
           {props.group.map((word, index) => wordSelection(word, index))}
         </div>
-        <div className="padding">
+        <div className="next-button-padding">
           <Button
             disabled={disableNext()}
             onClick={handleSelect}

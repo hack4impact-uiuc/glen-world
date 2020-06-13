@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Calendar from "react-calendar/dist/entry.nostyle";
 import "DatePicker/DatePicker.scss";
 import { withFirebase } from "utils/Firebase";

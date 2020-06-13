@@ -1,6 +1,5 @@
 import React from "react";
 import "./LessonCardsDisplay.scss";
-import { Col, Row, Container } from "reactstrap";
 import LessonCard from "../LessonCards/LessonCard";
 
 function LessonCardsDisplay(props) {

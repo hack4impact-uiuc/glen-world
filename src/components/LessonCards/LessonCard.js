@@ -9,7 +9,8 @@ function LessonCard(props) {
     let dateComponents = props.lessonDate.split(" ");
     let dateString = dateComponents[1] + "  " + dateComponents[2];
     setCardDate(dateString);
-  });
+  }, [props]);
+
   return (
     <div className="student-date-card">
       <div className="purple-box">

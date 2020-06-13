@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CreateAssignment.scss";
-import { Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
+import { InputGroup, FormControl } from "react-bootstrap";
 import { compose } from "recompose";
 import { Button } from "reactstrap";
 import { getDeploymentAccountIdsFromLesson } from "utils/Lesson";
@@ -86,32 +86,16 @@ function CreateAssignment(props) {
 
   function prePopulateAssignment(existingAssignment) {
     parseCardsFromLesson(existingAssignment);
-    handleWordSelectorChange(existingAssignment.words);
-    handleWordGroupChange(existingAssignment.wordGroup);
-    handleLessonNameChange(existingAssignment.lessonName);
+    setWords(existingAssignment.words);
+    setWordGroup(existingAssignment.wordGroup);
+    setLessonName(existingAssignment.lessonName);
     handleSectionSelection(existingAssignment.lessonTemplate);
   }
 
-  function handleDatePickerChange(value) {
-    setDate(value);
-  }
-  function handleStudentListChange(value) {
-    setDeploymentAccountIds(value);
-  }
-  function handleWordSelectorChange(value) {
-    setWords(value);
-  }
-  function handleWordGroupChange(value) {
-    setWordGroup(value);
-  }
   function handleSectionSelection(value) {
     if (value === "A") handleVocab();
     else if (value === "C3") handlePhonics();
     else if (value === "A3") handleWriting();
-  }
-
-  function handleLessonNameChange(value) {
-    setLessonName(value);
   }
   function handleVocab() {
     setLessonType("A");
@@ -189,7 +173,7 @@ function CreateAssignment(props) {
   }
 
   function verifyNameAndPush() {
-    var options = { month: "long" };
+    let options = { month: "long" };
     let month = new Intl.DateTimeFormat("en-US", options).format(
       lessonCreationDate
     );
@@ -209,7 +193,7 @@ function CreateAssignment(props) {
   }
   function validateAssignment() {
     var validAssignment = true;
-    if (wordGroup == null || (words.length < 4 && lessonType != "C3")) {
+    if (wordGroup == null || (words.length < 4 && lessonType !== "C3")) {
       setInvalidMessage(invalidMessage => [
         ...invalidMessage,
         "Please include at least 4 words."
@@ -239,7 +223,7 @@ function CreateAssignment(props) {
   }
 
   if (submitted) {
-    var dates = {};
+    let dates = {};
     const lessonKeys = Object.keys(lessonCards);
     for (const key of lessonKeys) {
       dates[key] = lessonCards[key][0];
@@ -265,108 +249,104 @@ function CreateAssignment(props) {
   }
 
   return (
-    <>
-      <div className="create-assignment">
-        <div className="header-route-back">
-          <img
-            src="images/icons/back-icon.svg"
-            onClick={() => setReturnHome(true)}
-          />
-          &ensp;&ensp;&ensp;
-          <h1 className="header" onClick={() => setReturnHome(true)}>
-            LESSON TYPE
-          </h1>
-        </div>
-        <br />
-        <SectionSelector
-          default={[!showPhonics, !showVocab, !showWriting]}
-          handlePhonics={handlePhonics}
-          handleVocab={handleVocab}
-          handleWriting={handleWriting}
+    <div className="create-assignment">
+      <div className="header-route-back">
+        <img
+          src="images/icons/back-icon.svg"
+          onClick={() => setReturnHome(true)}
+          alt="back-icon"
         />
-        <br />
-        {(showWriting || showVocab || showPhonics) && (
-          <div>
-            <br />
-            <div>
-              {showPhonics && (
-                <div>
-                  <h1 className="header">PHONICS</h1>
-                  <PhonicSelector
-                    handlePhonicsChange={handleWordSelectorChange}
-                    handleGroupChange={handleWordGroupChange}
-                    words={words}
-                  />
-                </div>
-              )}
-              {(showWriting || showVocab) && (
-                <div>
-                  {(showWriting && <h1 className="header">WRITING</h1>) || (
-                    <h1 className="header">WORDS</h1>
-                  )}
-                  <WordGroupSelector
-                    handleChange={handleWordSelectorChange}
-                    wordGroupChange={handleWordGroupChange}
-                    assignedWords={words || existingAssignment?.words}
-                    assignedWordGroup={
-                      wordGroup || existingAssignment?.wordGroup
-                    }
-                  />
-                </div>
-              )}
-            </div>
-            <div className="lesson-name">
-              <InputGroup className="name-assignment">
-                <InputGroup.Prepend>
-                  <InputGroup.Text className="input-header">
-                    Lesson Name
-                  </InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                  className="input"
-                  maxLength="40"
-                  placeholder={"Ex. Vocab"}
-                  defaultValue={lessonName || ""}
-                  onChange={e => handleLessonNameChange(e.target.value)}
-                />
-              </InputGroup>
-            </div>
-            <div className="student-date-container">
-              <StudentSelector
-                deployments={adminDeployments}
-                handleChange={handleStudentListChange}
-                assignedStudents={existingAssignment?.deploymentAccountIds}
-              ></StudentSelector>
-              <DatePicker
-                handleChange={handleDatePickerChange}
-                assignedDate={existingAssignment?.dueDate}
-              />
-            </div>
-            <div>
-              <LessonCardsDisplay
-                cards={lessonCards}
-                addCard={createLessonCard}
-                removeCard={deleteLessonCard}
-              />
-            </div>
-            <div>
-              <Button onClick={validateAssignment} className="assign">
-                Assign Lesson
-              </Button>
-            </div>
-            <br />
-            <div>
-              {invalidMessage.length > 0 && (
-                <InvalidAssignment
-                  message={invalidMessage}
-                  setMessage={setInvalidMessage}
-                />
-              )}
-            </div>
-          </div>
-        )}
+        &ensp;&ensp;&ensp;
+        <h1 className="header" onClick={() => setReturnHome(true)}>
+          LESSON TYPE
+        </h1>
       </div>
-    </>
+      <br />
+      <SectionSelector
+        default={[!showPhonics, !showVocab, !showWriting]}
+        handlePhonics={handlePhonics}
+        handleVocab={handleVocab}
+        handleWriting={handleWriting}
+      />
+      <br />
+      {(showWriting || showVocab || showPhonics) && (
+        <div>
+          <br />
+          <div>
+            {showPhonics && (
+              <div>
+                <h1 className="header">PHONICS</h1>
+                <PhonicSelector
+                  handlePhonicsChange={setWords}
+                  handleGroupChange={setWordGroup}
+                  words={words}
+                />
+              </div>
+            )}
+
+            {(showWriting || showVocab) && (
+              <div>
+                {(showWriting && <h1 className="header">WRITING</h1>) || (
+                  <h1 className="header">WORDS</h1>
+                )}
+                <WordGroupSelector
+                  selectedWordGroup={wordGroup}
+                  setWords={setWords}
+                  setWordGroup={setWordGroup}
+                  assignedWords={words || existingAssignment?.words}
+                  assignedWordGroup={wordGroup || existingAssignment?.wordGroup}
+                />
+              </div>
+            )}
+          </div>
+          <div className="lesson-name">
+            <InputGroup className="name-assignment">
+              <InputGroup.Prepend>
+                <InputGroup.Text className="input-header">
+                  Lesson Name
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                className="input"
+                maxLength="40"
+                placeholder={"Ex. Vocab"}
+                defaultValue={lessonName || ""}
+                onChange={e => setLessonName(e.target.value)}
+              />
+            </InputGroup>
+          </div>
+          <div className="student-date-container">
+            <StudentSelector
+              deployments={adminDeployments}
+              handleChange={setDeploymentAccountIds}
+              assignedStudents={existingAssignment?.deploymentAccountIds}
+            ></StudentSelector>
+            <DatePicker
+              handleChange={setDate}
+              assignedDate={existingAssignment?.dueDate}
+            />
+          </div>
+          <div>
+            <LessonCardsDisplay
+              cards={lessonCards}
+              addCard={createLessonCard}
+              removeCard={deleteLessonCard}
+            />
+          </div>
+          <Button onClick={validateAssignment} className="assign">
+            Assign Lesson
+          </Button>
+          <div>
+            {invalidMessage.length > 0 && (
+              <InvalidAssignment
+                message={invalidMessage}
+                setMessage={setInvalidMessage}
+              />
+            )}
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 export default compose(

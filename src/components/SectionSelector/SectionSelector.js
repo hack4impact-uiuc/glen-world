@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { withFirebase } from "utils/Firebase";
-import { Button, Box } from "@material-ui/core/";
-import { Row, Col, Container } from "react-bootstrap";
+import { Button } from "@material-ui/core/";
+import { Row, Col } from "react-bootstrap";
 import useStyles from "SectionSelector/SectionSelectorStyle.js";
 function SectionSelector(props) {
   const classes = useStyles();

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import phonicGroups from "utils/phonics.json";
 import PhonicIcon from "../PhonicIcon/PhonicIcon";
 import PhonicWordSelector from "../PhonicWordSelector/PhonicWordSelector";
@@ -46,7 +46,7 @@ function PhonicSelector(props) {
   }
 
   return (
-    <div className="phonic-background">
+    <div className="phonic-selector">
       <div className="phonic-groups-display">
         {Object.keys(phonicGroups).map((key, index) => (
           <div>

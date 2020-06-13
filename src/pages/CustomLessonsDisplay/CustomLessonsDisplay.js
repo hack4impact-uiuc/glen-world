@@ -9,7 +9,6 @@ import {
 } from "utils/constants.js";
 import "./CustomLessonsDisplay.scss";
 import { compose } from "recompose";
-import { Col, Row } from "reactstrap";
 import { withRouter, Redirect } from "react-router-dom";
 import LessonInfoDisplay from "../../components/LessonInfoDisplay/LessonInfoDisplay";
 import LessonNameDisplay from "../../components/LessonNameDisplay/LessonNameDisplay";
@@ -23,7 +22,6 @@ function CustomLessonsDisplay(props) {
   const [displayLessonTemplate, setDisplayTemplate] = useState(null);
   const [displayLessonInfo, setDisplayLessonInfo] = useState(false);
   const [createLessonRedirect, setCreateLessonRedirect] = useState(false);
-  const [confirmationRedirect, setConfirmationRedirect] = useState(false);
   const [deletedLesson, setDeletedLesson] = useState(false);
   const [nameMap, setNameMap] = useState({});
   const editLessonRedirect = props?.location.state?.redirect;
@@ -33,7 +31,7 @@ function CustomLessonsDisplay(props) {
     firebase.getAdminCustomLessons(ADMIN_ACCOUNT).then(lesson => {
       setAllLessons(lesson);
     });
-  }, [editLessonRedirect, deletedLesson]); // Updates lessons when redirected to page from CreateAssignment or lesson deleted
+  }, [editLessonRedirect, firebase, deletedLesson]); // Updates lessons when redirected to page from CreateAssignment
 
   async function deploymentNameMap(lesson) {
     let deploymentAccountIds = getDeploymentAccountIdsFromLesson(lesson);
@@ -137,7 +135,7 @@ function CustomLessonsDisplay(props) {
             {allLessons
               .filter(
                 lesson =>
-                  (!filterType || lesson.lessonTemplate == filterType) &&
+                  (!filterType || lesson.lessonTemplate === filterType) &&
                   (!filterGroup ||
                     lesson.wordGroup === TEMPLATE_WORD_GROUPS[filterGroup])
               )
