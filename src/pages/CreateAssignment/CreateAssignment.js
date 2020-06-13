@@ -192,13 +192,8 @@ function CreateAssignment(props) {
     }
   }
   function validateAssignment() {
-<<<<<<< HEAD
-    let validAssignment = true;
-    if (wordGroup == null || (words.length < 4 && lessonType !== "C")) {
-=======
     var validAssignment = true;
-    if (wordGroup == null || (words.length < 4 && lessonType != "C3")) {
->>>>>>> master
+    if (wordGroup == null || (words.length < 4 && lessonType !== "C3")) {
       setInvalidMessage(invalidMessage => [
         ...invalidMessage,
         "Please include at least 4 words."
