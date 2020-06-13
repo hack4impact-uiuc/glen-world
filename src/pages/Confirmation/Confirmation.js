@@ -20,7 +20,7 @@ function Confirmation(props) {
 
   useEffect(() => {
     if (lesson.lesson === "A") setVocab(true);
-    else if (lesson.lesson === "C") setPhonics(true);
+    else if (lesson.lesson === "C3") setPhonics(true);
     else if (lesson.lesson === "A3") setWords(true);
 
     if (Object.keys(lesson.cards).length <= 3) setNeedRowSpace(true);
